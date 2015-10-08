@@ -1,0 +1,21 @@
+Sebelum ketinggalan momentum, saya akan tulis tentang LTE (Long Term Evolution) yang mulai digembar-gemborkan oleh beberapa perusahaan pemroduksi alat-alat telekomunikasi seperti Alcatel-Lucent, Ericsson, NSN dan lain-lain.
+
+LTE atau SAE (Long Term Evolution/System Architecture Evolution) adalah telnologi yang sedang dirumuskan oleh 3GPP sebagai evolusi dari teknologi 3G/UMTS yang ada saat ini. Teknologi ini dibuat dengan tujuan meningkatkan beberapa aspek diantaranya:
+
+perbaikan efisiensi spektral: penggunaan spektrum yang fleksibel dan lebat pita (band with) yang scalable dari 1.25MHz sampai 20 MHz
+peningkatan kapasitas
+latensi rendah
+biaya operasional yang lebih rendah
+performansi yang tinggi
+
+Target yang ingin dicapai oleh teknologi ini adalah downlink/uplink peak data rate sampai pada 100/50 Mbps
+
+LTE berarti evolusi pada Radio Access (UTRA) atau air interface dan Radio Access Network (UTRAN), sedangkan  SAE berarti evolusi atau migrasi pada arsitektur jaringan inti (core network) yang dilakukan untuk mencapai tujuan diatas.
+
+Kata Evolution agaknya diambil karena para pencetus LTE mulai memikirkan perubahan besar dengan melihat teknologi baru pada air interface dan arsitektur sistem tanpa melihat sistem yang ada saat ini. Hal ini menyebabkan adanya banyak perubahan, misalnya  seperti penggunaan teknologi OFDM (Orthogonal Frequency Division Multiplexing) sebagai basis air interface pada lapisan akses radio (radio access layer), arsitektur system flat IP (All-IP), level modulasi yang lebih tinggi dan lain-lain.
+
+Studi tentang LTE/SAE ini diharapkan selesai pada tahun 2007 dan mulai dicoba (trial) pada tahun 2008. Tapi kemungkinan teknologi ini baru akan diadopsi secara komersial pada tahun 2010. Ini lebih lambat dari pada target komersial untuk teknologi serupa UMB (Ultra Mobile Broadband) <http://www.cdg.org/technology/3g_umb.asp, http://www.3gpp2.org/Public_html/News/Release_UMBSpecification24SEP2007.pdf> yang merupakan evolusi dari teknologi CDMA200 yang ditargetkan akan dipakai komersial tahun 2009.
+
+LTE disebut-sebut sebagai teknologi 4G untuk UMTS yang bersaing dengan UMB dan WiMax (802.16m) untuk masuk dalam payung standarisasi 4G yaitu IMT-Advanced yang baru saja direncakanan ITU (Iternational Telecommunication Union). Kita lihat saja nanti siapa yang lebih dulu memberikan keuntungan data rates yang lebih besar bagi kita.
+
+Penjelasan tentang SAE/LTE dapat dilihat di website 3GPP ini <http://www.3gpp.org/Highlights/LTE/LTE.htm> 

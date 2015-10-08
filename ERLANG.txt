@@ -1,0 +1,148 @@
+Sebelum sebuah operator telepon berdiri, biasanya operator telah memiliki target jumlah pelanggannya. Lebih detail lagi dari jumlah pelanggan tersebut operator melakukan kalkulasi sehingga didapatkan business case yang rasional. Setelah itu barulah operator atau vendor yang akan membangun infrastruktur melakukan perencanaan pambangunan jaringan. Hal yang sama juga dilakukan oleh operator yang akan melakukan ekspansi jaringannya.
+
+Perencaan pembangunan jaringan inti (core network) dilakukan dengan mengikuti langkah-langkah berikut:
+
+
+1. Pendefinisian kebutuhan jaringan (assessment)
+2. Dimensioning yaitu menganalisis dan melakukan perhitungan terhadap kebutuhan dari infrastruktur sesuai target yang telah dibuat.
+3. Pembuatan master plan
+4. Pembuatan detil perencanaan seperti detil prosedur dan detil spesifikasi tiap-tiap elemen yang dibutuhkan
+
+
+Sebuah definisi kebutuhan jaringan biasanya dibagi per wilayah dengan mempertimbangkan jumlah target pelanggan disetiap wilayah, efektifitas perawatan, biaya-biaya dan lain-lain. Target-target dari kebutuhan juga biasanya didefinisikan per satuan waktu sehingga pembangunan infrastruktur dapat  dilakukan bertahap.
+
+Kebutuhan dari trafik tersebut direpresentasikan dalam traffic profiles yang terdiri dari parameter-parameter seperti:
+
+- Trafik per pelanggan dalam Erlang
+- Jumlah panggilan selama waktu sibuk (Busy Hour Call Attempts/BHCA) per perlanggan
+- Average call duration atau Mean Holding Times (MHT)
+- Grade of service atau blocking rate
+- Persentase trafik data
+- Persentase trafik mobile originated (MO)
+- Persentase trafik mobile terminated (MT)
+- Persentase trafik ke PSTN
+- Persentase trafik ke jaringan PLMN lain
+- Persentase trafik ke switch di wilayah lain
+
+
+Dari profil trafik tersebut barulah bisa dilakukan dimensioning. Dimensioning yang terpenting adalah menentukan jumlah link atau trunk yang dibutuhkan dari elemen switching. Perhitungan kebutuhan link dari trafik telekomunikasi dipelajari dalam studi teletraffic engineering. Studi tersebut melibatkan teori trafik dan antrian. 
+
+Sebelum kita bahas bagaimana biasanya jumlah link/trunk dihitung, kita perlu tahu dulu apa itu Erlang. Erlang merupakan satuan tanpa dimensi yang digunakan untuk menunjukan intensitas lalu-lintas (traffic occupancy) suatu sistem telekomunikasi.
+
+Satu erlang biasanya didefinisikan sebagai penggunaan link/circuit oleh pemanggilan (call) selama 3600 detik secara kontinyu dalam durasi satu jam.
+
+
+Contoh perhitungan Erlang sederhana:
+
+Jika terjadi 100 pemanggilan dalam satu jam, dengan masing-masing pemanggilan lamanya 2 menit.
+Maka pemakaian trafik dalam erlang adalah
+
+ Total durasi panggilan selama sejam =   100 panggilan x 2 menit = 200 menit
+ Trafik selama sejam dalam Erlangs = 200 menit / 1 jam = 3,33 jam / 1 jam = 3.33 erlangs
+
+Sejumlah trafik harus dilayani oleh sejumlah trunk atau link circuit dari switching oleh sebab itu perlu ditentukan berapa banyak link yang dibutuhkan untuk sejumlah trafik tertentu sehingga tidak terjadi pemanggilan yang terblok (blocked call) karena keterbatasan link yaitu saat jumlah link yang tersedia untuk melayani pemanggilan lebih sedikit dari jumlah pemanggilan dalam saat yang bersamaan (kondisi sibuk).
+
+Operator biasanya memiliki nilai batas persentase pemanggilan yang terblok (blocking rate) sehingga dapat ditentukan kebutuhan akan link yang diperlukan. 
+
+Dengan menggunakan model trafik Erlang-B maka kita dapat menghitung probabilitas terjadinya bloking jika diketahui besarnya trafik dan jumlah link. Probalitas tersebut disebut juga Grade of Service (GoS) yang menungjukan kualitas jaringan. Semakin kecil GoS berarti kualitas jaringan dalam melayani pelanggan semakin baik.
+
+Model trafik Erlang-B dirumuskan sebagai berikut:
+
+               m
+              E
+            -----
+              m!
+  GoS = ----------------
+            m 
+           ___    i
+           \     E 
+            >  ----- 
+           /     i!
+           ---
+           i= 0
+
+lihat persamaan dalam format gambar [http://upload.wikimedia.org/math/a/c/f/acf10eb44ab4ab45c4365b9a0efe8bc2.png]
+
+Dengan,
+
+ E adalah trafik dalam erlang,
+ m adalah jumlah link/trunk
+
+Jadi jika diketahui GoS dan trafik yang diharapkan (E), kita dapat mengetahui jumlah link yang diperlukan (m). Anda dapat menggunakan kalkulator online [http://www.cas.mcmaster.ca/~qiao/publications/erlang/newerlang.html] untuk perhitungan menggunakan Erlang-B diatas. 
+
+Model Erlang-B diatas biasa digunakan dalam telekomunikasi dengan asumsi-asumsi tertentu, salah asumsinya adalah pemanggilan yang tidak sukses karena kondisi sibuk tidak masuk dalam antrian serta tidak terjadi pengulangan pemanggilan (retry).
+
+Pada kenyataannya pelanggan biasanya mencoba melakukan pemanggailan lagi (rerty) jika pemanggilan tidak sukses. Dengan model trafik Extended Erlang-B, maka faktor jumlah retry jika terjadi pemanggilan tidak sukses tidak lagi diabaikan.
+
+
+Sekian dulu tulisan saya tentang Erlang dan analisis trafik jaringan telekomunikasi, lain kali mungkin saya akan tulis contoh studi kasus perhitungannya.
+
+(c) 20071227 ejlp12@yahoo.com
+
+Tutorial sebagai referensi:
+- Traffic Analysis for Voice over IP [http://www.cisco.com/univercd/cc/td/doc/cisintwk/intsolns/voipsol/ta_isd.htm]
+
+=====================================================================================================
+
+
+
+    * Erlang C -- this model assumes that all blocked calls are queued in the system until they can be handled. Call centers can use this calculation to determine how many call agents to staff, based on the number of calls per hour, the average duration of class and the amount of time calls are left in the queue. 
+
+
+Satu Erlang (Erl) berarti satu timeslot (TSL) digunakan (reserved) 100% selama periode pengukuran.
+
+BHCA
+Busy Hour Traffic (BHT) = Average call duration (s) * Calls per hour / 3600
+
+Grade of Service ( Blocking Probability Percentage)
+
+==================================================================================
+
+Biasanya dalam sebuah elemen STP menyediakan alat (tool) untuk memonitor atau mengoleksi informasi availability, performansi dan utilisasi dari MTP signalling link. Informasi tersebut biasa sisebut statistical counters.
+
+Untuk menentukan beban (load) dari signalling link biasanya digunakan counter utilisasi. Counter utilisasi signalling link biasanya menampilkan data detail dari pengiriman (tranmisi) dan pengerimaan paket-paket Message Signaling Unit (MSU) serta paket-paket SIF+SIO selama periode waktu tertentu dalam satuan octet (8bit).
+
+Link occupancy dapat dihitung dengan menghitung total octet yang dikirim atau diterima dalam waktu tertentu dibagi waktu pengukuran. Total octet adalah total pengiriman atau pengerimaan paket MSU dan paket SIF+SIO. Tapi perlu diingat bahwa sebuah paket MSU memiliki octet tambahan (overhead) karena adanya MTP Level 2 yaitu penambahan bit-bit untuk informasi/flag F+CK+LI+FSN+BSN yang besarnya 6 octet.
+
+Dibawah ini adalah sebuah ilustrasi perhitungan link occupancy dari counter utilisasi.
+
+
+Sebagai catatan, link occupancy yang direkomendasikan adalah 0.2 Erlangs (seperti yang dispesifikasikan pada dokumen spesifikasi ETSI 300 008). Jika occupancy lebih besar dari nilai tersebut maka sudah saatnya untuk mempertimbangkan penambahan link.
+
+
+
+
+
+
+================================================================================
+
+The average link occupancy is calculated with measurements 3.1 and 3.2 (transmitted SIF+SIO octets), 3.3 (transmitted MSUs), 3.4 (received SIF+SIO octets) and 3.5 (received MSUs). Measurement periods are 5 and 30 minutes. Samples of 30 minutes periods should be read especially during the busy hour.
+
+An example of calculating the link occupancy (transmitted):
+The sum of counters 3.1 and 3.2 during 30 minutes period is 2.880.000 octets. Counter 3.3 is 144.000 (number of transmitted MSUs). Link capacity is 8000 octets/sec. MTP level 2 overhead should be noted in calculations. Overhead is 6 octets per MSU (F+CK+LI+FSN+BSN).
+
+Level 2 overhead:
+6 octets * 144.000 = 864.000 octets
+
+Sent info in link:
+2.880.000 + 864.000 = 3.744.000 octets
+3.744.000 / 30*60 = 2080 octets/sec.
+
+Link occupancy:
+2080 / 8000 = 0.26 Erl.
+
+Recommended link occupancy is 0.2 Erlangs (specified in the ETSI 300 008 specifications). If the occupancy is higher, it is time to consider adding a new link.
+
+=================================================================================
+Trunk blocking rate = 0,5% or 1%
+Traffic per Subscriber = Common Values per Subs. around 8 mERL (low) to 12..14 mERL (high)
+
+Average call duration (MHT=Mean Holding Times) = Highly variant Parameter, normally not less than 30s and not more than 100s
+
+
+
+ITU-T Q.706 Recommendation
+Utilization of SS7 links is 0.2 Erlang under normal load and 0.4 Erlang under high load
+
+
+http://www.quantumportal.com/erlangb.htm

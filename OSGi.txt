@@ -1,0 +1,5 @@
+OSGi 
+
+http://www.infoq.com/news/2007/08/osgi-jsr277-debate
+
+ JSR 277 (Java Module System) and OSGi (JSR 291)

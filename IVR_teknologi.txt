@@ -1,0 +1,18 @@
+
+Apa itu IVR
+
+Interactive Voice Response adalah aplikasi telepon (telephony application) yang dapat melayani pengguna dengan menggunakan interaksi suara atau sinyal telepon. IVR sering digunakan untuk call center, aplikasi perbankan, informasi billing dan lain-lain. 
+
+Pada operator telepon seluler, IVR biasanya digunakan pada layanan telepon customer care, informasi billing, portal untuk mendapatkan content (misalnya RBT, ringtone, gambar). Dengan IVR pelanggan dapat menelpon ke nomor tertentu kemudian mendapatkan pilihan (menu) dalam bentuk suara dan memberikan input dengan menekan tombol atau berbicara langsung untuk memilih informasi yang diinginkan.
+
+Voice user interface (VUI)
+
+Telephony card
+akses langsung ke card driver menggunakan bahasa pemrograman 
+menggunakan API
+
+
+VXML VoiceXML adalah standar 
+
+
+

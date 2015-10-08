@@ -1,0 +1,13 @@
+European Standards Institute (ETSI) mengambangkan arsitektur NGN (Next Generation Network)
+
+membuat proyek standarisasi TISPAN (Telecommunications and Internet converged Services and Protocols for Advanced Networking)
+
+Tim TISPAN memiliki kedeketan dengan tim 3GPP untuk membangun standarisasi berbasis IMS.
+
+core TISPAN NSN terdiri dari entitas berikut:
+
+- Bagian (subset) dari 3GPP IMS
+- PSTN/ISDN Emulation Subsystem (PES)
+- Non-SIP Subsystem lainnya misalnya untuk keperluan IPTV, VoD (Video On Deman) 
+
+ 

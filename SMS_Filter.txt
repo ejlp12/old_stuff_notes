@@ -1,0 +1,13 @@
+Sebuah SMS filtering system biasanya memiliki kemampuan seperti 
+
+Mendefinisikan aturan (rule) berdasarkan parameter-pameter misalnya:
+ A-number atau B-number, 
+ alamat dari VLR sumber atau VLR tujuan, 
+ isi dari SMS
+ tipe dari pesan misalnya SMS wap push, EMS, Nokia Smart Messaging
+ SMSC sumber atau SMSC tujuan
+Pendeteksian dari pengulangan transaksi SMS dengan pattern tertentu. Misalnya 
+ Memblok (Blocking) transaksi SMS secara otomatis
+ Mengatur transaksi dalam sebuah antrian berdasarkan prioritas
+ Mengkarantina SMS sehingga SMS bisa dianalisis (dilihat dulu isinya) secara manual
+ Memasukan nomor pengirim (A-number) ke dalam blacklist

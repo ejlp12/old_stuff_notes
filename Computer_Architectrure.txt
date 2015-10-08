@@ -1,0 +1,31 @@
+MMU Memory Management Unit
+ALU Aritmethic Logic Unit
+
+
+3 jalur (bus)
+
+- Data bus
+- Address bus
+- Cotrol bus 
+  kebanyakan sistem paling tidak memiliki 4 jalur kontrol
+    MRDC (Memory read control), 
+    MWRC (Memory write control), 
+    IORC (I/O read control), 
+    IOWC (I/O Write control)
+
+Standar bus
+ISA (Industry Standard Architecture): 8 MHz, 8-bit (8086/8088) 16-bit (80286-Pentium)
+EISA: 8 MHz, 32-bit (older 386 and 486 machines).
+PCI (Peripheral Component Interconnect): 33 MHz, 32-bit or 64-bit (Pentiums)
+VESA (Video Electronic Standards Association): Runs at processor speed. 32-bit or 64-bit (Pentiums)
+     Only disk and video. Competes with the PCI but is not popular.
+USB (Universal Serial Bus): 10 Mbps (extensions to 100Mbps)
+                            Newest systems.
+                            Serial connection to microprocessor.
+                            For keyboards, the mouse, modems and sound cards.
+                            To reduce system cost through fewer wires.
+AGP (Advanced Graphics Port): 66MHz
+                              Newest systems.
+                              Fast parallel connection: Across 64-bits for 533MB/sec.
+                              For video cards.
+                              To accommodate the new DVD (Digital Versatile Disk) players.

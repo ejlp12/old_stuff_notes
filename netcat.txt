@@ -1,0 +1,23 @@
+
+Netcat adalah perintah yang dapat digunakan untuk mebaca atau menulis data lewat jaringan menggunakan UDP atau TCP.
+Program ini dikategorikan sebagai alat keamanan (security tool) karena sering digunakan cracker sebagai tools.
+
+Beberapa contoh penggunaan netcat.
+
+1. Membuka port lokal 
+netcat -vv -l -p <local port> -e <script atau program yang akan dieksekusi>
+
+
+netcat -v -L <remote host>:<remote port> -p 9000
+ 
+Transfer a file
+Host yang menerima file:  netcat -v -w 5 <host pengirim> <remote port> > desfile 
+Host yang mengirimkan file:  netcat -v -w 5 -l -p <local port> < srcfile
+
+
+
+cat filename | netcat <hostname> <port> -q 10
+
+Port scaning
+
+netcat -v -w 2 -z <remote host> <start port>-<end port>

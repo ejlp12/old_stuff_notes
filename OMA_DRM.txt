@@ -1,0 +1,157 @@
+Proteksi mobile content dengan OMA DRM
+
+-= Kebutuhan proteksi terhadap content =-
+Mobile content seperti musik, video, games, wallpaper, saat ini telah menjadi barang yang hampir selalu ada di setiap ponsel. Mobile content yang ada dalam ponsel biasanya didapatkan pengguna dengan cara transfer dari suatu media misalnya CD ke dalam ponsel atau dengan membeli (download) dari content provider.
+
+Bisnis mobile content yang berkembang pesat dan mahalnya harga content  mendorong adanya pembajakan. Pembajakan pada mobile content biasanya terjadi dengan cara menduplikasikan content dari satu ponsel ke ponsel lain. Untuk menghindari pembajakan maka  diperlukan adanya mekanisme proteksi terhadap content.
+
+Dengan adanya mekanisme proteksi terhadap content maka pencipta, pemilik  atau penjual content akan dapat melindungi contentnya dan memperoleh keuntungan yang lebih besar. Mekanisme untuk melindungi hak pada suatu content biasa disebut manajemen hak digital atau Digital Right Management (DRM).
+
+Mekanisme proteksi tidak hanya memproteksi content hanya dari penduplikasian content saja. Lebih dari itu dengan proteksi yang ada sekarang telah dapat membatasi pengguna (user) untuk menjalankan atau melihat content. Dengan standar proteksi OMA DRM, pemilik content dapat membatasi akses terhadap content seperti misalnya hanya dapat dilihat beberapa kali saja atau content dapat memiliki waktu kadaluarsa.
+
+-= Elemen-elemen dan mekanisme DRM =-
+
+Elemen yang telibat dalam mekanisme DRM diantaranya:
+
+- DRM content adalah content atau objek media yang diproteksi atau didefinisikan haknya.
+- Right object adalah suatu hak tertentu
+- Right issuer adalah subjek yang mendefinisikan hak-hak subscriber pada suatu DRM content. Right issuer biasanya adalah penyedia konten (content provider) atau operator telekomunikasi (carrier)
+- DRM agent adalah aplikasi di sisi pengguna misalnya ponsel yang memastikan hak-hak objek media tidak terlanggar.
+
+Secara garis besar mekanisme DRM yang umum dapat digambarkan sebagai berikut:
+
+     [Right issuer]
+           |  
+           |          ,----------------------.
+      mendefinisikan  |                      |    ,--------------------------.
+           |          | [Objek media/Konten] |    | Download server/         |    ,----------------.
+           |          |                      |--->| Content Managemen System |--->| DRM Agent/User |                            
+           +------------>[Hak-hak (Rights)]  |    | (CMS)                    |    `----------------'
+                      |                      |    `--------------------------'
+                      `----------------------'
+
+1. Right issuer mendifinisikan hak-hak suau konten untuk kemudian diasosiasikan dengan konten dengan cara tertentu
+2. Kemudian konten beserta metadata yang mendefinikan hak dari konten tersebut dipublikasikan pada sebuah download server
+3. Pengguna kemudian dapat mengambil kontent dari download server. DRM agent memastikan bahwa metadata yang mendefinisikan hak dari konten juga ter-download dan membatasi hak yang bisa pengguna lakukan pada konten tersebut.
+4. Setiap kali pengguna akan melakukan sesuatu pada kontent misalnya mengirimkan lewat bluetooth atau MMS, DRM agent akan mengecek pada metadata hak apakah aksi dari pengguna diperbolehkan atau tidak.
+                                     
+-= OMA DRM =-
+
+OMA DRM adalah standar industri yang digunakan luas untuk keperluan proteksi content. OMA DRM merupakan spesifikasi untuk digital right management khususnya konten untuk perangkat bergerak (mobile content). Digital right management adalah manajemen proteksi hak pada suatu content digital sehingga pendistribusian dan penggunaannya dapat terkontrol. 
+
+OMA DRM dibuat oleh Open Mobile Alliance (OMA) [http://www.openmobilealliance.org] yang merupakan aliansi dari beberapa perusahaan.
+Spesifikasi DRM, pertama kali yang dibuat OMA adalah versi 1.0 yang terdiri dari tiga dokumen spesifikasi teknis yaitu 
+
+1. Dokumen spesifikasi DRM, merupakan dokumen utama yang menjelaskan bagaimana DRM berkerja dan 
+   astitektur sistem secara keseluruhan.
+2. Dokumen 'DRM Content Format' (DCF) yang berisi penjelasan format content dari suatu objek  konten 
+   terenkripsi yang diproteksi oleh DRM serta metadatanya,
+3. Dokumen 'DRM Rights Expression Language' (DRM REL) yang berisi spesifikasi pendefinisian aturan atau 
+   fungsionalitas hak-hak terhadap content.
+
+OMA DRM versi 1.0 mendefiniskan 3 metode
+
+1. OMA forward-lock
+   Mekanisme ini adalah yang paling sederhana untuk memproteksi konten. Dengan forward-lock, konten yang telah ada di suatu perangkat tidak dapat ditransfer ke perangkat yang lain. Pendistribusian kontent dengan forward-lock ditandai dengan MIME type "application/vnd.oma.drm.message", dibawah ini contoh HTTP reponse dari download server ketika mengirimkan content dengan OMA forward-lock.
+   
+    HTTP/1.1 200 OK
+    Content-type: application/vnd.oma.drm.message; boundary=boundary-XXX
+    Content-Length: 574
+    
+    --boundary-XXX
+    Content-Type: image/jpeg
+    Content-Transfer-Encoding: binary
+   
+    [File gambar.jpg disini]
+    --boundary-XXX--
+    
+    
+   
+2. Combined delivery
+   Mekanisme ini mirip dengan forward-lock, akan tetapi hak-hak akses lain dapat ditambahkan selain pelarangan tranfer ke perangkat lain. Contoh hak akses lain misalnya content hanya dapat dimainkan (play) sekali dan hanya dapat digunakan dalam waktu satu minggu. Pengiriman konten dengan mekanisme ini ditandai dengan MIME type "application/vnd.oma.drm.message". Selain konten, pengiriman ini juga mengirimkan metadata berformat teks XMLyang menspesifikasikan hak-hak pada content.  
+
+
+   HTTP/1.1 200 OK
+   Content-type: application/vnd.oma.drm.message; boundary=boundary-XXX
+   Content-Length: 893   
+   
+   --boundary-XXX
+   Content-type: application/vnd.oma.drm.rights+xml
+   Content-Transfer-Encoding: binary
+   
+   <o-ex:rights
+      xmlns:o-ex="http://odrl.net/1.1/ODRL-EX"
+      xmlns:o-dd="http://odrl.net/1.1/ODRL-DD"
+      xmlns:ds="http://www.w3.org/2000/09/xmldsig#/">
+     <o-ex:context>
+       <o-dd:version>1.0</o-dd:version>
+     </o-ex:context>
+     <o-ex:agreement>
+       <o-ex:asset>
+         <o-ex:context>
+           <o-dd:uid>cid:gambar.jpg</o-dd:uid>
+         </o-ex:context>
+       </o-ex:asset>
+       <o-ex:permission>
+         <o-dd:display>
+            <o-ex:constraint>
+               <o-dd:count>3</o-dd:count>
+            </o-ex:constraint>
+         </o-dd:display>
+       </o-ex:permission>
+     </o-ex:agreement>
+   </o-ex:rights>
+   
+   --boundary-XXX
+   Content-type: image/jpeg
+   Content-ID: <gambar.jpg>
+   Content-Transfer-Encoding: binary
+   
+   [File gambar.jpg disini]
+   --boundary-XXX--
+   
+
+3. Separate delivery
+   Mekanisme ini menambahkan proteksi keamanan pada konten dengan cara mengenkripsi content. Hak-hak yang ada pada content didefinisikan pada file terpisah dan dikirim terpisah. Dengan adanya cara ini memungkinkan konten untuk diditribusikan ke peringkat lain yang tidak memiliki lisensi (right object) kemudian perangkat tersebut dapat meminta lisensi untuk dapat melihat preview atau membelinya. Mekanisme distribusi tersebut sangat menguntungkan pemilik content karena pemilik konten dapat mendistribusikan ke orang lain untuk kemudian orang lain memebeli atau mendistribusikannya lagi. Proses distribusi dari satu pengguna ke pengguna lain seperti itu disebut superdistribution.
+   
+Kontent yang dikirim dengan mekanisme separate delivery harus berupa DRM content format (DCF) yaitu konten yang dienkripsi sesuai dokumen spesifikasi DRM Content Format yang termasuk dalam spesifikasi OMA DRM. Dengan format ini, konten dapat dengan bebas ditransfer ke siapa saja lewat jalur yang tidak aman tetapi untuk menakses konten sesorang memerlukan Content Encryption Key (CEK) yang bisa didapatkan dari Right issuer. Contoh pengiriman content DCF lewat HTTP:
+   
+   HTTP/1.1 200 OK
+   Content-type: application/vnd.oma.drm.content;
+   Content-Length: 1234
+   X-Oma-Drm-Separate-Delivery: 12
+   
+   [DRM content dalam format DCF]
+   
+Pada contoh diatas, header "X-Oma-Drm-Separate-Delivery" menunjukan berapa lama (dalam detik), DRM agent harus telah mendapatkan right object yang didefinisikan dalam WAP push.   
+
+Right object yang menyertai kontent dikirim terpisah dengan menggunakan WAP-push  setelah konten selesai didownload. WAP-push yang dikirim berisi right object dalam format REL (Rights Expression Language) yang juga ada dalam bundel spesifikasi OMA DRM. REL ditulis dalam bentuk XML dan dikirimkan lewat WAP-push bentuk WAP binary XML (WBXML). Contoh PAP dari WAP-push yang dikirim sebagai berikut:   
+   
+   <?xml version="1.0"?> 
+   <!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 1.0//EN"\n  "http://www.wapforum.org/DTD/pap_1.0.dtd" >
+   <pap>
+     <push-message push-id="Content123456789123456789" 
+      source-reference="VASProviderABC" 
+      progress-notes-requested="false">
+       <address address-value="WAPPUSH=62123456789/TYPE=PLMN@ppg"/> 
+       <quality-of-service priority="low" delivery-method="notspecified"/> 	
+     </push-message> 
+   </pap> 
+   --multipart-boundary 
+   Content-Type: application/vnd.oma.drm.rights+wbxml 
+   X-Wap-Application-Id: x-wap-application:drm.ua 
+   
+   [Right object format REL]   	
+   --multipart-boundary--		
+
+
+-= OMA DRM versi 2 =-
+
+OMA DRM versi 2 juga terdiri dari 3 dokumen spesifikasi teksnis. Perbedaan utama OMA DRM 1.0 dengan OMA DRM 2.0 adalah adanya perbaikan atau penambahan pada funsionalitas dan keamanan (security). Perbaikan pada sistem keamanan dicapai dengan penyediaan mekanisme otorisasi bilateral antara pihak yang mendefinisikan hak (rights issuer) dengan perangkat.
+
+Penambahan fungsionalitas pada versi 2 misalnya adanya fungsi preview (test-drive), mekanisme berbagi content dalam suatu komunitas atau domain, kemampuan perangkat yang tidak terkoneksi untuk dapat menkonsumsi DRM content dan kemampuan untuk memproteksi konten streaming dengan mengunakan format PDCF (Packetize DCF). Pada DRM versi 2 juga diperkenalkan Rights Object Acquisition Protocol (ROAP) yang merupakan protokol antara Rights issuer dengan DRM agent.
+  
+
+(c)ejlp12@yahoo.com 2006, 2007108
+   
+DRM and Download FAQ http://forum.nokia.com/main/resources/technologies/drm_and_download/faq.html

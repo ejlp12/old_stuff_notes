@@ -1,0 +1,63 @@
+
+
+volatile biasanya  digunakan untuk memberitahukan kepada compiler
+untuk tidak mengoptimasi code yang berhubungan dengan varibel volatile.
+
+Nilai dari variabel tidak akan di-cache oleh mesin (CPU)
+sehingga memastikan prosessor akan mengambil nilai dari variabel volatile selalu
+dari memori utama setiap saat ada kode yang mengaksesnya. 
+
+Mekanisme ini digunakan jika varibel dapat saja berubah karena sesuatu 
+yang kita tidak tau misalnya variabel dapat berubah karena signal/interupt, 
+atau diubah oleh OS atau karena thread lain dalam aplikasi multithreaded.
+
+volatile juga berguna agar compiler tidak melakukan optimasi terhadap urutan (sequence)
+dari code yang sudah dibuat.
+
+Pada prakteknya, volatile biasa digunakan pada aplikasi yang berkaitan dengan 
+hardware (driver), embedded system.
+
+
+Berikut contoh sebuah code (diambil dari http://stackoverflow.com/questions/246127/why-is-volatile-needed-in-c) 
+dengan kasus kita ingin mengakses sebuah hardware gadget dengan cara
+mengecek dahulu apakah hardware sedang sibuk terlebih dahulu, jika hardware tidak sibuk maka
+kita lakukan penyimpanan data ke memory gadget kemudian menuliskan perintah ke gadget.
+Untuk menakses gadget disini digunakan metode Memory-Mapped I/O, dimana gadget (device) register 
+diasosiasikan dengan ruang alamat memory.
+
+
+typedef struct
+{
+  uint8_t command;
+  uint8_t data;
+  uint8_t isbusy;
+} MyHardwareGadget;
+
+volatile MyHardwareGadget *myGadget = 0x5000000;
+
+void SendCommand (volatile MyHardwareGadget * gadget, int command, int data)
+{
+  // wait while the gadget is busy:
+  while (gadget->isbusy)
+  {
+    // do nothing here.
+  }
+  // set data first:
+  gadget->data    = data;
+  // writing the command starts the action:
+  gadget->command = command;
+}
+
+Pada code diatas, jika kita tidak menggunakan volatile, compiler dapat saja membuat urutan perintah set data 
+dan penulisan command menjadi berubah. Compiler dapat juga membuat pengecekan while(gadget->isbusy) hanya 
+sekali untuk mengoptimasi loop.
+
+Dengan volatile, urutan  perintah set data dan penulisan command ke gadget dipastikan tidak akan diubah, dan
+pengecekan gadget-> isbusy akan dilakukan terus menerus sesuai ekpektasi kita.
+
+
+-----------
+Referensi:
+http://stackoverflow.com/questions/246127/why-is-volatile-needed-in-c
+http://www.netrino.com/Embedded-Systems/How-To/C-Volatile-Keyword
+Diskusi panjang: http://software.intel.com/en-us/blogs/2007/11/30/volatile-almost-useless-for-multi-threaded-programming/

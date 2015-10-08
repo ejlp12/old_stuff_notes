@@ -1,0 +1,19 @@
+Smartcard Web Server (SCWS)
+
+<a href="http://www.smartcardalliance.org/articles/2008/11/13/gemalto-and-lg-electronics-launch-the-first-commercial-handset-supporting-smart-card-web-server-technology">Belum lama ini Gemalto dan LG me-launching produk yang mendukung teknologiSmartcard Web Server (SCWS). </a> Apa sebenarnya SCWS itu?
+
+SCWS adalah teknologi HTTP web server yang ditanamkan pada smartcard misalnya kartu SIM, USIM, RUIM dan lain-lain sehingga pengguna dapat melakukan <span style="font-style: italic;">browsing </span>ke konten secara offline dengan menggunakan aplikasi browser. Browsing dapat dilakukan offline karena konten disimpan di dalam smartcard.
+
+SCWS merupakan teknologi standar yang dikembangkan oleh <a href="http://www.openmobilealliance.org">OMA</a> dan sampai saat ini telah dirilis dua versi yaitu <a href="http://www.openmobilealliance.org/technical/release_program/SCWS_v1_0.aspx">versi 1.0</a> dan yang paling terakhir adalah <a href="http://www.openmobilealliance.org/technical/release_program/SCWS_v1_1.aspx">versi 1.1</a>.
+
+Arsitektur SCWS diperlihatkan pada gambar berikut:
+
+
+Beberapa elemen yang terlibat adalah
+
+    * Browser yang diinstall pada divais yaitu aplikasi yang digunakan untuk menampilkan konten
+    * SCWS Gateway yang berapa pada divais yang berfungsi mengubah protokol HTTP/HTTPS (TCP/IP) ke protokol yang digunakan oleh smartcard. Selain itu elemen ini juga berfungsi sebagai pembatas atau pengontrol akses (control policy) terhadap smartcard dengan menggunakan rule yang disimpan di smartcard.
+    * SCWS Server yaitu aplikasi di smartcard yang memproses request dari browser.
+    * SCWS Administration application yaitu aplikasi yang berada jauh dari devais (remote) untuk mengadministrasi SCWS. Aplikasi ini biasanya berada di operator untuk misalnya meng-update konten yang ada di SCWS.
+
+Cukup sekian ya, untuk lebih jelasnya silakan baca dokumen spesifikasi dari OMA atau lihat slide presentasi ini.

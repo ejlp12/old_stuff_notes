@@ -1,0 +1,81 @@
+Perintah-perintah pemroses teks
+
+cat
+tac, kebalikan dari cat 
+
+rev, membalik tulisan misalnya ABC menjadi CBA
+
+sort
+
+tsort
+
+diff, patch
+
+diff3
+
+sdiff
+
+cmp
+
+comm
+
+uniq, Filter ini membuang baris yang sama (duplicate)
+baris yang sama hanya akan terdekteksi jika berdekatan, gunakan sort dahulu untuk menghilangkan baris yang sama walaupun tidak berdekatan
+dengan -c akan menampilan baris yang sama satu kali dengan jumlah line yang sama
+
+expand, unexpand. Filter expand  memngubah tabs menjadi spaces, dan filter unexpand adalah kebalikannya.
+
+cut, dapat memgekstrak teks dari suatu file. 
+Opsi yang penting adalah -d (delimiter) dan -f (field specifier) yaitu untuk memilih teks dengan penanda atau pembatas.
+
+colrm, Filter menbuah kolom.
+
+paste, Tool untuk menyatukan file yang berbeda menjadi satu dalam bentuk multi-kolom
+
+join
+
+
+head, menampilkan beberapa baris bagian awal suatu file
+
+tail, menampilkan beberapa baris bagian akhir suatu file
+Opsi -f akan menampilkan setiap baris yang ditambahakan pada file secara realtime
+
+grep, nenampilkan baris yang mengandung kata atau pattern yang dicari
+grep -v <pattern> menampilkan baris yang tidak menggandung pattern
+grep "teks1\|teks2\|teks3" mencari baris yang mengganung kata teks1 atau teks2 atau teks3
+
+
+look, seperti grep tapi mencari dalam suatu 'kamus'
+
+wc, untuk menghitung jumlah karakter (-m), kata (-w), baris (-l), bytes (-c) atau panjang baris yang paling panjang (-L)
+
+tr, Filter untuk mengubah karakter 
+-d untuk menhapus karakter
+--squeeze-repeats untuk menghapus karakter yang berulang menjadi satu karakter
+
+fold, Filter yang memotong baris (wrap) sesuai dengan lebar yang diinginkan.
+Dengan opsi -s pemotongan akan dilakukan tanpa memotong suatu kata.
+
+fmt,Pemformat file yang sederhana. 
+
+ptx
+
+column
+
+nl: pemberi nomor baris
+
+pr  pemfilter untuk format print
+
+iconv
+
+recode
+
+groff, gs, TeX
+
+lex,yacc
+
+sed
+
+awk
+
+printf

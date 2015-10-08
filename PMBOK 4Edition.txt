@@ -1,0 +1,22 @@
+Kita tahu proses yang benar atau baik agar suatu proyek berjalan lebih baik tapi kadang tidak dilakukan. Kenapa?
+
+Tidak ada waktu
+Malas
+Putus asa
+
+
+
+PMBOK Guide 4th Edition, Nov 2008
+
+“Develop Preliminary Scope Statement” dihapus
+“Close Project” berubah menjadi “Close Project or Phase Plan Scope” 
+Penambahan proses “Collect requirements” 
+“Manage Project Team” dipindahkan dari proses controlling ke proses executing 
+“Plan purchase and Acquisitions” dan “Plan Contracting” diubah menjadi “Plan Procurements”
+“Request Seller Responses” dan “Select Sellers” diubah menjadi “Conduct Procurements”
+“Manage Stakeholders” diubah menjadi “Manage Stakeholder Expectations”
+“Arrow Diagramming Method” being rarely used, it is no longer considered for most projects, most of the time and has been removed from chapter 6 
+More explanations on earned value in chapter 7 and “To Complete Performance Index” calculation added
+“Develop Project Team” and “Manage Project Team” have been expanded concerning people skills in chapter 8
+“Teaming Agreements” introduced in chapter 12
+New appendix on project management people skills

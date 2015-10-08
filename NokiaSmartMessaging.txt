@@ -1,0 +1,7 @@
+Esm Class  0x40 SM_UDH_GSM
+Data Coding 0x0f5
+
+
+/apps/bea/user_projects/domains/hcptPortalDomain/hcptAdmin/hcptAdmin.log
+/apps/bea/user_projects/domains/hcptPortalDomain/hcptAdmin/config.xml
+

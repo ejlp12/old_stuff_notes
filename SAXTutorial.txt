@@ -1,0 +1,269 @@
+
+-== Pengenalan SAX ==-
+
+SAX (Simple API for XML) adalah API (common interface) untuk memparsing XML dokumen secara event-based.
+SAX bukanlah sebuah XML parser. SAX didesain untuk dapat digunakan dengan berbagai macam event-based parser.
+
+SAX tidak sulit dipelajari, karena sifatnya yang simpel.
+SAX API cukup kecil, hanya terdiri 35 class/interface yang terdapat dalam 3 package:
+
+  org.xml.sax 
+  org.xml.sax.ext 
+  org.xml.sax.helpers 
+
+-== Event-based API ==-
+
+Pada event-based API,suatu even akan dilemparkan lewat callback jika parser membaca karakter data atau awal/akhir 
+dari dokumen maupun element/tag.Kita harus membuat (mengimplementasikan) handler yang akan menangani event. Dengan 
+event-based API, akses ke XML dokumen menjadi lebih cepat dan sederhana. Juga dimungkinakan untuk memparsing 
+dokumen yang besar dari memori sistem yang tersedia karena struktur dokumen tidak disimpan dalam memori.
+
+Catatan 
+Selain parser yang berbasis event ada parser XML ada juga yang berbasis DOM based dan berbasis pull streaming.
+Ketiga macam parser tersebut dibedakan dengan caranya memproses dokumen XML serta masing masing memiliki kelebihan dan 
+kekurangan.
+
+
+-== Beberapa Java SAX2 parser ==-
+
+Xerces                              http://xml.apache.org/xerces-j/index.html
+Sun's JAXP                          http://java.sun.com/xml/
+SAXON XSLT processor                http://users.iclway.co.uk/mhkay/saxon/
+Oracle XML Developer's Kit for Java http://technet.oracle.com/tech/xml/xdk_java.html
+ParserAdapter                       http://www.megginson.com/SAX/Java/index.html
+
+-== Menggunakan SAX ==-
+
+Untuk dapat melakukan parsing pada XML dokumen kita membutuhkan class yang mengimplentasikan interface XMLReader.
+XMLReader bertanggung jawab untuk mem-parsing dokumen XML.
+Implemantasi interface org.xml.sax.XMLReader dapat di-instantiate dengan cara:
+
+  XMLReader xr = (XMLReader) Class.forName("org.apache.xerces.parsers.SAXParser").newInstance();
+
+atau 
+
+  XMLReader xr = new org.apache.xerces.parsers.SAXParser();
+
+atau 
+
+  XMLReader xr = org.xml.sax.helpers.XMLReaderFactory.createXMLReader();
+
+Dianjurkan kita menggunakan cara yang terakhir, karena tidak tergantung pada suatu implementasi parser tertentu.
+Dengan cara yang terakhir, XMLReader didapatkan dari class pada saat runtime dengan membaca setting pada:
+
+ - System property "org.xml.sax.driver"  yang dispesifikasikan pada command line seperti
+
+     java -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser JavaProgram
+
+   atau pada kode program seperti
+
+     System.setProperty("org.xml.sax.driver", "org.apache.xerces.parsers.SAXParser");   
+
+ - Atau pada file META-INF/services/org.xml.sax.driver didalam JAR file
+
+
+XMLReader membutuhkan class handler yang harus mengimplementasikan interface berikut:
+
+ - ContentHandler yang akan meng-handle jika terjadi event pada saat proses parsing
+ - ErrorHandler yang akan meng-handle jika terjadi warning/error
+ - DTDHandler yang akan meng-handle event pada dokumen DTD  
+ - EntityResolver yang akan menangani jika ada external entities pada dokument XML (termasuk external DTD atau external 
+   parameter entity)
+
+
+Untuk mengimplementasikan handler diatas sebaiknya gunakan DefaultHandler sebagai base class.
+DefaultHandler telah mengimplementasikan keempat interface diatas.
+Method signature dari ContentHandler (atau Defaulthandler pada SAX1) yang penting untuk memproses dokumen XML diantaranya: 
+
+    * void characters(char[] ch, int start, int length)
+    * void endDocument()
+    * void endElement(String uri, String localName, String rawName)
+    * void startDocument()
+    * void startElement(String uri, String localName, String rawName, Attributes attributes)
+    
+Dibawah ini contoh code penggunaan DefaultHandler sebagai base class yang hanya mengimplementasikan method-method 
+ContentHandler:
+
+  public class MyDefaultHandler extends DefaultHandler {
+	public void startElement(java.lang.String uri, String localName, String qName, 
+	  Attributes attributes) throws SAXException {
+		System.out.print("Start element: URI = " + uri + 
+                                 ", localname = " + localName + 
+                                 ", qname = "  + qName + 
+                                 ", attributes = {" );
+		for (int i = 0; i < attributes.getLength(); i++) {
+			System.out.print( attributes.getQName(i) + "(" + attributes.getType(i) + ") = " + 
+                                          attributes.getValue(i) + ", ");
+		}
+		System.out.println("}");
+        }
+
+
+	public void characters(char[] ch, int start, int length) throws SAXException {
+		System.out.println("characters: " + ch);
+	}
+
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		System.out.println("End element: URI = " + uri + ", localname = " + localName + 
+		    ", qname = " + qName);
+	}
+
+  }
+
+
+XML memerlukan class InputSource sebagai input dalam melakukan parsing.
+InputSource adalah representasi dari XML dokumen yang kemudian di-parsing oleh XMLReader.
+XML dokumen dapat berada di lokal maupun remote dan URI digunakan sebagai parameter constructor dari class InputSource.
+
+  FileInputStream is = new FileInputStream("C:/Users.xml");
+  xmlReader.setContentHandler(myDefaultHandler);
+  xmlReader.parse(new InputSource(is));
+
+-== Penangan file DTD ==-
+
+Dokumen XML yang memiliki file DTD dan URI-nya tidak dispesifikasikan oleh suatu URL seperti contoh dibawah ini, 
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE entries SYSTEM "person.dtd">
+
+dapat menyebabkan kesalahan (error) pada saat parsing jika file DTD tidak berada pada direktory yang sama dengan class handler.
+Pesan kesalahannya adalah seperti ini
+
+    'Relative URI "person.dtd"; can not be resolved without a base URI' 
+
+Untuk itu sebaiknya implementasikan method resolveEntity pada interface EntityResolver. Hal ini perlu kita lakukan  
+agar parser mengetahui dimana letak file DTD.
+
+Contoh implementasi method resolveEntity
+
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
+        File dtdFile = null;
+        if (systemId != null) {
+            java.io.InputStream is = null;
+            if (systemId.indexOf('/') != -1) {
+                int lastSlash = systemId.lastIndexOf('/', systemId.length());
+                systemId = systemId.substring(lastSlash + 1);
+            }
+            
+            dtdFile = new File( "/myprogram/dtd/" + systemId);
+            if (dtdFile != null && dtdFile.exists()) {
+                try {
+                    is = new FileInputStream(dtdFile);
+                } catch(FileNotFoundException fnfe) {
+                    fnfe.printStackTrace();
+                }
+            } else {
+                is = getClass().getResourceAsStream('/' + systemId);
+                if(is == null) is = ClassLoader.getSystemResourceAsStream('/' + systemId);
+            }
+            if(is != null) {
+                InputSource source = new InputSource(is);
+                source.setPublicId(publicId);
+                source.setSystemId(systemId);
+                return source;
+            }
+        }
+        try {
+            return super.resolveEntity(publicId, systemId);
+        } catch(Exception e) {
+            return null;
+        }
+    }
+
+-== Perubahan class pada SAX1 ke SAX2 ==- 
+
+Saat ini SAX terbaru adalah versi 2, biasa ditulis SAX2 dan SAX versi sebelumnya biasa ditulis SAX1.
+Ada beberapa perbedaan antara SAX1 dan SAX2 walaupun demikian parser yang mengimplementasikan SAX1 yaitu class Parser 
+masih dapat digunakan oleh SAX2, demikian juga sebaliknya.
+Dibawah ini adalah table class yang berubah pada SAX1 ke SAX2
+
+  -------------------------------------
+   Class pada SAX1   Class pada SAX2
+  ================= ===================
+  ParserFactory     XMLReaderFactory
+  Parser            XMLReader       
+  DocumentHandler   ContentHandler
+  HandlerBase       DefaultHandler 
+  AttibuteList      Attributes
+  -------------------------------------
+
+Parser dari SAX1 dapat digunakan pada sebagai SAX2 XMLReader dengan menggunakan class ParserAdapter
+
+SAX2 XMLReader juga dapat digunakan sebagai XA1 Parser dengan menggunakan class XMLReaderAdapter
+
+-== Contoh kode yang lengkap ==-
+
+    public class MyDefaultHandler extends DefaultHandler {
+
+        public static void main(String[] args) { 
+            try 
+                FileInputStream is = new FileInputStream("C:/Users.xml");
+                XMLReaderFactory fact = XMLReaderFactory.newInstance();
+                XMLReader xmlReader = parser.createXMLReader();
+                xmlReader.setContentHandler(this);
+                xmlReaderreader.setErrorHandler(this);
+                xmlReader.setFeature("http://xml.org/sax/features/validation" ,true);
+                xmlReader.setEntityResolver(this);                
+                xmlReader.parse(new InputSource(is));                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }      
+
+
+	public void startElement(java.lang.String uri, String localName, String qName, Attributes attributes) 
+        throws SAXException {
+		System.out.print("Start element: URI = " + uri + 
+                                 ", localname = " + localName + 
+                                 ", qname = "  + qName + 
+                                 ", attributes = {" );
+		for (int i = 0; i < attributes.getLength(); i++) {
+			System.out.print( attributes.getQName(i) + "(" + attributes.getType(i) + ") = " + 
+                                          attributes.getValue(i) + ", ");
+		}
+		System.out.println("}");
+        }
+
+
+	public void characters(char[] ch, int start, int length) throws SAXException {
+		System.out.println("characters: " + ch);
+	}
+
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		System.out.println("End element: URI = " + uri + ", localname = " + localName 
+		    + ", qname = "  + qName);
+	}
+
+	
+
+    }
+
+
+
+-== Menggunakan JAXP (versi 1.1) ==-
+
+Pada JAXP, XMLReader dibungkus (wrap) oleh class lain yaitu javax.xml.parsers.SAXParser yang dapat diperoleh dari 
+factory class yaitu javax.xml.parsers.SAXParserFactory. Dibawah ini contoh kode untuk mendapatkan instance dari class 
+SAXParser:
+
+  SAXParserFactory factory = SAXParserFactory.newInstance();
+  SAXParser parser = factory.newSAXParser();
+
+Class SAXParser sudah cukup untuk dapat melakukan parsing pada XML dokumen, yaitu dengan menggunakan method parse(InputSource, DefaultHandler). Jika menginginkan mendapatkan class XMLReader, kita dapat memanggil method getXMLReader() pada class SAXParser.
+
+SAXParserFactory adalah class abstract, implementasinya didapatkan dari metode lookup yaitu:
+
+  - Menggunakan system property "javax.xml.parsers.SAXParserFactory"
+  - Menggunakan standar java properties file yang ada di "lib/jaxp.properties" pada direktori JRE
+  - Menggunakan service API yaitu pada file META-INF/services/javax.xml.parsers.SAXParserFactory di dalam file JAR
+  - Default instance yang ada pada platform
+
+
+-== EOF ==-
+
+,20070223
+
+
+
+
+

@@ -1,0 +1,31 @@
+system call menggunakan 6 register 
+
+Argument pada syscall menempati register berikut (berdasarkan urutan argument)
+
+EBX
+ECX
+EDX
+ESI
+EDI
+EBP
+
+
+
+Jika syscall memiliki lebih dari 6 argumen maka EBX akan berisi lokasi memori dimana list dari argumen disimpan
+
+Kode pemanggilan syscall ada di file arch/<architecture>/kernel/entry.S
+
+sebuah syscall dipanggil dengan menggunakan prosedur system_call
+
+call *sys_call_table(,%eax,4)
+
+/linux-2.6.24/arch/x86/kernel/syscall_table_32.S
+
+Deklarasi dari fungsi-fungsi syscall berada di file 
+
+include/linux/syscalls.h <http://lxr.linux.no/linux/include/linux/syscalls.h>
+
+Pada file tersebut kita bisa lihat semua syscall yang ada pada Linux
+
+beberapa syscall yang sudah tidak digunakan (obsolete) dihapus dan dinamakan sys_ni_syscall yang berarti "not implemented"
+

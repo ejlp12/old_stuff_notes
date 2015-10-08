@@ -1,0 +1,32 @@
+
+Radio Akses Network pada 3GPP LTE atau disebut juga Evolved-UTRAN (E-UTRAN) mulai didiskusikan pada RAN Evolution Workshop November 2004. Pada workshop tersebut diindentifikasikan beberapa garis besar kebutuhan (high level requirement) dari LTE yaitu:
+
+- Mengurangi cost per bit
+- Meningkatkan pengadaan layanan (service provisioning) - semakin banyak layanan dengan cost yang kecil dan user experience yang lebih baik
+- Fleksibilitas untuk pengguaan pita frekuensi baru maupun yang sudah ada
+- Penyederhaan arsitektur, interface yang tebuka
+- Konsumsi daya pada terminal yang reasonable
+
+Feasibitly study pada E-UTRA dan E-UTRAN mulai dilakukan Desember 2004 dengan tujuan utamanya adalah membangun sebuah framework sebagai evolusi dari teknologi akses radio 3GPP sehingga didapatkan data-rate yang tinggi, low-latency dan optimasi teknologi akses radio untuk paket-switched domain.
+
+Detil dari kebutuhan dari E-UTRAN dirumuskan pada Technical Report (TR) 25.913 "Requirements for Evolved UTRA (E-UTRA) and Evolved UTRAN (E-UTRAN)" yang mencakup diantaranya:
+
+- Peak Data rate yaitu 100 Mbps untuk downlink dengan alokasi spektrum downlink 20 MHZ (5bps/Hz) dan 50 Mbps (2.5 bps/Hz) untuk uplink
+- Pengurangan latency pada Control-plane maupun User-plane
+- Data throughput yang meningkat 3 sampai 4 kali untuk donwlink dari HSDPA Rel-6 dan 2 sampai 3 kali untuk uplink dari HSUPA Rel-6
+- Efisinsi spektrum dengan tetap dapat menggunakan lokasi pemancar yang sudah digunakan pada UTRAN/GERAN
+- Penggunaan spektrum yang fleksibel
+- Kemampuan mobilitas pengguna yang masih mendapatkan layanan dengan performasi tinggi pada kecepatan sampai 350 km/jam
+- Cakupan wilayah (coverage) dengan radius sampai 5 km untuk dapat mencapai performansi yang disebutkan diatas dan maksimum cakupan 100 km
+- Enhanced MBMS (Multimedia Broadcast/Multicast Service) 
+- Tetap mempertahankan 3GPP RAT (Radio Access Technologi) yang sudah ada dan mendukung interworking dengannya.
+- Single arsitektur yang berbasis paket, minimalisasi interface dan penyederhanaan
+- Reduksi kompleksitas
+
+Pada pertemuan bulan Juni 2005, 3GGP RAN WG1 mulai melakukan evaluasi pada beberapa teknologi air-interface baru yang akan digunakan sebagai physical layer E-UTRA. 6 jenis physical layer yang berbasis WCDMA, SCDMA dan OFDMA dievaluasi dan hasilnya dapat dilihat pada TR 25.814 "Physical layer aspect for evolved UTRA."
+
+Pada tahun 2005 pula 3GPP RAN WG2 yang bertanggung jawab pada spesifikasi Akses Radio Layer 2 dan Layer 3 mendiskusikan kebutuhan/kesepakatan untuk protokol air-interface berdasarkan beberapa asumsi karena pendefinisian protokol sangat tergantung pada teknologi air-interface yang digunakan. Hasil dari pertemuan WG2 dapat dilihat di sini[ftp://ftp.3gpp.org/tsg ran/WG2_RL2/TSGR2_AHs/2005_06_LTE]
+
+
+Penjelasan diatas saya dapat dari bab 10 pada buku "Next Generation Wireless Systems and Networks" (Penulis:Hsiao-Hwa Chen, Mohsen Guizani). Karena LTE masih dikembangkan hingga saat ini dan buku tersebut dibuat tahun 2005 jadi penulisnya hanya menjelaskan LTE sampai pada kondisi terakhir saat buku terbut ditulis.
+

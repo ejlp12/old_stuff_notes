@@ -1,0 +1,73 @@
+SIP mulai dikembangkan mulai tahun 1996 oleh IETF MMUSIC WG dan mulai banyak digunakan dalam dunia industri pada tahun 1998.
+
+May 2000 UMTS mengadopsi SIP sebagai control protocol pada Multimedia session.
+
+The SIP architecture begins by building upon two other Internet application protocols, the Simple Mail Transfer Protocol (SMTP), which is defined in RFC 2821, and specifies the format for electronic mail messages, and the Hypertext Transfer Protocol (HTTP), which is defined in RFC 2616, and specifies the format for web-based multimedia communication. In addition, SIP uses functions defined by the Real Time Transport Protocol/Real Time Control Protocol (RTP/RTCP), defined in RFC 3550, which specifies the formats for multimedia packets over Internet Protocol (IP) networks, and the Session Description Protocol (SDP), defined in RFC 2327, which specifies the characteristics and parameters of a multimedia session. Thus, SIP builds upon other IETF-developed protocols, much like H.323 builds upon other ITU-T protocols such as H.225.0 and H.245. In addition, it runs on top of other IETF-defined transport protocols, such as the Transport Control Protocol (TCP), the User Datagram Protocol (UDP) and the Internet Protocol (IP).
+
+The SIP architecture defines two main devices: clients and servers. A client is described in RFC 3261 as a network element that sends SIP requests and receives SIP responses. A client may or may not interact with a human user. Similarly, the server is a network element that receives requests in order to service them, and then responds to those requests.
+
+Digging deeper, we find several examples of clients:
+
+    * User Agent Client: a logical function that creates a request, and then uses the client functionality to send that request.
+    * Proxy: an intermediary device that acts as both a client and a server, and which makes requests on behalf of other clients. 
+
+Note that the Proxy requires both client and server functionality.
+
+We also find several examples of servers noted in RFC 3261:
+
+    * User Agent Server: the logical function that generates a response to a SIP request.
+    * Redirect Server: a server that redirects a client to contact another server to complete its request.
+    * Registrar: a server that accepts REGISTER requests, and then places that information into the location service.
+    
+PacketCable (DCS), the International Softswitch Consortium, 3GPP and 3GPP2 have selected SIP.    
+    
+    
+    http://www.ietf.org/rfc/rfc2543.txt SIP: Session Initiation Protocol (March 1999)
+    http://www.ietf.org/rfc/rfc3261.txt SIP: Session Initiation Protocol (June 2002)
+    
+    
+    The IETF Session Initiation Protocol (SIP), published as RFC2543, is a signaling protocol for initiating, managing and terminating voice sessions across packet networks. SIP sessions involve one or more participants. SIP supports unicast or multicast communication. Borrowing from ubiquitous Internet protocols, such as HTTP, SIP is text-encoded and highly extensible. SIP may be extended to accommodate features and services such as call control services, presence, instant messages, mobility and interoperability with existing telephony systems.
+
+Following are the four types of logical SIP entities:
+
+    * User Agent—in SIP, a User Agent (UA) is the endpoint entity. User Agents initiate and terminate sessions by exchanging requests and responses. RFC2543 defines the User Agent as an application, which contains both a User Agent client and User Agent server. Devices that could have a UA function in a SIP network are workstations, IP-phones, telephony gateways, call agents, automated answering services and many more.
+    * Proxy Server—an intermediary entity that acts as both a server and a client for the purpose of making requests on behalf of other clients. Requests are serviced either internally or by passing them on to other servers, possibly after translation. A Proxy interprets, and, if necessary, rewrites a request message before forwarding it.
+    * Redirect Server—a server that accepts a SIP request, maps the SIP address of the called party into zero (if there is no known address) or more new addresses and returns them to the client. Unlike Proxy servers, Redirect Servers do not pass the request on to other servers.
+    * Registrar—a server that accepts REGISTER requests for the purpose of updating a location database with the contact information of the user specified in the request.
+
+SIP has one protocol format for all actions, such as Registration, Call Control, and Presence. SIP uses SDP as a media description language and RTP/RTCP as a real-time transport protocol for media, as does H.323. SIP is above the transport layer. In theory, it is transport-independent but in practice it uses UDP and TCP with plans to run over SCTP in the near future. RTP/RTCP runs over UDP or ATM (AAL2, AAL5). SIP syntax is in text format.
+
+Basic H.323 - SIP Call Scenario
+The most essential part of the IWF is to support basic call establishment between a SIP User Agent and an H.323 endpoint. Figure 3 illustrates a typical call flow for a basic call where the source is in the H.323 network and the destination is in the SIP network. Figure 4 illustrates a typical call flow for a basic call, where the source is in the SIP network and the destination is in the H.323 network.
+
+Standardizing Interworking
+The IETF has begun work on defining a standard for a SIP to H.323 Interworking Function. In July 2001, the SIP-H.323 Interworking Working task group within the SIP working group of the Internet Engineering Task Force (IETF) released a draft for SIP-H.323 Interworking (draft-agrawal-siph323- interworking-01.txt). Although it is not yet finalized as a standard, the draft is in an advanced stage. In addition there is an active interworking discussion group located at: http://groups.yahoo.com/group/sip-h323.
+
+The IETF draft defines a logical entity known as the SIP-H.323 Interworking Function (SIP-H.323 IWF) that allows interworking between SIP and the H.323 protocol. The document specifies call sequence mapping, message parameter mapping, translation between H.245 and SDP, state machines, and handling of various call procedures.
+
+Note: The draft relates to H.323 Version 2 and SIP bis 2.
+
+
+# Multicast Internet Protocol (Multicast IP), defined in RFCs 1112 and 2236.                                                                                                                                        
+Multicast allows information from a single source to be sent to multiple destinations (as may be required for conferencing).                                                                                        
+
+# Real-time Transport Protocol (RTP), defined in RFC 3350.                                                                                                                                                          
+RTP provides functions such as payload identification, sequence numbering, and timestamps on the information.                                                                                                       
+
+# RTP Control Protocol (RTCP), also defined in RFC 3350.                                                                                                                                                            
+RTCP monitors the quality of the RTP connection.                                                                                                                                                                    
+
+# Resource Reservation Protocol (RSVP), defined in RFC 2205.                                                                                                                                                        
+RSVP requests the allocation of network resources, to assure adequate bandwidth between sender and receiver.                                                                                                        
+
+# Real-Time Streaming Protocol (RTSP), defined in RFC 2326.                                                                                                                                                         
+RTSP supports the delivery of real-time data, including retrieval of information from a media server or support for conferencing.                                                                                   
+
+# Session Description Protocol (SDP), defined in RFC 2327.                                                                                                                                                          
+SDP conveys information about the media streams for a particular session, including session name, time the session will be active, what media (voice, video, etc.) is to be used, the bandwidth required, and so on.
+
+# Session Announcement Protocol (SAP), defined in RFC 2974.                                                                                                                                                         
+SAP packets 
+
+
+http://www.packetizer.com/ipmc/h323_vs_sip/

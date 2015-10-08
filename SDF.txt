@@ -1,0 +1,37 @@
+Istilah Service Delivery Platform (SDP) memang tidak jelas definisinya sehingga sulit memberikan dekripsi yang komprehensif. Isilah SDP telah menjadi buzzwork (hype) yang sering digunakan oleh orang-orang marketing untuk dapat menjual platform-nya ke operator telekomunikasi. 
+
+Dari report berjudul "Wireless-SDP: Market Assessment" yang dikeluarkan Stratecast Partners, SDP dapat didefinisikan sebagai:
+
+An Information technology-driven solution designed to simplify the service creation process, using relatively common software toolsets, across functional and architectural boundaries, integrating a variety of data driven capabilities.
+
+Jadi kalo kita lihat definisi tersebut, penulisnya berusaha membuat definsi SDP dari tujuan dan ciri-ciri SDP yang pada dasarnya didapat dari pengalaman nyata implementasi SDP oleh vendor di jaringan telekomunikasi milik operator.
+
+Dari definisi tersebut juga dapat dilihat bahwa SDP merupakan solusi yang menyatukan dunia IT dengan dunia telekomunikasi. SDP saya kira dimulai dengan konsep NGN yang mengusung konvergensi telnologi IT dengan telekomunikasi yang kemudian mulai diimplementasikan dengan dibuatnya arsitektur IMS oleh 3GPP. Dengan IMS kita dapat dengan mudah membuat aplikasi tambahan baru pada jaringan telekomunikasi karena memang IMS dirancang untuk itu. Ide tersebut kemudian ditarik ke realita jaringan operator dimana IMS belum diimplementasikan secara nyata dengan cara membuat solusi yang dapat diimplementasikan langsung yaitu SDP. Upgrade jaringan ke IMS yang memerlukan waktu dan biaya tidak sedikit. Dengan SDP, operator yang ingin membuat layanan-layanan tambahan baru yang melibatkan content provider atau pihak ketiga lainnya tidak perlu upgrade jaringannya ke IMS. 
+
+Solusi untuk SDP sering disebut sebagai Service Delivery Framework (SDF) tapi kadang istilah SDP dan SDF digunakan tanpa ada pembedaan. Organisisi yang berusaha untuk membuat standarisasi untuk SDF yang dilihat dari kacamata Service Provider adalah TM Forum tapi juga belum mengh
+
+SDF didesain untuk mendukung:
+
+- Mempermudah pengadaan layanan rich communications dan layanan hiburan
+- Cepatnya adopsi suatu layanan baru dan proses deployment (rollout)
+- Membuat layanan lebih fleksibel dan lebih terbuka (extensible) sehingga mempermudah pemberian layanan dari pihak ketiga
+- Mengurangi biaya pembuatan layanan baru sehingga diharapkan akan meningkatkan keungungan
+- Meningkatkan ARPU dengan cara memberikan layanan yang dibutuhkan pelanggan dengan cepat 
+
+SDF biasanya terdiri dari domain-domain berikut:
+
+• Manajemen dari Product Lifecycle environment
+• Pembuatan layanan (service creation) atau aplikasi baru termasuk komponen yang dapat digunakan kembali (reusable)
+• Manajemen dari Service Execution environment dan Service Enabler environment.
+• Adaptasi dan pendefinisian proses OSS/BSS untuk SDF itu sendiri
+
+Sumber: http://www.billingoss.com/articles/web2_impact_on_oss_bss_for_network_operators_emerging_applications_on_internet_iptv_video_voip_sms_mms.htm
+
+Catatan: Service execution environtment adalah lingkungan yang dibuat agar dapat mendukung suatu aplikasi layanan dapat dieksekusi;
+         Service Enabler evirontment adalah dasar building-block pada infraktrusktur jaringan telekomunikasi yang digunakan oleh aplikasi layanan sehingga layanan tersebut dapat diberikan ke end-user. Lihat gambar SDP context diatas.
+
+
+Vendor-vendor telekomunikasi yang memiliki portofolio SDP dalam layanan atau produknya memiliki visi yang berbeda-beda oleh sebab itu implementasinya juga menjadi berbeda. Beberapa vendor fokus pada produk yang memberikan layanan content delivery dan solusi yang mengekspos jaringan operator ke content provider. Beberapa vendor lain 
+
+
+

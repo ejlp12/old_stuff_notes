@@ -1,0 +1,55 @@
+Find and remove duplicate rows from a table
+
+One of the most important features of Oracle is the ability to detect and remove
+duplicate rows from a table. While many Oracle DBA place primary key referential
+integrity constraints on a table, many shops do not use RI because they need the
+flexibility.
+
+The most effective  way to detect  duplicate rows is  to join the  table against
+itself as shown below.
+
+SELECT
+   BOOK_UNIQUE_ID,
+   PAGE_SEQ_NBR,
+   IMAGE_KEY
+FROM
+   page_image A
+WHERE
+   rowid >
+     (SELECT min(rowid) FROM page_image B
+      WHERE
+         B.key1 = A.key1
+      and
+         B.key2 = A.key2
+      and
+         B.key3 = A.key3
+      );
+
+Please  note that  you must  specify all  of the  columns that  make the  row a
+duplicate in the SQL  where clause. Once you  have detected the duplicate  rows,
+you may modify the SQL statement to remove the duplicates as shown below:
+
+DELETE FROM
+   table_name A WHERE
+   A.rowid >
+   ANY (SELECT B.rowid FROM
+      table_name B WHERE
+      A.col1 = B.col1 AND
+      A.col2 = B.col2 ) ;
+
+You can also detect and delete duplicate rows using Oracle analytic functions:
+
+delete from
+   customer
+where rowid in
+ (select rowid from
+   (select
+     rowid,
+     row_number()
+    over
+     (partition by custnbr order by custnbr) dup
+    from customer)
+  where dup > 1);
+
+As we  see, there  are several  ways to  detect and  delete duplicate  rows from
+Oracle tables.

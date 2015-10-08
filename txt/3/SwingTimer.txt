@@ -1,0 +1,81 @@
++--[ javax.swing.Timer
+
+Object Timer akan membuat thread yang dapat digunakan
+  pada aplikasi yang memberikan aksi trigger secara periodik atau 
+  untuk memonitor progres dari suatu operasi yang asynchronous
+
+2 Macam timers (keduanya bisa dilakukan dengan JFC):
+  periodik timers (berjalan periodik terus-menerus)
+  one-shot timers (membuat aksi yang terjadi hanya sekali, jika ingin dijalankan lagi timer ini perlu di-restart())
+
+Timer dalam JFC memiliki 2 macam delay:
+  initial delay (lamanya waktu untuk aksi pertama)
+  normal delay
+
+Perhatikan signature dari kelas Timer berikut:
+
+  public class Timer extends Object implements Serializable
+  {
+      // Protected instance variable
+      protected EventListenerList listenerList;
+
+      // Public constructor
+      public Timer(int delay, ActionListener listener);
+
+      // Public class methods
+      public static boolean getLogTimers();
+      public static void setLogTimers(boolean enable);
+
+      // Public instance methods
+      public void addActionListener(ActionListener listener);
+      public boolean doesCoalesce();
+      public int getDelay();
+      public int getInitialDelay();
+      public boolean isRunning();
+      public void removeActionListener(ActionListener listener);
+      public boolean repeats();
+      public void restart();
+      public void setCoalesce(boolean enable);
+      public void setDelay(int);
+      public void setInitialDelay(int delay);
+      public void setRepeats(boolean enable);
+      public void start();
+      public void stop();
+
+      // Protected instance methods
+      protected void fireActionPerformed(ActionEvent event);
+  }
+
+Pada saat membuat objek Timer kita bisa tidak menspesifikasikan delay dan action listener
+ tapi dengan menggunakan method setDelay(), setInitialDelay(), dan addActionListener()
+
+Method actionPerformed() dari ActionListener obejct akan dipanggil pada event-dispatching thread.
+Ini salah satu pembeda penting dengan class java.util.Timer
+
+Dengan removeActionListener() kita dapat menghapus action listener pada objek Timer, sehingga
+ kita dapat menggunakan multiple action listener pada  sebuah objek Timer
+
+Secara defaultTimer yang dibuat adalah periodik Timer, jika diinginkan one-shot timer, kita
+ tinggal memanggil method setRepeats(false).
+
+Untuk mulai menjalankan Timer kita panggil method start().
+Untuk menghentikannya kita dapat memanggil method stop(). 
+Method restart() sama dengan memanggil method stop() kemudian start().
+
+Pada aplikasi yang sibuk (busy) event dari sebuah timer yang cepat mungkin tidak dapat dilakukan
+ secara default timer akan menggabungkan antrian aksi event-event tersebut dalam sebuah event.
+ Sifat ini dapat diubah dengan memanggil method setCoalesce(false).
+
+Contoh penggunaan Timer (diimplementasikan sebagai anonymous inner class):
+
+        Timer tm = new Timer(100, new ActionListener() {
+                public void actionPerformed(ActionEvent event)  {
+                        System.out.println("tik..");
+                }
+        });
+
+
+
+--
+(c) 20020612, eryan12@yahoo.com
+http://eryan.dhs.org

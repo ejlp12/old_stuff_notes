@@ -1,0 +1,43 @@
+
+Proses sebuah koneksi TCP client-server dapat digambarkan sbb:
+
+ A               Target
+ |                 |
+ |-------SYN------>|
+ |                 |
+ |<----SYN-ACK-----|
+ |                 |
+ |-------ACK------>|
+ |                 |
+
+Proses ini adalah proses standar untuk koneksi ke sebuah service yang berada di server oleh sebuah client dan biasa disebut 3-way handshake.
+
+SYN flood attack adalah serangan dengan cara mengirimkan paket SYN sebanyak mungkin ke target tanpa mengirimkan paket ACK,sehingga target tidak dapat lagi memberikan layanan atau menerima request dari client lain. Serangan seperti ini biasanya dilakukan pada layanan-layanan terbuka seperti layanan web/HTTP, FTP. 
+
+Proses serangan ini dapat digambarkan sbb:
+
+ A               Target              B
+ |                 |                 |
+ |-------SYN------>|                 |
+ |                 |----SYN-ACK----->|
+ |                 |                 |
+ |-------SYN------>|                 |
+ |                 |----SYN-ACK----->|
+ |                 |                 |
+           
+
+
+Host A membuat packet TCP SYN dengan source address yang telah dimanipulasi yaitu bukan alamat IP host A tetapi alamat IP lain, misalnya host B.  Pembuatan paket palsu dengan menubah alamat pengirim disebut address spoofing atau IP spoofing. 
+
+Target menerima paket SYN dan kemudian mengirimkan paket SYN-ACK ke host yang tertera pada pake SYN yang diterima, yaitu ke host B. Sementara itu target akan menyimpan request dari A dalam buffer (queue) untuk kemudian diproses jika target menerima ACK dari host A.
+
+Karena target tidak menerimana ACK yang disebabkan SYN-ACK tidak dikirim ke host yang mengirimkannya, maka target akan menunggu hingga time out untuk melepas buffer yang digunakan untuk menyimpan request service dari host A.
+
+
+Dengan mengulangi proses diatas berkali-kali secara cepat, target akan mengalami kondisi dimana buffer penuh (full) sehingga untuk request service berikutnya, target tidak akan mengirimkan SYN-ACK yang berarti layanan mati itu lah sebabnya serangan seperti ini disebut Denial of Service attack.
+
+Ide serangan ini sangat sederhana dan membuat code untuk serangan seperti ini juga sangat mudah, dengan program C menggunakan library standar kita bisa membuat program syn flood tidak lebih dari 100 baris. 
+
+http://packetstormsecurity.org/DoS/punk.c
+http://www.cert.org/advisories/CA-1996-21.html
+

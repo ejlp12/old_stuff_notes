@@ -1,0 +1,48 @@
+Mobile-TV pada jaringan GSM/UMTS
+
+Mobile-TV adalah layanan TV pada perangkat bergerak. Bukan layanan TV biasa dengan cara membawa TV sehingga bergerak seperti TV yang berada didalam mobil. Beberapa teknologi mobile-TV yang sekarang sedang tren saat ini adalah adalah DVB-H (Digital Video Broadcasting for Handheld) dan MBMS (Multimedia Broadcast and Multicast Service). 
+
+
+DVB-H adalah standar mobile TV yang dibuat oleh ETSI. Standar ini merupakan perubahan dari standar digital TV yang sudah ada tetapi dioptimasi untuk keperluan ponsel atau PDA. Vendor yang paling getol mengusung teknologi ini adalah Nokia tau NSN (Nokia Siemens Networks) karena Nokia lah yang mengembangkan teknologi ini. Teknologi DVB-H menggunakan frekuensi yang berbeda dengan 3G sehingga tidak dapat digunakan pada jaringan GSM/UMTS.
+
+Layanan mobile TV atau broadcast sebenarnya sudah bisa diberikan pada jaringan 3G saat ini yaitu dengan teknologi point-to-point (unicast) dimana sebuah streaming/content server akan memberikan layanan kepada setiap pelanggan. Yang diperlukan hanya sebuah decoder server yang melakukan video coding dari sebuah layanan TV kemudian streaming server yang memberikan layanan broadcast ke setiap pelanggan yang menggunakan layanan. Teknologi poin-to-point ini tidak efektif untuk layanan broadcast karena setiap pengguna layanan maka akan menggunakan resource jaringan sendiri-sendiri mulai dari system pemberi layanan (streaming server) sampai pada pelanggan.
+
+Karena masalah tersebut dikembangkanlah teknologi untuk broadcast/multicast yang efektif yang bisa diterapkan pada jaringan GSM/UMTS yaitu MBMS. MBSM adalah layanan point-to-multipoint (unidirectional) yang berarti pendistribusian data dari satu sumber ke beberapa tujuan dalam waktu yang berbarengan (simultan). Data yang berupa multimedia content  didistribusikan dengan menggunakan resource yang sama sehingga tidak membebani jaringan. 
+
+MBMS diadopsi pada 3GPP Rel-6 sehingga teknologi ini dapat diterapkan pada jaringan GSM/UMTS. Karena merupakan standar 3GPP, teknologi ini pun cepat diimplementasikan oleh vendor-vendor (supplier) telekomunikasi seperti Ericsson, ZTE dan Huawei. 3GPP Rel-6 selesai dispesifikasikan bulan Juni 2005 dan percobaan layanan MBMS sudah dimulai sejak tahun 2006.
+
+Untuk menerapkan MBMS pada jaringan GSM/UMTS maka diperlukan upgrade hardware/software pada elemen jaringan tetapi karena MBMS merupakan bearer service baru maka diperlukan juga chipset baru yang mendukung layanan ini pada handset, dengan kata lain kita perlu handset baru yang mendukung MBSM untuk menerima dapat menikmati layanan multimedia broadcast/multicast yang menggunakan teknologi MBSM.
+
+
+Dalam MBSM ada dua mode layanan bearer yaitu
+
+- Mode broadcast dimana semua pengguna dalam sebuah broadcast area dapat menerima layanan broadcast
+- Mode multicast, dimana hanya pengguna yang telah terdaftar pada layanan multicast tertentu dan kemudian ikut dalam group mulaticast yang dapat mengerima layanan multicast
+
+Tidak seperti DV-H, MBSM memiliki uplink channel sehingga dapat memberikan layanan interaktif untuk penggunanya. MBDM juga memberikan efisiensi pengiriman data dibanding dengan layanan multimedia poin-to-point seperti live tv streaming menggunakan RTSP.
+
+Sesifikasi yang terkait dengan MBSM:
+TS 22.146 Multimedia Broadcast/Multicast Service (MBMS)
+TS 22.246 Multimedia Broadcast/Multicast Service (MBMS) user services 
+TS 23.246 MBMS Architecture and functional description
+TS 26.346 MBMS Protocols and codecs
+TS 43.246 Multimedia Broadcast Multicast Service (MBMS) in the GERAN
+
+
+Dari dokumen spesifikasi tersebut kita bisa mempelajari lebih dalam tentang implementasi teknis dari MBSM. Tutorial yang lebih singkat tapi cukup padat bisa dibaca di sini [http://www.3g4g.co.uk/Tutorial/ZG/Mbms/].
+
+(c) 20080128 ejlp12@yahoo.com
+
+Layanan Mobile-TV sekarang sedang booming, ramai dibicarakan dan vendor-vendor semakin bersaing untuk dapat melakukan test ataupun rollout komersial menggunakan teknologi broadcast yang ada.
+
+
+
+3GPP2 juga membuat spesifikasi untuk keperluan yang sama yaitu Broadcast and Multicast Service (BCMCS)
+
+OMA BCAST juga bekerja untuk membuat spesifikasi pada layer aplikasi misalnya keperluan untuk proteksi konten, petunjuk (guide) dari suatu layanan atau program, penjadwalan transmisi. Spesifikasi tersebut dibuat dengan tidak melihat teknologi broadcast/multicast yang digunakan apakah itu MBMS atau DVB-H.
+
+
+
+
+
+ 

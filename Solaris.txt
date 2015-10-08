@@ -1,0 +1,38 @@
+ 
+ Hardware information
+ /usr/platform/`uname -i`/sbin/prtdiag
+ 
+ prtconf
+ 
+ svcadm
+svc:/network/ssh:default
+
+svcs
+ 
+melihat semua process-id yang dijalankan suatu user
+pgrep -l -u username
+
+melihat open file
+pfiles PID 
+
+show how busy the network
+netstat -i 1
+
+ulimit -Hn
+ulimit -Sn
+
+upgrade by putting this line to /etc/system 
+set rlim_fd_max = 8192 
+
+
+nohup /usr/sbin/vmstat 300 288 > /cpu.`date +%Y%m%d`.log &
+
+nohup /usr/sbin/sar -u 300 288 > /cpu.`date +%Y%m%d`.log &
+
+
+ps -ef |grep java | awk '{print $2}' |xargs pargs -l
+
+
+for PID in `ps -ef |grep generate | grep -v grep | awk '{print $2}'`; do (echo -n "$PID "; echo $PID | xargs pargs -l;);done
+
+(for PID in `ps -ef |grep java| grep -v grep | awk '{print $2}'`; do (echo -n "$PID "; echo $PID | xargs pargs -l 2>/dev/null;);done) | grep PackagePromotion

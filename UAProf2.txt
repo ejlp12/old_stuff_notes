@@ -1,0 +1,18 @@
+UAProf 
+
+capturing capability and preference information for wireless devices.
+This information can be used by content providers to produce content in an appropriate format for the specific device.
+
+UAProf is related to the Composite Capabilities/Preference Profiles Specification yang dibuat W3C
+UAProf is based on RDF.
+
+UAProf files typically have the file extension "rdf", and are usually served with mimetype application/xml. They are an xml based file format.
+
+A UAProf file describes the capabilites of a mobile handset, including manufacturer, screensize, multimedia capabilites, characterset support, and more.
+
+A mobile handset sends a header within a http request, containing the URL to it's UAProf. The http header is "x-wap-profile".
+
+A content delivery system (such as a wap site) can use the UA Profile to adapt content for display, or to decide what items to offer for download.
+
+
+UAProfile.com - Searchable database of cached UAProfiles with UAProf Versionator

@@ -1,0 +1,7 @@
+Class HashMap ada mulai Java 1.2
+HashMap memiliki kemampuan yang sama dengan Hashtable tapi bisa menyimpan null reference dan method-method nya tidak synchronized
+Jadi gunakan Hashtable jika kode program membutuhkan threadsafe dan kompatibel dengan versi Java < 1.2 
+
+Iterator pada HashMap bersifat fail-safe sedangkan enumerator pada Hashtable taidak
+
+http://www.precisejava.com/javaperf/j2se/Collections.htm

@@ -1,0 +1,75 @@
+IS-41 atau sering disebut ANSI-41 adalah satu set standar yang menspesifikasikan komunikasi antar elemen-elemen yang ada dalam jaringan telekomunikasi nirkabel seperti HLR, MSC, VLR, Authentication Center (AC) yang berbasis pada teknologi MPS (analog), IS-136 (TDMA), CDMA. Standar ini mencakup mobility management seperti proses identifikasi dan otentifikasi pengguna, radio system management, premrosesan panggilan seperti routing pemanggilan (call) dan juga routing panggilan saat roaming, OA&M, short message service dan lain-lain.
+
+IS-41 yang memiliki judul "Cellular Radio Telecommunications Intersystem Operations" dibuat dan di-maintain oleh sebuah subkomite dalam organisasi TIA yaitu TR-45.2 (Wireless Intersystem Technology).Komite ini dibentuk tahun 1983 dan mempublikasikan IS-41 pada tahun 1988. Pada tahun 90-an standar ini telah mengalami beberapa revisi yaitu IS-41 revision 0, A, B, C. Hingga akhirnya secara formal distandarisasi sebagai TIA/ANSI-41D pada tahun 1997. Versi ANSI-41D ini yang saat ini banyak digunakan pada jaringan operator.
+
+Pada jaringan GSM/UMTS ANSI-41 ini dapat disetarakan dengan MAP (Mobile Application Part). Seperti halnya MAP, message ANSI-41 juga menggunakan SS7 TCAP sebagai protokol transportnya.
+
+IS-41 terdiri dari 5 bagian utama, yaitu:
+
+ IS-41.1 Functional Overview.
+ IS-41.2 Intersystem Handoff.
+ IS-41.3 Automatic Roaming.
+ IS-41.4 Operations, Administration and Maintenance.
+ IS-41.5 Data Communications.
+
+Pada IS-41C Bagian kelima dipecah menjadi
+
+ IS-41.5 Signaling Protocols
+ IS-41.6 Signaling Procedures
+
+ANSI/TIA/EIA-41-E yang merupakan set standar dari pengambangan revisi D telah dibuat. ANSI-41-E ini  menggabungkan beberapa pengembangan yang tercakup dalam beberapa dokument TSB (Telecommunications Systems Bulletins sehingga menjadi sebuah interim standard 
+
+=============================================
+
+Jaringan nirkabel operator CDMA menggunakan standar Wireless Intelegent Network (WIN) 
+
+WIN Phase 1 (IS-771), PPC (IS-826), WIN Phase 2 (IS-848), WIN Phase 3 (IS-843)
+
+Sebuah set (series) standar Wireless IN (WIN) berdasar pasa IN CS2.
+Protokol IS-771 ditambahkan pada WIN Phase 1 yang mencakup layanan baru seperti 
+
+ Calling Name Presentation (CNAP), 
+  provides the name identification of the calling party (personal name, company name, “restricted”, “not available”) to the called party
+ Voice Controlled Services (VCS)
+  provides for alternate routing, blocking, or allowing of specified incoming calls.
+ Incoming Call Screening (ICS);
+  employ voice recognition technology to allow wireless users to control features and services using spoken commands
+
+Pada WIN Phase 1, protokol IS-826 ditambahkan sehingga WIN memiliki kapabilitas untuk Pre-Paid Charging (PPC)
+
+Pada WIN Phase 2, ditambahkan protokol IS-848 yang mendefinisikan layanan-layanan berikut
+
+ Rejection of Undesired Annoying Calls (RUAC), 
+ Premium Rate Charging (PRC), 
+ Freephone Service (FPH)
+ Advice Of Charging (AOC)
+ Enhanced Preferred Language (EPL)
+
+Protokol-protokol tersebut diatas akhirnya diintegrasikan dalam sebuah standar ANSI 41-E.
+
+
+http://www.tiaonline.org/standards/technology/cdma2000/cdma2000table.cfm
+
+http://www.mobilein.com/ansi-41_standards.htm
+
+
+
+
+Gambar diambil dari http://www.canto.org/canto2008/doc/bahamas/Canto/DeVries/Wireless%20Intelligent%20Networking.ppt
+
+TIA/EIA/IS-664 Cellular Features Description 
+TIA/EIA/IS-730 Intersystem Operations Support for the IS-136 Digital Control Channel
+TIA/EIA/IS-737 Enhancements to Circuit Mode Services (Data Services), 
+TIA/EIA/IS-751 Support IMSI
+TIA/EIA/IS-756 Number Portability Network Support (WNP), 
+TIA/EIA/IS-764 Enhancements for Wireless Calling Name Feature Descriptions (Calling Name), 
+TIA/EIA/IS-771 Wireless Intelligent Network (WIN Triggers Phase I), 
+TIA/EIA/IS-826 WIN Pre-Paid Charging (Prepaid charging - WIN Phase II), 
+TIA-826-A Based Pre-Paid Charging Enhancements for Circuit Switched Data and Short Message
+TIA/EIA/IS-841 (MDN Based Message Centers), 
+TIA/EIA/IS-848 Enhanced Charging Services (WIN Phase II features)
+
+TIA-881 Location Services Enhancements
+
+
+

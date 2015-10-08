@@ -1,0 +1,60 @@
+Welcome roamers
+
+Ada bayak elemen yang masuk katergori Value Added System (VAS) yang berbasis dari teknologi SS7 signaling probe atau signaling monitoring, diantaranya adalah welcome roamers, missed call alert, location based service, fraud detection.
+
+Signaling probe berarti cara mendapatkan informasi dengan memonitor (capture) informasi yang lewat dalam suatu koneksi fisik dalam jaringan telekomunikasi yang berbasis SS7. Probing dilakukan pada jalur komukasi antar elemen misalnya koneksi E1/T1, SONET dengan secara pasif sehingga tidak mengganggu jalur komunikasi. Setiap informasi yang lewat kemudian diproses atau difilter oleh application layer.
+
+Welcome roamers 
+
+Welcome roamers adalah salah satu layanan dalam telekomunikasi bergerak yang berfungsi untuk mengirimkan pesan SMS pada orang yang melakukan roaming (roamer) baik itu inbound roamer maupun outbound roamer. 
+
+Dengan adanya layanan welcome roamers, operator dapat memberi pesan penting tertentu untuk roamer misalnya ucapan selamat datang dengan memberi tahu waktu setempat serta nomor-nomor penting untuk dihubungi misalnya nomor polisi, hotel, resoran. Operator dapat juga melakukan personalisasi pesan dengan menggunakan bahasa di negara asal roamer. 
+
+Dibawah ini adalah arsitektur jaringan untuk solusi welcome roamer:
+
+                                                  :
+                                   Visited PLMN   :   Home PLMN
+                                                  :        
+              +---------+                         :        +----------+
+    Roamer----| MSC/VLR |------+---------------------------|  HLR     | 
+              +---------+      |                  :        +----------+
+                               |                  :        
+                               |                  :
+              +------+     +----------------+     :
+              | SMSC |-----| Welcome Roamer |     :
+              +------+     | Server         |     :
+                           +----------------+     :
+                                                  :
+                                                       
+                                             
+                                         
+Layanan welcome roamer untuk inbound roamer dapat dibuat dengan cara melakukan probing pada koneksi antara Visited-MSC/VLR dengan Home-HLR. Secara sederhana prosesnya dapat dijelaskan sebagai berikut:
+                          
+1. Pada saat inbound roamer tehubung ke VPLMN, maka VLR di VPLMN akan melakukan location update (MAP_UPDATE_LOCATION) ke HLR di HPLMN.
+
+2. Sistem welcome roamer yang selalu melakukan probing akan mengambil informasi  alamat (global title) HLR dan IMSI dari si roamer dari paket location update. 
+
+3. Kemudian sistem welcome roamer memproses informasi tersebut yaitu akan mengetahui mengirimkan pesan/SMS  lewat SMSC berdasarkan negara/operator dimana roamer berasal. 
+
+
+Layanan welcome roamer untuk outbound roamer dapat dibuat dengan cara yang mirip, yaitu dilakukan probing pada koneksi VPLMN dengan HLR di HPLM. Saat location update (LU) dilakukan oleh visited-MSC/VLR ke HLR, MSIDN dan global title dari Visiting-MSC dilihat untuk kemudian roamer dikirim SMS.
+
+Modul Probing
+
+Untuk melakukan probing ke saluran SS7 signaling biasanya welcome roamer server memiliki modul fisik terpisah yang disebut probing/moniotoring module atau tapping module. Modul ini yang melakukan pengambilan informasi (menyadap) signaling, penguatan (amplifying) dan pemfilteran untuk kemudian dikirimkan modul pemroses.
+
+Tapping (penyadapan) biasanya dilakukan pada kabel E1/T1 Tx (tranmitter) dan Rx (receiver) yang dihubungkan ke sebuah DDF (Digital Distribution Frame), seperti gambar dibawah ini
+
+
+      +-------+                    +-------+
+      |       |                    | DDF   |
+      |  MSC  |---------Tx---------|---+---|------------> Link internasional
+      |       |--------------Rx----|-+-|---|<--------------
+      |       |                    | | |   |
+      +-------+                    +-|-|---+
+                                     | |
+                                     | |
+                                     | |
+                              +-----------------+
+                              | Probing  Module |
+                              +-----------------+

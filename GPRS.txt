@@ -1,0 +1,79 @@
+Serving GPRS Support Node (SGSN)
+mobility management
+security
+
+Packet Data Protocol (PDP) Context
+ Alamat BSS
+ 
+ 
+ Initially specified by ETSI
+ A *lot* of specifications
+ 3GPP TS 23.060  (Service Description, Stage 2, Release 6)
+3GPP TS 43.051 (Radio Access Network, Overall Description, Stage 2, Release 6)
+
+
+A/Gb mode (Mobile station class)
+Class A: MS can operate simultaneous packet switched and circuit switched services
+Class B: MS can operate either one at one time
+Most common for handsets today
+Class C: MS can operate only packet switched services
+E.g. expansion cards for laptops
+
+Prosedur GPRS-Attach
+
+        MS     BSS     SGSN   HLR/EIR   GGSN      
+         |       |       |       |       |       
+         |---1---+------>|       |       |                      
+         |       |       |<--2-->|       |       
+         |       |       |       |       |
+         |       |       |-------3------>|        
+         |       |       |<------4-------|
+         |<------+---5---|       |       |
+         |       |       |       |       |
+         |       |       |       |       |
+ 
+ 
+ 1. Request untuk penaktivan PDP Context lewat jaringan radio (BTS/BSS) dikirim ke SGSN   
+ 2. Otentikasi dan chipering
+ 3. SGSN meneruskan request untuk pembuatan (create) PDP Context ke GGSN                  
+ 3. GGSN memberikan response dari pembuatan DPD context ke SGSN                           
+ 4. SGSN memberitahukan MS bahwa aktivasi PDP Context telah diterima  
+
+Detail diagram bisa dilihat disini [http://www.eventhelix.com/RealtimeMantra/Telecom/gprs_attach_pdp_sequence_diagram.pdf]                    
+                                               
+                                               
+ RRC Connection                                              
+ UE -> SGSN  : GMM Attache request (IMSI)
+ SGSN -> HLR : MAP send authentication info (IMSI)
+ SGSN <- HLR : MAP send authentication info ACK (Vector)
+ UE <- SGSN  : GMM authentication & ciphering request
+ UE -> SGSN  : GMM authentication & ciphering response (RES)
+ Activate ciphering
+ UE <- SGSN  : GMM identify request
+ UE -> SGSN  : GMM identify response (IMEI)
+ SGSN -> EIR : MAP check IMEI (IMEI)
+ SGSN <- EIR : MAP check IMEI ACK (IMEI, status)
+ SGSN -> HLR : MAP update GPRS location (IMSI)
+ SGSN <- HLR : MAP insert subscriber data
+ SGSN -> HLR : MAP insert subscriber data ACK
+ SGSN <- HLR : MAP update GPRS location ACK
+ UE <- SGSN  : GMM Attach accepet (P-TMSI)
+ UE -> SGSN  : GMM Attach complete  
+ 
+ Informasi yang disimpan UE sebelum GPRS attach: IMSI, MSISDN, P-TMSI, RA, KSI(IK, CK)
+ 
+ Setelah GPRS Attach 
+ UE akan menyimpan informasi PMM State, P-TMSI
+ SGSN akan meyimpan informasi PMM State, P-TMSI, MSISDN RA, KSE(IK, CK), QoS Profile
+ HLR akan menyimpan SGSN Address
+ 
+ GPRS Detach dapat diinisialisasi oleh UE ataupun operator (SGSN)
+ UE -> SGSN   :  GMM Detach request (P-IMSI)
+ SGSN -> GGSN : GTP-C Delete PDP Context Request
+ GGSN <- SGSN : GTP-C Delete PDP Context Response
+ UE <- SGSN   : GMM Detach request (P-IMSI)
+ UE <-> RNS   : PS signalling connection release
+ RNS <-> SGSN : PS signalling connection release
+ 
+ SGSN -> HLR  : MAP Purge UE
+ SGSN <- HLR  : MAP Purge UE ACK                                                                                   

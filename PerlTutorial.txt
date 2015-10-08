@@ -1,0 +1,588 @@
+
+
+
+Perl adalah sebuah programming language yang bersifat scripting.
+
+Sebuah program Perl adalah teks yang dieksekusi oleh sebuah interpreter.
+Teks tersebut dapat berupa command line argument maupun sebuah atau beberapa
+file teks.
+
+Untuk menjalankan program Perl diperlukan sebuah interpreter yang sudah 
+terinstall pada komputer. Biasanya perl merupakan standar program dalam sistem 
+operasi Linux. Terdapat juga Perl untuk sistem operasi Windows.
+
+-= Contoh program Perl =-
+
+Dibawah ini contoh sebuah program perl yang ditulis sebagai command line.
+
+perl -e 'print "Hello World!";'
+
+Pada program diatas script perl ditulis sebagai argument dari perintah perl
+dengan opsi -e yang berarti execute
+
+Contoh sebuah program perl dalam sebuah file bernama hello.pl:
+
+  1:   #!/usr/bin/perl
+  2:   #
+  3:   # Program pertama hello.pl
+  4:
+  5:   print("Hello World!");
+
+
+Baris pertama adalah deklarasi lokasi perl interpreter. Dalam hal ini lokasi
+perl interpreter dalam sistem berada di /usr/bin/perl.
+Baris kedua dan ketiga adalah komentar yang tidak akan dieksekusi.
+Baris ke lima adalah statement untuk menuliskan kalimant 'Hello World!' ke
+standar output (monitor) dengan menggunakan fungsi print
+
+Sebuah baris statement diakhiri dengan sebuah tanda titik-koma (;)
+
+-= Mengeksekusi script Perl =-
+
+Untuk menjalankan file tersebut kita harus membuatnya sebagai file executable:
+
+  chmod 755 hello.pl
+
+Kemudian jalankan dengan meneksekusi file tersebut seperti program unix
+biasanya:
+
+  ./hello.pl
+  
+Dengan cara seperti ini, script memerlukan informasi lokasi perl interpreter 
+yang dituliskan pada baris pertama.
+
+atau dapat juga dijalankan dengan cara
+
+  perl hello.pl
+  
+Dengan cara seperti ini, baris pertama tidak diperlukan. Ia hanya dianggap 
+sebagai komentar program.
+
+Beberapa opsi perintah perl sangat berguna untuk pengetesan program
+
+  perl -c file   Test sintak tanpa kompilasi
+
+  perl -w file   Akan mengeluarkan pesan peringatan (warning) dan pesan lain
+                 yang berguna sebelum program dieksekusi
+
+  perl -d file   Menjalankan program dengan debugger
+
+-= Variabel =-
+
+Sebuah variabel dalam Perl ditulis dengan awalan tanda '$'. Perhatikan contoh 
+berikut
+
+  1:   #!/usr/bin/perl
+  2:   # File: variable.pl
+  3:   # Deskripsi: Contoh penggunaan variabel
+  4:   use strict; 
+  5: 
+  6:   my $a, $c;
+  7:   my $b = 8;      
+  8:   $a = 2;
+  9:   $c = $a + $b;
+ 10:   print("8 + 2 = $c");
+  
+Baris ke-4 adalah sebuah pragma yang memberikan perintah kepada interpreter 
+untuk mengecek agar semua varibel dideklarasikan terlebih dahulu sebelum 
+digunakan. Varibel di perl sebenarnya tidak perlu dideklarasikan karena perl 
+akan membuat sebuah varibel secara otomatis jika ditemukan nama varibel baru.
+Jadi jika baris ke-4 dihilangkan maka deklarasi varibel pada baris ke-6 dan 7 
+juga dapat dihilangkan.
+
+Baris ke-6 menunjukan deklarasi sebuah variabel $a dan $c tanpa diinisialisasi.
+Baris ke-7 adalah deklarasi sebuah varibel $b dan langsung diinisialisasi dengan
+nilai 8.
+
+my - my digunakan untuk mendeklarasikan variabel. 
+
+Tipe data varibel dalam perl tidak diperlukan. Kita dapat menggunakan variabel 
+$a sebagai numerik, string atau yang lainnya.
+
+  1:   #!/usr/bin/perl
+  2:   # File: variable2.pl
+  3:   # Deskripsi: Contoh pengubahan tipedata variabel 
+  4:   use strict; 
+  5: 
+  6:   my $a;     
+  8:   $a = 2;
+ 10:   $a = "Sepuluh";
+ 11:   print("8 + 2 = $a");
+ 
+Penulisan sebuah varibel numerik (angka) dapat ditulis sebagai berikut
+
+   24                          24
+   24.000                      24
+   .05                         0.05   
+   24e-2                       0.24
+   5e6                         5000000 
+   5E6                         5000000 
+   5_000_000                   5000000 
+   0xffb                       Bilangan hexadesimal FFB 
+   0xcafe_babe                 Bilangan hexadesimal CAFEBABE 
+   0b101                       Bilangan biner dari 5
+   
+Operator aritmetik
+
+  Operator   
+  --------- ---------------------------
+   +         penambahan
+   -         pengurangan
+   *         pengalian
+   /         pembagian
+   **        pangkat
+   %         modulo (sisa hasil bagi)
+   ------------------------------------
+   
+   
+Operator bilangan biner
+
+   &
+   |
+   <<
+   >>
+   
+   
+Logika untuk boolean
+     
+   Operator
+   --------- --------------  
+    &&        AND
+    ||        OR
+    !         NOT (negasi)
+   ------------------------
+   
+-= String =-
+
+varibel dalam sebuah string dapat ditulis dengan ${} misalnya
+
+  1: my $a = "semua";
+  2: print("Apa kabar ${a}nya?");
+  
+Deklarasi string dapat dilakukan dengan satu kutip atau dua kutip
+
+  my $a = "Apa kabar $a ?"
+  my $a = 'Apa kabar ' . $a . ' ?'
+
+  
+Operator string
+
+   x pengulangan    $s x 100 "halo " x 2 
+   . penggabungan   "halo halo " . "bandung" . $s
+   
+   $s = "halo halo "
+   $s .= "bandung"
+   
+   $s = $s . "bandung'  
+   
+chop
+chomp   
+   
+-= Boolean =-
+
+Nilai boolean dapat direprestasikan dengan angka 1 (benar) dan 0 (salah).
+
+
+   my $b = 1;
+   if ($b) { print("benar") }; 
+   $b = 0;
+   if (!$b) { print("salah") }; 
+   
+                                             
+-= Operasi pembanding =-                  
+                                          
+Operasi pembanding     Numerik   String   
+---------------------- --------- ---------
+Sama                     ==       eq      
+Tidak sama               !=       ne      
+Lebih besar              >        gt      
+Lebih kecil              <        lt      
+Lebih besar atau sama    >=       ge      
+lebih kecil atau sama    <=       le      
+------------------------------------------   
+
+Contoh
+
+   $a = "halo" eq "halo";    #benar
+   $a = ("a" gt "A");        #benar, karena nilai ASCII a = 0x61 dan A = 0x41
+   $a = !(1 < 2);            #a bernilai salah (0)
+
+-= Array =-
+
+Sebuah varibel array ditulis dengan awalan tanda '@'. Cara pembuatan array dapat 
+dilakukan dengan beberapa cara, perhatikan contoh berikut:
+
+  my @a = (1,2,3,4);
+  my @b = ("halo", "halo", "bandung", 100);
+  my @c = (@b, $name);
+  my @d = (1 .. 100);
+  my @e = ('A' .. 'Z');
+  my @f = (01 .. 31);
+  my @g = ();
+
+Cara mengakses elemen dalam array digunakan $nama_array[index]
+  
+  $a[0] = "halo";
+  $a[1] = " "; 
+  print($a[3]);
+  
+  print(@a->[3]);   # Penulisan $a[3] dapat juga ditulis @a->[3] 
+  
+Index array dimulai dari 0.  
+Index dapat bernilai negatif yang bearti penomoran dari belakang (akhir). 
+Misalnya, index -1 berarti nilai pada index terakhir.
+  
+  print $a[-1]
+  $b = $a[-2]
+  
+$#x         Posisi/index elemen terakhir dari sebuah array @x
+$#x = 1     Membuat array @x menjadi kosong
+scalar(@x)  Panjang dari suatu array
+
+Kita dapat mendefiniskan array string tanpa perlu tanda kutip dengan menggunakan 
+fungsi 'qw'
+
+  @a = qw(Halo halo bandung);
+  @a = qw/Halo halo bandung/;   
+  
+Array @a diatas berisi elemen "Halo", "halo" dan "bandung"                      
+
+Array dapat dijadikan sebagai Stack yaitu buffer dengan karakteristik LIFO 
+(Last In First Out).  Fungsi yang terkait dengan operasi stack adalah
+
+ push untuk menambahkan elemen dalam array. Elemen yang ditambahkan akan 
+      disimpan pada index paling akhir.
+ pop  untuk mengambil elemen terakhir dalam array sehingga elemen tersebut 
+      hilang dari array.
+     
+     
+  my @arr = qw/1 2 3 4/
+  $lastelement=pop(@arr);  #mengambil angka 4 dari @arr
+  push(@arr, 5);           #menambahkan angka 5 pada @arr sehingga @arr=(1,2,3,5)  
+  push(@arr, 6, 7);        #menambahkan angka 6 dan 7 pada @arr sehingga @arr=(1,2,3,5,6,7)  
+  $value = pop(@arr);      #mengambil angka 7 dari @arr   
+  
+  
+reverse(@array) fungsi untuk membalikan urutan elemen dalam array
+
+  my @a = reverse(qw/kecil sedang besar/) 
+  
+Contoh diatas akan menghasilkan array @a yang memiliki elemen dengan urutan: 
+"besar", "sedang", "kecil"  
+
+sort(@array) fungsi untuk mengurutkan elemen dalam array
+
+  my @a = sort(qw/B C G F A E D/);
+  
+Contoh diatas menghasilakan  array @a yang memiliki elemen dengan urutan:
+A, B, C, D, E, F, G
+
+  
+  
+Array juga dapat dijadikan sebagai Queue yaitu buffer yang bersifat FIFO (First 
+In First out). 
+  
+  unshift untuk menambahkan elemen dalam array. Elemen yang ditambahkan akan   
+          disimpan pada index paling awal dan elemen lain akan bergeser.
+  pop     
+  
+  my @arr = qw/6 7 8 9/                                                                                
+  unshift(@arr, 5);      #menambahkan angka 5 pada @arr sehingga @arr=(5,6,7,8,9)
+  $value = pop(@arr);    # mengambil angka 9 dari @arr sehingga @arr=(5,6,7,8)                                                                                                    
+  unshift(@arr, 3, 4);   #menambahkan angka 6 dan 7 pada @arr sehingga @arr=(3,5,6,7,8) 
+  
+  
+                                 
+$firstelement=shift(@arrayname)
+
+
+
+Membuat array dengan cara mengambil beberapa elemen array
+
+  @a = @b[0 .. 5];    # Membuat @a yang berisi elemen ke-0 sampai ke-5 dari array @b
+ 
+  @a = @b[0 .. $#b];  # Membuat @a yang berisi elemen ke-0 sampai ke elemen terakhit dari array @b
+                      # Statement ini sama dengan @a = @b
+                    
+  ($x, $y, $z) = @b[0,2,$#b];   # $x = @b[0], $y = @b[2], $z = @b[$#b]
+ 
+  @a = splice(@b, 1, 2);        # @a = (@b[1], @b[1]) 
+  
+-= Array multidimensi =-
+ 
+-= Hash (Assosiative array) =-
+
+Hash adalah array yang berupa pasangan key-value.
+
+  my %warna_benda = (laut  => "biru", awan => "putih", daun => "hijau");
+  my %warna_benda = ("laut","biru","awan","putih","daun","hijau");
+  
+  my $warna_laut = $warna_benda{"laut"};  
+  my $warna_laut = %warna_benda->{"laut"};
+  
+
+Sebuah hash dapat diubah menjadi array yang berisi key dan value secara beurutan.
+Elemen pertama array adalah key pertama dari hash, elemen kedua array adalah 
+value pertama dari hash dan seterusnya.
+
+  @array = %hash;
+  
+Kita juga dapat membuat array hanya dari key saja atau value saja.  
+  
+  my @benda = keys(%warna_benda)
+  my @warna = values(%warna);
+  
+Sebuah elemen dalam hash dapat dihilangkan dengan fungsi delete:
+
+ delete($hash_name{key})
+ 
+-= Array dan Hash =-
+
+Sebuah array dapat mengandung varibel hash begitu pula sebaliknya, hash dapat 
+memiliki value yang berupa array.
+
+-= Flow control =-
+
+[1] If/unless
+
+Format penggunaan if dengan elsif (else-if) dan else adalah sebagai berikut:
+
+  if (kondisi) {   
+     statement
+  } elsif (kondisi) { 
+     statement
+  } else { 
+     statement
+  }
+
+unless merupakan pengecekan negatif: statement akan dieksekusi jika kondisi 
+bernilai false
+
+  unless (kondisi) {
+     statement
+  }
+  
+Statement diatas sama dengan statement if (!kondisi) { statement }
+
+if dan unless juga dapat ditulis setelah statement:
+  
+  statement if kondisi
+  statement unless kondisi
+
+[2] for 
+
+    for (INIT; CONDITION; CHANGES) {
+       
+    }
+
+    for (1..5){
+        
+    }
+    
+    for $nilai (@words) {    
+        print "value: $nilai";   
+    }   
+    
+[3] while/until
+     
+    while ( condition ) {
+        ...
+    } 
+    
+    while (($person, $age) = each(%ages))
+    {
+        print "$person is $age\n";
+    }
+    
+    do { } while ()
+   
+                     
+[4] foreach
+
+Foreach digunakan untuk mengiterasi sebuah array atau hash
+
+    foreach(@array) {
+      
+    }
+    
+    foreach my $key (keys %hash) {
+    }
+
+
+    
+    while (($key,$value) = each(%my_hash)) {
+       print "Key = $key, Value = $value \n";
+    }
+
+-= Variabel spesial =-
+
+Dalam Perl banyak sekali variabel special yang biasanya membuat bingung orang 
+yang pertama kali mempelajadi Perl. Variabel special adalah variabel yang telah 
+ada atau didefinisikan oleh Perl sendiri. 
+
+%ENV dengan keys nama variabel environtment dan nilai array adalah valuenya
+
+contoh :
+
+perl -e 'print("variabel ENV yang diset adalah:\n");foreach $a (keys %ENV){
+print("$a\n");}'
+
+File handle:
+
+STDIN STDOUT STDERR
+
+contoh:
+
+print(STDERR,"Error: File cannot access");
+
+<SDTDIN>
+<>
+
+default variabel $_
+
+$1 $2 $3 ... $N
+adalah varibel mengembalikan nilai pattern macthing, tiap pattern dapat
+dipisahkan dengan tanda "()"
+
+contoh:
+
+$Pattern = "Nama Saya Adalah A";
+/^(N*ma)
+
+$`
+$&
+$'
+
+-= Subroutine (Prosedur/Fungsi) =-
+Subroutine adalah sebuah blok kode program yang memiliki fungsi tertentu yang 
+dapat dijalankan (dipanggil) ketika dibutuhkan.
+
+Subroutine ditulis dengan bentuk seperti ini 
+
+  sub nama_subroutine { kode }
+  
+
+Subroutine dipanggil dengan menggunakan tanda '&' didepan nama_subroutine. Tanda 
+'&' tidak harus ditulis tapi sebaiknya digunakan untuk membedakan dengan 
+built-in function. Baik built-in function maupun prosedur dapat dipanggil dengan 
+tanda () maupun tidak. Contoh
+
+   print "Hello", " guys";
+   calculate;
+   
+   print("Hello", " guys");
+   calculate();
+
+Parameter yang dikirim ke sebuah subroutine akan dimasukan dalam varibel spesial 
+@_ yang berupa array dari parameter. 
+
+Contoh subroutine dan cara pemanggilannya:
+
+
+  print "2 squared is equal to: ", &square(2);
+  print "2 times 3 is equal to: ", &multiply(2, 3);
+  &print "olleh";
+  
+  sub square {
+      my($x) = @_;
+      $x = $x * $x;
+      return $x;
+  }
+  
+  sub multiply {
+      my($a, $b) = @_;
+      my $result = $a * $b;
+      return $result;
+  }
+  
+  sub print {
+      print "hello";
+  }
+  
+Secara default sebuah variabel akan dikenali diseluruh tempat didalam program 
+Perl, atau disebut variabel global. Gunakan selalu 'my' dalam subroutine agar 
+varibel hanya terbatas pada blok subroutine.
+
+
+
+-= Regular expression =-
+
+Regular expression (regex) adalah ekspresi atau pattern untuk mengidentifikasi 
+suatu teks string.
+
+perl -e "$a='PL hello';if($a =~ m/PL(\s|_|-)hello/){print 'SUCCESS';}"
+
+.     Any single character except a newline
+^     The beginning of the line or string
+$     The end of the line or string
+*     Zero or more of the last character
++     One or more of the last character
+?     Zero or one of the last character
+
+\n    A newline
+\t    A tab
+\w    Any alphanumeric (word) character. [a-zA-Z0-9_]
+\W    Any non-word character. The same as [^a-zA-Z0-9_]
+\d    Any digit. The same as [0-9]
+\D    Any non-digit. The same as [^0-9]
+\s    Any whitespace character: space, tab, newline, etc
+\S    Any non-whitespace character
+\b    A word boundary, outside [] only
+\B    No word boundary
+
+Clearly characters like $, |, [, ), \, / and so on are peculiar cases in regular
+expressions.
+
+\|    # Vertical bar
+\[    # An open square bracket
+\)    # A closing parenthesis
+\*    # An asterisk
+\^    # A carat symbol
+\/    # A slash
+\\    # A backslash
+\&
+
+\n    n is a number,
+
+if ($sentence =~ /under/) {
+}
+
+if (/under/) {
+}
+
+$sentence =~ /the/
+$sentence !~ /the/
+
+my (var) = ($sentence !~ /the(.*)/)
+
+
+/<PATTERN>/<option>    pencarian string yang cocok dengan pattern
+m|<PATTERN>|<option>   pencarian string yang cocok dengan pattern dengan
+separator yang bisa kita pilih, dalam hal ini |
+
+s/<PATTERN>/<TEXT_PENGGANTI>/<option>           replace
+
+    c   Do not reset search position on a failed match when /g is in effect.
+    g   Match globally, i.e., find all occurrences.
+    i   Do case-insensitive pattern matching.
+    m   Treat string as multiple lines.
+    o   Compile pattern only once.
+    s   Treat string as single line.
+    x   Use extended regular expressions.
+
+
+
+
+
+$perl -n 's/old/new/g' test.txt            
+
+
+
+
+
+
+
+
+
+
+

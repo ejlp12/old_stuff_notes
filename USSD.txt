@@ -1,0 +1,78 @@
+USSD (Unstructured Supplementary Service Data) adalah proses atau teknologi untuk pertukaraninformasi teks antara sebuah telepon bergerak dan aplikasi pada jaringan operator. Teknologi USSD pertama kali dibuat untuk jaringan GSM dan kemudian tetap digunakan pada jaringan 3G/UMTS.
+
+Sebuah kode akses USSD atau USSD message dari ponsel adalah digit yang diawali dengan tanda * dan diakhiri dengan tanda #. Setiap parameter dibatasi oleh tanda *.
+Contoh-contoh USSD message yang dikirimkan ponsel ke jaringan operator:
+
+  *123#
+  *123*1*9789732404229650#
+
+Respon yang didapat oleh pengguna dapat berupa:
+- informasi atau notifikasi yang tidak perlu jawaban, misalnya informasi jumlah tagihan (billing)
+- informasi atau pilihan yang berupa menu yang meminta jawaban dari pengguna. 
+
+Jika pengguna mendapatkan respon yang meminta jawaban dan tidak menjawab selama beberapa saat maka jaringan operator akan menutup sesi dialog tersebut. 
+
+Awalnya, USSD didesain untuk mempermudah interaksi antara ponsel pelanggan dengan operator jaringan dalam menggunakan supplementary service. Supplementary service adalah layanan tambahan seperti call waiting, call barring, dan lain-lain. untuk mengaktifkan, menghapus atau melakukan setting pada layananan tersebut, pelanggan dapat melakukannya dengan cara menekan tombol kode akses pada ponsel dan mengirimkannya dengan menekan tombol panggilan. Biasanya suatu ponsel telah memiliki menu untuk setting supplementary service sehingga kita tidak perlu menghafalkan kode-kode akses tersebut. Dibalik layar, ketika kita mengakses menu tersebut, ponsel akan mengirimkan USSD message ke jaringan operator.
+
+Input kode akses dari user yang akan dikirimkan sebagai USSD message dispesifikasikan pada standar GSM 02.30 atau 3GPP TS 22.030, yang berjudul "Man-machine Interface (MMI) of the Mobile Station (MS)"
+
+
+ - USSD merupakan session oriented artinya selama dialog berlangsung switching akan mendedikasikan sebuah bearer. 
+ - WAP, SIM Toolkit dapat menggunakan USSD sebagai bearer
+ - USSD disupport mulai CAMEL phase 2
+ - Mudah diakses, hanya perlu menekan nomor (kode akses)
+ - USSD dapat mengirimkan informasi teks sampai 182 karakter
+
+USSD memiliki 2 mode transaksi yaitu: 
+
+1. Pull mode atau mobile-initiated yaitu interaksi yang dimulai (inisialisasi) dari ponsel pengguna
+2. Push mode atau network-initiated yaitu interaksi yang dimulai (inisialisasi) dari aplikasi yang berada di jaringan operator
+
+USSD dispesifikasikan pada standar GSM 02.90 (USSD Stage 1), GSM 03.90 (USSD Stage 2), 04.90 atau 3GPP TS 22.090 (USSD Stage 1) 23.090 (USSD State 2) 24.099 (USSD Stage 3).
+
+USSD Phase 1 hanya support mobile-initiated operation artinya pengguna ponsel hanya bisa mengirimkan suatu perintah USSD untuk kemudian direspon oleh jaringan operator. Komunikasi hanya terjadi sekali (satu kali permintaan dan satu kali jawaban).
+
+Pada USSD Phase 2, dialog dapat terjadi antara ponsel dan jaringan operator sehingga pertukaran informasi (request dan response) dapat terjadi beberapa kali. Informasi juga dapat diinisialisasi dari jaringan operator (network initiated)
+
+Pada jaringan operator transfer informasi dari sebuah pesan USSD antar elemen dilakukan menggunakan SS7 signaling yaitu MAP (Mobile Application Part). Proses pengiriman informasi untuk mobile-initiated USSD adalah sebagai berikut:
+
+1. Ponsel pelanggan menggirimkan informasi digit ke MSC jaringan operator.
+2. MSC mengirimkan informasi tersebut ke HLR.
+3. Kemudian HLR meproses informasi tersebut atau mengirimkan ke USSD gateway.
+4. USSD gateway kemudian mengirimkan informasi ke sebuah aplikasi
+5. Aplikasi memberikan respon ke USSD gateway
+6. USSD gateway mengirimkan response ke HLR 
+7-8. HLR kemudian mengirimkan response ke pelanggan lewat MSC.
+
+                  .-------.         .-------.          .------------.          .----------.
+         ---1---> |       |---2---> |       | ---3---> |            | ---4---> |          |
+  Ponsel <---8--- |  MSC  |<---7--- |  HLR  | <---6--- |USSD gateway| <---5--- | Aplikasi |
+                  |       |         |       |          |            |          |          |
+                  '-------'         '-------'          '------------'          '----------'
+
+Komponen aplikasi pada arsitektur diatas bisa berupa aplikasi apasaja, misalnya billing system, content management system (CMS) atau aplikasi di content provider yang berada di luar jaringan operator. 
+
+USSD Gateway berfungsi sebagai penghubung antara aplikasi dengan jaringan inti telekomunikasi (core network). USSD gateway tidak dispesifikasikan pada dokumen GSM/3GPP tapi biasanya elemen ini hampir selalu ada untuk mempermudah komunikasi yang dilakukan aplikasi. Konunikasi antar USSD gateway dengan aplikasi biasanya berbasis TCP/IP misalnya menggunakan HTTP. Jadi USSD gateway menjembatani jaringan IP (packet based) dengan jaringan jaringan SS7 (circuit based) sehingga operator jaringan dapat membuat layanan tambahan (value added service) dengan mudah.
+
+
+
+MAP sebagai pendukung transaksi USSD yang menghubungkan MSC dengan HLR dan HLR dengan USSD gateway menspesifikasikan beberapa operasi (command) untuk mengirimkan USSD message. 
+
+Pada GSM 09.02 (MAP Phase 1) hanya ada satu operasi yang berhubungan dengan USSD:
+
+- MAP_PROCESS_UNSTRUCTURED_SS_DATA
+Perintah ini membawa informasi dari ponsel pelanggan (mobile-initiated), dikirimkan MSC ke HLR atau dari HLR ke USSD gateway untuk meminta informasi.
+
+Pada GSM 09.02 (MAP Phase 2 dan phase 2+) terdapat tambahan 2 operasi untuk USSD yaitu:
+
+
+- MAP_UNSTRUCTURED_SS_REQUEST
+Perintah ini dikirimkan dari USSD gateway ke HLR atau dari HLR ke MSC untuk diteruskan ke pelanggan.
+Perintah ini digunakan untuk meminta informasi dari pelanggan yang diinisialiasi oleh operator (network-initiated)
+
+- MAP_UNSTRUCTURED_SS_NOTIFY
+Perintah ini dikirimkan dari USSD gateway ke HLR atau dari HLR ke MSC untuk diteruskan ke pelanggan.
+Perintah ini merupakan network-initiated, digunakan untuk memberikan informasi dari pelanggan.
+
+
+(c) 20071107 ejlp12@yahoo.com

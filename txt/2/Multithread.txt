@@ -1,0 +1,31 @@
+- Place data in the JVM: heap, stack, method area
+- Inside the Java virtual machine, each thread is awarded a Java stack
+- which contains data (local variables, parameters, and return values) no other thread can access
+- The data on the stack is limited to primitive types and object references.
+- All objects reside on the heap.
+- There is only one heap inside the JVM, and all threads share it.
+- Arrays reside on the heap, including arrays of primitive types
+
+- The method area is similar to the stack in that it contains only primitive types and object references.
+- the class variables in the method area are shared by all threads.
+
+- When the JVM loads a class file, it creates an instance of class java.lang.Class
+- When you lock a class, you are actually locking that class's Class object.
+
+synchronized (this) { 
+   ... 
+}
+
+- The statements contained within the synchronized block will not be executed until a lock is acquired on an object
+- opcodes: monitorenter and monitorexit, are used for synchronization blocks within methods
+
+synchronized void methodName() {
+  ...
+}
+
+- When the JVM resolves the symbolic reference to a method, 
+  it determines whether the method is synchronized.
+- If it is, the JVM acquires a lock before invoking the method.
+- JVM acquires the lock associated with the object upon which the method is being invoked
+- After a synchronized method completes (by returning or by throwing an exception) the lock is released
+

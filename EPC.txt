@@ -1,0 +1,25 @@
+Evolved Packet Core (EPC)
+
+Anda mungkin sudah tahu teknologi LTE (Long Term Evolution) yaitu teknologi terkini yang dipersiapkan untuk jaringan akses radio telekomunikasi bergerak yang merupakan jalur evolusi untuk 2G GMS dan 3G UMTS.
+LTE dikembangkan agar dapat memenuhi standar 4G dengan kecepatan akses yang lebih tinggi dari HSDPA, HSPA+. Perubahan teknologi akses radio ini juga diikuti dengan core network dari provider telekomunikasi bergerak.
+
+EPC adalah core network untuk mendukung teknologi LTE dengan konsel arsitektur All-IP artinya jaringan tersebut menggunakan protokol IP yang berbasis packet dan tidak lagi menggunakan TDM/ATM.
+EPC dibuat dan distrandarisasi oleh 3GPP pada Release 8 dan terus dikembangkan hingga saat ini (Release 10).
+
+berbeda dengan core network pada generasi sebelumnya yaitu 2G dan 3G, pada EPC tidak dikenal pembagian CS (circuit switched) domain dan PS (packet switched) domain. 
+Pada EPC hanya digunakan protokol berbasis paket (IP) dari perangkat pengguna ke eNodeB, sebutan base station pada LTE, lalu ke EPC dan ke service domain atau application domain dalam hal ini biasanya adalah IMS (IP Multimedia Subsystem).
+Penggunakan IP ini sesuai dengan perkembangan konvergensi teknologi telekomunikasi atau arsitektur next generation network (NGN) yang telah dirumuskan oleh organisasi-organisasi telekomunikasi dunia, seperti ETSI/TISPAN, 3GPP, 3GPP2, ITU.
+
+PCRF (Policy & Charging Rule Function) sudah ada pada 3GPP Release 7
+Sedangkan MME, SGW dan PGW baru ada pada 3GPP Release 8
+
+1. Serving gateway
+SGW adalah elemen data plane yang fungsi utamanya adalah 
+mengelola user-plane mobility.
+
+SGW me-maintain jalur data antara eNodeB dengan PDN Gateway (PGW)
+Saat pengguna bergerak dan terjadi perpindajan eNodeB dalam E-UTRAN, maka 
+paket data akan selalu menuju ke SGW.
+
+2. Packet Data Network (PDN) Gateway (PGW)
+

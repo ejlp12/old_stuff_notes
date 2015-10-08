@@ -1,0 +1,588 @@
+<pre> <h1>DAQ Tutorial</h1>
+
+<h3>Pengenalan Akuisisi Data</h3> 
+
+Akuisisi data adalah proses pengambilan pengukuran suatu besaran dari lingkungan 
+atau fenomena fisik seperti temperatur, tekanan, arus, tegangan listrik dan lain 
+-lain. Data tersebut biasanya diukur dan dikirimkan dalam sinyal listrik 
+kemudian dicacah (sampling). Data hasil sampling tersebut biasanya ditampilkan 
+secara realtime atau hanya disimpan untuk dianalis atau diolah langsung 
+(realtime).
+
+Akuisisi data sering disingkat DAQ (disingkat dari Data Acquisition). DAQ system 
+biasanya paling tidak memiliki komponen-komponen berikut:
+
+• Transduser/Sensor.
+
+  Transduser atau sensor sebagai alat pengukuran yang mengubah besaran fisis ke 
+  sinyal listrik. Saat ini banyak sekali komponen sensor yang tersedia dipasar 
+  yang bisa digunakan untuk mengukur besaran fisis untuk kemudian menghasilkan 
+  output berupa tegangan listrik.
+
+• Sinyal. 
+
+  Sinyal adalah komponen penting sebagai pembawa informasi. Sinyal yang 
+  digunakan biasanya adalah sinyal listrik dan nilai besaran ditunjukan dengan 
+  besarnya tegangan listrik atau frekuensi.
+
+  Informasi sinyal yang dibawa dari sensor biasanya adalah sinyal analog
+
+• Rangkaian pengkondisi sinyal (signal conditioning). 
+
+  Rangkaian ini digunakan untuk mengubah sinyal agar besarannya sesuai dengan 
+  nilai yang dapat diukur oleh DAQ hardware. Kadang kala besarnya sinyal yang 
+  dihasilkan sensor sangat besar sehingga akan dapat merusak alat DAQ atau 
+  kadang sinyalnya sangat lemah sehingga alat DAQ tidak dapat mengukur dengan 
+  baik. Oleh karena itu diperlukan pengkondisi sinyal yang akan memperkuat 
+  (amplification) atau memperlemah (attenuation) sinyal sehingga memiliki batas 
+  besaran yang diperbolehkan oleh alat DAQ. Selain itu singnal conditioner 
+  biasanya berfungsi untuk memfilter sinyal dari gangguan (noise).
+
+  Besaran sinyal Pengkondisi sinyal juga biasanya berfungsi sebagai pengubah 
+  (converter) dari sinyal analog ke sinyal digital atau sering disebut AD 
+  converter.
+
+• DAQ hardware. 
+
+  DAQ hardware adalah alat yang berfungsi untuk mengolah sinyal biasanya juga 
+  berfungsi sebagai AD converter dan DA converter. Biasanya sebuah DAQ hardware 
+  memiliki komponen-komponen berikut:
+
+  - Analog input/output 
+  - Digital input/output 
+  - AD/DA converter 
+  - Counter/timer 
+  - Multiplexer - Processor atau mikrokontroler
+
+  Analog atau digital input digunakan untuk masukan sinyal hasil pengukuran 
+  sedangkan output digunakan untuk memberikan sinyal yang biasanya digunakan 
+  untuk mengkontrol suatu aktuator. Sinyal output yang dapat dikeluarkan 
+  biasanya dapat diprogram sesuai keinginan kita.
+
+  Pada DAQ system berbasis PC, DAQ hardware ini biasanya berupa card disebut DAQ 
+  card yang dapat dimasukan ke slot yang ada di mainboard, bisa slot ISA, PCI, 
+  PXI, PCMCIA, USB.
+
+  
+• Driver dan software aplikasi.
+  
+  Driver merupakan modul software yang biasanya disediakan oleh produsen DAQ 
+  system atau DAQ card agar kita dapat dengan mudah membuat software aplikasi. 
+  Software aplikasi sendiri dapat berupa aplikasi yang kita buat untuk 
+  menampilkan data atau proses data misalnya melakukan algoritma kontrol.
+
+Dibawah ini adalah sebuah gambar DAQ system yang digunakan untuk pengontrol 
+plan/system.   
+
+                      +--------------------------+   +-------+--------+ 
+       +----------+   | Signal Conditioner       |   |   KOMPUTER     | 
+     +-+ aktuator +-<-+--------------------------+   |----------------|  
+     | +----------+   | Amplifier + DA Converter +-<-|    DAQ Card    +-+  
+     |                +--------------------------+   +-------+--------+ | 
+     |                                                                  | 
+     |                                                                  | 
+     V                                                                  ^
+  +--------------+                 +---------------------------+        | 
+  |              |   +--------+    |  Signal Conditioner       |        | 
+  |   PLANT      +->-+ sensor +-->-+---------------------------+--------+  
+  |              |   +--------+    |  Amplifier + AD Converter |  
+  +--------------+                 +---------------------------+  
+
+Aplikasi  pada  komputer  akan  mengetahui  kondisi  plant  kemudian   melakukan
+algoritma kontrol dan mengeluarkan sinyal output untuk menggerakan aktuator yang
+memanipulasi plan.  Jika besaran  yang diukur  pada plan  telah mencapai kondisi
+yang dinginkan (stabil) maka kontroler tidak akan memberikan sinyal output  pada
+DAQ card.
+
+DAQ card (PC-based DAQ)
+=======================
+
+[http://downloadt.advantech.com/ProductFile/1-73KF1/PCL-812PG_S.jpg]
+
+Fitur yang biasanya membedakan suatu  DAQ card adalah banyaknya input   channel,
+kecepatan pencacahan (sampling rate), bit data, range  input (tegangan)  analog,
+cara   trigger,    dan  fitur-fitur  tambahan   lain  seperti   adanya  counter,
+interupt, memory dan lain-lain.
+
+Suatu DAQ card  yang umum  memiliki  fitur untuk analog  input  (A/D conventer),
+analog output  (D/A Conventer),  digital input  dan digital  output (DIO). Untuk
+keperluan itu  maka biasanya  DAQ card  terdiri  dari  beberapa input dan output
+channel atau konektor.
+
+Suatu DAQ card  yang dijual biasanya  dilengkapi dengan software  driver. Kadang
+produsennya juga menjual aplikasi untuk development. 
+
+Hal pertama yang perlu kita lakukan untuk membuat DAQ system adalah menganalisis
+besaran fisis  yang akan  diukur dan  pensinyalan yang  akan digunakan  kemudian
+merancang sistem. Perancangan berarti juga pemilihan sensor, signal conditioner,
+jenis DAQ hardware dan desain software yang akan dibuat.
+
+Dengan mengetahui karakteristik besaran fisis yang akan diukur dan karakteristik
+transduser atau sensor yang digunakan maka kita dapat menentukan berapa sampling
+rate, penguatan sinyal, ketepatan (presisi) yang kita perlukan pada DAQ card.
+
+Untuk memilih DAQ hardware maka kita perlu melihat spesifikasinya dari datasheet
+yang diberikan produsen. Selain spesifikasi teknis, pertimbangkan juga harga.
+
+Cara kerja DAQ card
+===================
+
+Pengaturan aliran data dalam komputer diatur oleh bus, oleh karena itu perangkat
+yang tersambung  pada komputer  perlu memiliki  address bus  (alamat dari  jalur
+data)  tersendiri  agar  dapat diketahui  alamatnya  ketika  akan mengirim  atau
+mengambil  data.  Begitu  juga  DAQ card,  memerlukan address   bus yang terdiri
+dari alamat-alamat yang  digunakan  untuk jalur  data.  
+
+Addresses   yang  digunakan   tersebut  berurutan   dan  address   yang   paling
+awal  biasanya  disebut BASE   ADDRESS.   Dengan  mendefinisikan   base  address
+tersendiri,     maka   kita    akan   mudah   untuk  menentukan    address  yang
+lain  karena  address  tersebut   berurutan,  jadi address kedua  dalam  address
+bus   yang     digunakan   bisa    dinyatakan   dengan   'base   address'+1  dan
+seterusnya. 
+
+Address yang digunakan sebuah perangkat tersebut tidak boleh sama dengan address
+yang  telah digunakan  perangkat lain misalnya printer.
+
+Instalasi DAQ card 
+==================
+
+Sebelum installlasi lakukan pemeriksaan  awal, pastikan DAQ card dalam   keadaan
+baik. Instalasi awal  dilakukan dengan  mengatur jumper.  Pengaturan jumper  ini
+dapat dilihat  pada  buku   manualnya.  Biasanya  pengaturan  jumper   dilakukan
+untuk menentukan base address    yang  akan digunakan, pemilihan   batas (range)
+tegangan input,  pengaturan  DMA  (Direct Memory    Access) transfer,  pemilihan
+cara  pen-trigger-an, pengaturan  counter, pemilihan  level IRQ,  dan pemilihan
+tegangan referensi (dari luar  atau dari dalam  komputer). 
+
+Selanjutnya dilakukan  pemasangan DAQ  card pada  komputer. Sebelumnya  pastikan
+komputer dalam keadaan mati. Pasangkan DAQ card pada slot yang kosong. 
+
+Setelah instalasi selesai maka  perlu dilakukan pengetesan. Pengetesan  biasanya
+dapat dilakukan dengan  software yang diberikan  produsen kalau tidak  maka kita
+perlu membuat program sederhana untuk pengetesan ini. Jika produsen  menyediakan
+driver  maka  pekerjaan  pembuatan  software  akan  lebih  mudah,  jika   tidak,
+bersiaplah untuk belajar membuat driver DAQ card.
+
+<h3>Driver untuk DAQ card</h3> 
+
+Untuk membuat 
+
+Konektor atau channel  input output (I/O).  Suatu PCL biasanya  terdiri beberapa
+channel input  dan output.  Pengetahuan tentang  fungsi pin-pin  pada PCL sangat
+diperlukan  untuk perangkaian  I/O yang  benar. Yang  perlu diperhatikan  disini
+adalah ground dan tegangan referensi.
+
+Contoh konfigurasi pin pada konektor
+
+Keterangan:
+A/D   - Analog input
+A.GND - Analog ground
+D/A   - Analog output
+D/O   - Digital output
+D/l   - Digital input
+D.GND - Digital and power supply ground
+CLK   - Clock input for the 8253 counter
+GATE  - Gate input for the 8253 counter
+OUT   - Signal output of the 8253 eounter
+VREF  - Voltage reference
+
+Connector 1 (CN1) - Analog Input (Single-ended channels)
+
+A/D 0     1 2     A.GND
+A/D 1     3 4     A.GND
+A/D 2     5 6     A.GND
+A/D 3     7 8     A.GND
+A/D 4     9 10    A.GND
+A/D 5    11 12    A.GND
+A/D 6    13 14    A.GND
+A/D 7    15 16    A.GND
+A/D 8    17 18    A.GND
+A/D 9    19 20    A.GND
+
+Connector 2 (CN2) - Analog Output
+
+A/D 10     1 2     A.GND
+A/D 11     3 4     A.GND
+A/D 12     5 6     A.GND
+A/D 13     7 8     A.GND
+A/D 14     9 10    A.GND
+A/D 15    11 12    A.GND
+D/A 1     13 14    A.GND
+D/A 2     15 16    A.GND
+V.REF1    17 18    A.GND
+V.REF2    19 20    A.GND
+
+Connector 3 (CN3) - Digital Output
+
+D/O 0     1 2     D/O 1
+D/O 2     3 4     D/O 3 
+D/O 4     5 6     D/O 5 
+D/O 6     7 8     D/O 7
+D/O 8     9 10    D/O 9
+D/O 10   11 12    D/O 11
+D/O 12   13 14    D/O 13
+D/O 14   15 16    D/O 15
+D.GND    17 18    D.GND
++ 5V     19 20    + 12V
+
+Connector 4 (CN4) - Digital Input
+
+D/I 0     1 2     D/I 1
+D/I 2     3 4     D/I 3
+D/I 4     5 6     D/I 5
+D/I 6     7 8     D/I 7
+D/I 8     9 10    D/I 9
+D/I 10   11 12    D/I 11
+D/I 12   13 14    D/I 13
+D/I 14   15 16    D/I 15
+D.GND    17 18    D.GND
++ 5V     19 20    + 12V
+
+Connector 5 (CN5) - Counter
+
+EXT.TRIG   1 2
+DRDY       3 4
+           5 6     CTR1 GATE
+           7 8     CTR0 CLK
+           9 10    CTR0 OUT
+          11 12    CTR0 GATE
+          13 14    CTR1 OUT
+          15 16
+D.GND     17 18    D.GND
++ 5V      19 20
+
+<h3>Prinsip kerja PCL</h3>
+Kerja PCL tentu saja pada 'dunia digital', oleh karena itu besaran-besaran
+input analog akan dikonversi dalam besaran (angka) digital. PCL memiliki
+beberapa address register untuk memilih apa yang harus dilakukan oleh
+PCL. Address register tersebut dimulai dari base address, dan masing
+masing address memiliki fungsi tersendiri, misalnya untuk mengambil data
+high byte dari konektor.
+
+Contoh lokasi register relatif terhadap base address adalah sebagai
+berikut:
+
+Location                 Read                     Write
+BASE + 0           Counter0                 	Counter0    
+BASE + 1           Counter1                 	Counter1    
+BASE + 2           Counter2                 	Counter2
+BASE + 3           N/U*                        	Counter Control
+BASE + 4           A/D low byte          	CH1 D/A low byte                 
+BASE + 5           A/D high byte        	CH1 D/A high byte   
+BASE + 6           D/I low byte         	CH2 D/A low byte 
+BASE + 7           D/I high byte	        CH2 D/A high byte        
+BASE + 8           N/U                          Clear Interupt Request
+BASE + 9           N/U                          N/U
+BASE + 10          N/U                          MUX scan channel
+BASE + 11          N/U                          PCL-812 Control
+BASE + 12          N/U                          Software Trigger 
+BASE + 13          N/U                          D/O low byte
+BASE + 14          N/U                          D/O high byte
+BASE + 15          N/U                          N/U
+
+
+dari tabel tersebut terlihat bahwa PCL memiliki fasilitas baca
+(mengambil) sinyal analog (BASE +4 dan BASE +5) dan sinyal digital (BASE
++6 daan BASE +7), fasilitas write sinyal digital atau D/A output pada
+channel 1 dan 2 (BASE +4 sampai BASE +7) serta fasilitas write untuk
+digital output (BASE +13 dan BASE +14). 
+Pada tabel diatas, PCL-812 control maksudnya dalah control register untuk
+mode trigger, misalnya hanya diinginkan sofwer trigger maka perlu dituliskan
+suatu data pada address BASE +11 sesuai manual. 
+MUX csan channel adalah untuk memilih channel (hardware) yang digunakan.
+
+
+Besarnya angka digital yang bersesuaian dengan input tergantung pada jumlah bit
+yang disediakan oleh PCL. Semakin banyak bit maka semakin baik
+resolusinya. Misalnya input mempunyai range dari 0 V sampai 5 V sedangkan
+PCL menyediakan 12 bit data untuk konversi, sedangakan 1 bit digunakan
+untuk mengecek kesiapan input ( jadi tinggal 11 bit), maka range 0-5 V
+akan diubah dalam range 00000000000-11111111111 (dalam biner) atau jika
+dalam desimal 0-2047.
+
+Jadi data input yang diambil dari PCL ataupun output yang akan diberikan ke PCL,
+oleh software (driver) merupakan suatu bilangan bulat diantara range 0 sampai 2047.
+
+Biasanya bit data dari PCL dibagi dua yaitu high byte (8 bit pertama) dan
+low byte (8 bit kedua). Inilah keterbatasan(?) PCL, dia mengambil data dari
+2 address bus (misalnya BASE +4 dan BASE +5) untuk suatu data masukan atau 
+keluaran. Pada PCL 812 12 bit maka ada 16 - 12 = 3 bit yang tidak
+digunakan yang terletak pada high byte..
+Sedangkan 1 bit awal biasanya digunakan untuk mengecek kesiapan input
+(sudah ada atau belum).
+
+contoh data format untuk D/A converter (write port):
+
+1. A/D low byte dan data
+
+BASE +4    D7        D6         D5        D4         D3        D2	D1        D0
+-------------------------------------------------------------------------------------
+data       AD7       AD6        AD5       AD4        AD3       AD2      AD1	  AD0
+
+2. A/D high byte 
+
+BASE +5    D7        D6         D5        D4         D3        D2	D1        D0
+-------------------------------------------------------------------------------------
+data       0         0          0         DRDY       AD11      AD10     AD9       AD8
+
+
+ADx (x nomor urut dari 1 samapi 11) adalah bit-bit data digital 
+(bernilai 1 atau 0).Satu sample data yang diberikan ke PCL berarti
+akan dibagi kedua address (BASE +4 dan BASE +5) tersebut dalam
+urutan AD11-AD10-AD9-AD8-AD7-AD6-AD5-AD4-AD3-AD2-AD1-AD0, misalkan
+akan diberikan nilai 101100111011, naka nilai ini harus dipisahkan
+menjadi high byte yaitu 1011 dan low byte  00111011. 
+
+AD11 sampai AD0 adalah analog to digital data yang dapat digunakan. DRDY
+adalah data ready signal yaitu data untuk mengecek kesiapan signal input,
+biasanya 1 berarti not ready tapi jika 0 berarti telah siap. Pada D/A
+ataupun Digital I/O biasanya tidak ada DRDY. 
+
+
+Karena biasanya PCL memiliki beberapa channel, pada PCL812 ini terlihat dari
+tabel konektor diatas memiliki 15 channel input analog, maka untuk mengatur
+dari mana datangnya input atau output maka channel itu dipilih dengan
+semacam multiplexer. Pemilihan ini biasanya dapat dilakukan secara sofware
+(fasilitas MUX scan channel). Misalnya PCL memiliki 4 channel dan data
+format register untuk memilih adalah sebagai beerikut
+
+BASE +10       D7         D6        D5         D4        D3	D2 	 D1        D0	
+--------------------------------------------------------------------------------------
+scan channel   X          X         X          X         CL3    CL2      CL1       CL0
+
+dengan X berarti bit tidak terpakai (don't care), sedangkan CL3-CL0 adalah
+4 channel yang dapat dipilih.
+
+ 
+<h3>Memprogram PCL (dengan C/C++)</h3>
+Untuk memprogram PCL, diperlukan pengetahuan pemrosesan (prinsip
+kerja) PCL dalam mengubah  sinyal analog ke sinyal dan sebaliknya digital
+dan tentu saja pengetahuan tentang bahasa pemrogramannya teerutama operasi
+bilangan biner.
+
+Hal awal yang perlu diberikan pada komputer adalah informasi base address
+yang digunakan agar mempermudah penulisan selanjutnya, hal ini dapat
+dilakukan dengan mendeklasaikan
+sebagai berikut 
+
+const int BASE_ADDRESS = 0x300; 
+
+atau 
+
+#define BASE_ADDRESS  0x300 
+
+jika alamat base address adalah 300h. Pada bahasa C penulisan pada suatu
+alamat (address) adalah sebagai berikut outportb(no_address, nilai); atau
+outport(no_address, nilai); sedangkan untuk membaca (read) dari suatu
+alamat adalah sebagai berikut inportb(no_address); atau
+inport(no_address);
+
+<h3>Konversi A/D</h3>
+Ada tiga langkah yang ditempuh (algoritma)  untuk mendapatkan sinyal input
+ke PCL yaitu:
+
+1. Set/pilih  channel input  yang akan digunakan, contoh
+
+outportb (BASE_ADDRESS+10, channel);
+
+dengan channel adalah varibel yang kita berikan
+
+2. Write mode pacer trigger pada kontrol register yaitu memilih mode
+trigger apa yang digunakan, contoh
+
+outportb (BASE_ADDRESS+11, 0x01); 
+
+angka 1 sebagai nilai yang diberikan adalah sesuai mode yang diinginkan
+(lihat buku manual), dalam hal ini dipilih mode sofware trigger only
+
+3. Berikan trigger pada PCL, 
+
+outportb (BASE_ADDRESS+12, 0x00); 
+
+pemberian triger langsung dari program kita dapat dilakukan karena kita
+memilih software trigger tadi (pada langkah 2)
+
+4. Tunggu DRDY bit menunjukan tanda ready. 
+Jika syarat data ready seperti contoh diatas, yaitu DRDY bit = 0, maka
+input siap jika dan hanya jika data pada BASE +5 < 15, maka algoritma
+penungguan sampai data ready bisa ditulis seperti ini (ditulis langsung
+dalam bahasa C)
+
+/* looping untuk menunggu data ready */
+#define TIMEOVER 	1000
+#define FAIL		0xAA
+int timcnt=1;
+
+do
+{
+    high_byte=inportb(BASE_ADDRESS+5);
+    if (++timcnt>=TIMEOVER) return(FAIL);
+}
+ while ((high_byte&0x10)!=0);
+/* baca data analog untuk low byte */
+low_byte=inportb(BASE_ADDRESS+4);
+
+
+bisa juga dengan cara
+
+/** 
+ * algoritma dari ariya <ariya@tf.itb.ac.id>  
+ * looping untuk menunggu data ready 
+ */ 
+long dummy = 10000L;
+for (dummy = 0; dummy < 10000; dummy++);
+for (dummy = 10000; inportb(BASE_ADDRESS+5 > 15);)
+if (dummy-- <= 0) break;
+if (dummy > 0){
+/* baca data analog */
+high_byte = inportb(BASE_ADDRESS+5); 
+low_byte = inportb(BASE_ADDRESS+4);
+}
+
+atau
+
+do ( high_byte = inportb(BASE_ADDRESS+5))
+while ( high_byte > 15 );
+
+pada looping pertama, jika sampai waktu timcnt=TIMEOVER data belum siap maka 
+program akan berhenti dan tidak meneruskan pengambilan data analog dari PCL, 
+pada cara looping yang kedua, jika sampai waktu dummy=1000, maka PCL dianggap 
+telah siap dan data analog langsung diambil
+pada cara looping ketiga, looping dilakukan terus menerus (ditunggu) 
+sampai data analog siap diambil. 
+
+5. Jika telah siap ( DRDY bit ready) lakukan pembacaan (read) pada
+register A/D dengan dimulai membaca high byte lalu low byte. Pada
+algoritma diatas ditunjukan oleh
+
+inportb(BASE_ADDRESS+5) dan inportb(BASE_ADDRESS+4)
+
+6. Satukan kedua byte tersebut sehingga menjadi satu data . Disini operasi
+biner diperlukan.
+
+high_byte = (int)(high_byte & 15); /*menjadikan high_byte menjadi data 12 bit integer*/
+high_byte = high_byte<< 8;         /*operasi penggeseran biner sejauh 8 bit kekiri*/
+data = high_byte + low_byte
+
+jika tidak diinginkan menggunakan banyak variable maka bisa dilakukan dengan cara
+
+high_byte = (int)(high_byte & 15);  
+data = (high_byte<< 8) + inportb(BASE_ADDRESS + 4); 
+
+7. Konversikan data digital (binary) sesuai dengan range input yang 
+digunakan PCL. Misal digunakan range input -5 sampai 5 volt dan kita ingin
+melihat besarnya tegangan yang masuk dalam range tersebut
+Prinsip konversi adalah interpolasi yaitu range data input (binary) 0
+sampai 4095 (nilai maksimum data 12 bit) dikonversikan menjadi -5 sampai 5
+volt.
+
+V_in =(  (5-(-5)) / (4095-0) )*data;
+
+
+<h3>Digital ooutput atau D/A converter</h3>
+Prinsip digital output  lebih mudah karena kita tiggal langsung memilih
+channel yang diinginkan lalu diberikan keluaran, prinsip konversi data
+digital ke range output akan memudahkan kitaa memberikan nilai yang sesuai
+dengan tegangan keluaran.
+
+Unutk memberikan suatu tegangan keluran dengan besar tertentu maka yang
+bisa dilakukan komputer adalah memberikan perintah kepada PCL dengan
+memberikan data biner pada address output yang bersangkutan. Karena kita
+menginginkan kemudahan maka dilakukan konversi, misalnya range tegangan 0
+sampai 10 V dari keluaran PCL akan digunakan untuk mengontrol suatu
+kecepatan aliran yang memiliki range dari 0 sampai 250 m3/detik. Jika kita
+ingin memasukan set point kecepatan 100 m3/dtk pada komputer maka program
+kita harus memiliki konversi dari kecepatan aliran (0 s/d 250) menjadi
+tegangan (0 s/5) menjadi data biner (0 s/d 4095 jika 12 bit).
+
+Unutk mempermudah perombakan program unutk konversi maka sebaiknya dibuat
+class konversi atau konversi data dilakukan pada fungsi tersendiri.
+Cobalah buat sendiri programnya..!!
+
+Karena pengukuran dengan PCL adalah pengukuraan yang real-time maka
+kesederhanaan program sangat penting, sehingga perhitungan bisa lebih
+cepat. Penyederhanaan program dapat dilakukan dengan mempersedikit
+variabel yang digunakan atau proses perhitungannya.
+
+ 
+
+<h3>Kalibrasi atau pengetesan secara manual</h3>
+Untuk melakukan kalibrasi maka diperlukan alat pengukur tegangan seperti
+multimeter yang cukup akurat. Kalibrasi dilakukan dengan mengubah besarnya
+tahanan (memutar) dari varibel resistor (VR). Kalibrasi biasanya
+dilakuakan pada besarnya penguatan D/A, A/D. Karena biasanya PCL memiliki
+beberapa input range, maka untuk setiap pergantian input range sebaiknya
+dilakukan kalibrasi atau kalibrasi dilakukan untuk seluruh input range.
+Untuk pengetesan dapat dicoba dengan memprogram PCL untuk tiap-tiap
+pin. Pengetesan sebaiknya dilakukan baik input maupun output. Pengetesan
+pembacaan dapat dengan memberikan input yang dari power supply yang
+diketahui nilainya dan melihat hasilnya dari program pembacaan yang anda
+buat. Pengetesan output tegangan dapat dilakukan dengan mengukur keluaran
+dengan volt meter untuk output yang berbeda.
+
+<h3>Source code</h3>
+/** 
+ * Simple program for PCL-card 812
+ *
+ * @author eryan
+ */
+
+#inclde &ltdos.h&gt
+#include "PCLjniDriver.h"
+
+/** Define base address for PCLab-card 812, default: 300h
+ */
+#define BASE_ADDRESS  0x300
+
+/** Initialization : 
+ */
+int init(){
+ int DRDY,timcnt=1,TIMEOVER=10000;	
+
+/* A/D init. */	 
+ outportb(baseI+11,0x01);       /* enable software trigger */
+	
+/* D/A init. */
+ outportb(baseI+4,0);
+ outportb(baseI+5,0);
+ outportb(baseI+6,0);
+ outportb(baseI+7,0);
+
+/* wait until ready */ 
+ do {
+   DRDY=inportb(BASE_ADDRESS+5);
+   if (++timcnt>=TIMEOVER)return -1;
+ }while ((DRDY&0x10)!=0);
+ return 0
+}
+
+
+/** A/D : Get analog input data from a channel
+ */
+int getPCLData (int channel)
+{
+  int data = -1;
+  int high_byte;
+  outportb (BASE_ADDRESS+10, channel);    			/* set channel number */ 
+  //outportb (BASE_ADDRESS+11, 0x01);          			/* Software triggering PCL */
+  outportb (BASE_ADDRESS+12, 0x00);          			/* TRIGGER TWICE TO GET A STABLE DATA */
+  
+  do ( high_byte = inportb(BASE_ADDRESS+5))			/* Get data when ready */
+    while ( high_byte > 15 );
+  high_byte = (int)(high_byte & 15); 
+  data = (high_byte<< 8) + inportb(BASE_ADDRESS + 4); 
+  
+  return data;
+}
+
+/** D/A : Set analog output data to a channel 
+ */
+int setPCLData (int channel, int setdata)
+{
+  outportb (BASE_ADDRESS + 6, setdata & 255);	 /* output for low byte analog */
+  outportb (BASE_ADDRESS + 7, setdata >> 8);	 /* output for high byte analog */
+  return setdata;
+}
+
+
+</pre>

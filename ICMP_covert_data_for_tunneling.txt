@@ -1,0 +1,153 @@
+Kita mungkin sudah sering menggunakan ping sebagai alat untuk mengetes hidup atau tidaknya sebuah host atau untuk mengetahui berapa lama suatu paket sampai pada host tujuan. Ping sebenarnya merupakan perintah untuk mengirimkan paket ICMP. Paket ICMP echo request akan diterima oleh host tujuan untuk kemudian dibalas dengan paket ICMP lain (echo reply) ke host pengirim.
+
+Jika kita perhatikan perintah ping di sistem operasi Windows, kita dapat menentukan besarnya buffer pengiriman yaitu dengan opsi "-l" misalnya
+
+  ping -l 20000 202.0.0.1
+
+Paket ICMP yang dikirim dari perintah tersebut akan membawa data tidak penting, biasanya hanya berupa karakter "abcdefgh..." yang berulang-ulang. Data yang sama tersebut kan dikirim kembali dari host tujuan dalam paket jawaban (reply). Pengiriman dan pegembalian data dalam paket ICMP inilah yang biasa digunakan oleh orang untuk transaksi data tersembunyi. Transaksi paket data ini bisa digunakan jika ICMP tidak diblok oleh firewall, dan biasanya memang tidak. Transaksi bisa digunakan untuk melakukan tunneling dari paket ICMP ke paket TCP untuk mendapatkan akses internet jika paket TCP tertentu diblok sedangkan ICMP tidak. Selain itu, cara ini bisa juga untuk mengakses backdoor pada suatu host. Kedua cara tersebut akan dibahasa di artikel ini.
+
+Format paket/message dari ICMP dibahas pada RFC 792 Internet Control Message Protocol http://tools.ietf.org/html/rfc792. ICMP memiliki beberapa macam message format, yaitu
+
+- Destination Unreachable Message
+- Time Exceeded Message
+- Parameter Problem Message
+- Source Quench Message
+- Redirect Message
+- Echo or Echo Reply Message
+- Timestamp or Timestamp Reply Message
+- Information Request or Information Reply Message
+
+
+Saya akan bahas mengenai message Echo atau Echo Reply yang memiliki bagian data yang bisa diisi oleh data apapun. Field data tersebut sebenarnya digunakan untuk test, saat kita ingin melakukan test pengiriman packet dengan besar packet yang kita tentukan. Field inilah yang  tersebut yang dapat digunakan untuk mengirimkan informasi (real data) sehingga sering disebut sebagai kanal tersembunyi (covert channel).
+
+Fungsi dari message Echo atau Echo Reply telah dijelaskan di paragraf awal, sekarang kita lihat bagaimana aliran dari message ini.
+
+      host A          Gateway/router         host X
+         |                  |                  |
+         |---Echo request-->|                  |
+         |                  |---Echo request-->|
+         |                  |<--Echo reply-----|
+         |<--Echo reply-----|                  |
+         |                  |                  |
+
+Beberapa flow ICMP dapat dilihat di sini <http://www.eventhelix.com/RealtimeMantra/Networking/Icmp.pdf>.
+
+Format message dari Echo atau Echo Reply berikut adalah sebagai berikut:
+
+   +---------------------------------------------------------------+
+   |                     IP header (160 bits)                      |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |     Type      |     Code      |          Checksum             |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |           Identifier          |        Sequence Number        |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |     Data ...
+   +-+-+-+-+-
+
+Type, code dan checksum adalah field yang umum (selalu ada) dalam semua jenis ICMP message.
+
+[1] Type menunjukan jenis tipe message, misalnya type=8 berarti Echo request dan type=0 bearti Echo reply. Dibawah ini adalah tabel dari nilai field type
+
+    0  | Echo Reply
+    3  | Destination Unreachable
+    4  | Source Quench
+    5  | Redirect
+    8  | Echo
+   11  | Time Exceeded
+   12  | Parameter Problem
+   13  | Timestamp
+   14  | Timestamp Reply
+   15  | Information Request
+   16  | Information Reply
+
+[2] Code menunjukan informasi tambahan yang berhubungan dengan type, misalnya untuk type = 3, dibawah ini adalah nilai-nilai untuk code dan penjelasannya
+
+   0  | Destination network unreachable
+   1  | Destination host unreachable
+   2  | Destination protocol unreachable
+   3  | Destination port unreachable
+   4  | Fragmentation required, and DF set
+   5  | Source route failed
+   6  | Destination network unknown
+   7  | Destination host unknown
+   8  | Source host isolated
+   9  | Network administratively prohibited
+   10 | Host administratively prohibited
+   11 | Network unreachable for TOS
+   12 | Host unreachable for TOS
+   13 | Communication administratively prohibited
+
+[3] Checksum berisi nilai untuk keperluan error checking. Nilai ini didapat dari penjumlahan antara ICMP header dan data.
+
+[4] Identifier berisi nilai sequence untuk menunjukan hubungan antara satu transaksi Echo Request-Echo Reply. Nilai identifier dari echo reply harus sama dengan nilai identifier pada echo request.
+
+[5] Sequence Number berisi nilai yang berfungsi sama dengan Identifier.
+
+[6] Data berisi data apa saja yang harus dikembalikan dengan sama oleh Echo Reply. Jika data terlalu besar maka IP layer akan melakukan fragmentasi paket pada data ini.
+
+Dibawah ini contoh sebuah hex dump data dari paket ICMP Echo request dan Echo Reply
+
+      Echo Request:
+
+      08 00 d6 4e 04 00 73 0d 61 62 63 64 65 66 67 68  ...N..s.abcdefgh
+      69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 61  ijklmnopqrstuvwa
+      62 63 64 65 66 67 68 69                          bcdefghi
+
+      Echo Reply:
+
+      00 00 de 4e 04 00 73 0d 61 62 63 64 65 66 67 68  ...N..s.abcdefgh
+      69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 61  ijklmnopqrstuvwa
+      62 63 64 65 66 67 68 69                          bcdefghi
+
+
+Fungsi dasar ICMP dapat dibaca di RFC 1122 Requirements for Internet Hosts – Communication Layers http://tools.ietf.org/html/rfc1122#page-38, namum beberapa RFC mjuga membahas mengenai penggunaan ICMP seperti
+
+- RFC 896   Source Quench.
+- RFC 950   Address Mask Extensions.
+- RFC 1191  Path MTU Discovery.
+- RFC 1256  Router Discovery.
+- RFC 1349  Type of Service in the Internet Protocol Suite.
+
+ICMP tunneling.
+
+Dengan memanfaatkan data yang dibawa Echo Request & Echo Response, sebuah program tunneling bisa dibuat untuk menkonversi data dari pake ICMP ke paket TCP. Cara ini sering disebut ICMP tunneling atau ICMP proxy. Tunneling ini berguna untuk mendapatkan akses internet jika paket TCP diblok sedangkan paket ICMP tidak. Arsitektur dari ICMP tunneling digambarkan seperti ini
+
+
+                              .................
+                             /   INTERNET    /
+  +---------+               /               /            +---------+
+  | host A  |<-----ICMP----/----,  ,-------/------TCP--->| host B  |
+  +---------+             /     |  |      /              +---------+
+                         /      |  |     /
+                        ........|..|.....
+                                |  |
+                                v  v
+                            +---------+
+                            | host X  |
+                            +---------+
+Diatas meruapakan sebuah contoh arsitektur dimana host A menginginkan data dari host B, misalnya host A adalah tempat anda berada dan ingin melakukan browsing (koneksi HTTP) ke sebuah website (host B).
+Kita memerlukan sebuah host X yang melakukan tunneling yang berfungsi sebagai proxy. Host X lah yang memiliki program ICMP tunneling yang akan menerima request dari client yaitu host A untuk kemudian dikirimkan ke host tujuan, misalnya host B. Data reply dari host B kemudian akan dikonversi ke ICMP Echo reply oleh host X dan dikembalikan ke host A.
+
+Cara seperti ini dapat dilakukan dengan menjalankan program proxy di host X dan program client di host A. Salah satu aplikasi (tool) yang bisa digunakan untuk ICMP tunneling ini adalah PingTunnel <http://www.cs.uit.no/~daniels/PingTunnel/index.html> yang bisa didownload secara gratis.
+
+Sekian dulu tulisan ini, pembahasan berikutnya yaitu ICMP backdoor yang juga menggunakan konsep yang sama yaitu ICMP covert channel akan dibahas pada posting lain.
+
+(c) 20080313, ejlp12@yahoo.com
+
+
+ICMP backdoor menggunakan prinsip yang sama dengan ICMP tunneling yaitu memanfaatkan covert channel dari paket Echo Request dan Echo Reply. Pada ICMP backdoor, ICMP digunakan untuk komunikasi antara client dengan server. Program server biasanya dapat berinteraksi langsung dengan command shell sehingga client dapat memberikan perintah ke server. Perintah dari client dikirimkan dengan paket ICMP Echo Request ke server untuk kemudian server mengeksekusi perintah dan mengirimkan hasilnya (output) ke client dengan ICMP Echo Reply.
+
+   ___________________________
+  |                           |           ______________
+  | +-------+     +--------+  |          |  Client      |
+  | | Shell |<----| Server |<====ICMP===>|  Application |
+  | |       |---->| Daemon |  |          |______________|
+  | +-------+     +--------+  |         
+  |___________________________|
+
+                            
+Tools yang paling awal dibuat untuk ICMP backdoor ini adalah <a href="http://phrack.org/issues.html?issue=51&id=6#article">Loki</a> yang idenya dipublikasikan tahun 1996 dan codenya dirilis ke publik September 1997. Tulisan J. Christian Smith tentang <a href="http://www.s0ftpj.org/docs/covert_shells.htm">covert shell</a> memberikan beberapa list yang cukup banyak tentang tool untuk backdoor jenis ini. Anda dapat mencari tools ICMP backdoor juga di website <a href="http://www2.packetstormsecurity.org/cgi-bin/search/search.cgi?searchvalue=icmp+backdoor&type=archives">PacketStorm</a>
+
+
+
+Cara paling efektif untuk menghindari ICMP tunneling dan ICMP backdoor adalah memblok paket ICMP di firewall atau di host yang bersangkutan atau hanya pada saat yang diperlukan dan dibatasi pada host yang terpercaya saja.

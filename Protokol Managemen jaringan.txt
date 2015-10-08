@@ -1,0 +1,27 @@
+Manajemen jaringan atau manajemen elemen pada jaringan telekomunikasi merupakan hal yang amat penting karena jaringan telekomunikasi dituntut untuk dapat melayani terus-menerus. Ketika saya mulai memasuki dunia telekomunikasi, saya baru mendapatkan sistem-sistem yang hampir selalu dirancang dengan <span style="font-weight: bold;">high availability</span> dan <span style="font-weight: bold;">service availability</span> yang tinggi. Kondisi tersebut dicapai dengan cara rancangan yang memperhatikan high availability baik pada elemen hardware maupun software. Selain itu keadaan elemen harus selalu dimonitor untuk mengetahui akan <span style="font-weight: bold;">performansi elemen</span> agar kesalahan (fault) maupun kondisi yang tidak diinginkan pada sistem dapat diketahui dengan cepat.
+
+Menurut pengalaman saya, protokol yang sering digunakan Untuk memonitor elemen pada jaringan telekomunikasi adalah <a href="http://en.wikipedia.org/wiki/SNMP">SNMP (Simple Network Management Protocol)</a>. SNMP biasanya digunakan untuk memonitor performansi hardware seperti pengguaan CPU, memory, disk, serta parameter-parameter performansi dalam sistem (software) misalnya besarnya queue yang terpakai, penggunaan lisensi.
+
+Mengapa SNMP?
+
+Alasan mengapa SNMP banyak digunakan adalah karena SNMP adalah standar protokol yang memang dirancang untuk memanajemen jaringan dan SNMP merupakan protokol manajemen yang sederhana.
+
+Sederhana tidak berarti mudah, SNMP cukup kompleks dan perlu tenaga yang lebih untuk mempelajari secara detail protokol ini terutama untuk mempelajari <a href="http://en.wikipedia.org/wiki/Structure_of_Management_Information">Structure of Management Information (SMI)</a>.
+
+CMIP: Protokol standar manajemen untuk  elemen telekomunikasi
+
+SNMP bukan satu-satunya protokol yang bisa digunakan untuk keperluan manajemen jaringan seperti monitoring dan pengiriman alarm dan pengubahan parameter. Protokol yang telah menjadi standar untuk jaringan telekomunikasi adalah <a href="http://en.wikipedia.org/wiki/Common_management_information_protocol"><span style="font-weight: bold;">Common Management Information Protocol (CMIP)</span></a> yang dibuat oleh ISO yang kemudian diadopsi sebagai standar oleh organisasi telekomunikasi dunia ITU-T yang dispesifikasikan pada <a href="http://www.itu.int/rec/T-REC-X/en">recommendation series X.700</a>.
+
+Konsep CMIP hampir sama dengan SNMP tetapi CMIP memiliki lebih banyak fitur seperti authorization, access control,reporting yang lebih flexible, mendukung segala jenis tipe action.
+
+<a href="http://www.3gpp.org/">3GPP</a>, organisasi yang membuat standarisasi untuk jaringan GSM/UMTS/IMS/LTE juga menggunakan CMIP sebagai protokol manajemen jaringan (Lihat beberapa spesifikasi tentang Solution Set untuk Integration Reference Point pada <a href="http://www.3gpp.org/ftp/Specs/html-info/32-series.htm">seri 32</a>).
+
+Protokol lain yang didesain untuk manajemen jaringan misalnya:
+
+- Java Management eXtensions (JMX)
+- Web Services Distributed Management (WSDM) http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=wsdm#overview
+- WS-Management http://www.dmtf.org/standards/wsman/
+- WMI (Windows Management Instrumentation) http://en.wikipedia.org/wiki/Windows_Management_Instrumentation
+
+
+ Selain protokol-protokol tersebut kadang vendor juga menggunakan protokol sendiri atau menggunakan protokol yang umum seperti CORBA, HTTP.

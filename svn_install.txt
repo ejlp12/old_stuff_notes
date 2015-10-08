@@ -1,0 +1,111 @@
+SVN: Tutorial by example.
+
+
+
+rpm -ivh neon-0.24.7-4.x86_64.rpm
+rpm -Uvh apr-0.9.12-2.x86_64.rpm
+rpm -Uvh apr-util-0.9.12-1.x86_64.rpm
+rpm -ivh subversion-1.4.3-1.rhel4.x86_64.rpm
+rpm -ivh swig-1.3.25-1.x86_64.rpm
+rpm -ivh mod_dav_svn-1.4.3-1.rhel4.x86_64.rpm
+
+
+$ svnadmin create --fs-type fsfs /svnrepos
+
+$ svn ls file:///svnrepos
+ 
+$ svn import testsvnproject/ file:///svnrepos -m "Initial import"
+Adding         testsvnproject/test2.txt
+Adding         testsvnproject/test1.txt
+
+Committed revision 1.
+
+$ svn checkout file:///svnrepos/ testsvnproject
+A    testsvnproject/test2.txt
+A    testsvnproject/test1.txt
+Checked out revision 1.
+
+$ cd testsvnproject
+$ svn status -u -v
+                1        1 root         test2.txt
+                1        1 root         test1.txt
+                1        1 root         .
+Status against revision:      1
+
+# svn log -v
+------------------------------------------------------------------------
+r1 | root | 2007-05-01 14:04:37 +0700 (Tue, 01 May 2007) | 1 line
+Changed paths:
+   A /test1.txt
+   A /test2.txt
+
+Initial import
+------------------------------------------------------------------------
+
+$ svn info
+Path: .
+URL: file:///svnrepos
+Repository Root: file:///svnrepos
+Repository UUID: 1d5857d9-5f2f-0410-b5a8-d8150960dee5
+Revision: 1
+Node Kind: directory
+Schedule: normal
+Last Changed Author: root
+Last Changed Rev: 1
+Last Changed Date: 2007-05-01 14:04:37 +0700 (Tue, 01 May 2007)
+
+$ echo "this file has been modified" >> test1.txt
+$ echo "test3" > test3.txt
+$ rm -f test2.txt
+$ svn status
+?      test3.txt
+!      test2.txt
+M      test1.txt
+
+$ svn add test3.txt
+A         test3.txt
+
+$ svn status
+!      test2.txt
+A      test3.txt
+M      test1.txt
+
+$ svn commit -m "Add test3.txt, Delete test2.txt"
+Sending        test1.txt
+Adding         test3.txt
+Transmitting file data ..
+Committed revision 2.
+
+$ echo "this file has been modified twice" >> test1.txt
+$ svn diff
+Index: test1.txt
+===================================================================
+--- test1.txt   (revision 2)
++++ test1.txt   (working copy)
+@@ -1,2 +1,3 @@
+ test1
+ this file has been modified
++this file has been modified twice
+
+
+
+http://tortoisesvn.sourceforge.net/
+
+C:\Program Files\TortoiseSVN\bin\TortoisePlink.exe -l username -pw password
+
+Import
+
+svn+ssh://host/repos/project
+
+
+
+
+WebDAV
+dav_setup.txt 
+
+<Location /svn/repos>
+   DAV svn
+   SVNPath /home/subversion/repos
+</Location>
+
+

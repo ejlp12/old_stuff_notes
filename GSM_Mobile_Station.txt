@@ -1,0 +1,39 @@
+The Mobile Station (MS) represents the terminal equipment used by the wireless subscriber supported by the GSM Wireless system. The MS consists of two entities, each with its own identity:
+
+· Subscriber Identity Module (SIM)
+· Mobile equipment
+
+The SIM may be a removable module. A subscriber with an appropriate SIM can access the system using various mobile equipments. The equipment identity is not linked to a particular subscriber. Validity checks made on the MS equipment are performed independently of the authentication checks made on the MS subscriber information.
+
+Functions of a SIM:
+
+The functions of the Subscriber Identity Module (SIM) are:
+· Authentication of the validity of the MS when accessing the network
+· User authentication
+· Storage of subscriber-related information, which can be: data fixed during administrative phase (e.g., subscriber identification), and temporary network data (e.g., cell location identity).
+
+Functions of a Mobile Station:
+
+The Mobile Station (MS) performs the following:
+· Radio transmission termination
+· Radio channel management
+· Speech encoding/decoding
+· Radio link error protection
+· Flow control of data
+· Rate adaptation of user data to the radio link
+· Mobility management
+· Performance measurements of radio link
+
+
+Types of Mobile Stations:
+
+Mobile stations can come in different power classes, which define the maximum
+RF power level that the unit can transmit. For GSM-900 there is five powers classes, for GSM-1800 there are three power classes. The mobile station maximum output power is specified in GSM.
+
+CLASS		Max Power (Watts)
+				GSM-900			GSM-1800
+ I				-							1
+ II				8					  0.25
+ III			5							4
+ IV				2							-
+ V			 0.8						-

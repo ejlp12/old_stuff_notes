@@ -1,0 +1,2 @@
+Flat architecture atau Direct tunnel architecture merupakan bagian dari LTE
+Payload atau data dari koneksi akan ditangani oleh Node-B dan GGSN, hanya signaling saja yang akan dialirkan ke SGSN sehingga mengirit kapasitas dari SGSN dan pada akhirnya jika trafik semakin tinggi maka SGSN relatif tidak perlu ditingkatkan kapasitasnya.

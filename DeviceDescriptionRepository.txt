@@ -1,0 +1,9 @@
+Device Description Repository
+
+Device capability
+
+
+Composite Capabilities/Preferences Profile (CC/PP)
+standar yang buat oleh W3C, digunakan untuk mendeskripsikan kapabilitas device dan preferensi pengguna.
+
+Berdasarkan standar CC/PP tersebut, OMA membuat standar yang dikhususkan untuk mobile device, yaitu User Agent Profile (UAProf)

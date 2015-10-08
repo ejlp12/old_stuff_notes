@@ -1,0 +1,23 @@
+Teknologi HSPA dimulai dari 3GPP release 5 yaitu HSDPA untuk downlink dan release 6 yaitu HSUPA untuk uplink. Dengan kedua enhancement tersebut maka didapatkan efisiensi jaringan dan kecepatan (data rate) yang lebih tinggi. Pada 3GPP release 7 dilakukan lagi perbaikan pada teknologi HSPA sehingga disebut HSPA evolution atau HSPA+
+
+Dibawah ini saya tuliskan beberapa teknologi yang diterapkan pada 3GPP release 7 (Rel-7)
+
+    * Digunakan teknologi MIMO (multiple input dan multiple output) pada antena sehingga peak data rate dapat ditingkatkan.
+
+    * Orde modulasi yang lebih tinggi yaitu 64 QAM untuk downlink dan 16 QAM untuk uplink. Sebelumnya pada Rel-6 modulasi downlink menggunakan QPSK atau 16 QAM dan modulasi uplink menggunakan BPSK.
+
+    * Disisi mobile terminal digunakan dua antenna equalizer yang memberikan kemampuan adaptasi pada kondisi channel dengan cara mengirimkan infomasi kualitas channel yang disebut channel quality information (CQI). Teknologi yang lebih baik pada mobile receiver ini menjadikan kapasitas transmisi dapat ditingkatkan.
+
+    * Pada sisi arsitektur, di Rel-7 terjadi penyederhanaan arsitektur sehingga jumlah elemen jaringan berkurang dan aristekturnya menjadi flat sesuai dengan aritektur pada LTE.
+
+    * Perbaikan pada konsumsi daya (power) pada saat pengguna menggunakan layanan paket seperti voice-over-IP (VoIP), browsing atau download email. Perbaikan tersebut dicapai dengan discontinuous uplink transmission yaitu menghentikan transmisi physical control channel jika tidak ada transmisi data channel. Selain itu juga dilakukan efisinsi yang sama untuk downling yang disebut discontinuous downlink reception.
+
+    * Optimasi pada protokol di layer 2 yaitu penggunaan ukuran dari RLC (Radio Link Control) yang lebih flexible dan dilakukan segmentasi pada Medium Access protocol (MAC) yang ujung-ujungnya meningkatkan data rate.
+
+    * Pengurangan waktu packet call set up dan waktu alokasi channel dengan cara meperbaiki Forward Access Channel (FACH)
+
+    * Penggunaan sebuah frekuensi saja pada kasus Multimedia broadcast multicast service (MBMS) meningkatkan data rate dan kapasiatas dari layanan broadcast/multicast yang sudah ada sejak Rel-6
+
+
+
+Sumber: High-Speed Packet Access Evolution in 3GPP Release 7, IEEE Communication Magazine, December 2007

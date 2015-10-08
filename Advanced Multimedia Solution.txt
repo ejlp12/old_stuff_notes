@@ -1,0 +1,85 @@
+H.320 Narrow-band visual telephone systems and terminal equipment 
+      Narrowband-ISDN (N-ISDN) dan PSTN data rate 64-1920 Kbps
+H.321 Adaptation of H.320 visual telephone terminals to B-ISDN environments
+     Adaptasi H.320 pada jaringan ATM dan Broadband-ISDN 
+H.322 Adaptasi H.320 untuk LAN/Internet/ISO-Ethernet dengan QoS (new IEEE 802 standards)
+
+
+H.323 Packet-based multimedia communications systems
+H.324 Terminal for low bit-rate multimedia communication, 
+      intended for use with V.34 modems (Plain old telephone system/POTS) operating over the General Switched Telephone Network (GSTN)
+      
+Media       Narrow Band ATM       ISO-Ethernet  Ethernet  Low Bitrate   High Res ATM                                   
+            (H.320)     (H.321)    (H.322)  (H.323)   (H.324)       (H.310)                            
+=====================================================================================                                                                                   
+Video       H.261                               H.261     H.261         MPEG-2              
+            H.261       H.261     H.263         H.263     H.261                            
+-------------------------------------------------------------------------------------                                                                                                                                                                                                              
+Audio       G.711       G.711     G.711         G.711     G.723         MPEG-1
+            G.722       G.722     G.722         G.722                   MPEG-2    
+            G.728       G.728     G.723         G.723                                        
+                                  G.728         G.728                   
+                                                G.729                                                                
+-------------------------------------------------------------------------------------
+Data        T.120       T.120     T.120         T.120     T.120         T.120
+                        H.281                             T.434                                 
+                        (H.224)                           T.84                                                
+                                                          Others        
+-------------------------------------------------------------------------------------                          
+Multiplex   H.221       H.221     H.221         H.221     H.223         H.222.1
+                                                                        H.221                                                      
+-------------------------------------------------------------------------------------
+Signaling   H.230       H.230     H.230         H.230     H.245         H.245                                       
+            H.242       H.242     H.242         H.225.0                                                       
+                                                H.245                                                                  
+-------------------------------------------------------------------------------------
+Multi-point H.243       H.243     H.243         NA        NA            NA            
+-------------------------------------------------------------------------------------
+MCU         H.243       H.321     H.321         H.323     NA            H.224
+            H.231       H.243     H.243                                 H.281
+-------------------------------------------------------------------------------------
+Encryption  H.233       H.233     H.320         TBD       H.233/324     NA                                    
+            H.234       H.234     H                       H.234                      
+                 
+=====================================================================================
+Source: www.zytrax.com/tech/protocols/multimedia_stds_itu .htm                        
+      
+MCU = Multipoint Control Unit                             
+                                                 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

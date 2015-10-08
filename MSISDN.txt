@@ -1,0 +1,42 @@
+Nomor telepon
+
+"Nomor handphone kamu berapa?"
+"Oh.., 08123456789"
+
+MSIDN adalah nomor pelanggan (subscriber number) yang digunakan sebagai nomor pemanggilan dari seorang pelanggan jika orang lain ingin menghubunginya. Sebenarnya pengenal identik suatu pelanggan adalah IMSI. Nomor IMSI identik, artinya tidak ada nomor IMSI yang masih aktif secara bersamaan. ISMI disimpan dalam SIM card dan tidak dapat diubah, sedangkan MSISDN dapat diubah tanpa perlu menyentuh data yang ada di SIM card.
+
+-= Standarisari =-
+
+Penomoran MSIDN merupakan standar ITU-T recommendation E.164. Pada jaringan GSM/UMTS, MSISDN memiliki format sebagai berikut
+
+MSISDN = CC + NDC + SN
+
+CC = Country Code
+NDC = National Destination Code, yang menunjukan operator (carrier)
+SN = Subscriber Number
+
+Misalnya nomor pelanggan di Indonesia adalah 6281123456789, 62 adalah kode negara Indonesia, 811 adalah nomor prefix yang diperuntukan untuk Telkomsel dan a23456789 adalah nomor pelanggan. Untuk bertukar nomor telepon bergerak, biasanya kita menghilangkan kode negara dengan menggantinya menjadi angka 0 sehingga orang akan mengucapkan 081123456789. Nomor 081123456789 tersebut valid jika digunakan panggil oleh pengguna dengan nomor yang memiliki kode negara sama dan berada di lokasi negara yang sama.
+
+Pembagian nomor prefix (beberapa angka depan) dilakukan oleh badan regulator setempat. Misalnya untuk operator A diberi alokasi nomor prefix 081 dan 082, operator B menggunakan prefix 083 dan 084. Alokasi prefix untuk operator-operator di Indonesia dapat dilihat di sini [].
+
+IMSI juga nomor standar yang memiliki format sebagai berikut
+
+
+
+-= Perubahan nomor =-
+
+Beberapa operator di Indonesia memberikan fasilitas pemilihan nomor pada pelanggannya sehingga pelanggan dapat memilih nomor cantik sebagai nomor panggilan (MSISDN). Dulu pemilihan nomor hanya bisa dilakukan untuk pelanggan pascabayar (postpaid) sedangkan untuk prabayar (prepaid) pelanggan harus memilih kartu yang sudah memiliki nomor yang tetap. Saat ini hal itu tidak berlaku lagi, pelanggan prabayar yang sudah memiliki nomor ketika membeli kartu pun dapat mengubah nomornya dengan memilih nomor cantik. Tetapi biasanya hal ini bisa dilakukan dengan syarat: pelanggan belum melakukan transaksi misalnya berlangganan pada layanan tertentu.
+
+Biasanya untuk mengubahan nomor telepon, operator memberikan syarat tertentu. Adanya syarat-syarat tertentu biasanya lebih dikarenakan masalah teknis. Masalah tersebut dikarenakan operator menggunaan MSIDN sebagai identitas pelanggan pada sistem-sistemnya sehingga jika terjadi perubahan MSIDN maka perubahan tersebut harus dilakukan pada semua sistem yang bakaitan. Jika perubahan tidak dilakukan pada semua sistem, pelanggan akan kehilangan layanan yang telah dimilikinya karena nomor penggati tersebut akan dianggap benar-benar baru oleh sistem lain.  Sebagai contoh, sebelum mengganti nomor, seorang pelanggan telah berlangganan konten berita, tetapi setelah berubah nomor maka dia tidak lagi terdaftar dalam kontent berita tersebut. 
+
+Kesulitan operator dalam melakukan perubahan di banyak sistem inilah yang membuat perubahan MSIDN tidak mudah sehingga layanan perubahan nomor ini dihindari atau diusahakan sesedikit mungkin.
+
+Tentu saja masalah tersebut dapat dihindari dengan cara menggunaan IMSI sebagai identitas pelanggan dalam setiap elemen/sistem dan integrasi atau komukasi antar sistem selalu membawa informasi IMSI. Hal itu dikarenakan IMSI akan selalu tetap untuk setiap SIM card walaupun dilakukan perubahan MSISDN.
+
+Solusi lain adalah dengan melakukan integrasi antar sistem untuk proses perubahan MSIDN. Integrasi dilakukan dengan cara perubahan MSIDN pertama kali dilakukan di sebuah sistem, kemudian sistem tersebut memberitahukan sistem-sistem lain bahwa MSISDN tersebut telah berubah dengan memberikan data MSISDN lama dan MSISDN baru. Tentu saja sering terjadinya perubahan nomor dari seorang pelanggan dihindari oleh penyedia layanan telkomunikasi karena hal tersebut akan menyulitkan pelacakan jika pelanggan tersebut mendapatkan masalah pada suatu layanan atau pelanggan tersebut melakukan kejahatan.
+
+
+(c) ejlp12@yahoo.com 20071008
+
+
+

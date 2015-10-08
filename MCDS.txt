@@ -1,0 +1,37 @@
+MCDS (Mobile Content Delivery Solution) 
+
+Saya sudah membicarakan mengenai Mobile CMS di posting sebelumnya. Di posting ini saya akan membahas tentang Mobile Content Delivery Solution (MCDS) yaitu sebuah konsep solusi untuk operator telekomunikasi yang mempermudah management konten dan pengiriman konten ke pelanggan (subscriber). MCDS bisa dibilang sama dengan mobile CMS karena sebuah MCDS merupakan sistem end-to-end untuk content management dan delivery.
+
+Sebuah MCDS biasanya memiliki fitur-fitur berikut ini: 
+
+Modul Content Discovery/Delivery yang terintegrasi dengan elemen yang berfungsi sebagai delivery/discovery channel seperti
+  - Web/WAP portal
+  - SMS
+  - WAP push
+  - USSD
+  - IVR
+  
+
+Modul Content Management yang berfungsi sebagai tempat penyimpanan kontent (content storing), menyimpan metadata/informasi kontent, pengkategorisasian kontent, content lifecycle management termasuk submission dan workflow untuk persetujuan (approval) serta pengelolaan digital-right (DRM).
+
+Modul Content Promotion atau Campaign Management yang memberikan kemudahan untuk melakukan promosi misalnya 
+hadiah (gift), undian (coupons), broadcast, paket, sponsored promotion, up-sell, cross-sell dan lain-lain.
+
+Modul 3rd Party Content Provider Management yang memberikan kemudahan untuk mengelola konten yang berasal dari provider konten yang berlainan dengan skema bagi-hasil yang berbeda. 
+
+Modul Profile/Device management yang berfungsi sebagai tempat menyimpan informasi pelanggan serta jenis perangkat yang digunakan sehingga kontent dapat dikirimkan ke pengguna yang tepat sasaran.
+  
+Modul Reporting yang memberikan laporan-laporan yang dibutuhkan baik sebagai alat analisis atau rekonsiliasi antara operator dan content provider.
+
+Berkembangnya bisnis konten mendorong vendor-vendor telekomunikasi untuk memberikan solusi/produk MCDS. Beberapa contoh produk MCDS  diantaranya
+
+Solusi dari BEA-MobileAware-EMCDocumentum, 
+Ericsson memiliki produk yang bernama Drutt yang merupakan hasil akuisisi
+Nokia Siemens Networks menggunakan prooduk dari 3rd party yaitu XIAM + Hydra (TheSDPAlliance.org)
+Lucent memiliki produk mPower 
+http://www1.alcatel-lucent.com/products/productsummary.jsp?productNumber=tcm%3A228-1265171635
+
+http://www.synapsy.com
+Elata
+http://www.vishwak.com/mobilecms/overview
+http://www.cellent.com

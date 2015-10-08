@@ -1,0 +1,39 @@
+Sebelum sebuah program dijalankan, kernel/CPU akan mengalokasikan sejumlah ruang memory untuk program tersebut.
+
+Alokasi ruang memori tersebut terdiri dari beberapa segment:
+
+- Code segment untuk menyimpan instruksi yang akan diajalankan prosesor. Data di segment ini bersifat read-only, 
+- Data segment untuk menyimpan data
+- Stack segment untuk menyimpan variabel lokal dari program
+
+Sebelum program dijalankan, CPU juga akan menyimpan return address di stack. Setelah program selesai, CPU akan mengambil return address di stack dan kemudian loncat ke return address untuk melanjutkan eksekusi.
+ 
+      
+    | ...          |
+    +--------------+
+    | Variabel     |
+    +--------------+
+    | Variabel     |
+    +--------------+
+    | EBP (4 byte) |
+    +--------------+
+    | RET (4 byte) |  <- return address tersimpan disini
+    +--------------+
+    | argc         |
+    +--------------+
+    | argv         |
+    +--------------+
+    |              |
+    +--------------+
+    |
+    |
+   
+   
+   
+   
+   
+
+Jika alokasi ruang memori untuk suatu varibel lokal diisi oleh suatu nilai dengan panjang yang berlebihan maka nilai tersebut akan 'tumpah' menimpa pada ruang memory berikutnya yaitu EBP dan return address.
+
+Untuk membuat program eksploit, yang dilakukan adalah mengisi *bagian akhir buffer* dengan kode untuk mengeksekusi shell dan sisa buffer dibagian depan diisi dengan perintah NOP (yaitu 0x90 untuk sistem operasi Linux/BSD). 
+Dengan demikian saat CPU membaca return address, dia akan mengeksekusi perintah NOP berulang-ulang sampai akhirnya menemukan perintah untuk mengeksekusi sebuah program shell.

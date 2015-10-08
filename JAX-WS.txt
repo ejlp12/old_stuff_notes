@@ -1,0 +1,16 @@
+Sun's initial implementation of web services was called JAX-RPC 1.1 (JSR 101). 
+This was a standards-based implementation, 
+but the binding and parsing layers underneath it were proprietary. 
+Additionally, JAX-RPC 1.1 does not completely cover schema specification.
+
+JAX-RPC 1.1 (JSR 101 [http://jcp.org/en/jsr/detail?id=101])
+
+
+Sun's newer version of the web services stack, JAX-WS 2.0 (JSR 224), is completely standards based. 
+Even the binding layer, the Java Architecture for XML Binding (JAXB, JSR 222), 
+and the parsing layer, the Streaming API for XML (StAX, JSR 173) are standards based 
+and also support schema specification 100 percent.
+
+
+As the performance of JAXB and StAX improves, so does the performance of the JAX-WS stack.
+ 

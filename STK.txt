@@ -1,0 +1,35 @@
+SIM Application Toolkit (SAT) atau sering disebut juga STK saja adalah aplikasi yang berada di SIM (Subscriber Identity Module) card atau USIM card dan dijalankan pada ponsel atau perangkat bergerak (mobile device) lainnya.
+
+Jika didalam SIM card terdapat STK, secara otomatis biasanya ponsel akan menambahakan satu menu item atau ikon untuk mengaksesnya. Jika kita akses dengan mengklik menu item tersebut, kita dapat melihat menu selanjutnya yang ditampilkan oleh ponsel. Aplikasi tersebut disediakan oleh operator dan biasanya digunakan untuk mengakses informasi tertentu, misalnya informasi billing, download konten, informasi berita dan lain-lain.
+
+Karena disimpan dalam SIM card, maka aplikasi ini tidak bisa menyimpan data yang besar sehingga biasanya STK didesain sangat sederhana dan tidak menyimpan data yang dinamis (perlu selalu diperbarui). Lalu bagaimana aplikasi ini bisa menampilkan data konten yang begitu banyak? STK dapat memerintahkan ponsel untuk mengirimkan data ke jaringan operator melalu SMS sehingga data cukup disimpan dalam sebuah elemen di jaringan operator kemudian STK memintanya dengan mengirimkan data lewat SMS.
+
+,-----------------.
+|        Ponsel   |
+|                 |
+| ,--------------.|                 +------+               +------------+
+| |   SIM card   ||                 |      |               |            |
+| |              ||--------//------>| SMSC |-------------->| STK Server |
+| | ,----------. ||<-------//------ |      |<--------------|            |
+| | | aplikasi | ||                 +------+               +------------+
+| | `----------' ||
+| `--------------'|
+`-----------------'
+  
+
+Pada 2G Network, SAT didefinisikan pada standar ETSI GSM 11.14. Pada release 4 (3G), dispesifikasikan pada 3GPP TS 31.111.
+
+Spesifikasi lain yang berkaitan diantaranya:
+
+11.11 Specification of the Subscriber Identity Module - Mobile Equipment (SIM-ME) Interface
+11.14 Specification of the SIM Application Toolkit (SAT) for the Subscriber Identity Module - Mobile Equipment (SIM-ME) interface
+03.48 Security mechanisms for SIM application toolkit; Stage 2
+
+31.111 Universal Subscriber Identity Module (USIM) Application Toolkit (USAT)
+51.011 Specification of the Subscriber Identity Module - Mobile Equipment (SIM-ME) interface
+51.014 Specification of the SIM Application Toolkit for the Subscriber Identity Module - Mobile Equipment (SIM-ME) interface
+23.048 Security mechanisms for the (U)SIM application toolkit; Stage 2
+
+
+================================================================================================
+RFM (Remote File Management)

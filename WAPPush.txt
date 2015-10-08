@@ -1,0 +1,189 @@
+  -== WAP push ==-
+
+Mungkin kita pernah tiba-tiba mendapatkan pesan singkat seperti SMS berisi link (URL) dan dengan atau tanpa pesan pada ponsel.
+Pesan itu menunggu konfirmasi dari Anda untuk menerima (accept) atau menolak (cancel), kemudian ketika kita memilih 
+untuk menerima, munculah halaman dengan informasi yang lebih banyak berupa halaman WAP atua mungkin secara otomatis mendownload content. 
+
+Kedua jenis kejadian tersebut bisa terjadi dengan adanya WAP push. Push berarti kita disodori oleh informasi tanpa
+harus meminta informasi tersebut. Disebut WAP push karena informasinya kemudian dapat diakses dengan WAP (Wireless Access Protocol).
+
+WAP push banyak digunakan oleh operator atau content provider untuk mengirimkan content-nya ke subscriber. Hal ini dikarenakan 
+pesan wap push yang dapat berinteraksi langung dengan browser di ponsel sehingga memudahkan pengguna untuk mendownload content untuk kemudian disimpan atau diinstal di ponsel.
+
+WAP push pat digunakan misalnya untuk: 
+ 
+ - Informasi untuk pengiriman mobile content seperti ringtone, gambar atau wallpaper, screensaver, java games, dll
+ - Informasi alert misalnya berita harga saham, skor suatu pertandingan bola, dll.
+ - Wireless email yaitu alert ketika ada email baru dan memberikan link ke email baru tersebut
+ - Notifaksi MMS
+
+Wap push juga dapat digunakan oleh operator telepon selular untuk mengetahui jenis ponsel yang digunakan oleh subscriber-nya. 
+
+Jenis wap push yang paling banyak digunakan adalah wap push seperti yang telah dijelaskan diatas yaitu Service Indication (SI). 
+
+
+WAP push merupakan bagian dari spesifikasi WAP 1.2 yang dibuat oleh sebuah organisasi bernama WAP Forum [http://www.wapforum.org/] yang sekarang bergabung dalam OMA [http://www.openmobilealliance.org/index.html].
+Dibawah ini tabel nama dokumen yang menspesifikasikan WAP push
+
+Push Architectural Overview               WAP-250-PushArchOverview-20010703-a  
+Push OTA Protocol Specification           WAP-235-PushOTA-20010425-a  
+Push OTA Protocol SIN                     WAP-235_100-PushOTA-20011008-a  
+Push OTA Protocol SIN                     WAP-235_101-PushOTA-20020612-a  
+Push Access Protocol Specification        WAP-247-PAP-20010429-a  
+Push Access Protocol SIN                  WAP-247_100-PAP-20011010-a  
+Push Proxy Gateway Service Specification  WAP-249-PPGService-20010713-a  
+Push Proxy Gateway Service SIN            WAP-249_102-PPGService-20011009-a  
+Push Message Specification                WAP-251-PushMessage-20010322-a  
+WAP Service Indication Specification      WAP-167-ServiceInd-20010731-a  
+WAP Service Indication SIN                WAP-167_103-ServiceInd-20010926-a  
+WAP Service Loading Specification         WAP-168-ServiceLoad-20010731-a  
+WAP Service Loading SIN                   WAP-168_103-ServiceLoad-20010816-a  
+WAP Cache Operation Specification         WAP-175-CacheOp-20010731-a  
+WAP Cache Operation SIN                   WAP-175_102-CacheOp-20010816-a  
+
+Dokumen-dokumen tersebut dapat didownload di sini []
+
+
+ -== Arsitektur dari WAP Push ==-
+
+Elemen-elemen dari arsitektur WAP push adalah
+
+- PI (Push Initiator) biasanya adalah aplikasi tertentu yang membuat isi (content) dari WAP push yang akan dikirimkan melalui PPG.
+- PPG (Push Proxy Gateway) berfungsi menerima message dari PI untuk kemudian dikirimkan ke mobile station (MS) lewat SMSC, MSC atau SGSN.
+
+Arsitektur yang umum dapat digambarkan sebagai berikut:
+
+               __________      __________      __________ 
+              |          |    |          |    |          |
+   ponsel <---| MSC/SGSN |<---|   SMSC   |<---|   PPG    |<--- PI
+              |__________|    |__________|    |__________|
+   
+Gambar arsitektur diatas dapat disederhanakan seperti yang digambarkan pada dokumen spesifikasi WP push yaitu
+               
+                __________ 
+               |          |
+   ponsel <--- |   PPG    |<--- PI
+               |__________|
+               
+Untuk berkomunikasi dengan PPG digunakan protokol Push Access Protocol (PAP) yang berbasis protokol HTTP, tetapi ini bukan satu-satunya cara. 
+Beberapa vendor biasanya menyatukan fungsi PPG dengan produk SMSC atau WAP gateway. Cara lain pengiriman WAP push adalah menggunakan protokol SMPP langsung ke SMSC.
+
+Pengiriman wap push dari PPG ke ponsel sebenarnya dapat menggunakan SMS, USSD, circuit switch atau packet switch (GPRS) dan 
+disebut push over-the-air (OTA) ptotocol. 
+
+ -== Jenis-jenis WAP push ==-
+
+WAP push dapat digunakan untuk mengirimkan segala macam tipe content atau MIME media type, tetapi ada 3 jenis push content yang standar, yaitu
+
+  1. SI (Service Indication), pesan singkat muncul pada selpon dan mengunggu konfirmasi user untuk men-download
+     content. Data yang dikirim dari PI melalui PAP akan terdiri dari link dan pesan
+
+  2. SL (Sevice Loading). content secara otomatis langsung di-download tanpa interaksi dengan user.
+     content. Data yang dikirim dari PI melalui PAP hanya terdiri dari link ke content.
+
+  3. CO (Cache Operation), perintah untuk menghapus (invalidate) objek content yang ada di WAP client cache.
+
+
+ -== Push Access Protocol (PAP) ==-
+
+PAP adalah standar yang digunakan untuk komunikasi PI dengan PPG.
+PAP didesain menggunakan XML dan dikirimkan menggunakan protokol HTTP.
+
+PAP 1.0 mendukung beberapa operasi yaitu:
+
+- Push Submission ( PI -> PPG ) 
+  Untuk mengirimkan wap push (content) misalnya SI, SL atau CO.
+
+- Result Notification ( PPG -> PI )
+  Notifikasi yang dikirim PPG jika ada perubahan status pada wap push yang telah dikirimkan PI.
+
+- Push Cancellation ( PI -> PPG) 
+  Untuk membatalkan wap push yang dikirimkan PI. Pembatalan ini dapat dilakukan bila wap push belum dikirim ke ponsel oleh PPG.
+
+- Push Replacement ( PI -> PPG) 
+  Untuk membatalkan wap push yang dikirimkan PI. Pembatalan ini dapat dilakukan bila wap push belum dikirim ke ponsel oleh PPG.
+
+- Status Query (PI -> PPG) 
+  Untuk mengetahui status wap push yang telah dikirimkan PI.
+
+- Clients Capabilities Query (PI -> PPG) 
+  Untuk mengirimkan wap push yang nerupakan perintah kepada ponsel untuk mengirimkan informasi kapabilitas ponsel.
+
+Sebuah pengiriman SI atau SL dalam HTTP direpresentasikan dalam sebuah multipart document, oleh karena itu content-type HTTP harus menggunakan multipart/related.
+
+Teks yang dikirimkan dari PI ke PPG terdiri dari tiga entitas:
+
+- Control entity yang bersifat mandatory (harus ada), merupakan bagian yang berisi identifikasi ponsel target dan intruksi pengiriman
+- Content entity merupakan isi yang akan ditampilkan pada MS
+- Optional capabilities entity 
+
+Contoh WAP push SI yang dikirim PI menggunakan PAP:
+
+  POST /PAPService.do HTTP/1.1
+  Host: localhost
+  Content-Type: multipart/related; boundary=asdlfkjiurwghasf; type="application/xml"
+
+  --asdlfkjiurwghasf
+  Content-Type: application/xml
+
+  <?xml version="1.0"?>
+  <!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 1.0//EN" "http://www.wapforum.org/DTD/pap_1.0.dtd">
+  <pap>
+    <push-message push-id="123456@telcoloyo.com">
+    <address address-value="WAPPUSH=+6281000000001/TYPE=PLMN@ppg.telcoloyo.com"/>
+  </push-message>
+  </pap>
+  
+  --asdlfkjiurwghasf
+  Content-Type: text/vnd.wap.si
+
+  <?xml version="1.0"?>
+  <!DOCTYPE si PUBLIC "-//WAPFORUM//DTD SI 1.0//EN" "http://www.wapforum.org/DTD/si.dtd">
+  <si>
+    <indication si-id="123@siid.emailku.co.id" href="http://www.emailku.co.id/wml/pap/message.wml">
+     You've got new Mail!
+    </indication>
+  </si>
+  --asdlfkjiurwghasf
+  Content-Type: application/xml
+
+  <!-- Bagian ketiga: (optional) berisi Client Capabilities -->
+  --asdlfkjiurwghasf--
+
+Contoh wap push result notification
+
+
+   <?xml version="1.0"?>
+   <!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 1.0//EN" "http://www.wapforum.org/DTD/pap_1.0.dtd">
+   <pap product-name="Nokia Push Proxy Gateway">
+      <resultnotification-message
+       push-id="zoo1091175019881:0"
+       message-state="delivered"
+       code="1000"
+       desc="Push Successful"
+       sender-address="123.123.123.123"
+       sender-name="a" received-time="2004-07-30T08:06:46Z"
+       event-time="2004-07-30T08:06:46Z">
+      <address address-value="WAPPUSH=+3584544101930/TYPE=PLMN@null"/>
+      <quality-of-service delivery-method="unconfirmed"/>
+      </resultnotification-message>
+   </pap>
+
+ -== Pengiriman ke telepon selular ==-
+
+PPG mengirimkan content menggunakan Push Over-the-air (Push OTA), dengan transport protokolnya adalah HTTP/WSP.
+
+Pada kasus wap push SL dimana subscriber mendapatkan content langsung tanpa aksi dari subscriber, maka WAP session 
+antara ponsel dengan operator network harus terjadi dahulu sebelum content bisa dikirimkan.
+
+Jika tidak ada koneksi (WAP session) antara MS dan PPG, maka dikirimkan Session Initiation Request (SIR) (misalnya menggunakan SMS).
+SIR dienkapsulasi pada WDP package, untuk kemudian dikirim lewat SMSC. Setelah adanya koneksi barulah content dikirim oleh PPG.
+
+
+20070727
+
+
+
+
+
+

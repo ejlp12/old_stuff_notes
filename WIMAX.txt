@@ -1,0 +1,31 @@
+Mobile WiMAX adalah teknologi yang berbasis pada Orthogonal Frequency Division Multiple Access (OFDMA), 
+sebuah teknologi yang distandarisasi pada IEEE 802.16e-2005
+
+IEEE 802.16
+
+
+Frekuensi 
+Mengacu ke standar WiMAX Forum BWA frekuensi 2,3 adalah untuk mobile WiMAX
+Di Indonesia frekuensi tersebut diperuntukan untuk jaringan tetap lokal (non-mobile) 
+
+16e untuk non-mobile
+
+
+
+Frekuensi 3,3 GHz
+
+Oktober 2007. 
+Menjadi internasional standar, salah satu dari IMT-2000 Recomendations sebagai teknologi 3G
+IMT-2000 OFDMA TDD WMAN
+
+Peraturan:
+Peraturan Menkominfo No 7/2009 tentang Penataan Frekuensi Radio untuk Keperluan Layanan Pita Lebar Nirkabel (Wireless Broadband)
+
+Siaran Pers No. 162/PIH/KOMINFO/7/2009 tentang Penetapan Pemenang Lelang Tender Seleksi Penyelenggaraan Jaringan Tetap Lokal Berbasis Packet Switched Yang Menggunakan Pita Frekuensi Radio 2.3 GHz Untuk Keperluan Layanan Pita Lebar Nirkabel (Wireless Broadband)
+
+Dirjen Postel menegaskan gelaran WiMax 16e baru akan digelar pemerintah jika gelaran 16d dianggap sudah berhasil, baik secara komersial maupun efektif memberdayakan vendor manufaktur telekomunikasi lokal [bisnisindonesia]
+
+
+Perusahan perangkat WiMAX indonesia
+http://www.hariff.com
+http://www.trg.co.id

@@ -1,0 +1,16 @@
+
+
+Saya pernah baca tentang SMRSE protocol (Short Message Relay Service Element),yaitu protokol khusus untuk lalu-lintas SMS antara SMSC dengan MSC. Protokol ini berbasis TCP/IP sebagai alternatif dari MAP (3GPP TS 29.002) yang berbasis SS7.
+
+Spesifikasinya dibuat oleh Nokia dan dispesifikasikan pada 3GPP TS 23.047, tetapi ternyata tidak ada spesifikasi tersebut tidak ada dan sangat sulit mendapatkan informasi tentang protokol ini di Internet.
+
+Sepertinya protokol ini dibuat dan diusulkan menjadi standar oleh Nokia tetapi tidak sampai disetujui oleh 3GPP. Protokol lain yang dibuat Nokia yaitu CIMD malah lebih populer sebagai protokol SMS antara SMSC dengan aplikasi eksternal.
+
+(c) 20071227 ejlp12@yahoo.com
+
+==================
+
+
+Mobile Application Part (MAP) 3GPP TS 29.002
+
+CIMD2

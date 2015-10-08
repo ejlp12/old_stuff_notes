@@ -1,0 +1,16 @@
+* Gunakan PreparedStatement untuk eksekusi query yang sama berulan-ulang
+
+PreparedStatement stmt;
+Connection con;
+// Code for create con object
+stmt = con.prepareStatement(“INSERT INTO mytable VALUES(?,?)”);
+while( /*some condition*/ )
+{
+	stmt.setInt(1,Field1);    //Set the first field of the table
+	stmt.setString(2,Field2); //Set the second field
+	stmt.executeUpdate();     //Execute the query.
+}
+
+* ResultSet, Statement/PreparedStatement object harus selalu di-close() sebelum Connection di-close()
+
+* Gunakan proses batch pada Statement untuk eksekusi banyak query

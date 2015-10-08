@@ -1,0 +1,27 @@
+
+Melihat semua table (object)
+
+SELECT OBJECT_NAME, OBJECT_TYPE
+FROM ALL_OBJECTS
+WHERE OWNER = (SELECT USER FROM DUAL);
+
+Bikin index
+
+CREATE INDEX index_name ON table (column)
+
+
+sysdate + numtodsinterval(2, ‘HOUR’)
+sysdate + numtodsinterval(45, ‘MINUTE’)
+sysdate + numtoyminterval(5, ‘MONTH’)
+sysdate + numtoyminterval(2, ‘YEAR’)
+
+TO_DATE(’12/25/2005',’MM/DD/YYYY’)-SYSDATE
+MONTHS_BETWEEN(SYSDATE,TO_DATE(’01/01/2006',’MM/DD/YYYY’))
+
+Kalo bikin script ada &var akan dianggap sebagai value yang harus diisi, SQLplus akan memberikan prompt 
+Untuk mendisable : SET DEFINE OFF
+
+
+FUNCTION/PROCEDURE
+select text from user_source where
+type='PROCEDURE' and name ='';

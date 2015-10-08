@@ -1,0 +1,7 @@
+Global Descriptor Table (GDT)
+
+ketika berjalan dalam mode protected, prosesor akan selalu merefer alamat memory
+ke GDT atau mungkin ke LDT (Local Descriptor Table) terlebih dahulu.
+
+GDT dan LDT berisi segment descriptor 
+

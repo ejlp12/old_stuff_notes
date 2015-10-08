@@ -1,0 +1,24 @@
+
+IPTV bukanlah TV yang di-broadcast lewat Internet. IP menunjukan bahwa cara pengiriman data/informasi dilakukan lewat protokol berbasis IP. Program atau acara yang diberikan dari layanan IPTV dapat berupa acara seperti layaknya TV konvensional ataupun video on demand, dimana penonton dapat memilih video yang akan dilihatnya.
+
+IPTV dapat memberikan layanan yang interaktif dan dapat dipersonalisasi sehingga IP pada IPTV kadang diartikan "interactive and personalization" seperti yang dikemukanan Open IPTV forum, sebuah aliansi para vendor/supplier IPTV, dalam halaman FAQ-nya.
+
+IPTV biasanya digunakan untuk istilah layanan TV/Video berbasis teknologi IP yang diberikan dan dikontrol oleh sebuah service provider (perusahaan) sehingga layanan ini biasanya berbayar. IPTV dikemambangkan oleh perusahaan-perusahaan supplier telekomunikasi.
+
+Karena semakin populernya teknologi ini, istilah (buzzword) yang mengikuti teknologi ini pun semakin banyak. Untuk membedakan dengan layanan TV atau video on-demand yang bersifat terbuka dan gratis, maka digunakan istilah Internet of Television atau Internet of Video. Artikel "IPTV vs. Internet Television: Key Differences" memberikan gambaran yang jelas dari perbedaan istilah Internet TV dengan IPTV.
+
+Kalau kita menengok kebelakang, layanan video streaming di Intenet sudah berkembang pesat sejak beberapa tahun ketika munculnya website-website yang memberikan layanan penyimpanan file-file video secara gratis dan dapat dilihat oleh siapa saja dengan cara streaming (video sharing). Salah satu website yang terkenal ada YouTube. Hadirnya layanan seperti itu membuat orang semakin banyak membuat personal video sehingga mungcul juga istilah video blog atau vlog, podcast, vodcast.
+
+Selain itu, muncul juga website-website dari perusahaan televisi yang memberikan layanan siaran yang dapat dilihat secara on-demand dengan gratis. Ada juga website-website yang memberikan layanan berita, video, film yang mengkategorisasi kontennya dalam "channel" seperti halnya pesawat TV.
+
+Pada dasarnya hadirnya IPTV didorong oleh perkembangan Intenet TV tersebut dan juga layanan multimedia yang semakin banyak sehingga dirasakan dapat menjadi revenue baru bagi operator telekomunikasi terutama operator selular (nirkabel).
+
+Dari segi teknologi, pada dasarnya IPTV maupun Internet TV dapat menggunakan protokol yang sama tetapi saat ini tidak ada satu standar yang menjadi de-facto sebagai satu teknologi (streaming protokol, video/voice codec) untuk IPTV atau Internet TV. Beberapa perusahaan seperti Adobe malah membuat protokol sendiri yaitu RTMP untuk streaming audio/video lewat jaringan IP.
+
+Dokumen "IPTV related protocols" yang dibuat ITU-T FG IPTV ini mengkoleksi protokol-protokol yang sudah ada untuk menjadi standar IPTV.
+
+
+
+
+http://www.businessweek.com/technology/content/may2005/tc20050520_4620.htm
+

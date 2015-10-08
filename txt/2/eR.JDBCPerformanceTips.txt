@@ -1,0 +1,32 @@
+Inserting rows into Oracle using Java: a performance comparison
+http://home.clara.net/dwotton/dba/java_insert.htm
+
+
+Selecting rows from Oracle using Java: a performance comparison
+http://home.clara.net/dwotton/dba/java_select.htm
+
+Top Ten Oracle JDBC Tips
+http://www.onjava.com/pub/a/onjava/2001/12/19/oraclejdbc.html
+
+Java Programming with Oracle JDBC : Chapter 19 Performance
+http://www.oreilly.com/catalog/jorajdbc/chapter/ch19.html
+
+http://www.jguru.com/faq/view.jsp?EID=131579
+http://www.precisejava.com/javaperf/j2ee/JDBC.htm
+
+
+ ((OracleStatement)stmt).setRowPrefetch(prefetchValue);
+
+        java.util.Properties props = new java.util.Properties();
+        props.put("user","scott");
+        props.put("password","tiger");
+        props.put("defaultRowPrefetch","30");
+        props.put("defaultBatchValue","5");
+        Connection con = DriverManger.getConnection("jdbc:oracle:thin:@hoststring", props); 
+
+
+Change connection using oracle.jdbc.pool.OracleDataSource connection pooling
+Use oracle batch processing for insert
+Always close Statement and ResultSet objects as soon as possible. 
+
+

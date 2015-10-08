@@ -1,0 +1,39 @@
+
+Cell-ID
+
+
+Enhanced Cell ID (E-CID): Cell-ID & Timing Advance
+Cell ID dan Kekuatan sinyal yang diterima (Rx)
+
+Cell-ID, Timing Advance dan Kekuatan sinyal yang diterima
+
+3G CI + Pathloss
+
+Service Area Identifier
+
+
+
+Network Induced - Location Request
+
+The Network Induced Location Request is an LR (Location Request) induced by the network that allows positioning for an emergency service call.
+Spec. Reference
+3GTS 23.271
+
+
+Public Safety
+Mobile Emergency Call Location (E-911 & E-112)
+Law Enforcement
+
+
+Juni 2002, 
+MLP (Mobile Location Protocol) adalah spesifikasi antarmuka (protokol) yang digunakan untuk komunikasi antar location-based services dan location infrastructure.
+Location infrastructure adalah elemen 
+
+Location Interoperability Forum (LIF) bergabung dengan Open Mobile Alliance (OMA)
+
+http://www.openmobilealliance.org/Technical/lifindex.aspx
+
+The Challenge with Interoperability in Location Services 3.0.0
+Mobile Location Protocol Specification 3.0.0
+
+http://qtc.jp/3GPP/Specs/23171-310.pdf

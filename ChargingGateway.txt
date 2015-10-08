@@ -1,0 +1,56 @@
+CRDs (Call Detail Records/Charging Data Record)
+
+CRDs berasal dari network element (NE) seperti:
+
+Master Switch Controller (MSC), 
+Serving GPRS Support Node (SGSN)
+Gateway GPRS Support Node (GGSN)
+
+Charging Gateway (CG) berfungsi untuk menggumpulkan CDRs, menyimpannya sementara dan mengirimkannya ke Billing System, Customer care atau Fraud Detection System.
+
+CG adalah salah satu realisasi dari fungsi CG yang dispesifikasikan pada 3GPP TS 32.015. Artinya Charging Gateway Functionality (CGF) dapat diimplementasikan dalam GSN ataupun terpisah pada box lain.
+
+Protokol yang biasa digunakan pada CG adalah
+
+GTP'v2 (ED1) GPRS Tunneling Protocol Prime
+FTP
+CORBA
+
+Format CDRs yang biasa digunakan
+
+TLV
+ASCII
+Binary
+ASN.1/BER
+
+1. Collection
+
+2. Data Processing /Mediation
+ Routing Validation/Filtering
+ Agrregating same type of CDRs
+ Field manipulation
+ Collelator
+
+3. Distribution
+
+Monitoring/Alarm management
+Report/Statistic
+
+
+
+G-CDR
+S-CDR
+M-CDR
+S-SMO-CDR
+S-SMT-CDR
+
+
+Product:
+
+nTels
+Huawei WCDMA CG9812
+Nokia CG
+Alcatel 8965 Convergent Charging Collection Solution (C3S)
+
+
+

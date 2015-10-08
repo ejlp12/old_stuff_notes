@@ -1,0 +1,117 @@
+BIOS (basic input/output) merupakan software yang disimpan dalam sebuah chip 
+memori non-volatile yang dijalankan pada saat pertama kali komputer dinyalakan 
+yaitu yang sering kita sebut proses booting atau bootstraping. Memori 
+non-volatile adalah memori permanen yang bisa menyimpan data walaupun tanpa daya 
+listrik, biasanya berupa flash memory (CMOS RAM) atau kadang berupa ROM misalnya 
+PROM, EPROM atau EEPROM.
+
+Ketika komputer dinyalakan, power supply unit (PSU) akan memberikan sinyal yang
+menunjukan keadaan power baik ke setiap perangkat. Kemudian prosesor akan mengeksekusi instruksi yang ada pada alamat 0xfff0.
+Intruksi pada alamat ini biasanya adalah tempat kode BIOS didalam ROM.
+
+BIOS melakukan pekerjaan
+
+- Pengecekan seluruh komponen hardware untuk memastikan semuanya berjalan baik.
+  Proses ini disebut power-on self-test (POST). Proses POST menginisialisasi 
+  semua bagian hardware diantaranya:
+  
+  - Clock generator
+  - Prosesor
+  - Chipset (memory controller dan I/O controller)
+  - System memory
+  - Semua perangkat PCI
+  - Graphics controller
+  - Storage/IDE controller
+  - I/O controller untuk device lainnya seperti keyboard, mouse, USB  
+  
+  Ketika system memory sudah diinisialisasi, biasanya program BIOS tersebut dicopy 
+  (shadowed) ke dalam memory agar eksekusi lebih cepat.
+  
+  
+- Mengaktifasi chip BIOS lainnya jika ada, misalnya BIOS untuk graphic/video 
+  card, CSCI, RAID, kartu antarmuka jaringan (network interface card).
+
+- 
+
+- 
+- BIOS me-load boot loader untuk kemudian mengalihkan kontrol kepada boat loader.
+  Boot loader terletak di boot sector didalam boot device yang biasanya diset 
+  dalam BIOS apakah boot device adalah sebuah hard disk, CD, USB atau yang 
+  lainnya.                       
+  
+  
+Pada proses booting dengan floppy disk, boot sector pada floppy disk dicopy ke memori, kemudian prosesor akan mengeksekusi dengan perintah jump ke alamat memori tersebut. biasanya boot sector berisi program/instruksi untuk me-load sistem operasi kedalam memori.
+
+Sama halnya jika BIOS melakukan booting pada hard drive. Sektor paling depan 
+dalam hard disk yang disebut master boot record (MBR) akan di-load 
+pertama kali oleh BIOS ke memori pada alamat 000:7C00, kemudian eksekusi dimulai 
+dari program tersebut.
+
+BIOS juga akan melihat dua byte terakhir di sektor MBR apakah bernilai AA55, 
+yang menunjukan bahwa kode pada sector tersebut adalah kode system/bootable. 
+
+
+Saat inisilisasi prosesor, semua register diset pada nilai tertentu dan prosesor
+berada dalam real mode. Setelah itu prosesor akan mengeksekusi instruksi pada 
+alamat fisik FFFFFF0 yang biasanya adalah instruksi JMP 
+
+
+   Address      Description                                   Size in bytes
+  Hex   Dec
+  ----  ----   --------------------------------------------- --------------
+   000     0   Code                                           440
+   1b8   440   Optional disk signature                        4
+   1bc   444   0x0000                                         2
+   1be   446   Four 16-byte entries for primary partitions    64
+   1fe   510   0xaa55                                         2
+
+(Sumber: http://susam.in/articles/boot-sector-code.php)
+
+Kode BIOS yang ada dalam memory dapat juga dapat digunakan oleh sistem operasi. Biasanya sistem operasi lama seperti DOS menggunakan kode BIOS untuk melakukan proses input/output.
+
+
+-== Open Firmware ==-
+
+Open Firmware (IEEE-1275), 
+
+-== ACPI ==-
+
+BIOS saat ini juga menangani beberapa fungsi yang kompleks seperti power management, hot swapping, management panas dari perangkat. Fungsi tersebut Advance Configuration and Power Interface (ACPI)
+
+-== EFI ==-
+
+Beberapa BIOS baru yang lebih baru menggunakan EFI (Extensible Firmware Interface) yaitu sebuah spesifikasi untuk BIOS yang bertujuan untuk memberikan kemampuan lebih pada BIOS. 
+
+EFI memberikan
+
+Boot service yang memberikan console untuk beberapa device
+Device driver
+Boot manager untuk memilih sistem operasi yang akan di-load
+Tabel partisi yang disebut GUID Partition Table (GPT)
+Shell environtment yang memberikan kemampuan eksekusi script atau aplikasi
+
+
+-== Booting dari CDROM ==-
+
+Ada tiga cara booting dari CDROM yaitu:
+ no emulation booting,
+ floppy disk emulation, 
+ hard disk emulation
+
+nasm boot.s -o start.img
+
+mkisofs -b floppy.img -o cd.iso cdimage
+
+Perintah tersebut akan membuat sebuah file system ISO 9660 yang memiliki satu 
+folder cdimage/ yang berisi floppy.img. Hasilnya adalah sebuah file cd.iso yang 
+siap di-burn ke CD.
+
+
+
+mkisofs -no-emul-boot -boot-load-sec 0x7c0 -boot-load-size 4 \
+        -b start.img -o cd.iso cdimage                        
+
+http://www.geocities.com/chrootstrap/cdrom_bootstrapping_your_kernel.html
+
+  
+  

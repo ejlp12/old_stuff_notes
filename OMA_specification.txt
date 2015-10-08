@@ -1,0 +1,24 @@
+Memahami standar, spesifikasi, aturan atau regulasi sangat penting dalam mempelajari telekomunikasi. Di sini saya akan mebahas satu persatu bagaimana proses spesifikasi atau standarisasi dibuat, terutama proses rilis (release) atau versioning dari dokumen yang dipublikasikan. Hal ini penting agar kita selalu mengacu pada versi dokumen yang benar, mengacu pada dokumen yang berbeda versi bisa berakibat fatal.
+
+OMA (Open Mobile Alliance) memiliki beberapa jenis dokumen yaitu:
+
+- Requirement Document
+- Technical specification/material yang berjenis 
+ - Enabler Release
+ - Reference Release
+- Test specification dan Validation Plan Document
+
+Yang paling penting untuk dijadikan referensi adalah dokumen Enabler release.
+
+Dokumen spesifikasi yang dikeluarkan OMA memiliki format versioning seperti standar software "x.y.z" misalnya OMA MMS versi 1.1, versi 1.2 atau versi 1.3.
+
+Setiap dokumen OMA melewati dua fase rilis yaitu 
+
+- Phase 1 (Candidate release). Semua spesifikasi OMA yang dipublikasikan, awalnya berada pada phase ini yaitu approved dan bisa diimplementasikan pada produk atau solusi untuk dapat dilakukan interoperability test.
+
+- Phase 2 (Approved Release) yaitu release yang telah melewati komentar publik serta validari interoperability.
+
+Penjelasan ini bersumber pada halaman OMA release program [http://www.openmobilealliance.org/release_program/index.html], di halaman tersebut juga bisa diliat semua versi dan posisi phase untuk seriap versi dari semua set spesifikasi (Enabler).
+
+
+(c) ejlp12@yahoo.com 20071008

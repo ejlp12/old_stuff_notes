@@ -1,0 +1,26 @@
+Collect call adalah layanan telepon yang pembayarannya dilakukan oleh penerima telepon. Jadi jika biasanya penelpon yang akan membayar tagihan atau berkurang pulsanya (balance), kebalikan dari itu fasilitas collect call berarti pembayaran atau pengurangan pulsa telepon dilakukan pada sisi penerima (called party). Fasilitas ini sering juga disebut reverse charging. 
+
+Mungkin anda berfikir enak sekali si penelepon bisa telpon tapi ditanggung si penerima. Fasilitas ini tidak seperti itu. Fasilitas collect call ini akan meminta persetujuan penerima telpon untuk panggilan yang akan dibebankan padanya atau biasanya penerima telepon telah memiliki daftar nomor-nomor pemanggil yang dapat melakukan collect call padanya. 
+
+Fasilitas ini muncul pada dasarnya karena setiap operator ingin mengingkatkan keuntungannya (ARPU), oleh karena itu operator akan selalu mencari cara agak keberhasilan pada saat pemanggilan (call completion) meningkat. Ketidakberhasilan saat pemanggilan bisa jadi karena masalah teknis atau hanya karena sipemanggil tidak memiliki cukup balance. Nah lalu dicarilah cara agar penelpon tetap bisa melakukan percakapan tanpa perlu membayar tapi uang diambil dari orang lain yaitu orang yang ditelpon. Bisa jadi ada juga layanan dimana si A menelpon si B dan yang bayar si C. Layanan-layanan supplentary atau value-added memang kadang-kadang sederhana dan solusinya pun sederhana.
+
+Teknisnya gimana?
+Dibawah ini saya jelaskan bagaimana biasanya collect call digunakan pada jaringan telepon bergerak seperti GSM:
+
+1. Orang yang akan melakukan pemanggilan telepon (A#) men-dial dengan cara memberikan prefix didepan nomor telepon yang akan dipanggil (B#) misalnya *22*08111111111.
+   Jika anda berfikir angka tersebut adalah angka untuk mengakses fasilitas USSD, pikiran anda memang benar.
+2. A# kemudian akan menerima pesan bahwa proses collect call sedang menunggu persetujuan B#. Pesan dapat berupa Flash SMS atau USSD message.
+3. B# kemudian akan menerima pesan USSD dan diminta untuk menjawab menekan suatu tombol, misalnya tekan 1 jika anda setuju menerima collect call dari A#
+4. Jika B# setuju maka sambungan telepon antara A# dan B# berlangsung 
+
+Solusinya?
+
+Karena teknis penggunaannya bermacam-macam maka solusi untuk collect call ini juga bermacam-macam. Intinya adalah agar billing system melakukan pengurangan balance pada perima telepon. Pada kasus pelanggan prabayar hal tersebut harus dilakukan secara langsung oleh IN, charging mediation ataupun elemen khusus yang memang ditambahkan pada jaringan operator untuk solusi ini. Sedangkan pada kasus pelanggan pasca bayar maka elemen yang membuat CDR (call data record) selama pemanggilan collect call yang akan diproses billing system haruslah memberikan informasi kepada siapa biaya akan dibebankan, dalam hal ini si penerima telepon.
+
+Jelaslah bahwa layanan collect call hanya dapat digunanakan oleh pelanggan satu operator atau tidak lintas operator. 
+
+Elemen yang bertanggung jawab agar collect call ini terjadi dapat terintegrasi pada MSC atau dapat pula berupa satu elemen tersendiri yang terintegrasi ke MSC, IN, Charging Mediation/Billing system dan ke elemen pendukung seperti SMSC. untuk lebih jelasnya anda bisa juga baca dari Patent 6792261 <http://www.patents.com/Mobile-collect-call-method/US6792261/en-US/>
+
+ 
+
+

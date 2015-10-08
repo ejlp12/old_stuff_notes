@@ -1,0 +1,5 @@
+<a href="http://www.nokia.com/A4136001?newsid=1273474">Nokia membuat produk untuk rumah pintar (domotics)</a> yaitu sebuah platform untuk mengontrol alat-alat dalam rumah seperti kulkas, tv, lampu, dan lain-lain lewat sebuah remote control atau ponsel ataupun PC. 
+
+Terdapat beberapa teknologi yang biasa digunakan pada rumah pintar, ada yang menggunakan sinyal yang dilewatkan pada saluran listrik (powerline) adapula yang menggunakan sinyal nirkabel atau yang menggunakan teknologi keduanya. Yang paling banyak digunakan adalah teknologi nirkabel, tapi sayangnya banyak sekali standar yang berbeda yang digunakan untuk keperluar rumah pintar ini. Beberapa standar misalnya <a href="http://en.wikipedia.org/wiki/Insteon">ISTEON</a>, <a href="http://en.wikipedia.org/wiki/X10_(industry_standard)">X10</a>, <a href="http://en.wikipedia.org/wiki/ZigBee">ZigBee</a>, <a href="http://en.wikipedia.org/wiki/Z-Wave">Z-Wave</a>. 
+
+lebih detail tentang teknologi ini silahkan baca di <a href="http://en.wikipedia.org/wiki/Domotics">wikipedia</a>

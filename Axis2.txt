@@ -1,0 +1,7 @@
+cd C:\tomcat\bin
+C:\tomcat\bin>startup
+
+
+http://localhost:8080/axis2/#
+
+C:\tomcat\webapps\axis2\WEB-INF\conf\axis2.xml

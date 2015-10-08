@@ -1,0 +1,1493 @@
+<html><pre>
+<!--  writed by n3vCr@yahoo.com versi 010204, 010211 --> 
+<h1>Tutorial Assembler untuk Pemrograman Mikroprosesor 8086</h1>
+
+Disini akan dibahas pemrograman assembler dengan mikroprosesor Intel 8086 atau yang sejenisnya 
+seperti Intel 8088 atau Zylog Z-80, selanjutnya anda dapat mempraktekan pada PC dengan prosesor
+keluarga x86 misalnya prosesor Intel sekelas Pentium. 
+
+Prosesor 8086 merupakan prosesor yang mendasari teknologi prosesor kelas x86. Arsitektur prosesor
+yang banyak digunakan sekarang seperti IA-32 ataupun IA-64 meruapakan pengembangan dari arsitektur
+yang digunakan pada 8086.
+
+
+<h3>Sejarah perkembangan prosesor</h3>
+Tahun 70-an LSI pertama dengan CPU dari intel -> mikroprosessor (uP)
+  
+Mikroprosesor 4 bit pertama dari Intel adalah 4004 pada tahun 1971 kemudian dikuti dengan tipe 4040 dengan 
+beberapa pengembangan yaitu penambahan instruksi dan register.
+
+Kemudian Intel mekembangan mikroprosesor 8 bit yaitu 8008 (tahun 1970) 
+                      8080 16 bit address bus, 8 bit data bus (tahun 1973) 
+                      8085 (tahun 1977)
+   pelopor mikroprosesor berorientasi register.
+Zylog mengeluarkan 8 bit mikroprosesor Z-80 lebih baik dari 8080
+Tahun 1978 Intel mengeluarkan uP 16 bit 8086 memiliki kelebihan:
+  instruksi transfer data lebih luas
+  dapat melakukan operasi aritmetik seperti penjumlahan pengurangan perkalian pembagian
+  mampu menangani memori 1 Mbyte dengan 
+  20 bit saluran address (bus) dan 16 bit saluran data secara multipleks
+Tahun 1979 uP 8088 -> 16 bit dengan saluran data 8 bit (dibuat untuk memenuhi pasar yang masih banyak 
+  menggunakan saluran data 8 bit) 
+Tahun 1985 uP berkembang menjadi Intel 80186 dan 80286, lebih banyak intruksi dan dapat mengakses
+  memori lebih besar
+Tahun 1981 IBM mebuat mikrokomputer dengan Intel 8088 sebagai CPU
+Tahun 1985 uP Intel 32 bit 80386 
+           IBM mengeluarkan uP 32 bit ROMP 
+Tahun 1989 80486
+      1993 Pentium
+      1995 Pentium Pro (uP 32bit, 64-bit data bus, 36-bit address bus)
+      1997 Pentium II (uP 32bit, 64-bit data bus, 36-bit address bus)
+                       
+
+<h3>ARSITEKTUR MIKROPROSESOR 8086</h3>
+1. Arsitekrut Fisik
+
+    
+            +-----.__.-----+                 
+            |              |                 
+        GND | 1         40 | Vcc             
+   <--  A14 | 2         39 | AD15  -->        
+   <--  A13 | 3         38 | A16/S3 -->              
+   <--  A12 | 4         37 | A17/S4 -->       
+   <--  A11 | 5         36 | A18/S5 -->       
+   <--  A10 | 6         35 | A19/S6 -->       
+   <--   A9 | 7         34 | SSO  -->         
+   <--   A8 | 8         33 | MN/MX-->         
+   <--> AD7 | 9         32 | RD   -->         
+   <--> AD6 | 10        31 | HOLD (RQ/GT0)--> 
+   <--> AD5 | 11        30 | HLDA (RQ/GT1)-->         
+   <--> AD4 | 12        29 | WR   (LOCK)  -->         
+   <--> AD3 | 13        28 | IO/M (S2) -->        
+   <--> AD2 | 14        27 | DT/R (S1) -->         
+   <--> AD1 | 15        26 | DEN  (S0) -->        
+   <--> AD0 | 16        25 | ALE  (QS0)-->         
+    --> NMI | 17        24 | INTA (QS1)-->             
+    -->INTR | 18        23 | TEST                      
+    --> CLK | 19        22 | READY-->            
+        GND | 20        21 | RESET-->
+            |              |
+            +--------------+ 
+
+Keterangan:                                       
+A..     Address                                   
+A../S.  Address/Segment indentifier               
+AD..    Address/Data                              
+ALE     Address latch enable                      
+CLK     Clock                                     
+DEN     Data Enable 
+   _                              
+DT/R    Data transmit/receive                             
+HOLD    Hold request                                          
+HLDA    Hold Acknolegde                                       
+INTR    Interrupt Request   
+____
+INTA    Interrupt Acknoledge                                  
+__                                                            
+IO/M    Memory or I/O Access                                  
+
+LOCK    Bus Hol Control     
+   __   
+MN/MX   Mode Minum/Maximum. Vcc for minimum system                   
+
+NMI     Non Maskable Interrupt                    
+__                                                
+RD      Read Control                              
+
+READY   Wait State Request                        
+__                                                
+WR      Write                                     
+
+
+
+Mikroprosesor 8086 memiliki dua mode proses CPU yaitu mode minimum dan mode maksimum. Pemilihan  
+mode pada prosesor ini tidak dapat dilakukan oleh software. Mode tersebut dapat dipilih dengan cara 
+mengeset voltage pin #33 (MN/MX) apakah itu zero (ground) atau voltage. Sebuah PC berjalan pada pada 
+mode maksimum dimana aplikasi besar dapat berjalan dengan menggunakan fitur multiprocessing. 
+
+
+<h3>DASAR-DASAR BILANGAN DAN OPERASI LOGIKA</h3>
+
+Desimal : 
+Desimal adalah bilangan yang biasa dipakai sehari-hari yaitu bilangan yang menggunakan angka-angka 
+0,1,2,3,4,5,6,7,8,9 contoh 1998 yang berarti 1x10^3 + 9x10^2 + 9x10^1 + 8x10^0 = 1000 + 900 + 90 + 8
+
+Sebuah bilangan desiman biasa disebut dengan bilangan basis sepuluh karena faktor pengalinya adalah 10.
+ 
+Biner :
+Bilangan biner adalah bilangan basis 2 terdiri dari angka 0 dan 1 contoh 100110 yang berarti 
+1x2^5 + 0x2^4 + 0x2^3 + 1x2^2 + 1x2^1 + 0x2^0 = 32 + 0 + 0 + 4 + 2 + 0 atau sama dengan 38 dalam 
+bilangan desimal.
+
+Untuk menunjukan bilangan tersebut adalah bilangan biner atau basis dua maka biasa dituliskan 100110
+
+Setiap bilangan basis sepuluh dapat direpresenntasikan dalam bilangan basis dua.
+
+Heksadesimal : 
+Bilangan basis 16 yang direprentasikan dengan angka-angka 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F. 
+Contoh 10B58F berart 1x16^5 + 0x16^4 + 11x16^3 + 5x16^2 + 8x16^1 + 16x16^0 atau sama dengan 1095055 
+dalam bilangan desimal.
+
+Bilangan heksadesimal biasa ditulis dengan akhiran h atau diawali dengan 0x misalnya  10B58Fh atau
+0x10B58F
+
+
+Konversi bilangan
+
+o   biner -> heksadesimal
+
+    1100110110111100111110101 (biner) = 0001 1001 1011 0111 1001 1111 0101 
+                                           1    9    B    7    9    F    5
+                                      = 19B79F5 (hexadecimal)
+o   decimal  -> biner 
+
+    1576 (decimal)   = 788 * 2 + 0 
+                 788 = 394 * 2 + 0
+                 394 = 197 * 2 + 0 
+                 197 = 98  * 2 + 1
+                 98  = 49  * 2 + 0
+                 49  = 24  * 2 + 1
+                 24  = 12  * 2 + 0
+                 12  = 6   * 2 + 0
+                 6   = 3   * 2 + 0
+                 3   = 1   * 2 + 1
+                 1   = 0   * 2 + 1
+                     = 11000101000 (biner)   
+
+o   decimal -> hexadecimal
+    
+    1576 (decimal)   =  98 * 16 + 8
+                 98  =   6 * 16 + 2
+                  6  =   0 * 16 + 6
+                     =  628 (hexadesimal)  
+                 
+    
+
+     
+Operasi logika
+     _
+NOT  A
+AND  A.B
+     ___
+NAND A.B
+OR   A+B
+    
+XOR  A(+)B programmable inverter (lihat satu input sebagai control dan satu lagi sebagai data), logic differentiator
+     _____
+ENOR A(+)B 1-bit equality detector
+
+Operasi Aritmetika
+
+Penambahan
+
+     1 1 1 0 0   Carry Flag
+       1 0 1 0
+       1 1 1 1
+  ------------- 
+     1 0 0 0 1
+
+Nilai negatif (two's)
+<h3>JENIS DATA</h3>
+Mari kita bahas istilah-istilah yang digunakan dalam merepresentasikan besarnya data.
+
+BIT (binary digit) Sebuah digit biner, dapat bernilai 0 atau 1 
+NIBBLE (4 bit)     Sebuah digit heksadesimal, dapat bernilai 1,2,3,...,9,A,B,C,D,E,F 
+BYTE (by eight)    Data yang menampung 8 bit atau 2 nibble (range 0-255 atau 0-FFh )
+WORD               Gabungan data dari 2 byte atau 4 nibble atau 16 bit (range 0-65535 atau 0-FFFFh)
+DOUBLEWORD         Gabungan data dari 2 word atau 4 byte atau 8 nibble atau 32 bit (range 0-FFFFh)
+
+Satuan pembacaan (read) terkecil dalam bahasa tingka rendah (low-level language) adalah jenis data 
+byte. Sebuah data yang lebih besar dari 1 byte akan dibagi-bagi menjadi beberapa byte, 
+misalnya sebuah data 1 word akan dibagi dalam 2 byte, 1 douleword dibagi dalam 4 byte
+dalam penyimpannya di memori.
+
+
+Dari sebuah data, byte yang paling kiri disebut byte terpenting (Most Significant Byte -- MSB)
+dan byte yang paling kanan disebut byte yang paling kurang penting (Less Significant Byte - LSB)
+Contoh:
+[ABCD]word biasa direpresntasikan dalam 2 byte [AB] dan [CD]. [AB] disebut MSB, dan [CD] disebut LSB
+
+Dalam penyimpanan data di memori urutan penyimpanan adalah dimulai dari LSB. Misalnya
+data [ABCD1234]double word akan disimpan dalam urutan [34], [12], [CD], [AB].
+
+<h3>MEMORY</h3>
+Prosesor berfungsi untuk melakukan proses, sedangkan memory berfungsi untuk meyimpanan data yang 
+dibutuhkan selama proses berlangsung. Memory dibagi-bagi dalam beberapa segmen yang diidentifikasi 
+oleh alamat. Setiap segmen dapat menyimpan sejumlah data yang dapat diakses oleh prosesor.
+
+Prosesor memberikan perintah peyimpanan dan pengambilan data dari memory dengan menggunakan jalur 
+yang disebut bus. Terdapat dua jalur penting dalam mikroprosesor yaitu
+
+- Jalur data (data bus)
+- Jalur alamat (address bus)
+
+
+Address bus 8086 adalah 20 bit, ini berarti alamat memory yang dapat diakses adalah 2^20 = 1048576 
+alamat atau sekitar 1MB (mulai dari alamat 0h sampai FFFFFh).
+
+
+Mikroprosesor n bit berarti mikroprosesor tersebut dapat melakukan operasi metematik 
+(operasi logika) yang melibatkan maksimum n bit. Contoh: 8086 adalah mikroprosesor 16 bit,
+artinya dalam satu waktu dapat mengakses data sebesar 16 bit (1 WORD), 80386 adalah 
+mikroprosesor 32 bit artinya dalam satu waktu dapat mengakses data sebesar 32 bit 
+(1 DOUBLEWORD).
+
+-== Mode Pengalamatan ==-
+                                                                                                    
+- Real mode [http://en.wikipedia.org/wiki/Real_mode]                                                
+Mode operasi prosesor 8086 atau 8088 adalah real mode atau real address mode yang memiliki          
+karakteristik:                                                                                      
+                                                                                                    
+ > alamat memory terbatas pada 20 bit (sehingga ukuran memory (alamat memory yang bisa didukung 
+   terbatas pada ~1MB)                   
+ > tidak ada mekanisme proteksi memory                                                              
+ > tidak mendukung multitasking pada level hardware                                                 
+                                                                                                    
+- Protectred mode                                                                                   
+                                                                                                    
+Prosesor x86 yang lebih tinggi yaitu generasi 80286 keatas memiliki dua mode proses yaitu real mode 
+dan protected mode. Protected mode adalah mode yang dijalankan saat operasional dan tidak akan 
+dijelaskan disini.
+                                                                                                    
+Prosesor diatas 80386, memiliki kapabilitas virtual 8086 mode, yang membuat program untuk prosesor  
+8086 atau 8088 masih dapat dijalankan.                                                              
+                                                                                                    
+Bagaimana cara pengalamatan pada real mode?
+
+8086 adalah mikroprosesor 16 bit yang berarti register-nya (register adalah variable pada 
+perangkat keras) paling besar berukuran 16 bit (1 WORD). Karenannya untuk mengakses 
+alamat fisik sebanyak FFFFFh tidak dapat digunakan 1 register alamat. Kenapa? karena 16 bit berarti
+hanya dapat digunakan untuk mengakses alamat fisik mulai dari 0000h sampai FFFFh.
+
+Untuk mengatasi kendala tersebut, suatu alamat fisik dipresentasikan oleh 2 register
+berukuran WORD, yang biasa disebut SEGMENT dan OFFSET
+
+Sebuah alamat fisik (0-FFFFFh) dapat dialamatkan menggunakan Segment dan Offset dengan cara:
+
+- kalikan segment dengan 16 (= 10h = 10000)
+- tambahkan dengan offset, maka didapatkan alamat fisik
+
+Contoh: FFE23 jika ditulis dalam SEGMENT:OFFSET adalah FFE2:0003 atau FFE0:0023 atau FF00:0E23 atau 
+F000:FE23 atau FFE1:0013 atau yang lainnya asalkan memenuhi syarat 
+
+ (SEGMENT * 10h) + OFFSET = alamat fisik
+ 
+Jadi begitu banyak kemungkinan penulisan sebuah alamat fisik memori.
+
+Catatan: Hasil dari perkalian suatu bilangan hexadesimal dengan bilangan 10h adalah bilangan itu 
+sendiri diberi 0 dibelakangnya, seperti dalam bilangan desimal dikali dengan bilangan 10h. Jadi
+FFE2 dikali 10h hasilnya adalah FFE20. Perhatikan operasi berikut:
+
+   FFE10  <- penambahan angka nol dibelakang adalah hasil kali dengan 10h
+    0013
+   -----+
+   FFE23
+
+Operasi tersebut diatas sama dengan 
+
+- Geser (shift) bit  segmen tempat langkah ke kiri (<<4)
+- tambahkan dengan offset
+
+Sebgai contoh: 
+Misalnya sebuah alamat FFE1:0013 memiliki alamat fisik yang dapt dihitung sebgai berikut
+
+Kita konversikan segment dan offset tesebut mejadi bilangan biner
+
+  FFE2 = 1111111111100010b
+  0003 = 0000000000000011b
+  
+  
+  11111111111000100000  (shift ke kiri 4 langkah)
+                    11
+  -------------------- +
+  11111111111000100011 = FFE23
+    
+
+<h3>REPRESENTASI DATA</h3>
+Kode ASCII (American Standard Code for Information Interchange)
+Metoda BCD (Binary Coded Decimal)
+Floating point representation -> 1.5732*10^6
+
+
+Prosesor 8086 menggunakan little endian format, artinya LSB (least significant bit) akan disimpan 
+duluan didalam memory (memiliki alamat yang lebih kecil). Contoh nilai 32-bit 0x11223344 akan 
+disimpan sebagai bytes dengan urutan sebagai berikut:
+                                                                             
+  (low addr)              (high addr)                                        
+     0x44    0x33    0x22    0x11    
+     
+Beberapa prosesor seperti Sun, PPC Mac, menyimpan data dalam format big endian yaitu LSB disimpan
+pada alamat memory yang lebih tingg (high address).
+
+<h3>REGISTER DAN FLAG</h3>
+
+-== Register ==-
+
+Register merupakan sebuah tempat (storage/memory) pada CPU yang dapat diakses dengan cepat, dimana kita 
+dapat meletakan data dan memanipulasinya. 
+
+Sebagai ilustrasi: Di dalam bahasa pemrograman tingkat tinggi, seperti C atau C++ kita bebas 
+menentukan variable-variable sebanyak yang kita mau, tapi tidak di bahasa tingkat rendah, 
+jumlahnya sudah tertentu. Dalam pemrograman assembly, register bisa disamakan dengan variabel.
+
+-== Flag ==-
+
+Flag adalah suatu variable boolean (1 atau 0) yang menunjukan status/keadaan dari mikroprosesor. 
+Karena flag hanya terdiri dari 1 bit, maka data flag dikumpulkan menjadi suatu bentuk yang lebih 
+besar. Dalam 8086 flag-falg dikumpulkan menjadi 1 word (16 bit) disebut flag register.
+
+Flag biasanya juga digunakan terutama untuk pencabangan program (conditional brach)
+
+-== Jenis Register/Flag ==-
+
+Prosesor 8086 memiliki 14 register yang besarnya 16 bit.
+
+Register selain biasa digunakan sebagai tempat menyimpan data sementara, biasanya juga digunakan 
+untuk menunjukan suatu alamat memori. Untuk pengalamatan dengan cara segment dan offset diperlukan 
+2 buah register karena sebuah register (16 bit) tidak dapat digunakan untuk address bus 20 bit yang 
+dimuliki 8086.  
+
+Untuk menyimpan segment biasa digunakan segment register (CS, SS, DS, ES) atau general purpose 
+register (AX, BX, CX dan DX). Sedangkan untuk menyimpan offset digunakan pointer (SP, BP, IP) 
+atau general purpose register.
+
+Contoh pasangan segment:offset untuk merujuk pada suatu alamat:
+
+  CS:IP
+  SS:SP, SS:BP
+  DS:AX, DS:BX, DS:CX, DS:DX, DS:DI, DS:SI, DS:8-bit_literal, DS:32-bit_literal
+  ES:DI
+
+Dibawah ini adalah penjelasan mengenai jenis-jenis register yang saya sebutkan diatas.
+
+Klasifikasi/kelompok register berdasarkan fungsinya:
+
+[1] Multi/general purpose register:
+    Pada 386 keatas juga ada register dengan besar 32 bit, dengan nama yang sama dengan 
+    register 16 bit hanya ditambah huruf E di depannya (EAX, EBX, ECX, EDX).
+
+    o AX (Accumulator): sering digunakan untuk menyimpan Arithmetic Logical unit dan 
+      hasil perhitungan sementara dari operasi logika atau aritmetika tsb.
+      Selain itu register ini juga digunakan untuk menyimpan sementara data yang akan dikirim
+      ke Port atau yang datang dari port untuk diproses.
+    o BX (Base): sering digunakan untuk menyimpan alamat (offsetnya) dari data yang
+      disimpan di memory
+    o CX (Count): sering digunakan untuk instruksi yang memerlukan hitungan (count)
+      seperti ROL, LOOP, dll
+    o DX (Data): sering digunakan untuk mengakses alamat input, output melalui instruksi
+      IN, OUT    
+    
+    AX, BX, CX, DX merupakan register dengan besar 1 word (16 bit). Untuk memudahkan 
+    pemrograman, register-register tersebut dapat diakses terpisah antara high byte 
+    (1 byte kiri) dan low byte (1 byte kanan). Jadi kita dapat mengakses register AX 
+    melalui register AL (AX low) dan AH (AX high). Tapi register 8 bit ini juga dapat dioperasikan
+    sebagai data "sendiri/tunggal". Contoh: 
+    Jika AX berisikan 1234h, maka AH berisi 12h dan AL berisi 34h. dan jika kita mengisi 
+    AH dengan 45h dan AL 66h,maka AX berisi 4566h. hal ini juga berlaku untuk register BX,
+    CX, DX dimana ada BH, BL, CH, CL,DH, DL. 
+      
+      15       7        0
+      +--------+--------+
+      |   AH   |   AL   |   = AX
+      +--------+--------+
+      |   BH   |   BL   |   = BX
+      +--------+--------+
+      |   CH   |   CL   |   = CX
+      +--------+--------+
+      |   DH   |   DL   |   = DX
+      +--------+--------+      
+
+[2] Segment register
+
+    Sebelum membahas apa itu segment register, kita bahas dulu bagaimana suatu kode program disimpan
+    dalam memori. Dalam arsitektur 8086 sebuah kode program disimpan dalam sebuah memori dengan cara
+    segmentasi/pembagian. Beberapa bagian tersebut adalah:
+    
+    1. Bagian code yang menyimpan kode program yang menyimpan instruksi, biasanya tidak dapat diubah 
+       (read only). Bagian atau segmen ini biasa juga disebut text segment
+    2. Bagian data yang menyimpan data statis misalnya konstanta string
+    3. Bagian stack untuk digunakan untuk meyimpan data seperti lokal variabel dan subroutine.
+    4. Bagian ekstra untuk digunakan untuk operasi instruksi string seperti stos, movs
+    
+    Sebuah program dalam memori dapat digambarkan sebagai berikut:
+    
+    +-------+
+    |  PSP  | program segment prefix
+    +-------+ <- DS
+    | Data  |
+    +-------+ <- CS
+    | Code  |
+    +-------+
+    | Stack |
+    +-------+ <- SS
+    
+    PSP adalah metadata dari program executable pada sistem operasi DOS. Lebih jelasnya silahkan 
+    baca bagian "Mulai Memprogram Assembly di DOS"
+
+    Segment register bersama-sama dengan offset digunakan untuk menyimpan alamat dari segment suatu 
+    program. Offset ditempatkan di (biasanya menggunakan) BX, CX , SI atau DI yang tidak termasuk 
+    dalam segment register. 
+
+    o CS (Code segment): menunjukan segment instruksi yang akan dilaksanakan oleh mikroprosessor
+    o DS (Data segment): menunjukan alamat segment memory yang digunakan oleh program sebagai tempat 
+      penyimpanan data.
+    o SS (Stack Segment): menunjukan segment yang digunakan oleh memory untuk stack.
+    o ES (Extra Segment): segment tambahan yang diberikan kepada pemakai, dan digunakan
+      oleh beberapa instruksi yang termasuk dalam 'string instruction'.
+        
+    Catatan: 
+    Pada jenis prosessor 386 keatas segment register ini berjumlah 6, dengan 2 register baru yaitu:
+    
+    o FS 
+    o GS 
+
+[3] Pointer dan index register:
+
+    o SP (Stack Pointer): digunakan sebagai penunjuk (menyimpan data) alamat (offset) dari 
+      LIFO stack memory.
+      Biasanya disebut stack offset register. Terlibat langsung dalam intruksi PUSH dan POP.
+      Lihat bagian yang membahas stack memory dibawah.
+      
+    o BP (Base Pointer): digunakan untuk menunjuk alamat (offset) dari array
+      (array merupakan sekumpulan data berindeks) yang terletak di dalam stack memory.
+
+    o IP (Instruction Pointer): menunjukan alamat (offset) instruksi di memory yang akan 
+      dilaksanakan oleh mikroprosessor. Mikroprosessor selalu mejalankan instruksi yang
+      berada di memory yang ditunjuk oleh alamat CS:IP (Code Segment:Instruction Pointer)
+      Register ini disebut juga Program Counter (di Z-80), sebagai pecatatat address kode
+      bahasa mesin yang akan dijalankan, satu persatu register ini mencatat maju ke address 
+      berikutnya, kode demi kode. Register ini berjalan otomasis sehingga biasanya tidak di
+      jamah oleh program. 
+
+    o SI (Source Index): digunakan sebagai penunjuk alamat (offset) dari source (sumber) bagi
+      instruksi-instruksi yang termasuk dalam 'string instruction' (operasi blok transfer?), 
+      seperti MOVS, SCAS, CMPS, LODS.
+      
+    o DI (Destination Index): digunakan sebagai penunjuk alamat (offset) dari destination 
+      (tujuan) bagi operasi yang menggunakan 'string instruction'. 
+      Biasanya digunakan bersama-sama SI
+
+    Dalam melakukan operasi blok transfer berarti SI harus menyimpan dahulu alamat awal dari 
+    data source dan DI menyimpan alamat awal dari data tujuan.
+    SI dan Di juga berfungsi untuk menunjukan /mencatat address memory yang akan digunakan.
+    SI dan DI digunakan bersama-sama dengan Segment Register sebagai OFFSET.
+    DS:SI berarti DS = Data Segment dan SI adalah offset dari Data Segment.
+
+[4] Flag register / program status register (bit-bit flag yang terdapat di dalamnya):
+    Merupakan register 16 bit. Berfungsi dalam menyimpan informasi yang berkaitan dengan operasi 
+    kerja mikroprosessor dan akibat dari operasi aritmetik dan atau logik.
+
+    Register ini dapat digambarkan sebagai berikut:
+
+      BIT    15   14  13  12  11   10    9    8   7    6    5    4   3   2    1    0  
+            +---+---+---+---+----+----+----+----+----+----+---+----+---+----+---+----+
+      FLAG  |   |   |   |   | OF | DF | IF | TF | SF | ZF |   | AF |   | PF | X | CF | 
+            +---+---+---+---+----+----+----+----+----+----+---+----+---+----+---+----+
+    
+    Bit-bit yang kosong berarti tidak dipergunakan. Keadaan bit bernilai 1 disebut keadaan set
+    dan jika 0 disebut reset.
+
+    o CF = Carry (bit ke 0): menunjukan carry (bawaan) atau borrow (pinjaman) setelah penjumlahan
+      atau pengurangan. Nol berarti tidak ada carry.
+    o PF = Parity (bit ke 2): menunjukan jumlah bit '1' dalam data adalah genap atau ganjil, jika
+      genap flag parity ini berisi 1 dan sebaliknya jika ganjil.
+    o AF = Auxilaty Carry Flag (bit ke 4): menunjukan adisi/substraksi carry ke bit 4 di Al atau AH
+      Nol menunjukan non carry 
+    o ZF = Zero (bit ke 6): menunjukan apakah hasil dari instruksi sebelumnya nol atau tidak, jika
+      hasilnya nol maka flag ini di-set (1), jika tidak nol maka di-reset (0).
+    o SF = Sign (bit ke 7); menunjukan apakah hasil dari instruksi sebelumnya negatif atau positif,
+      jika positif flag ini di-set, dan sebaliknya.
+    o TF = Trap (bit ke 8): menunjukan mode debugging on atau off.
+      Nilai flag ini 1 berari program berjalan dalam mode single step by step (debugging).
+    o IF = Interrupt (bit ke 9): mengontrol operasi dari INTR (interrupt Request) pin masukkan.
+      Jika flag ini di-set, maka INTR pin berlaku, dan sebaliknya.
+    o DF = Direction (bit ke 10): mengontrol arah akases string dari instruksi-instruksi yang 
+      tergabung dalam 'string instruction'.
+    o OF = Overflow (bit ke 11): kondisi yang terjadi jika bilangan bertanda (negatif/postif) di
+      jumlah atau dikurangkan. Flag ini menunjukan apakah hasil telah melampaui batas
+      dari kapasitasnya. Contoh:
+      7Fh (+127) ditambah dengan 01h (+1) maka hasilnya (-128) dan flag ini di-set.
+      
+<h3>Stack Memory</h3>
+Stack atau biasa disebut stack register adalah bagian yang amat penting bagi semua mikroprosessor.
+Stack biasanya menjadi penyimpanan data secara sementara (temporary), misalnya alamat dari prosedur/
+subrutin, alamat return value dari suatu prosedur, variabel lokal.
+
+Stack memory menggunakan sistem LIFO (last In First Out) artinya data yang kita simpan terakhir 
+adalah data yang paling pertama akan kita dapatkan. Dalam 8086 ukuran stack adalah word (2 byte = 
+16 bit) yang berarti data yang dapat disimpan dalam setiap segmen adalah 16 bit.
+
+        Data baru
+            |
+     .      |         .
+     :      |         :
+     |      V         |
+     +----------------+ Alamat memori yang lebih kecil
+     | 16 bit data    |
+     +----------------+
+     | 16 bit data    |
+     +----------------+
+     | 16 bit data    |
+     +----------------+
+     | 16 bit data    |
+     +----------------+ Alamat memori yang lebih besar
+     
+Area memori dari stack ditentukan oleh SS (Stack Segment) register dan SP (Stack Pointer) register, 
+ditulis SS:SP. Penentuan tersebut dilakukan oleh sistem operasi saat program mulai dijalankan. 
+
+Ketika sebuah data dimasukan ke stack pointer, alamat SS:SP akan mengecil (nilai SP akan dikurangi 2)
+sesuai dengan penunjukan dimana data terakhir dimasukan. Perubahan SP sebanyak 2 dikarenakan jenis 
+data yang disimpan dalam stack adalah word (2 byte).
+
+Ketika sebuah data diambil, prosesor akan mengambil data dari alamat SS:SP dan setelah data diambil 
+alamat SS:SP diperbaharui sesuai dengan alamat data berikutnya yang masih disimpan yaitu nilai SP
+akan ditambah 2.
+
+Ada dua stack register yaitu BP dan SP
+
+Perintah yang terkait langsung (dengan stack pointer) ini adalah 
+
+- PUSH untuk menyimpan data pada stack
+- POP  untuk mengakses/mengambil data dari stack
+
+
+Instruksi PUSH digunakan untuk menyimpan suatu data ke Stack. Contoh: 'PUSH AX'
+yang berarti "ambil data dari puncak stack dan masukan nilainya ke AX'
+Perlu diingat bahwa kita tidak dapat mengintruksikan 'PUSH AL' atau 'PUSH BL' karena
+AL dan BL besarnya 1 byte (bukan 1 word).
+
+Salah satu guna stack adalah untuk menyimpan suatu register secara sementara, misalnya:
+
+    PUSH AX         ; AX disimpan dalam stack
+    IN   AL, DX     ; baca port DX dan masukkan nilainya ke AL (disini AX berubah)
+    MOV  BX, Ax     ; Simpan hasil pembacaan ke BX
+    POP  AX         ; kembalikan nilai AX
+
+Data yang dapat kita simpan ke stack adalah Register 16 bit, Flag dan alamat memory tertentu.
+Contoh: PUSH DX, PUSH (push flag), POP [2345h]
+
+
+<h3>MODE PENGALAMATAN</h3>
+Untuk menjelaskan metoda pengalamatan sebaikanya dimengeri dulu sebuah instruksi yang penting
+dan umum yaitu MOV. Bentuk syntaxnya: 
+
+   MOV destination, source
+
+Instruksi ini memindahkan sebuah nilai pada suatu lokasi di memory (register atau variable)
+Contoh:
+
+  MOV AX, 1234h  ; memindahkan nilai 1234h ke register AX 
+  MOV BX, AX     ; memasukan nilai di register AX ke register BX
+
+* Data Addressing Mode *
+
+ o Register addressing: 'MOV AX, BX'  artinya memindahkan (meng-copy) register BX 
+   ke register AX
+ o Immediate addressing: 'MOV AX, 46h' artinya memasukan nilai 46h ke register AX atau
+   "AX = 46h".
+ o Direct addressing: [constant]
+   Dimana constant adalah konstanta nilai 16-bit   
+   'MOV AX, [1234]' artinya memasukan nilai word yang ada di alamat 
+   offset 1234h ke dalam AX atau "AX = isi dari alamat memory yang ditunjukan BX"
+ o Register-Indirect Adressing: [register]
+   Dimana register adalah BX, SI, atau DI
+   'MOV AX, [BX]' artinya Masukan nilai yang ada di alamat
+   yang terkandung dalam BX ke register AX atau " AX = isi dari alamat memory yang ditunjukan BX"
+ o Base Index Addressing: [baseReg + indexReg]
+   Dengan baseReg adalah BP atau BX, dan indexReg adalah SI atau DI
+   'MOV AX, [BX+DI]' artinya masukan nilai yang ada si alamat
+   (BX+DI) ke dalam AX
+ 
+ Mode pangalamatan yang lain jarang digunakan kecuali untuk program-program data base, misalnya:
+ 
+ o 
+
+Ingat: bedakan antara 'MOV AX, BX' dengan 'MOV AX, [BX]' dan 'MOV AX, 12h' dengan 
+'MOV AX, [12h]'
+
+
+<h3>PERINTAH-PERINTAH DASAR (UMUM)</h3>
+
+o Data movement instruction
+
+Pada setiap program kita akan menghadapi pemindahan data antara memory dan register CPU pemindahan 
+tersebut bisa dari memory ke beberapa register, dari register ke register, dari sebuah register ke 
+stack, atau mentransmisikan data dari register ke port device eksternal, dan kebalikannya.
+
+Pemindahan data tersebut memiliki batasan yaitu:       
+
+ o tidak dapat memindahan data dari lokasi memory ke lokasi memory lain secara langsung
+ o tidak dapat memindahkan data langsung ke sebuah segment register, tapi harus melalui
+   register CPU dulu.
+
+--- Sintak pemindahan data: MOV ---
+Perintah untuk meng-copy data sebesar 1 byte adalah dengan MOV yang syntaksnya memiliki bentuk
+ 
+  MOV  <destination>, <source>
+ 
+Fungsi: untuk memindahkan (meng-copy) data dari source ke destination
+        ada beberapa kemungkinan pemindahan ini berdasarkan source dan destination-nya:
+        
+  * Destination: memory.          Source: accumulator
+  * Destination: accumulator.     Source: memory
+  * Destination: memory/register. Source: segment register
+  * Destination: register.        Source: register
+  * Destination: register.        Source: memory
+  * Destination: memory.          Source: register
+  * Destination: register.        Source: immediate data
+  * Destination: memory.          Source: immediate data
+  
+Contoh:
+
+  MOV AX,0006h  ; menyimpan nilai 0006h ke alamat register AX
+  MOV BX,AX     ; memindahkan data/nilai di register AX ke register BX
+
+--- MOVS ---
+
+Dalam asembler untuk mikroprosesor 386+ telah dimungkinkan untuk memindahkan data block dalam 
+bytes atau word. Untuk memindahkan group dalam n byte digunakan perintah MOVSB sedangkan
+untuk pemindahan n word data digunakan perintah MOVSW. Kedua perintah ini mengambil sebuah group 
+nilai dari alamat DS:DI dan memindahkannya ke alamat ES:DI. 
+
+Perintah MOVS atau MOVSB atau MOVSW, memiliki sintaks:
+
+  MOVS ;tanpa parameter
+
+Fungsi: memindahkan group data dari source address yang berada di register SI ke destination address 
+di register DI
+
+Contoh:
+  MOV SI, OFFSET VAR1
+  MOV DI, OFFSET VAR2
+  MOVS
+
+pada perintah tersebut pertama didefinisikan nilai dari SI dan DI berturut-turut yaitu VAR1 dan VAR2 
+setelah perintah MOVS maka nilai VAR1 akan di-copy ke VAR2
+
+--- Pemindahan data dari/ke stack ---
+
+Untuk pemindahan data ke stack digunakan perintah PUSH, dan untuk mengambil data dari stack 
+digunakan perintah POP. 
+
+Ingat: pada stack data yang pertama kita simpan adalah data yang akan terakhir kita ambil.
+Contoh pengguan perintah PUSH dan POP
+ 
+  PUSH AX
+  PUSH BX
+  PUSH CX
+  
+  POP CX
+  POP BX
+  POP AX
+
+--- Pemindahan data ke/dari perangkat eksternal ---
+
+Pada mikroprosesor x86 untuk komunikasi dengan device eksternal dapat digunakan peintah OUT untuk 
+mengirim data ke port dan IN untuk membaca data dari suatu port. Contoh:
+
+  OUT DX, AX ; ax berisi informasi yang akan dicopy ke port dx
+  IN AX, DX  ; dx berisi informasi yang akan disimpan di register ax
+  
+  
+  LEA
+  LDS
+  LES
+  
+  LODS
+  STOS
+  CMPS
+
+o Instrukti aritmetika dan logika:
+
+  ADD
+  ADC
+  SUB
+  DEC  Instruksi decrement yaitu pengurangan dengan nilai 1
+  INC  Instruksi increment yaitu penambahan dengan nilai 1
+  
+  MUL
+  DIV
+  IDIV
+  IMUL
+  
+  CMP   Instruksi compare yaitu membandingkan register dengan nilai atau register lain.
+  
+  CMP AX, BX      ; Bandingkan BX dengan AX, jika sama ZF (zero flag) diset 1
+  JZ  00124531    ; Jika ZF = 1, loncat ke alamat 001254531     
+  
+  
+  TEST
+
+beberapa perintah untuk operasi logika adalah sebagai berikut:
+
+  OR 
+  AND
+  XOR
+  NOT
+  NEG
+  
+  ROL
+  ROR
+  SHL
+  SHR
+
+ o Instruksi kontrol program:
+
+Instruksi yang sering digunakan untuk pengontrol program adalah "conditional jump" yaitu perintah
+untuk loncat ke kode instruksi pada suatu tempat jika suatu kondisi terpenuhi.
+
+Ada dua bagian jenis JUMP yaitu unsigned (yang tidak mepedulikan tanda positif atau negatif) dan 
+signed conditional jump.
+
+Ada juga instruksi yang jump yang tidak mengecek tanda dari nilai. 
+Perintah jump yang seing digunakan adalah JZ, JNZ, JA dan JB.
+
+1. Unsigned conditional jumps
+
+  JA    Jump if above   
+  JB    Jump if below
+  JAE   Jump if above or equal    
+  JBE   Jump is below or equal 
+  JNA   Jump if not above (sama dengan intruksi JBE) 
+  JNAE  Jump if not above or equal (sama dengan intruksi JB) 
+  JNB   Jump if not below (sama dengan intruksi JBE) 
+  JNBE  Jump if not below or equal (sama dengan intruksi  JA) 
+
+
+2. Signed conditional jumps
+
+  JG    Jump if greater 
+  JGE   Jump if greater of equal 
+  JL    Jump if less 
+  JLE   Jump if less or equal 
+  JNG   Jump if not greater (same as JLE) 
+  JNL   Jump if not lower (same as JGE) 
+  JNGE  Jump if not greater or equal (same as JGE)   
+  JNLE  Jump if not lower or equal (same as JG) 
+
+
+Conditional jump (dont matter if it's signed or not)
+  JZ    Jump if zero flag diset (=1)
+  JE    Jump if equal (same as JZ) 
+  JNZ   Jump if zero flag tidak diset (=0)
+  JNE   Jump is equal (same as JNZ) 
+
+JZ atau JE pada dasarnya instruksi yang berdasarkan pengecekkan pada Zero Flag. Ini biasanya penting 
+bagi crakerz untuk melewati suatu subrutin dengan cara mengeset langsung zero flag-nya. 
+
+  JMP
+  
+  JA
+  JB
+  JNA
+  JNB
+  JE
+  JZ
+  
+  LOOP
+  
+  CALL  Pemanggilan subrutin
+  RET   Untuk kembali ke alamat ketika CALL dipanggil. Biasanya terdapat pada akhir suatu subrutin.
+  
+  INT
+  IRET
+
+ <h3>* Pencabangan program *</h3>
+Cara pencabangan program (conditional brach) adalah menggunakan instruksi yang mengecek flag-flag 
+tertentu (dalam BASIC: if flag=1 then go to ...).
+
+Setiap akhir instruksi, flag-flag di-set/reset sesuai dengan hasilnya.
+Perhatikan contoh berikut:
+
+    MOV     AL, BL              ; AL=BL
+    CMP     AL,07               ; bandingkan AL dengan 07, jika sama: set zero flag di-set,
+                                ; jika AL < 07 borrow flag (carry flag) di set
+    JZ      ... (suatu alamat)  ; cek flag: apakah zero flag (ZF) diset? jika ya loncat ke alamat ...
+
+Untuk mengecek bit-bit tertentu dapat digunakan instruksi TEST
+Untuk mengecek nol atau tidaknya suatu register dapat digunakan 'CMP AL, 0' atau 
+'OR AL, AL' (instruksi ini lebih sering digunakan karena dalam byte yang lebih kecil).
+
+ <h3>* LOOPING *</h3>
+Looping atau iterasi (pengulangan proses sampai beberapa kali) merupakan aspek terpenting 
+bagi semua level pemrograman.
+
+Instruksi LOOP &lt;address&gt; adalah sama dengan urutan instruksi:
+
+    DEC     CX      ; CX = CX-1
+    JZ      <address> 
+        
+Jadi jika kita ingin membuat rutin yang diulang n kali:
+
+    MOV     CX, n         ; Isi register CX dengan n
+                          
+  address_loop1:          
+    PUSH    CX            ; Simpan isi CX di stack, agar tidak hilang
+                          
+    ...                   ; Rutin yang diulang sebanyak n kali
+    ...                   
+                          
+    POP     CX            ; kembalikan dari stack isi CX
+    LOOP    address_loop1 ; CX = CX-1; kalau CX=0 loncat ke address_lopp1 diatas
+    
+Dengan konsep yang sama kita dapat menggunakan register lain misalnya:
+
+    XOR     BX, BX        ; BX = 0
+                          
+  address_loop2:          
+    PUSH    BX            ; Simpan BX
+                          
+    ...                   ; Rutin yang diulang sebanyak n kali
+    ...                   
+                          
+    POP     BX            ; Kembalikan BX
+    INC     BX            ; BX = BX+1
+    CMP     BX,n          ; Bandingkan BX dengan n
+    JNE     address_loop2 ; Kalau tidak sama (belum sampai) loncat ke address_loop2
+
+
+ <h3>* SUBRUTIN (FUNGSI) *</h3>
+Subrutin dapat juga disebut prosedur atau fungsi. Dalam Low Level programming subrutin di-
+handle dengan instruksi CALL (go to subroutine) dan RET (return from subroutin).
+
+Perhatikan contoh berikut:
+
+    MOV     AX, BX        ; AX = BX
+    CALL    routine_1     ; Go to subroutin routine_1 (pemanggil 1)
+                          
+  return1:                
+    MOV     [1234],CX     ; Save hasilnya ke alamat 1234h
+    MOV     AX, DX        ; AX = DX
+    CALL    routine_1     ; Go to subrutin routine_1 (pemanggil 2)
+                          
+  return2:                
+    MOV     [1236], CX    ; Save hasilnya ke alamat 1236h
+                          
+    ...                   
+    ...                   
+                          
+  routine_1:              
+    SHL     AX, 1         ; AX = AX*2
+    INC     AX            ; AX = AX+1
+    MOV     CX, AX        ; Simpan hasilnya ke CX
+    RET                   ; Lanjutkan program ke program pemanggil
+                          ; Jika pemanggil dari pemanggil 1; loncat ke return 1
+                          ; Jika pemanggil dari pemanggil 2; loncat ke return 2
+
+ <h3>* INTERRUPT *</h3>
+ 
+Interrupt adalah sebuah tanda yang dikirimkan ke procesor agar sebuah prosesor menghentikan proses
+sementara dan mengproses sesuatu yang lain.
+ 
+Interrupt dapat dibedakan menjadi 2, yaitu: 
+ -> interrupt software
+ -> interupt hardware.
+    Interrupt hardware selalu mempunyai handler berupa interupsi software
+    Interupsi hardware menggunakan jalur interupsi pada mikroprosessor (IRQ = Interrupt Request).
+    IRQ dari perangkat lain dikontrol oleh sebuah chip PIC (Programmable Interrupt Controller). 
+    
+    Chip yang biasa digunakan untuk 8086/8088 adalah 8259A, sedangkan untuk 386+ biasanya digunakan
+    APIC (Advanced PIC). Gambar dibawah ini memperlihatkan arsitektur prosesor yang terhubung ke PIC.
+
+      +----------------+         +------+
+      |            INTR|<--------|      |
+      |    8086        |         | PIC  |<====> 16 port IRQ 
+      |             NMI|<--------|      |       ke perangkat lain
+      +----------------+         +------+
+      
+  
+     Dalam komputer biasanya digunakan dua buah PIC sehingga terdapat 16 port IRQ karena masing-
+     masing PIC memiliki 8 buah port IRQ.
+  
+  
+Ada dua tipe hardware interrupt:
+ - Non-maskable interrupt  (NMI)            
+   Dipanggil lewat jalur NMI dari PIC
+   Selalu ditangani dengan segera
+   Interrupt handler untuk interrupt dengan nomor vektor 2 
+   Tidak ada interrupt yang dieksekusi sebelum NMI selasai
+ 
+ 
+ - Maskable interrupt (INTR)
+   Berhubungan dengan interupt flag (IF) yang ada dalam flag register. Jika flag ini diset (=1)
+   prosesor akan memonitor pin INTR dan jika terdapat sinyal intterupt maka prosesor akan 
+   memprosesnya. Jika flag IF = 0, prosesor akan mengabaikan sinyal pada pin INTR.
+   
+   Jadi IF flag berfungsi untuk men-enable atau men-disable semua hardware interrupt yang 
+   dikirimkan PIC ke processor
+                    
+   Instruksi untuk mengubah IF dapat dilakukan dengan instruksi STI (set interrupt enable flag) 
+   dan CLI (clear interrupt enable flag). 
+   
+   Perlu diingat juga IF dapat berubah karena interrupt/task gates, POPF, and IRET. 
+   
+ 
+Software interrupt ada dua jenis juga
+ - Interrupt yang dibuat (generate) oleh program.
+   Interrupt ini dapat dibuat dengan instruksi INT. Intruksi INT akan mengeksekusi suatu bagian kode
+   intruksi (rutin) di memori yang disebut interrupt handler. Interrupt handler dipilih berdasarkan 
+   vektor table atau list penomoran jenis interrupt.
+   
+   Jadi rutin yang ada dalam interrupt handler berguna dalam meng-handle permintaan interupsi,
+   misalnya: keyboard di tekan, mouse digerakkan, dll.
+   
+ - Interrupt karena terjadinya exception pada saat eksekusi instruksi, misalnya:
+    . Operasi pembagian dengan 0 
+    . Page fault atau segmentation violation karena melakukan operasi pemindahan register yang 
+      tidak diketahui
+    . General protection fault karena melakukan jmp ke stack memori yang dilarang. Biasanya ini 
+      terjadi pada prosesor 386+ yang memiliki protection mode.
+
+
+
+Dengan cara interupsi, maka program tidak perlu menunggu masukan dan tidak perlu mengecek status 
+dari pemintaan-interupsi (interrupt request), pada saat peminta interupsi minta dilayani, 
+barulah program  dialihkan ke rutin yang menangani interupsi dan setelah itu, program dilanjutkan.
+
+Setiap interupsi memiliki nomor agar dikenali. Misalnya 
+
+INT 8 : Clock timer (setiap detik dipanggil 18.2 kali)
+INT 9 : diapnggil setiap tombol keyboard ditekan
+
+List dari nomor-nomor dari interrupt disebut interrupt vector table, tabel tersebut berupa data 
+struktur yang disimpan dalam memori yang disebut Interrupt Descriptor Table (IDT). Tabel ini 
+digunakan oleh prosesor untuk menentukan interrupt handler yang akan dipanggil jika terjadi 
+interrupt atau exception. 
+
+Pada 8086, IDT disimpan selalu pada lokasi memori yang tetap yaitu 0000h to 03ffh, dan berisi 
+256 4-byte real mode pointers (256 * 4 = 1024 bytes of memory). Pada 286+ bersarnya vektor masing-
+masing 8 bytes. 
+
+Penggunaan vekror adalah sbb:
+
+32 nomor pertama dipakai untuk processor exception
+16 nomor berikutnya dipakai untuk hardware interrupt
+sisanya untuk software interrupt
+
+  ------------------------------------------
+  Interrupt 
+   vector  	Exception
+  --------- --------------------------------
+    00 	    Divide error
+    01 	    Debug exceptions
+    02 	    Non-maskable interrupt (NMI)
+    03 	    Breakpoint (INT 3 instruction)
+    04 	    Overflow (INTO instruction)
+    05 	    Bounds check (BOUND instruction)
+    06 	    Invalid opcode
+    07 	    Coprocessor not available
+    08 	    Double fault
+    09 	    Coprocessor segment overrun
+    0A 	    Invalid TSS
+    0B 	    Segment not present
+    0C 	    Stack exception
+    0D 	    General protection exception, 
+            misalnya blue screen Windows 9x
+    0E 	    Page fault
+    0F 	    Intel reserved
+    10 	    Coprecessor error
+    11-19 	Intel reserved
+    1A-FF 	Not used
+   ------------------------------------------
+
+Dibawah ini daftar interrupt hardware:
+   
+  ------------------------------------------
+           Interrupt 
+  IRQ pin  vector     Interrupt    
+  -------- ---------- ----------------------
+  IRQ0 	    08 	       system timer
+  IRQ1 	    09 	       keyboard
+  IRQ2 	    0A 	       penghubung ke PIC2
+  IRQ3 	    0B 	       COM2
+  IRQ4 	    0C 	       COM1
+  IRQ5 	    0D 	       LPT2
+  IRQ6 	    0E 	       floppy disk drive
+  IRQ7 	    0F 	       LPT1
+  IRQ8 	    70 	       CMOS Real Time Clock
+  IRQ9 	    71 	       
+  IRQ10 	  72 	       
+  IRQ11 	  73 	       
+  IRQ12 	  74 	       PS/2 Mouse
+  IRQ13 	  75 	       numeric coprocessor
+  IRQ14 	  76 	       hard disk drive IDE0
+  IRQ15 	  77 	       hard disk drive IDE1
+  ------------------------------------------
+  
+Selain itu interupsi juga berguna sebagai pemanggil rutin tertentu yang sudah didefinisikan untuk
+layanan tertentu, misalnya:
+
+INT 21h : berisi DOS service (DOS system call)
+INT 10h : berisi video service
+INT 13h : berisi disk service
+dan lain-lain
+
+Contoh:
+
+    XOR     AX, AX    ; AX = 0 ; untuk disk service int 13h, digunakan untuk reset
+    INT     13h     ; Panggil interrupt 13
+    
+-== Register pada PIC 8259A ==-
+
+PIC 8259A memiliki 3 register yang panjangnya 8-bit. Masing masing bit dalam tiap register tersebut 
+berasosiasi dengan jalur (pin) yang menghubungkan PIC dengan komponen hardware lain. Bit ke-0 
+berasosiasi dengan IRQ 0, bit ke-1 berasosiasi dengan IRQ 1 dan seterusnya.
+
+Register tersebut adalah:
+
+- IMR (Interrupt Mask Register)
+  Register ini berfungsi untuk menutup (mask) sebuah IRQ sehingga jika terjadi interrupt dari pin 
+  yang bersesuaian maka PIC tidak akan meneruskannya ke prosesor. Untuk membuat sebuah IRQ di-mask
+  maka bit yang bersesuaian harus diset 1. Pengubahan nilai register ini dilakukan dengan cara
+  mengambil nilai data dari IMR, mengubahnya kemudian menuliskan nilai baru kembali ke IMR.
+  
+  
+- ISR (In-Service Register)
+
+
+- IRR (Interrupt Request Register)
+  Register ini menunjukan device mana yang melakukan interrupt. Waktu sebuah device menggirimkan 
+  interrupt lewat sebuah IRQ port, bit yang berasosiasi dengannya akan diset menjadi 1. Register
+  ini hanya bisa diset oleh PIC.
+ 
+
+<h3>MEMULAI MEMPROGRAM ASSEMBLY DI DOS</h3>
+
+Ada dua jenis file executable dalam DOS, yaitu .COM dan .EXE                                        
+                                                                                                    
+File .COM yang terbatas sampai berukuran 65,280 (0xFF00) bytes. File .COM                           
+adalah jenis file executable yang paling sederhana dalam sistem operasi DOS karena tidak memiliki   
+header atau metadata. Fil .COM hanya berisi kode instruksi dan data program yang saat dieksekusi    
+akan di-load pada _sebuah_ segmen memory yang khusus yaitu dengan offset 0100h.                     
+
+File .EXE memiliki struktur yang lebih kompleks, sebuah program EXE yang berisi data segment, code
+segment, stack segment memiliki sebuah data struktur yang disebut PSP (Program Segment Prefix) yang
+berfungsi untuk menyimpan state dari program.
+
+Pada saat file EXE di-load ke memori, register pada procesor diset pada nilai berikut:
+
+	AX:	contains number of characters in command tail, or 0
+	BX:CX	32 bit value indicating the load module memory size DX	zero
+	SS:SP	set to stack segment if defined else,  SS = CS and SP=FFFFh or top of memory.
+	DS	set to segment address of EXE header
+	ES	set to segment address of EXE header
+	CS:IP	far address of program entry point, (label on "END"	statement of program)
+
+Tools yang perlu digunakan:
+   - Sistem operasi Microsoft DOS yang dilengkapi dengan debug.exe atau debug.com 
+   - Borland Turbo Assembler (TASM) atau Microsfot Macro Assembler (MASM)
+   - Turbo debugger
+
+<h3>Struktur Assambler</h3>
+
+Bahasa asembler memiliki struktur
+
+  [instruksi] [parameter] [komentar]
+
+perintah (instruction) adalah kode yang akan dieksekusi oleh mesin, instruction ada
+yang memiliki parameter ada yang tidak. Comments adalah komentar yang dapat ditambahkan
+pada source code kita untuk memperjelas kode yang kita buat, kometar ni ditandai dengan
+awalan ";"
+
+Untuk pembuatan program pada DEBUG di Microsoft DOS, kita tidak akan menggunakan komentar2
+Buat apa? toh file yang bisa dibuat juga kecil, cukup dapat dimengerti tanpa perlu komentar
+
+<h3>Menggunakan Debug dari DOS</h3>
+Dengan program 'debug' yand ada dalam DOS kita dapat melihat nilai pada internal register dalam CPU.
+Kita juga dapat membuat file program .COM dengan 'debug'
+
+Operasi/perintah pada program 'debug': 
+
+  A  Assemble symbolic instructions into machine code
+  D  Display the contents of an area of memory
+  E  Enter data into memory, beginning at a specific location
+  G  Run the executable program in memory
+  N  Name a program
+  P  Proceed, or execute a set of related instructions
+  Q  Quit the debug program
+  R  Display the contents of one or more registers
+  T  Trace the contents of one instruction
+  U  Unassembled machine code into symbolic code
+  W  Write a program onto disk
+
+Untuk memulai debug ketikan perintah debug pada promt DOS anda:
+
+C:\>debug [Enter]
+
+Seteleh masuk program debug, anda akan mendapatkan prompt dengan tanda '-'
+
+Ketikan r untuk melihat isi register pada CPU
+
+-r [Enter]
+
+maka akan terlihat isi dari register pada CPU sepeti berikut:
+
+AX=0000  BX=0000  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=0B15  ES=0B15  SS=0B15  CS=0B15  IP=0100   NV UP EI PL NZ NA PO NC
+0B15:0100 09E8          OR      AX,BP
+
+Untuk melihat register khusus misalnya DX saja, maka anda dapat memberikan perintah
+"r" diikuti dengan option yang nenunjukan register yang ingin dilihat isinya
+
+-rdx [Enter]
+DX 0000
+:
+
+sekarang prompt anda berganti menjadi ":" bukan "-" untuk melihat register lain kita
+hanya perlu menuliskan registernya setelah prompt ":" lalu enter, untuk melihat nilai
+register yang sebelumnya kita hanya perlu menekan enter, tanpa perlu menuliskan alamat
+registernya.
+
+<h3>Membuat program asembler sederhana dengan debug</h3>
+
+Untuk "menyiapkan" (assamble) suatu program dalam debug kita menggunakan perintah
+"a" diikuti dengan parameter yang berupa offset dari register yang ditunjukan oleh 
+CS:IP. Kita akan membuat program .COM yang biasanya diinlisialisasi pada 0100h.
+Pada saat kita menuliskan perintah asembler maka debug akan memberikan alamt register
+diawal baris berformat CS:IP. Buatlah program kecil dengan mengetikan perintah berikut 
+pada prompt debug kita:
+
+a 100[enter]
+mov ax,0002[enter]
+mov bx,0004[enter]
+add ax,bx[enter]
+nop[enter][enter]
+
+program ini melakukan penyimpanan nilai 0002 pada register AX, kemudian menyimpan nilai
+0004 ke register BX, menambahkan nilai di register BX dengan nilai di register AX dan 
+menyimpan hasilnya ke register AX, dan terakhir perintah "nop" (no operation)untuk 
+mengakhiri program.
+
+Kita akan mendapatkan hasil di layar seperti ini:
+
+C:\>debug
+-a 100
+0B15:0100 mov ax,0002
+0B15:0103 mov bx,0004
+0B15:0106 add ax,bx
+0B15:0108 nop
+0B15:0109
+-
+
+untuk melihat hasil (men-trace) program dalam tiap-tiap sterp instruksi maka kita dapat 
+memberikan perintah "t" pada promt debug
+
+-t
+
+
+AX=0002  BX=0000  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=0B15  ES=0B15  SS=0B15  CS=0B15  IP=0103   NV UP EI PL NZ NA PO NC
+0B15:0103 BB0400        MOV     BX,0004
+-t
+
+AX=0002  BX=0004  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=0B15  ES=0B15  SS=0B15  CS=0B15  IP=0106   NV UP EI PL NZ NA PO NC
+0B15:0106 01D8          ADD     AX,BX
+-t
+
+AX=0006  BX=0004  CX=0000  DX=0000  SP=FFEE  BP=0000  SI=0000  DI=0000
+DS=0B15  ES=0B15  SS=0B15  CS=0B15  IP=0108   NV UP EI PL NZ NA PE NC
+0B15:0108 90            NOP
+-
+
+terlihat bahwa pada register AX dihasilkan nilai 0006 yang merupakan penambahan dari register
+BX dan register AX sebelumnya (0004 + 0002)
+
+Untuk menyimpan program tersebut dalam file .COM maka pertama kita tentukan dulu besarnya 
+file yang berisi perintah2 tersebut, dengan perintah "h" yang diikuti parameter address
+akhir dari intruksi (0109) dan address awal intruksi (0100) 
+
+-h 0109 100
+0209  0009
+
+besarnya file yang diperlukan adalah nilai kedua dari hasil perintah tersebut yaitu 0009
+Langkah kedua adalah memberinama program yaitu dengan perintah "n" diikuti dengan nama
+file.
+
+-n coba.com
+
+Informasi besarnya suatu file disimpan pada register CX, untuk itu kita perlu menuliskan 
+besarnya file ini pada register tersebut hal ini bisa dilakukan dengan perintah "rcx"
+
+-rcx
+CX 0000
+:0009
+
+untuk melihat berapa besar file yang telah kita buat dan disimpan gunakan perintah "w"
+
+-w
+Writing 00009 bytes
+
+untuk keluar dari program debug gunakan perintah "q" atau "quit"
+Sekarang cobalah untuk menjalankan program coba.com kita, dengan mengetik coba atau coba.com
+pada prompt dos 
+
+C:\>coba.com
+
+kita akan mendapatkan pesan error, hal ini karena program kita diakhiri dengan perintah yang 
+salah yaitu "nop" Perintah dalam program dos yang akan dijalankan harus diakhiri dengan 
+interrupt 20h yaitu dengan perintah "int 20"
+Cobalah ganti perintah "nop" dengan "int 20" lalu save dan coba jalankan, sekarang program kita
+akan jalan tanpa pesan error dan tanpa output apa-apa (karena memang kita tidak membuat program 
+yang menghasilkan putput).
+
+Men-debug Program yang sudah ada/jadi
+
+Untuk mendebug program yang sudah ada misalnya coba.com tadi, maka load file dengan perintah debug
+dengan paramater nama file yang akan di"debug"
+
+C:\>debug coba.com
+
+cara lain adalah dengan masuk program debug kemudian memberinama file program yang akan didebug 
+kemuadian me-load file tersebut dengan perintah "l":
+
+C:\>debug
+-n coba.com
+-l 
+-u 0100 0109
+0B89:0100 B80200        MOV     AX,0002
+0B89:0103 BB0400        MOV     BX,0004
+0B89:0106 01D8          ADD     AX,BX
+0B89:0108 CD20          INT     20
+
+Perintah terakhir "u" yang diikuti dengan awal address register dan akhir register adalah untuk
+melihat perintah pada file program coba.com pada range address tersebut. 
+Pada kolom ketiga dari ouput perintah tersebut adalah kode bahasa mesin representasi dari instruksi
+asemblernya. 
+
+-== Pemrograman Assembly ==-
+
+Ok, cukup untuk pengenalan 'debug', sekarang kita mulai dengan real assemby language programming.
+Untuk memulai memprogram asembler siapkan program editor, kompiler dan linker.
+
+Dalam tutorial ini akan dijelaskan cara membuat program asembler dengan Turbo asembler (TASM).
+Dengan TASM, anda pertama akan membuat file source code dengan eksternsi .ASM kemudian file
+tersebut dikompilasi menjadi file .OBJ yang berisi instruksi2 bahasa masin tapi belum dapat
+dimengerti oleh mikroprosesor, kemudian file tersebut harus di-link menggunakan linker (TLINK) 
+untuk mendapatkan file executable berekstensi .EXE yang dapat kita jalankan. 
+
+Kita akan membuat program asembler sederhana yang akan mengeluarkan output tulisan "Hello, World!"
+pada layar. Proses pembuatan program tersebut adalah sebagai berikut
+
+    +----------+                                   
+    | halo.asm |                               
+    +----------+                               
+         |                                    
+         |  <- tasm (Turbo Assembler)         
+         v                                    
+    +----------+                               
+    | halo.obj |                               
+    +----------+                               
+         |                                    
+         | <- tlink (Turbo Linker)            
+         v                                    
+    +----------+                               
+    | halo.exe |                               
+    +----------+                               
+         |                                    
+         | <- to run, invoke file name halo.exe
+         |                                    
+         
+Pertama buatlah file dengan nama hello.asm dengan editor kesukaan anda, seperti ini
+
+DOSEG
+.MODEL SMALL
+
+.STACK 200h
+
+.DATA
+  message db  "Hello, World!" 13, 10, "$"
+
+.CODE
+mov ax, msg message   ; masukan alamat dari data segment msg "message" ke regisrter ax 
+mov ds, ax            ; masukan isi dari AX  ke DS, hal ini dilakukan karena alamat data segment 
+                      ; tidak dapat dimasukan langsung ke DS dengan perintah 'mov ds, msg message'
+mov dx, offset msg    ; masukan offset dari msg ke  dx
+
+mov ah, 09            ; memberikan perintah pada interrupt 21h agar mendisplay pesan di layar 
+int 21h
+
+mov ax, 4C00h         ; Masukan nilai 4Ch ke AH yang merupakan kode DOS untuk keluar dari program 
+int 21h               ; Interrupt untuk keluar dari program
+
+END
+
+Save file tersebut dalam format ASCII dengan nama HALO.ASM kemudian kompile program tersebut 
+dengan tasm.exe
+
+C:\>tasm halo.asm
+
+hasil dari perintah tersebut kita akan mendapatkan file halo.obj yang kemudian akan kita link 
+dengan program tlink dari turbo asembler.
+
+C:\>tlink halo.obj
+
+hasilnya adalah file executable bernama halo.exe, dan file ini bisa dieksekusi (dijalankan)
+akan menhasilkan output:
+
+C:\>halo.exe
+Hello, World!
+
+Sekarang kita bahas baris-perbaris dari file program asembler kita. Kode asembler terdiri dirdiri
+dari beberapa bagian (section) yang menunjukan segment dari program (code, data, stack)
+
+
+1. DOSEG
+   DOSEG digunakan untuk mengurutkan segmen berdasarkan standar DOS yaitu:
+   1) 'code' segments (in alphabetical order)
+   2) 'data' segments (in alphabetical order)
+   3) 'stack' segments (again, in alphabetical order)
+
+   Gunakan perintah ini pada awal kode sumber yang akan dikompilasi.
+
+2. .MODEL [OPTION]
+   .MODEL digunakan jika hanya diinginkan pensimplifikasian segmen.
+   .MODEL secara mudahnya merupakan fungsi untuk memilih MODEL memori sehingga
+   program nantinya dapat di linked oleh program lain, baik dari program 
+   dengan bahsa asembler maupun bukan seperti C PASCAL dll.
+
+   Pengaksesan address untuk memanggil/mencapai data pada memori dapat
+   dibedakan menjadi;
+
+   NEAR yang berarti kode/data dapat diakses menggunakan sebuah pointer
+        16 bit (offset)
+   FAR yang berarti harus digunakan pasangan SEGMENT:OFFSET untuk mengakses 
+       kode/data
+
+   Option untuk model adalah:
+
+  TINY:Code and Data must fit in same 64k segment.  
+       Both Code and Data are NEAR.
+
+  SMALL:Code & Data have seperate segment, but must be each less than 64k
+        Both Code and Data are NEAR.
+        For most applications, this will suffice.
+
+  MEDIUM:Code may be larger than 64k, but Data has to be less than 64k
+         Code is FAR, Data is NEAR.
+
+  COMPACT:Code is less than 64k, but Data may be greater than 64k
+          Code is NEAR, Data is FAR.
+
+  LARGE:Both Code & Data can be greather than 64k.  Both are FAR, but a 
+        single array cannot be greater than 64k.  Note that max array size
+        means nothing if you are just writing in assembler.  This only
+        matters when you link to C or another high level language.
+
+  HUGE:Same as LARGE, but arrays can be greater than 64k.
+       What that means is that the array index is a far pointer, instead
+       of a NEAR one LARGE and HUGE are identicle to the assembler programmer..
+
+3. .STACK 200h
+   Simbol/statement ini memberitahu kompiler untuk mensetup sebuah 200h stack ketika program mulai 
+   dieksekusi. 
+   Catatan: besarnya stack yang dipilih tidak menpengaruhi besarnya file program
+   hasil kompilasi.
+
+   Perintah tersebut juga dapat dilakukan dengan seperti ini:
+
+     : MyStack SEGMENT PARA PUBLIC STACK 'STACK'
+     :    db  200h dup (0)
+     : MyStack ENDS
+
+   tapi dengan perintah tersebut selain tidak simple hasil file executable nya
+   juga akan lebih besar 512 byte.
+
+    
+
+4. .DATA
+    Simbol .data menunjukan bagian dari kode program yang merupakan dapat digunakan instruksi 
+    program yang disimpan dalam data segment.
+
+5. .CODE
+    Simbol .code menunjukan awal dari kode program yang berisi list dari instruksi.
+
+6. END
+
+Contoh kecil lain:
+
+  .model small
+  .stack
+  .code
+  mov   ah,2h   
+  mov   dl,2ah 
+  int   21h   
+  mov   ah,4ch 
+  int   21h 
+  end   
+
+<!--
+catatan:
+SEGMENTS
+
+The architecture of the x86 processors forces to the use of memory segments
+to manage the information, the size of these segments is of 64kb.
+
+The reason of being of these segments is that, considering that the maximum
+size of a number that the processor can manage is given by a word of 16
+bits or register, it would not be possible to access more than 65536
+localities of memory using only one of these registers, but now, if the
+PC's memory is divided into groups or segments, each one of 65536
+localities, and we use an address on an exclusive register to find each
+segment, and then we make each address of a specific slot with two
+registers, it is possible for us to access a quantity of 4294967296 bytes
+of memory, which is, in the present day, more memory than what we will see
+installed in a PC.
+
+In order for the assembler to be able to manage the data, it is necessary
+that each piece of information or instruction be found in the area that
+corresponds to its respective segments. The assembler accesses this
+information taking into account the localization of the segment, given by
+the DS, ES, SS and CS registers and inside the register the address of the
+specified piece of information. It is because of this that when we create a
+program using the Debug on each line that we assemble, something like this
+appears:
+
+1CB0:0102 MOV AX,BX
+
+Where the first number, 1CB0, corresponds to the memory segment being used,
+the second one refers to the address inside this segment, and the
+instructions which will be stored from that address follow.
+The way to indicate to the assembler with which of the segments we will
+work with is with the .CODE, .DATA and .STACK directives.
+
+The assembler adjusts the size of the segments taking as a base the number
+of bytes each assembled instruction needs, since it would be a waste of
+memory to use the whole segments. For example, if a program only needs 10kb
+to store data, the data segment will only be of 10kb and not the 64kb it
+can handle.
+
+SYMBOLS CHART
+
+Each one of the parts on code line in assembler is known as token, for
+example on the code line:
+
+MOV AX,Var
+
+we have three tokens, the MOV instruction, the AX operator, and the VAR
+operator. What the assembler does to generate the OBJ code is to read each
+one of the tokens and look for it on an internal "equivalence" chart known
+as the reserved words chart, which is where all the mnemonic meanings we
+use as instructions are found.
+
+Following this process, the assembler reads MOV, looks for it on its chart
+and identifies it as a processor instruction. Likewise it reads AX and
+recognizes it as a register of the processor, but when it looks for the Var
+token on the reserved words chart, it does not find it, so then it looks
+for it on the symbols chart which is a table where the names of the
+variables, constants and labels used in the program where their addresses
+on memory are included and the sort of data it contains, are found.
+
+Sometimes the assembler comes on a token which is not defined on the
+program, therefore what it does in these cased is to pass a second time by
+the source program to verify all references to that symbol and place it on
+the symbols chart.There are symbols which the assembler will not find since 
+they do not belong to that segment and the program does not know in what part 
+of the memory it will find that segment, and at this time the linker comes 
+into action, which will create the structure necessary for the loader so 
+that the segment and the token be defined when the program is loaded and
+before it is executed.
+
+//-->
+
+

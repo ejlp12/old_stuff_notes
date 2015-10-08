@@ -1,0 +1,27 @@
+Evirontment setup
+
+Software Methodology
+ Planning
+
+Computer for development
+ IDE
+
+Network
+Telephone
+Calendar
+Board
+
+Server for project development management such as:
+ Wiki/Forum
+ SCM
+ Bug tracking
+ File sharing folder
+
+
+Instant messaging
+Document: 
+ Templates, 
+ Coding standards
+ Manuals/References
+
+

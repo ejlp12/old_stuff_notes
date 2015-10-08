@@ -1,0 +1,184 @@
+CAMEL (Customized Application for Mobile network Enhanched Logic)
+adalah suatu fitur dalam jaringan telekomunikasi operator yang merupakan alat bantu dalam penyediaan layanan (operator spesific feature). CAMEL merupakan standar untuk inteligent network (IN) pada jaringan GSM yang dibuat oleh ETSI (European Telecommunications Standards Institute)
+
+Dengan adanya CAMEL, pengguna ponsel sebagai end-user akan dapat menggunakan layanan yang sama pada jaringan pada operator lain (roaming) dengan menggunakan nomor telpon yang sama dan mendapatkan tagihan hanya dari operator asal (home operator).
+
+Pada dokumen spesifikasi CAMEL kita dapat lihat arsitektur yang dibutuhkan pada jaringan operator agak mendukung CAMEL. Dibawah ini adalah gambar arsitektur CAMEL Phase 2.
+
+
+
+Arsitektur diatas menggambarkan entitas fungsional (functional entities) yang terlibat dalam CAMEL.
+
+gsmSCF (GSM Service Control Function) adah entitas fungsional yang berisi CAMEL service logic yang mengatur suatu layanan. Entitas ini bisa diasosiasikan dengan fungsi intelegent network (IN) dalam jaringan operator)
+
+gsmSRF (GSM Specialised Resource Function) adalah entitas fungsional yang menyimpan dan memberikan resource yang dibutuhkan oleh gsmSCF. Resource ini misalnya berupa file audio yang merupakan tone atau announcement ketika sebuah panggilan tidak dapat dilakukan. gsmSCF mengatur atau memberikan perintah kepada MSC untuk mejalankan (play) resource yang berada pada gsmSRF sehingga kita dapat mendengarkan pesan seperti "maaf, untuk sementara nomer ini tidak dapat dihubungi" ketika sebuah nomor yang dipanggil tidak dapat dihubungi. Fungsi ini biasanya sudah termasuk pada sebuah produk server IN dan biasanya disebut Voice Response Units (VRUs).
+
+gsmSRF ditambahkan pada arsitektur CAMEL sejak CAMEL phase 2.
+ 
+gsmSSF (GSM Service Switching Function) adalah entitas fungsional yang berada dalam MSC/GMSC yang membuat MSC/GMSC dapat berinteraksi dengan gsmSCF atau server IN ketika sebuah layanan sedang digunakan oleh pengguna.
+
+Dalam arsitektur tersebut kita dapat melihat juga protokol yang digunakan antar entitas yaitu 
+
+ - MAP (Mobile Application Part) yang digunakan untuk menghubungkan MSC/GMSC dengan HLR, gsmSCF dengan MSC atau HLR, dan MSC/VLR dengan HLR
+ - CAP (CAMEL Application Part) yang digunakan untuk MSC/GMSC/gsmSSF dengan gsmSCF, gsmSCF dengan gsmSRF
+
+Protokol tersebut adalah protokol SS7 yang biasanya dilewatkan pada jaringan TDM ataupun IP. Dalam jaringan SS7, gsmSSF berada pada SSP (Service Switching Point) sedangkan gsmSCF dan gsmSRF berada pada SCP (Service Control Point). 
+
+
+-== Versi CAMEL ==-
+
+Spesifikasi CAMEL terus berkembang dengan penambahan fitur-fitur baru. Ada beberapa versi CAMEL yang dirilis oleh ETSI/3GPP hingga saat ini. Versi CAMEL tersebut biasa disebut phase yaitu
+
+ CAMEL phase 1 1996
+ CAMEL phase 2 1997 dan 1998
+ CAMEL phase 3 1999
+ CAMEL phase 4 Enhancement for GPRS
+
+Isi (fitur-fitur) dari tiap phase dapat dilihat di dokumen (N2-030543) [http://www.3gpp.org/TB/CN/CN2/N2-030543.zip]
+
+Pada tahun 2000, CAMEL phase 1 pertama kali diimplementasikan pada sebuah jaringan operator.
+
+
+-== Dokumen Spesifikasi CAMEL ==-
+
+CAMEL didefinisikan dalam 3 stage yaitu 
+
+Stage 1 (requirements) GSM 02.78 / UMTS 22.078 http://www.3gpp.org/ftp/Specs/html-info/22078.htm
+Stage 2 (functions, conceptual data flow) GSM 03.78 / UMTS 23.078 http://www.3gpp.org/ftp/Specs/html-info/23078.htm
+Stage 3 (protocol) - CAMEL Application Part (CAP) GSM 09.78 / UMTS 29.078 http://www.3gpp.org/ftp/Specs/html-info/29078.htm
+
+Coba baca entri di FAQ ini[http://www.3gpp.org/faq/faq_2005_2.htm#A4.3] sebagai guide soal spesifikasi CAMEL.
+
+-== Konsep-konsep Penting ==-
+
+Dalam memahami cara kerja CAMEL, ada beberapa konsep penting yang perlu diketahui diantaranya:
+
+1. Detection Point (DP)
+  Jika sebuah proses pemanggilan (call) yang kita lihat disisi MSC/SSP kita gambarkan, maka akan ada beberapa titik proses yaitu
+   - call diterima oleh MSC
+   - call diteruskan ke nomor yang dipanggil
+   - call diterima oleh nomor yang dipanggil
+   - terjadi pecakapan
+   - call diputus
+  maka terdapat beberapa titik kejadian (event) yang dapat dideteksi oleh SSP. Titik kejadian yang terdeteksi pada proses pemanggilan tersebut disebut DP dan digunakan oleh SSP untuk memberitahu (notify) gsmSCF. gsmSCF kemudian akan memberikan intrsuksi bagaimana call tersebut harus ditangani misalnya call harus diputus karena pemanggil tidak memiliki pulsa (balance) yang cukup.
+
+2. CAMEL Subscriber Information (CSI)
+
+Seorang pelanggan disebut CAMEL subscriber jika dia memiliki satu atau lebih CAMEL Subscription Information (CSI) yang berrada di Home PLMN, biasanya di HLR. CSI dapat diaplikasikan pada tiap pelanggan artinya masing-masing pelanggan dapat memiliki CSI yang berbeda. 
+
+CSI merupakan informasi profil dari pelanggan sehingga gsmSCF dapat memberikan layanan sesuai dengan profil pelanggan. CSI akan diminta oleh MSC/VLR atau SGSN dari HLR ketika pelanggan terkoneksi (Location Update) pada jaringan operator. 
+
+Beberapa macam CSI adalah:
+ 
+  O-CSI (Originating)
+  T-CSI (Terminating)
+  U-CSI (USSD)
+  UG-CSI (USSD General)
+  SS-CSI (Suplementary Srvice)
+  TIF-CSI (Translation Information Flag)
+  M-CSI (Mobility Management)
+  MG-CSI (mobility Management for GPRS)
+  MO-SMS-CSI (Originating Short Message Service)
+  MT-SMS-CSI Terminated Short Message Service)
+  GPRS-CSI
+  VT-CSI (VMSC Terminating)
+
+Masing-masing CSI diatas memiliki parameter-parameter yang dispesifikasikan pada dokumen spesifikasi CAMEL. 
+
+3. Basic Call State Model (BSCM)
+
+BSCM biasanya digambarkan dalam sebuah diagaram yang merupakan model dari aktifitas pada MSC/VLR atau GMSC dalam menangani dan mengelola jalur komunikasi pelanggan. Ada dua macam BSCM yaitu Originating BSCM (o-BSCM) yang menggambarkan model panggilan call dan Terminating BSCM (T-BSCM) yang menggambarkan model penerimaan call. Dalam BSCM kita dapat melihat proses dan event atau DP yang dapat terjadi.
+
+Dalam dokumen spesifikasi, proses-proses seperti SMS, USSD dan lain-lain biasanya juga digambarkan functional entities yang terlibat, state model, prosedur serta dijelaskan interface dan information flow.
+
+
+4. CAMEL Application Part (CAP)
+
+CAP merupakan implementasi dari fungsionalitas yang ada dalam CAMEL. Sebelum CAMEL, jaringan GSM menggunakan INAP (Intelligent Network Application Part). Karena keterbatasan INAP misalnya tidak mendukung mobility management karena INAP dibuat untuk jaringan kabel (Fixed line).
+
+
+CAMEL/CAP merupakan ekstensi dari Core INAP yang dikeluarkan ETSI. 
+
+CS1 = ETS 300 374 series,
+CS2 = EN 301 140 series,
+CS3 = EN 301 931 series.
+
+
+
+
+    |        -------         -----        __________
+  ,-+       |       |       |     |      (__________)
+  | | <---->|  MSC  |-----> | SCP |<---> | Database |
+  `-'       |       |<----- |     |      |__________|
+ mobile      -------         -----
+ phone          ^
+                |
+           _____________
+          (   External  )
+           (  Network    )
+          (_____________)
+
+
+
+
+
+
+
+
+
+
+
+CAP (CAMEL Application Protocol)
+protokol CAP berada pada level yang sama seperti INAP pada SS7
+
+
+Interoperability antar vendor-vendor yang berbeda.
+
+
+
+
+Is there any simple guide to the different CAMEL specifications ? []
+
+
+
+
+
+
+
+
+            
+
+CAMEL Subscription Information (CSI)
+
+MSC memiliki gsmSSF (Service Switching Function) yang menghubungkan MSC dengan gsmSCF (Service Control Function) yang berada pada IN server.
+Jika terjadi pemanggilan (call) dari subscriber yang berada di lokasi roaming, VLR dari VPLMN akan merequest subscriber data ke HLR di home network (HPLMN).
+Subcriber data tersebut bisa termasuk didalamnya adalah O-CSI (Originating-CSI). Jika O-CSI aktif, makan MSC, melalui gsmSSF akan berdialog dengan gsmSCF
+untuk mendapatkan intruksi penanganan panggilan (call handling).
+
+CAMEL mendefinisikan Detection Points (DPs) yaitu point atau titik pada suatu pemanggilan (call) dimana terjadi event yang dapat terdeteksi oleh gsmSCF.
+DPs untuk pemanggilan mobile originated maupun mobile terminated dideskripsikan pada Basic Call State Model (BSCM)
+
+
+Subscriber melakukan sebuah panggilan (call), request ini diterima oleh MSC.
+MSC kemudian mengirimkan pesan (melakukan query) ke database SCP.
+SCP memproses query tersebut dan hasilnya dikirim kembali ke MSC untuk memberitahukan action apa yang harus diambil MSC.
+
+
+gsmSRF 
+
+interface antara gsmSCF dan gsmRCF
+
+OSA (Open System Architecture), SIP+ (Session Initiation protocol) bisa jadi kandidat yang akan menggantikan CAMEL
+
+Phase 1: call screening, forwarding, redirection dan Basic VPNs
+Phase 2: prepaid roaming, freephone calls, location dependent Discount, reverse charging, premium rate calls.
+Phase 3: service numbers, multiple subscriber profiles, prepaid GPRS data roaming facilities.
+         penambahan elemen pada CSI
+         modifikasi pada Basic Call State Model
+         
+         GPRS State Model,         
+Phase 4: 
+
+HPLMN Home PLMN
+VPLMN Visiting PLMN
+

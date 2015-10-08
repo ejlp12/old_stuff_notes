@@ -1,0 +1,69 @@
+Parlay
+
+Parlay <http://www.parlay.org> merupakan nama sebuah group (konsorsium indrustri) yang berfokus untuk membuat application programming interface (API) untuk jaringan telepon (operator) sehingga mempermudah pembuatan service baru baik dalam jaringan operator itu sendiri maupun service yang diberikan oleh partner (service provider).
+
+Parlay dibentuk awal tahun 1998 dengan anggotanya adalah British Telecommunications PLC (BT), Microsoft, Nortel, Siemens dan Ulticom. Pada awalnya Parlay adalah organis tertutup untuk kemudian pada tahun 2000 keanggotaannya mulai terbuka dan sampai sekarang telah memiliki puluhan anggota termasuk vendor-vendor besar telekomunikasi maupun software.
+
+IDE dari Parlay adalah untuk membuat standar interface yang terbuka sebagai protokol yang menghubungkan antara elemen network seperti SSF (Service Switching Function) dan SCF (Service Control Function) dan lain-lain dengan pihak lain (third party) sehingga mempermudah menambahan (deploy) service baru. API yang didesain tidak spesifik pada teknologi akses tertentu sehingga dapat direalisasikan atau dipetakan (mapping) pada teknologi yang spesifik seperti CORBA, Java, RPC, DCOM, Web service, dan lain-lain.
+
+Spesifikasi Parlay tidak hanya memberikan sebuah interface standar tapi lebih dari itu Parlay menspesifikasikan sebuah framework yang mencakup security sehingga menjamin kemanan akses terhadap elemen yang dimiliki operator telekomunikasi juga service management.
+
+Gambar dibawah ini menunjukan posisi Parlay dalam sebuah jaringan operator telekomunikasi.
+
+    +------------------------+
+    | Core Network Operator  |
+    |                        |
+    | +--------+      +---------+      +-------------------+
+    | | Switch |<---->| Parlay  |<====>|  Service Provider |
+    | +--------+    | +---------+      +-------------------+
+    |               |    ^   |
+    | +--------+    |    |   |
+    | |  IN    |<---'    |   |
+    | +--------+         |   |
+    |                    |   |
+    | +-------------+    |   |
+    | | Elemen lain |<---'   |
+    | +-------------+        |
+    |                        |
+    +------------------------+
+
+Spesifikasi API yang telah dibuat oleh Parlay pada akhir tahun 1999 diadopsi oleh ETSI dan 3GPP yang sedang mengembangkan OSA (Open Service Architecture). ETSI/3GPP melakukan penambahan minor pada Parlay tapi sejak Parlay rilis 3.0 atau OSA rilis 5, kedua bisa dibilang identik. Ada 2 interface yang tidak dicakup oleh OSA rilis 5 dari spesifikasi Parlay 3.0 yaitu policy management dan presence and availability (PAM).
+
+Dibawah ini sejarah perkembangan spesifikasi Parlay:
+
+
+Tahun 1999 mengeluarkan rilis 1.0
+Tahun 1999 mengeluarkan rilis 1.1
+Tahun 1999 mengeluarkan rilis 1.2 digunakan 3GPP sebagai spesifikasi OSA rilis 99
+Tahun 2000 mengeluarkan rilis 2.0
+Awal tahun 2001 mengeluarkan rilis 2.1 digunakan 3GPP sebagai spesifikasi OSA rilis 4
+Desember 2001 mengeluarkan rilis 3.0 yang identik dengan 3GPP OSA rilis 5
+Mei 2003 mengeluarkan Parlay X versi 1 yaitu web service interface.
+
+Saat ini versi terakhir dari Parlay adalah versi 6.0. Pada 3GPP spesifikasi tersebut dapat ditemukan pada TS 29.198 Release 7.
+
+Semua versi spesifikasi dapat didownload disini <http://www.parlay.org/en/specifications/apis.asp> atau di website ETSI <http://portal.etsi.org/docbox/TISPAN/Open/OSA/Parlay60.html> Untuk selanjutnya, sejak 2003 Parlay dan OSA sering ditulis Parlay/OSA.
+
+
+Dalam dokumen spesifikasi Parlay/OSA dibagi dalam beberapa grup interface yaitu:
+
+Call Control. yang terdiri dari 5 sub bagian yaitu:
+     Call Control Common Definitions
+     Generic Call Control
+     Multi-Party Call Control
+     Multi-Media Call Control
+     Conference Call Control
+User Interaction
+Mobility
+Terminal Capabilities
+Data Session Control
+Generic Messaging
+Connectivity Manager
+Account Management
+Charging
+Policy Management
+Presence and Availability Management
+Multi-Media Messaging
+Service Broker
+
+

@@ -1,0 +1,310 @@
+Generasi pertama (1G) merupakan sistem seluler analog.
+---------------------
+Nordic Mobile Telephone (NMT) di Scandinavia dan beberapa negara di Eropa
+Advanced Mobile Phone Service (AMPS) di US, Australia, Asia
+Total Access Communications System (TACS) di UK dan beberapa negara di Eropa
+
+iDEn(?)
+
+Generasi kedua (2G) merupakan sistem seluler digital.
+-------------------
+4 standar utama yang banyak dipakai adalah:
+- Global System for Mobile (GSM) communications dan turunanannya
+  GSM seperti juga AMPS, keduanya sama-sama menggunakan teknologi TDMA  
+  Pada dasarnya GSM menggunakan band 900 MHz, tetapi beberapa turunan GSM menggunakan band 1800 dan 1900, yaitu:
+
+  * Digital Cellular/Communication(?) System 1800 (DCS-1800 atau GSM-1800)
+  * Personal Communication System-1900 (PCS-1900 atau GSM-1900)
+  * European Telecommunications Standards Institute (ETSI) juga membuat spesifikasi untuk GSM-400 dan GSM-800 
+
+   
+  GSM (890 + n x 0.2) MHz sampai 915 MHz = 125 channel
+
+- Digital AMPS (disebut juga D-AMPS, US-TDMA, IS-136, atau TDMA)
+- Code-Division Multiple Access (CDMA) 2000 1x atau IS-95
+  CDMA atau standar IS-95 dikembangkan oleh Qualcomm.
+  Jaringan IS-95 dikenal juga dengan nama CdmaOne
+- Personal Digital Cellular (PDC) atau PHS
+  Pertama kali bernama Japanesse Digital Celullar (JDC) yang merupakan standar 2G di Jepang
+  Beroperasi pada dua band frekuensi, yaitu 800 MHz dan 1,500 MHz.
+
+
+Digital cordless systems
+System ini tidak memiliki komponen jaringan (network component), biasanya hanya terdiri dari sebuah base station dan sejumlah handset.
+Lingkup areanya pun terbatas biasanya hanya satu area gedung.
+
+- CT2, 
+- Digital Enhanced Cordless Telecommunications (DECT),
+- Personal Handyphone System (PHS).
+
+Generasi ke-dua setengah (2.5G)
+-------------------------------
+Teknologi yang digunakan diantaranya:
+- high-speed circuit-switched data (HSCSD), 
+- General Packet Radio Services (GPRS), 
+  25kbps
+  multislot class
+    GPRS Class 2 (2+1, 3)
+    GPRS Class 8 (4+1)
+    GPRS Class 10 (4+1, 3+2)
+- Enhanced Data Rates for Global Evolution (EDGE).
+    GERAN (GSM EDGE Radio Access Network) 
+
+CDMA 2000 1X EV-DO (Evolution of Data Only)
+70-80 kbps.
+
+Generasi 2.75G
+--------------
+EDGE (Enhanced Data rates for GSM Evolution) or EGPRS (Enhanced GPRS)
+kecepatan lebih tinggi 126-473,8 kbps (kilobit per second) 
+kapasistas transmisi data lebih tinggi
+hiqh quality audio streaming, video steraming, on line gaming. high speed download, hiqh speed network connection, push to talk, dll
+8-Phase Shift Keying (8PSK) 
+
+Generasi ketiga (3G)
+---------------------
+3G/UMTS
+W-CDMA (Wideband Code-Division Multiple Access) 
+up to 384 kbps
+in the future may increase up to even 10 Mbps
+Universal Mobile Telecommunication System (UMTS)
+1920- 1980 Mhz untuk down link,  2120-2180 Mhz untuk up link
+Using Wideband-AMR (Adaptive Multi-rate) for voice codec makes quality enchancement
+
+
+CDMA 2000 1X EV-DV (Evolution of Data Voice)
+
+IMT-2000 (International Mobile Telecommunications-2000) 
+3GPP (Third Generation Project Partnersip)
+
+
+
+Generasi 3.5G 
+-------------
+HSPA
+1 Mbps downlink and 0.5-1 Mbsp uplink
+High Speed Downlink Packet Access (HSDPA) 
+High Speed Uplink Packet Access (HSUPA)
+
+
+
+
+IP Multimedia Subsystem (IMS)
+-----------------------------
+DVB/DAB (Digital Video Broadcasting/Digital Audio Broadcasting)
+
+
+Evolusi GSM
+
+GSM mulai digunakan secara komersial tahun 1992 dengan layanan telephony, short message, fax dan data services       
+ 
+ * GSM Phase 1 (1991)   
+ * GSM Phase 2 (1992-1995)
+ * GSM Phase 2+ (Release 1996)
+ * GSM Phase 2+ (Release 1997)
+ * GSM Phase 2+ (Release 1998)
+
+Fitur-fitur GSM adalah sebagai berikut.
+Detail fitur bisa dilihat di sini [http://www.3gpp.org/specs/releases-contents-earlyGSM.htm]
+
+GSM Phase 1
+
+    * Call Forwarding
+    * All Calls
+    * No Answer
+    * Engaged
+    * Unreachable
+    * Call Barring
+    * Outgoing - Bar certain outgoing calls
+    * Incoming - Bar certain incoming calls
+    * Global roaming - Visit any other country with GSM and a roaming agreement and use your phone and existing number*
+
+GSM Phase 2 
+
+    * SMS - Short Message Service - Allows you to send text messages too and from phones
+    * Multi Party Calling - Talk to five other parties as well as yourself at the same time
+    * Call Holding - Place a call on Hold
+    * Call Waiting - Notifies you of another call whilst on a call
+    * Mobile Data Services - Allows handsets to communicate with computers
+    * Mobile Fax Service - Allows handsets to send, retrieve and receive faxes
+    * Calling Line Identity Service - This facility allows you to see the telephone number of the incoming caller on our handset before answering
+    * Advice of Charge - Allows you to keep track of call costs
+    * Cell Broadcast - Allows you to subscribe to local news channels
+    * Mobile Terminating Fax - Another number you are issued with that receives faxes that you can then download to the nearest fax machine.
+
+GSM Phase 2 + 
+
+    * Available by 1998
+    * Upgrade and improvements to existing services
+    * Majority of the upgrade concerns data transmission, including bearer services and packet switched data at 64 kbit/s and above
+    * DECT access to GSM
+    * PMR/Public Access Mobile Radio (PAMR)-like capabilities
+    * GSM in the local loop
+    * Virtual Private Networks
+    * Packet Radio
+    * SIM enhancements
+    * Premium rate services
+    * Enhanced Data-over-GSM Speeds
+       high-speed circuit-switched data service (HSCSD) 
+       General Packet Radio Service (GPRS).
+
+
+Pada dasarnya layanan dalam GSM dibagi dalam 3 tipe yaitu:
+ 1. Tele Services [GSM TS 02.03] seperti telephony, fax, emergency calls, teletex, short Message services, fax mail, and voice mail
+ 2. Bearer Services [GSM TS 02.02] yang digunakan untuk melewatkan user data, misalnya
+   . Asynchronous and synchronous data, 300-9600 bps.
+   . Alternate speech and data, 300-9600 bps.
+   . Asynchronous PAD (packet-switched, packet assembler/disassembler) access, 300-9600 bps.
+   . Synchronous dedicated packet data access, 2400-9600 bps. 
+ 3. Suplementary Service seperti call forwarding, call barring, dll.
+    GSM TS 02.03 mendeskripsikan bagaimana SS dapat diaktifkan, di-deaktivasi dan dipanggil
+
+Tele services dan Bearer Service biasa disebut basic service.
+
+
+
+
+
+GSM 
+
+Arsitektur GSM terdiri dari 3 Sub-System yaitu:
+ 1. Mobile Station (MS) atau telepon selular
+ 2. Base Station Sub-System (BSS) yang mengontrol hubungan radio (radio link) dengan MS
+ 3. Network Sub-System (NS) atau Network Swithing Sub System (NSS) yang bagian terpentingnya adalah Mobile service Switching Center (MSC)
+ 4. Operation Sub-System (OSS)
+
+MS dan BSS berkomunikasi dengan Um inteface atau antarmuka udara (air interface) atau radio link
+BSS and MSC berkomunikasi dengan A interface
+
+MS terdiri dari 
+
+- terminal atau mobile equipment (ME)
+  sebuah mobile equipment diidentifikasi dengan International Mobile Equipment Identity (IMEI)
+- sebuah smart card atau Subscriber Identity Module (SIM) card
+  SIM card berisi 
+  - International Mobile Subscriber Identity (IMSI) yang digunakan untuk mengidentifikasi subsriber pada system, 
+  - kunci rahasia untuk autentikasi
+  - dan informasi lainnya
+
+  SIM card dapat dilindungi dengan Personal Identity Number (PIN) yang dimiliki oleh pemakainya.
+
+                                         ...............................
+                                         .                             .
+                    ..................   .  HLR  VLR  AuC EIR          .
+                    .                .   .  |    |    |   |            .
+                    . Base Station   .   .  |.---'    |   |            .
+                    . Sub-System     .   .  ||.-------'   |            .
+..................  .                .   .  |||.----------'            .                                   
+.                .  .                .   .  ||||                       .
+.                .  .        A       .   .  ||||   Network Swithching  .
+. SIM - ME ---|-------- BTS--|--BSC---------MSC    Sub-System          .
+.             Um .  .  /       /     .  /.  ||||                       .
+.                .  . /       /      . / ...||||........................
+. User Equipment .  ./       /       ./     ||||
+..................  /       /        /      |||`------------------ PSTN
+                   /.      /        /.      ||`------------------- ISDN
+                  / .   BTS     BSC  .      |`-------------------- PSPDN
+  SIM - ME  ------  .                .      `--------------------- CSPDN
+                    .                .
+                    ..................
+
+
+SIM = Subscriber Identity Module
+ME = Mobile Equipment     
+BTS = Base Transceiver Station
+BSC = Base Station Controller
+TCSM = Transcoding and Sub-Multiplexer Unit
+HLR = Home Location Register
+VLR = Visitor Location Register
+MSC = Mobile service Switching Center
+EIR = Equipment Identity Register
+AuC = Authentication Center
+PSTN = Public Switching Telephone Network
+ISDN =
+PSPDN = Packet Switched Public Data network
+CSPDN = Circuit Switched Public Data Network
+OSS = Operation Sub-System
+NMS = Network Management Sub-System
+OMC = Operation and Maintenance Center
+
+BTS merupakan tranceiver yang mendefinisikan sebuah sel (cell) 
+    menangani hubungan radio link dengan MS (pemrosesan sinyal, transimi sinyal, encoding dan decoding suara)
+    berkomunikasi dengan BSC menggunakan Ater interface
+
+BSC mengatur radio resource yang ditangani oleh satu BTS atau lebih 
+    menangani radio-channel setup, frequency hopping, handover antar BSC
+
+
+MSC merupakan perangkat dasar switching (call handling)
+    mengelola logical radio-link channel yang dibutuhkan saat call terjadi
+    mengelola signaling protocol antara MSC-BSS
+    mengatur inter-BSS atau inter-MSC handovers
+    mengumpulkan data untuk charging
+    sebuah MSC biasanya menagani banyak BSC
+
+AuC menyimpan parameter-parameter untuk otentikasi pelanggan ketika menggunakan jaringan GSM
+    Parameter tersebut adalah Authentication Keys (Ki), algoritma A3 atau A8
+    menghasilkan 3 parameter otentikasi seperti Signed Response (SRES), RAND, CipherKey (Kc) dan menyimpannya di VLR
+
+    RAND = 128-bit random yang di-generate oleh AuC
+    SRES = 32-bit one-way hash dari RAND dan Ki yang dikalkulasi dengan Algoritma A3
+    Kc = 64-bit dari RAND dan Ki yang dikalkulasi dengan Algoritma A8
+
+    http://www.tml.tkk.fi/Opinnot/Tik-110.501/1999/papers/tradsec/gsm_salaus.gif
+
+HLR menyimpan 
+    data pelanggan diantaranya IMSI, MSISDN
+    supplementary service yang digunakan 
+    pembatasan layanan (service restrictions)
+    informasi tentang layanan teleservices dan bearer 
+    lokasi terkini dari MS untuk call routing
+
+
+VLR menyimpan sementara dari 
+      data pelanggan lokal atau pelanggan roaming (MSISDN, TMSI)
+      location area dimana MS teregister
+      copy data dari subscriber dari HLR
+      data yang digunakan untuk proses encryption 
+
+EIR menyimpan seluruh data ME misalnya IMEI
+    melakukan kategorisasi pada ME yaitu Blacklist, Greylist, Whilelist
+    digunakan untuk validasi perangkat pelanggan
+
+
+Interface
+BSC-MSC BSSAP (Base Station Subsystem Application Part). BSSAP ada diatas SCCP
+MSC-Other elemen menggunakan MAP.
+
+Alokasi frekuensi GSM
+
+Lebar pita yang dialokasikan untuk GSM adalah 25MHz untuk masing-masing uplink (890-915 Mhz) dan downlink (935-960 Mhz)
+
+Biasanya sebuah pita 25MHz dapat dibagi untuk 125 carrier, jadi masing-masing channel memiliki lebar pita 200 KHz.
+Burst adalah satuan/unit waktu dalam sebuah sistem TDMA yang digunakan oleh seorang pengguna (user).
+Frame adalah group dari burst yang terdiri dari 8 burst
+
+
+UMTS Network Architecture (Release 99)
+
+Node B - UMTS Base Station, 
+SRNC - Serving Radio Network Controller, 
+DRNC - Drift Radio Network Controller, 
+SGSN - Serving GPRS Support Node, 
+GGSN - Gateway GPRS Support Node, 
+PDN - Public Data Network
+
+CS-Domain
+
+This is the Circuit Switched domain that is traditionally known to provide services such as speech calls. The Core Network (CN) component that implements the CS services for UMTS is the 3G-MSC.
+PS-Domain
+
+This is the Packet Switched domain that is known to provide services such as IP Based traffic. The CN component that implements the PS services for UMTS is the 3G-SGSN.
+UMTS Terrestrial Radio Access Network (UTRAN)
+
+This consists of the Radio Network Controller (RNC) and the Node B. The UTRAN is responsible for functions that relate to access, radio mobility and resource utilisation. The Serving Radio Network Controller (SRNC) is responsible for the logical connection between the UE and the CN. The Drift Radio Network Controller (DRNC) provides additional radio resources for a UE that is in a dedicated connection and a soft-handover state. The Node B that is attached to the DRNC will provide the physical resource to the UE, and the information on the uplink and the downlink is routed towards the SRNC.
+User Equipment (UE)
+
+The radio terminal that the subscriber uses to receive service from the UTRAN is known as the UE. This will arrive in the form of PDA terminals and Handsets similar to current GSM mobiles. The UE's will be supporting multimode GSM, GPRS and UMTS services. They will be supporting multi-band GSM900, DCS1800 and PCS1900 systems. The capabilities of these User Equipments will vary hence the UTRAN will read UE capabilities during set-up. 
+
+
+

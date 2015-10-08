@@ -1,0 +1,10 @@
+RTMP
+
+
+
+FLV format
+
+
+Youtube mobile
+Encoding H.264
+RTSP

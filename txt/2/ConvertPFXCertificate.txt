@@ -1,0 +1,33 @@
+# I exported our Verisign certificate using the instructions that theyh provided us with.
+
+1. Click on the 'Start' Button and then select 'Run'.
+
+2. Type in 'MMC.EXE' and click 'OK'
+
+3. Click the 'Console' menu and then click 'Add/Remove Snap-in'.
+
+4. Click the 'Add' button and then choose the 'certificates' snap-in and click on 'Add'.
+
+5. Select 'Computer Account' then click 'Next'.
+
+6. Select 'Local Computer' and then click 'OK'.
+
+7. Click 'Close' and then click 'OK'.
+
+8. Expand the menu for 'Certificates' and click on the 'Personal' folder.
+
+9. Right click on the certificate that you want to export and select 'All tasks' -> 'Export'.
+
+10. A wizard will appear. Make sure you check the box to include the private key and continue through with this wizard until you have a .PFX file.
+
+# Using the following lines I imported the certificate and key (.pfx file) into the new Apache box.
+
+# Export the private key file from the pfx file
+openssl pkcs12 -in filename.pfx -nocerts -out key.pem
+# Export the certificate file from the pfx file
+openssl pkcs12 -in filename.pfx -clcerts -nokeys -out cert.pem
+# This removes the passphrase from the private key Apache on Windows won't
+# prompt you for your passphase so you must remove it
+openssl rsa -in key.pem -out server.key
+
+I then reference the cert.pem and the server.key in my Apache SSLCertificateKeyFile and SSLCertificateFile directives respectively.

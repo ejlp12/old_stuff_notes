@@ -1,0 +1,8 @@
+Continous build (biasa disebut juga daily build, nightly build
+
+Integrate early, integrate often Integrasikan secepatnya, integrasikan sesering mungkin
+
+
+build compile, buat artifacts, jalankan tes, buat report
+
+

@@ -1,0 +1,65 @@
+SQL> set timing on
+SQL> alter session set sort_area_size = 104857600
+  2  /
+
+Session altered.
+
+Elapsed: 00:00:00.00
+SQL> select count(1) from customer;
+
+  COUNT(1)
+----------
+   1159892
+
+Elapsed: 00:04:13.07
+
+SQL> analyze table customer compute statistics;
+
+
+
+SQL> select count(1) from customer;
+
+  COUNT(1)
+----------
+   1159941
+
+Elapsed: 00:06:47.02
+
+SQL> select /*+ RULE */ count(1) from customer;
+
+  COUNT(1)
+----------
+   1159941
+
+Elapsed: 00:00:59.05
+SQL> select /*+ FULL(t) */ count(1) from customer t;
+
+  COUNT(1)
+----------
+   1159941
+
+Elapsed: 00:00:00.06
+
+So suggestion: increase sort_area_size in your batch session to some large 
+number to improve the performance of your very very large sort.  The smaller the 
+sort area size -- the smaller the swap pieces - the more temp you need -- the 
+longer it will take (lots of extra IO and all).
+
+
+
+
+Set autotrace on explain
+Set autotrace on
+set autotrace trace explain
+
+analyze table x compute statistics;
+create index i on x (f) compute statistics
+
+
+create table tbool (bool char check (bool in (0,1));
+insert into tbool values(0);
+insert into tbool values(1);
+
+
+D:\oracle\ora92\bin>orastack tnslsnr.exe 500000
+D:\oracle\ora92\bin>orastack oracle.exe 500000

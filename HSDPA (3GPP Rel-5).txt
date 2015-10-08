@@ -1,0 +1,68 @@
+HSDPA
+
+Merupakan pengembangan dari arsitektur WCDMA yang dispesifikasikan pada standar 
+3GPP Release 5. Dengan HSDPA, secara teori, maksimum kecepatan transfer downlink
+data (peak data rate) dapat mencapai 14.4 Mbps dari yang sebelumnya hanya mencapai 384 kbps.
+
+Implementasi HSDPA pada jaringan operator memerlukan perubahan terutama pada Radio
+Access Network (RAN) yaitu pada Node B, RNC dan juga User Equiptment (UE).
+
+adaptive modulation and coding (AMC)
+ yang berarti modulasi yang digunakan, jumlah kode dan code rate dioptimasi selama koneksi dengan memperhitungkan channel quality information (CQI) yang diterima dari perangkat pengguna (UE)
+ modulasi yang digunakan misalnya QPSK, 16QAM
+
+ Channel coding digunakan untuk memperbaiki kesalahan (error) yang terjadi saat transmisi ataupun saat penerimaan sinyal radio di udara. 
+ Pada versi sebelumnya, sistem coding yang digunakan adalah half rate convolutional coding, 1/3 convolutional coding atau 1/3 turbo coding.
+ Pemilihan jenis coding yang digunakan dilakukan oleh RNC dan berubah (dinamic) tergantung dari kondisi channel. 
+ Beberapa vendor alat telekomukasi memilih untuk melakukan pemilihan coding scheme di BTS agar adaptasi terhadap kondisi channel lebih cepat.
+
+ Contoh perubahan QPSK1/4 QPSK2/4 QPSK3/4 akibat dari carrier-to-interference ratio yang diterima dari UE.
+
+ Selain adaptasi coding scheme, perubahan modulasi juga dilakukan berdasarkan kondisi channel.
+ Contoh perubahan QPSK1/4 QPSK2/4 QPSK3/4 16QAM2/4 16QAM3/4.
+
+ AMC ini menggantikan fitur variable spreading factor (SF) dan fast power control yang merupakan fitur dasar dari WCDMA.
+
+
+fast scheduling
+ peningkatan pada transmission time interval (TTI) dan Node B menangani penjadwalan paket. Setiap TTI, 
+ packet scheduler di BTS melakukan pemilihan sebuah perangkat pengguna (UE) yang akan dilayani. 
+
+fast retransmission
+ Peningkatan kecepatan retransmisi ini adalah akibat langsung dari penanganan data retransmisi oleh
+ BTS pada layer 1. Pada rilis sebelumnya, retransmisi dilakukan oleh Radio Network Controller dengan menggunakan Radio Link Control (RLC).
+
+ Retransmisi dilakukan jika transmisi radio ataupun proses decoding data tidak berhasil sehingga UE mengirimkan informasi NACK.
+
+ Pada layer 1, proses Hybrid Automatic Retransmission reQuest (HARQ) digunakan untuk mentranmisikan informasi yang benat ke UE.
+
+ Retransmisi pada layer RLC maupun TCP masih dimungkinkan juga terjadi pada HSDPA.
+
+
+Pada teknologi HSDPA, diperkenalkan juga beberapa radio channel baru pada interface Uu yaitu:
+
+- transport channel HS-DSCH
+- physical channel 
+   - HS-PDSCH, physical channel yang digunakan untuk membawa HS-DSCH 
+   - (HS-DPCCH) yang digunakan untuk membawa uplink control data
+   - (HS-SCCH) yang digunakan untuk membawa dowlink control data 
+
+HSDPA data dibawa oleh HS-DSCH yang merupakan shared channel dimana data dari setiap user yang dilayani oleh sebuah cell dikirimkan. Oleh karena itu,
+pada jaringan HSDPA throughput yang dirasakan oleh end user bergantung dari banyaknya user yang dilayani oleh cell yang sama.
+
+Pada HSDPA, interface Iub juga mengalami efisiensi karena menggunakan time-shared channel untuk membawa data. 
+Hal ini dimungkinkan karena HSDPA tidak mendukung soft handover.
+
+
+3GPP TS 25.855 High Speed Downlink Packet Access (HSDPA); Overall UTRAN description
+3GPP TS 25.856 High Speed Downlink Packet Access (HSDPA); Layer 2 and 3 aspects
+3GPP TS 25.876 Multiple-Input Multiple-Output Antenna Processing for HSDPA
+3GPP TS 25.877 High Speed Downlink Packet Access (HSDPA) - Iub/Iur Protocol Aspects
+3GPP TS 25.890 High Speed Downlink Packet Access (HSDPA); User Equipment (UE) radio transmission and reception (FDD)
+
+
+Slide bagus:
+http://digitus.itk.ppke.hu/~takacsgy/26_hsdpa_rnp.pdf
+http://www.comlab.hut.fi/opetus/4210/presentations/16_wcdma_rnp.pdf
+
+  

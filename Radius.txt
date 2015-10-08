@@ -1,0 +1,68 @@
+RADIUS (Remote Authentication Dial In User Service)
+
+Radius adalah protokol authentication, authorization and accounting (AAA). Penggunaan radius untuk authentication & authorization dijelaskan pada RFC 2865, sedangkan accounting dijelaskan pada RFC 2866.
+
+Radius menggunakan UDP dengan port 1812 dan 1813.
+
+Protokol radius digunakan dalam 3GPP (GSM/UMTS) pada packet core network untuk mendukung interworking antara jaringan operator (PLMN) dengan jaringan IP (Packet Data Network/PDN). Penggunaan protokol radius dispesifikasikan pada 3GPP TS 29.061 "Interworking between the Public Land Mobile Network (PLMN) supporting packet based services and Packet Data Networks (PDN)"
+
+
+Radius digunakan sebagai protokol AAA dalam jaringan UMTS lebih dikarenakan Radius telah menjadi standar protokol untuk AAA pada ISP yang digunakan untuk keperluan billing records saat pengguna melakukan koneksi lewat modem. 
+
+Dalam jaringan UMTS biasanya radius digunakan juga untuk authentikasi pada WAP gateway atau Web Proxy. WAP gateway atau Web proxy akan meneruskan request dari pengguna ke server tujuan jika proses authentication dari GGSN atau NAS ke AAA server berhasil.
+
+
+1. Proses koneksi GPRS dimulai dari ponsel yang melakukan request Activate PDP Context ke SGSN yang membawa informasi APN, QoS, PDP-type dan lain-lain.
+2. SGSN kemudian akan mengirimkan request Create PDP Context ke GGSN.
+3. GGSN mengirimkan RADIUS Access-Request ke AAA Server untuk mengotentifikasi request 
+4. Jika otentifikasi berhasil AAA Server akan menjawab ke GGSN dengan mengirimkan RADIUS Access-Acept
+5. GGSN kemudian akan mengirimkan RADIUS Accouting-Request START ke AAA server. Catatan: Accounting Server bisa saja elemen yang terpisah dengan Authentication Server
+6. AAA Server mengirimkan RADIUS Accounting-Response (START)
+7. Jika GGSN menggunakan mekanisme DHCP untuk alokasi IP ponsel maka GGSN akan mengirimkan paket DHCP-DISCOVER ke DHCP Server. Catatan: kadang-kadang AAA Server juga berfungsi sebagai DHCP Server
+8. GGSN menerima DHCP-OFFER dari DHCP Server
+9. GGSN mengirimkan DHCP-REQUEST ke DHCP Server
+10. GGSN menerima DHCP-ACK dari DHCP Server kemudian menyimpan IP yang diassign sebagai IP ponsel
+11. GGSN mengirimkan Create PDP Context response ke SGSN yang berarti PDP Context berhasil dibuat.
+12. SGSN mengirimkan respon Activate PDP Context Accept ke ponsel untuk kemudian pengguna dapSat melakukan koneksi GPRS.
+
+ 
+
+RADIUS Accounting-Request START request dari GGSN ke AAA server dapat bersifat 'asynchronous' artinya sebelum mendapatkan respon, GGSN dapat langsung mengirimkan Create PDP Context response ke SGSN. 
+
+Selama user melakukan koneksi GPRS beberapa hal dibawah ini dapat terjadi
+
+- Accounting update misalnya jika terjadi perubahan parameter pada PDP Context. Perubahan informasi ini harus dikirimkan oleh GGSN ke AAA Server dengan RADIUS Accounting-Request Interm-Update
+- Penghentian PDP Context oleh AAA Server yaitu dengan cara AAA Server mengirimkan RADIUS Disconnect-Request
+- Sinkronisasi antara informasi yang ada di GGSN dengan di AAA Server yaitu dengan cara GGSN mengirimkan RADIUS Accounting-Request ON atau RADIUS Accounting-Request OFF
+
+Jika pengguna mengakhiri session GPRS-nya maka ponsel akan mengirimkan Deactivate PDP Context Request ke SGSN untuk kemudian SGSN mengirimkan Delete PDP Context Request ke GGSN. Dalam kejadian ini GGSN harus mengirimkan RADIUS Accounting-Request STOP ke AAA Server.
+
+
+Atribut-atribut dalam RADIUS dalam proses aktivasi PDP dijelaskan secara detail pada 3GPP TS 29.061. Beberapa atribut yang spesifik dari 3GPP adalah:
+
+3GPP-IMSI
+3GPP-Charging-Id
+3GPP-PDP-Type
+3GPP-CG-Address
+3GPP-GPRS-Negotiated-QoS-Profile
+3GPP-SGSN-Address
+3GPP-GGSN-Address
+3GPP-IMSI-MCC-MNC
+3GPP-GGSN-MCC-MNC
+3GPP-NSAPI
+3GPP-Session-Stop-Indicator
+3GPP-Selection-Mode
+3GPP-Charging-Characteristic
+3GPP-SGSN-MCC-MNC
+3GPP-Teardown-Indicator
+
+Walaupun atribut-atribut tersebut diatas bersifat optional tetapi hampir selalu GGSN menyertakan atribut tersebut karena pentingnya informasi tersebut.
+
+
+•	RFC 2865 - Remote Authentication Dial-In User Service (obsoletes RFC 2138; updated by RFC 2868) 
+•	RFC 2866 - RADIUS Accounting (obsoletes RFC 2139; updated by RFC 2867)
+•	RFC 2869 - RADIUS Extensions 
+•	RFC 2809 - Compulsory Tunneling via RADIUS 
+•	RFC 2868 - RADIUS Attributes for Tunneling Support 
+•	RFC 2882 - NAS Requirements: Extended RADIUS Practices
+•	RFC 2904 - AAA Authorization Framework

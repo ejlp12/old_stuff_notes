@@ -1,0 +1,73 @@
+AWR & ADDM report
+
+Sebelum Oracle versi 10g, kita dapat menggunakan statpack untuk melihat report 
+performansi database. Tapi sejak database Oracle versi 10g, kita dapat dengan
+mudah menggunakan AWR ((Advanced Workload Repository) report untuk melakukan 
+tuning performance dan melakukan analisis terhadap masalah yang ada dalam sistem 
+database.
+
+Untuk membuat AWR report sangat mudah, tinggal eksekusi script awrrpti.sql 
+kemudian ikuti perintahnya: 
+
+   oracle$ sqlplus / as sysdba
+   SQL> @$ORACLE_HOME/rdbms/admin/awrrpti.sql
+
+Setiap database biasanya secara default melakukan snapshot dari performansi 
+sistem setiap satu jam sekali dan kemudian menyimpannya dalam repository
+statistik. Repository tersebutlah yang digunakan untuk membuat AWR report. 
+
+AWR dapat dibuat berdasarkan satu atau beberapa snapshot. Contoh list snapshot
+yang bisa dipilih ketika akan men-generate AWR report.
+
+
+                                                        Snap
+Instance     DB Name        Snap Id    Snap Started    Level
+------------ ------------ --------- ------------------ -----
+mydb1        MYDB             14897 15 Apr 2007 22:00      1
+                              14898 15 Apr 2007 23:00      1
+                              14899 16 Apr 2007 00:00      1
+                              
+Kita dapat juga melakukan snapshot secara manual kapanpun diinginakan dengan 
+perintah berikut
+
+   oracle$ sqlplus / as sysdba
+   SQL> exec dbms_workload_repository.create_snapshot;
+   
+Referensi:
+
+Oracle Database Performance Tuning Guide <http://download-west.oracle.com/docs/cd/B13789_01/server.101/b10752/autostat.htm#29228>
+
+   
+Selain AWR, tool yang penting untuk mengecek atau menganalisis performansi 
+adalah ADDM (Automated Database Diagnostic Monitor), yang memberikan saran 
+untuk tuning pada sistem database misalnya 
+
+  # CPU bottlenecks 
+  # Undersized Memory Structures 
+  # I/O capacity issues 
+  # Beban (load) yang tinggi pada SQL statements, kompilasi dan eksekusi PL/SQL atau Java 
+  # Masalah pada cluster (RAC)
+  # Masalah yang berhubungan dengan aplikasi yang menggunakan database
+  # Masalah pada konfigurasi database 
+  # Masalah concurrency (busy buffer)
+  # Masalah pada object-object database lainnya.
+
+Untuk menjadlankan ADDM gunakan perintah berikut:
+
+   oracle$ sqlplus / as sysdba               
+   SQL> @$ORACLE_HOME/rdbms/admin/addmrpt.sql
+   
+Referensi:
+http://download-west.oracle.com/docs/cd/B13789_01/server.101/b10752/diagnsis.htm#37244
+
+
+Catatan: Kedua tools tersebut dapat digunakan lewat antarmuka web yaitu pada
+Oracle Enterprise Manager (OEM) console yang biasanya bisa diakses lewat URL
+
+  http://localhost:5500/em
+
+
+Statspack 101: Interpreting Your Statspack Report <http://www.troygeek.com/article/17/>
+Interpreting the Statspack report <http://asktom.oracle.com/pls/asktom/f?p=100:11:0::::P11_QUESTION_ID:19958767477215>
+
+

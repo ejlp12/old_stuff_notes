@@ -1,0 +1,182 @@
+MMS interoperability antara MMS client dengan 
+
+Synchronized Multimedia Integration Language 
+SMIL Basic
+presentation of multimedia messages on mobile terminals,
+
+====================================================================================================
+MMSC
+
+MMS dan fungsionalitas MMSC dispesifikasikan oleh 3GPP dan OMA. Definisi dan format MMS serta proses perngiriman/penerimaan MMS dapat dibaca pada spesifikasi tersebut. Pada posting ini saya jelaskan secara singkat bagaimana proses tersebut berjalan dan arsitektur elemen yang mengatur MMS.
+
+Jaringan packet switched pada core network digunakan sebagai lalu-lintas sebuah multimedia message (MM). MM akan dikirimkan oleh ponsel ke sebuah elemen yang berfungsi sebagai pengatur lalu-lintas dan penyimpan MM yang disebut MMSC (Multimedia Messaging Service Center). Proses peringiriman MMS dapat dijelaskan secara garis besar sebagai berikut:
+
+1. Sebuah ponsel harus mengetahui alamat dari MMSC operator agar bisa mengirimkan sebuah MMS. Ponsel akan melakukan koneksi GPRS dan session GPRS dibuat pada SGSN.  
+
+2. Lewat WAP gateway, MMS dikirimkan ke MMSC menggunakan protokol HTTP atau WSP/WAP.
+
+3. MMSC akan mengirimkan MMS ke tujuan. Jika tujuan adalah pelanggan pada operator yang sama maka MMSC akan mengirimkan WAP Push indikator-MMS ke ponsel tujuan. Jika tujuan adalah alamat email maka SMSC akan mengirimkannya ke Email Server tujuan. 
+
+4. Jika Wap Push indikator-MMS tidak dapat dikirimkan maka MMS akan disimpan ke dalam tempat penyimpanan atau Multimedia Message Box (MMBox).
+
+5. MMSC kemudian akan melakukan pengiriman ulang (retry) ke tujuan beberapa kali. Jika hingga batas retry MMS tidak dapat dikirimkan maka biasanya MMSC akan mengirimkan pesan SMS kepada nomor tujuan memberitahukan bahwa sebuah MMS diterima dan dapat diambil melalui alamat web site (URL) ter
+tentu.
+
+Pada dasarnya MMSC merupakan penggabungan dua fungsi yaitu  MMS Server dan MMS Proxy/Relay. MMS Server berfungsi sebagai tempat antrian atau penyimpanan MM (MMBox). Sedangkan MMS Proxy/Relay berfungsi sebagai elemen yang menghubungkan MMS Server dengan ponsel pengguna, melakukan inisialisasi koneksi, mengirimkan notifikasi, routing dan lain-lain.
+
+Arsitektur yang umum adalah sebagai berikut
+
+ MMS client                          +-----------+                                        
+ (ponsel)    <--( Jaringan radio )-->| SGSN/GGSN |                                        
+                                     +-----------+                                        
+                                          ^
+                                          |
+                                          v
+                                  +-----------------+
+                                  |WAP Gateway & PPG|
+                                  +-----------------+
+                                          ^                                                  
+                                          |                                                  
+                                    ( Jaringan IP )                                          
+                                          |                                                  
+                                          v                                                  
+                                       +------+                         --> MMSC lain        
+                                       | MMSC |<---( Jaringan Internet )--> VASP             
+                                       +------+                         --> SMTP/Email server
+
+
+
+Titik-titik integrasi (reference point) yang menunjukan hubungan antara MMSC dengan elemen lain diberinama dan dispesifikasikan dalam dokumen 2GPP TS 20.140 (Multimedia Messaging Service Functional description) sebagai berikut:
+
+MM1: Reference point antara MMS User Agent denan MMS Relay/Server. 
+     Biasanya menggunakan WAP/WSP, walaupun dalam spesifikasi dimungkinkan untuk menggunakan protokol lain berbasis TCP/IP misalnya HTTP
+MM2: Reference point antara MMS Relay dengan MMS Server. Belum dispesifikasikan. 
+MM3: Reference point antara MMS Relay/Server dengan external (legacy) messaging systems, misalnya MMSC lain atau Mail Server. Pada reference point ini biasanya digunakan protokol SMTP.
+MM4: Reference point antara the MMS Relay/Server dengan MMS Relay/Server yang lain yang berada di lain MMSE (Multimedia Message Service Environment). 
+     Protocol yang digunakan adalah SMTP (RFC 821). STD 11 (RFC 2822), MIME (RFC 2046)
+
+MM5: Reference point antara the MMS Relay/Server dengan Home Location Register (HLR). Menggunakan MAP.
+MM6: Reference point antara the MMS Relay/Server dengan MMS User Databases. Belum dispesifikasikan tapi biasanya digunakan LDAP. 
+MM7: Reference point antara the MMS Relay/Server dengan MMS VAS Applications. 
+     Berbasis SOAP dan SOAP message with attachment [http://www.w3.org/TR/SOAP-attachments] dengan HTTP sebagai transport layer.
+MM8: Reference point antara the MMS Relay/Server dengan billing system. Belum dispesifikasikan. 
+
+
+                      .------------------------------.                              
+   +--------+         |                              |         +---------------+    
+   | MMS UA |<--MM1-->| MMS Relay<--MM2-->MMS Server |<--MM3-->| Legacy System |    
+   +--------+         |                              |         +---------------+    
+                      '------------------------------'                              
+                                                |||||           +-----------------+ 
+                                                ||||+----MM4-->| MMS Relay/Server | 
+                                                ||||            +-----------------+ 
+                                                ||||                                 
+                                                ||||           +--------+           
+                                                |||+-----MM5-->|  HLR   |           
+                                                |||            +--------+           
+                                                |||                                 
+                                                |||            +---------------+    
+                                                ||+------MM6-->| User Database |    
+                                                ||             +---------------+    
+                                                ||                                   
+                                                ||             +-----------------+  
+                                                |+-------MM7-->| VAS Application |  
+                                                |              +-----------------+  
+                                                |                                   
+                                                |              +----------------+   
+                                                +--------MM8-->| Billing System |   
+                                                               +----------------+   
+
+(c) 20071227 ejlp12@yahoo.com
+
+======================================================================================================================================
+Adaptasi kontent (content adaptation/transcoding)
+
+Sebuah MMS dapat memuat konten file berbetuk gambar, video, atau file lainnya tetapi tidak semua file dapat ditampilkan pada ponsel. Jika seorang mengirimkan MMS dengan file MP3, belum tentu si penerima dapat menjalankan MP3 tersebut di ponselnya. Keterbatasan seperti  itu biasanya diatasi dengan cara mengubah (transcode) file ke format yang dapat dijalankan atau ditampilkan pada ponsel penerima. Fungsi transcoding tersebut dilakukan oleh MMSC ketika MMS diterima dan akan dikirimkan ke ponsel tujuan.
+
+MMSC perlu mengetahui tipe posel dari pengguna yaitu orang yang akan menerima MMS. MMSC dapat mengetahui dengan melihat HTTP request header yaitu pada header UserAgent atau UAProf. Atau jika database subscriber profile tersedia, MMSC dapat melakukan request untuk meminta data tipe ponsel pengguna.
+
+Setelah mengetahui tipe atau kemampuan (capability) ponsel maka MMSC dapat melakukan transcoding ke bentuk file yang di-suport oleh ponsel penerima. 
+
+OMA mambuat standar/spesifikasi antarmuka (interface) yaitu dinamakan STI (Standard Transcoding Interface)
+yang digunakan elemen yang membutuhkan proses transcoding (misalnya MMSC) dengan elemen yang melakukan transcoding (transcoder). Hal ini diperlukan agar operabilitas antar elemen dari vendor yang berbeda dapat dicapai dengan mudah. 
+
+STI menggunakan SOAP lewat HTTP sebagai dasar protokol transaksi. Proses komukasi pada STI digambarkan sebagai berikut
+
+
+      +---------+               +------------+
+      |         |----request--->|            |
+      |  MMSC   |               | Transcoder |
+      |         |<---response---|            |
+      +---------+               +------------+
+
+
+Sebuah request terdiri dari bagian yaitu
+ - source yaitu objek media yang akan di-transcode dan informasi tentang objek tersebut misalnya format, resolusi, dan lain-lain.
+ - target yaitu informasi hasil objek yang diinginkan misalnya format, resolusi, bitrate atau tipe handset
+
+Objek media yang akan di-transcode sendiri dapat disertakan dalam SOAP message sebagai SOAP attachment atau hanya referensi ke objek eksternal yang alamatnya ditulis di SOAP message.
+
+Dalam sebuah request dapat memiliki beberapa perintah (job) untuk melakukan transcoding dan request juga dapat memiliki beberapa attachment objek media.
+
+Object media hasil sebuah proses transcoding juga dapat di-attach pada SOAP message maupun disimpan dalam remote content storage.
+
+     Application platform      Transcoding platform         Remote content
+     ====================      ====================         ==============
+               |                         |                        |       
+               |---------request-------->|                        |       
+               |                         |---------fetch--------->|       
+               |                         |<-----------------------|       
+               |                         |----+                   |       
+               |                         | transcode              |       
+               |                         |    |                   |       
+               |                         |<---+                   |       
+               |                         |--------store---------->|       
+               |                                                  |       
+               |-----------------------fetch--------------------->|       
+               |<-------------------------------------------------|       
+               |                                                  |       
+
+Lebih jelas tentang OMA STI dapat dibaca pada dokumen spesifikasi berikut yang dapat di download <a href="http://www.openmobilealliance.org/technical/release_program/sti_archive.aspx">di sini</a>
+
+ - Architecture of the Standard Transcoding Interface 	
+ - Req Doc Standard Transcoding Interface Requirements 	
+ - Specifications Standard Transcoding Interface Specification 	
+ - Schemas Standard Transcoding Interface Schema 	
+
+
+================
+
+Standarisasi MMS
+
+Standarisasi MMS terpenting adalah dari OMA/WAP Forum dan 3GPP yaitu
+
+- Dari OMA http://www.openmobilealliance.org
+  MMS Architecture
+  MMS Encapsulation Protocol
+  MMS client Transaction
+  MMS Conformance Document
+  Standard Transcoding Interface (STI) <http://www.openmobilealliance.org/Technical/release_program/sti_v10.aspx>
+
+- Dari 3GPP
+  TS 23.140 Multimedia Messaging Service (MMS); Functional description; Stage 2 <http://www.3gpp.org/FTP/Specs/html-info/23140.htm>
+  TS 22.140 Multimedia Messaging Service (MMS); Stage 1 <http://www.3gpp.org/FTP/Specs/html-info/22140.htm>
+  Spesifikasi untuk billing 
+    32.270 Telecommunication management; Charging management; Multimedia Messaging Service (MMS) charging <http://www.3gpp.org/ftp/Specs/html-info/32270.htm>
+    32.299 Telecommunication management; Charging management; Diameter charging applications  <http://www.3gpp.org/ftp/Specs/html-info/32299.htm>
+
+
+Kedua standarisasi tersebut saling berhubungan. Spesifikasi 3GPP mereferensi kepada spesifikasi dari OMA.
+
+
+OMA relese           3GPP release
+------------------  --------------
+WAPForum MMS1.0      3GPP Rel-99
+OMA MMS 1.1          3GPP Rel-4
+OMA MMS 1.2          3GPP Rel-5
+OMA MMS 1.3          3GPP Rel-6
+
+Versi terakhir dari MMS adalah MMS 1.3 <http://www.openmobilealliance.org/Technical/release_program/mms_v1_3.aspx>
+
+(c) 24 Juni 2008
+

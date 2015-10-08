@@ -1,0 +1,7 @@
+EAIF (External Application Interface) adalah protokol yang dibuat Nokia untuk menghubungkan antara MMSC dengan aplikasi eksternal (EA).
+
+EA berberan sebagi web client dan MMSC berperan sebagai web server.
+
+Nokia MMS Java Library 1.1
+MMSC EAIF Emulator
+

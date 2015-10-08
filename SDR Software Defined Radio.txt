@@ -1,0 +1,18 @@
+http://www.sdrforum.org/
+
+Multi-mode terminals
+
+Multiband/broadband connectivity
+
+Bluethoot, UMTS, WLAN, WiMAX, DVB-H, GPS 
+
+EDGE/GPRS/WLAN
+GPRS/WLAN
+
+
+targetnya adalah mereduksi cost dengan menggunakan hardware untuk keperluan bersama (sharing hardware)
+
+Definisi
+
+"Radio in which some or all of the physical layer functions are software defined" 
+

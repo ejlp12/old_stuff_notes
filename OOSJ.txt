@@ -1,0 +1,37 @@
+
+OSS/J [http://tmforum.org/BestPracticesStandards/OSSJ/2896/Home.html] awalnya merupakan grup perusahaan-perusahaan yang berusaha membuat implementasi dari OSS/BSS dengan menggunakan Java sebagai teknologinya dan mengacu pada NGOSS (Next Generation Operations Support System).
+OSS/J dibentuk tahun 2003 dengan menggunakan Java Community Process (JCP) untuk membuat standar API yang dispesifikasikan pada dokumen JSR (Java Specification Request).
+Tahun 2006, OSS/J mulai bergabung dengan organisasi TMForum dan API-nya mengukuti Core Business Entities (CBE) dari Shared Information Data (SID) model yang dibuat oleh TMForum. 
+
+OSS/J API ini dibuat dengan beberapa teknologi yaitu Java RMI/IIOP, XML/JMS, dan Web Services. Awalnya API yang dibuat adalah sebagai berikut:
+
+Common API v1.0
+Inventory v1.0
+Trouble Ticket v1.0
+
+Kemudian berkembang menjadi beberapa API sebagai berikut:
+
+Common API (JSR 144)
+Service Activation v1.1(JSR 89)
+Quality of Service v1.0 (JSR 90)
+Trouble Ticket (JSR 91)
+IP Billing (JSR 130)
+Inventory API (JSR 142)
+
+Hingga saat ini beberapa perubahan terlah terjadi yaitu
+- Service Activation API diganti menjadi Order Management API
+- Billing Mediation atau IP Billing API dan Quality of Service API sudah tidak dikelola.
+- Bagian dari QoS API yaitu fault management dibuat terpisah menjadi Fault Management API.
+
+OSS/J API kemudian dikembangkan dengan prinsip SOA (Service Oriented Architecture) dengan spesifikasi sebagai berikut:
+
+Common API v1.5 (JSR 144)
+Order Management v1.0 (JSR 246)
+Trouble Ticket v1.2 (JSR 91)
+Inventory v1.2 (JSR 142)
+Fault Management v1.0 (JSR 263)
+Discovery v1.0 (JSR 254)
+
+Dokumen spesifikasi tersebut bisa di-download disini [http://www.tmforum.org/SOAEnablementView/4492/home.html](website TMForum) atau disini [http://www.jcp.org/en/jsr/tech?listBy=3&listByType=tech] (website JSR)
+TMForum juga mengambangan implementasi OSS/J open source https://sbm-ossj.dev.java.net/
+

@@ -1,0 +1,16 @@
+CDMA vendor:
+
+Nortel Networks
+ZTE
+Huawei
+
+
+Amdocs
+
+OPENET
+
+
+Geneva 
+IRB
+
+CBOSS

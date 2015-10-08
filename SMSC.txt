@@ -1,0 +1,158 @@
+SMSC
+
+Sebuah pesan (message) SMS dikirim dan diterima ole Short Messaging Entities (SME), misalnya ponsel, server, aplikasi.
+
+
+         +----------+    +----------------------+
+         |          | -->| SMS-IWMSC -->        |
+MS <---->| MSC/SGSN |    |                SMSC  |<---->SME
+         |          | <--| SMS-GMSC <---        |  
+         +-----^----+    +----^-----------------+
+               |              |            
+               v              v            
+              VLR            HLR           
+                                    
+
+Short Message Service Center (SC) melakukan penyimpanan dan penerusan pesan antara SME 
+SMS-GMSC menerima pesan dari SC, mengiterogasi HLR untuk mendapatkan informasi rute (routing) dan mengirimkannya ke MSC/SGSN
+SMS-IWMSC (Inter-working MSC) menerima pesan dari MSC/SGSN dan meneruskannya ke SC
+
+Dua proses dasar SMS
+
+Short message mobile terminated (SM-MT) yaitu proses pengiriman dari SMSC ke ponsel penerima SMS-SUBMIT PDU
+Short message mobile originated (SM-MO) yaitu proses pengiriman dari ponsel pengirim ke jaringan operator atau SMSC SMS-DELIVER PDU
+
+
+SMSC   SMS-GMSC  HLR     MSC     VLR     MS
+  |       |       |       |       |       |
+  |       |       |       |       |       |
+  |---1-->|       |       |       |       |
+  |       |<--2-->|       |       |       |
+  |       |-------3------>|       |       |
+  |       |       |       |<--4-->|       |
+  |       |       |       |	  |<--5-->|
+  |       |       |       |       |<--6-->|
+  |       |       |       |       |       |
+  |       |       |       |<------7------>|
+  |       |<------8-------|       |       |
+  |       |---9-->|       |       |       |
+  |<--10--|       |       |       |       |
+  |       |       |       |       |       |
+  |       |       |       |       |       |
+
+1. Transfer message
+2. ETSI/GSM MAP sendRoutingInfoForShortMsg atau IS41 SMSrequest
+3. ETSI /GSM MAP forwardShortMessage atau IS41 SMD-PP (shortmessage Delivery-Point-to-Point)
+4. sendInfoForMTSMS
+5. Paging
+6. Autentikasi
+7. Transfer message
+8. Delivery report
+9. SM-DeliveryReportStatus
+10. Delivery report
+
+
+SMSC   SMS-GMSC  HLR     MSC     VLR     MS (B#)
+  |       |       |       |       |       |
+  |       |       |       |       |       |
+  |---1-->|       |       |       |       |
+  |       |<--2-->|       |       |       |
+  |       |-------3------>|       |       |
+  |<------+---4-----------|       |       |
+  |       |       |       |       |       |
+  |<------5------>|       |       |       |
+  |       |       |       |       |<--6---|
+  |               |       |       |<--7---|
+  |    SMS-IWMSC  |       |       |       |
+  |       |       |<------8-------|       |
+  |<------+---9---|       |       |       |
+  |       |       |       |       |       |
+  |       |       |<--10--|       |       |
+  |<-----11-------|       |       |       |
+  |       |       |       |       |       |
+ 
+ 
+1. Transfer message
+2. ETSI/GSM MAP sendRoutingInfoForShortMsg atau IS41 SMSrequest
+3. ETSI /GSM MAP forwardShortMessage atau IS41 SMD-PP (shortmessage Delivery-Point-to-Point)
+4. MNRF (Not Reachable Flag) Delivery failure
+5. SMS mengirimkan ReportSMDeliveryStatus ke HLR memberitahu alasan kegagalan.
+   HLR kemudian akan mengeset flag MNRF dan menyimpan alaman SMSC dalam list MWD (Message Waiting Delivery) dari nomor tujuan (B#) kemudian mengirimkan aknowlegdement ke SMS-GMSC/SMSC
+6. Paging
+7. Autentikasi
+8. VLR mengirimkan ReadyForSM message yang berisi IMSI dari B# yang menginformasikan bahwa B# telah aktif.
+   MNRF flag di VLR dan HLR pada kondisi ini telah direset
+9. HLR mengirimkan MAP AlertSC ke semua SMSC yang ada di list MWD lewat SMS-IWMSC
+10.
+11.
+ 
+ 
+
+SMSC   SMS-GMSC  HLR     MSC     VLR     MS
+  |       |       |       |       |       |
+  |       |       |       |       |<--1-->|
+  |       |       |       |       |<--2-->|
+  |       |       |       |<-------3------|
+  |       |       |       |       |       |
+  |       |       |       |<--4-->|       |
+  |       |<------5-------|       |       |
+  |<--6---|       |       |       |       |
+  |---7-->|       |       |       |       |
+  |       |-------8------>|       |       |
+  |       |       |       |-------9------>|
+  |       |       |       |       |       |
+  |       |       |       |       |       |
+1. Paging
+2. Autentikasi
+3. Transfer message
+4. sendInfoForMOSMS
+5. ETSI/GSM MAP forwardShortMessage atau IS41 SMD-PP (Short Message Delivery-Point-to-Point)
+6. Transfer message
+7. Kirim Delivery report
+8. Kirim Delivery report
+9. Kirim Delivery report
+
+Realisasi teknis dari 'point-to-point SMS' didefinisikan pada spesifikasi ETSI GSM 03.40 dan 3GPP TS 23.040.
+
+Telecom interface
+
+SMSC bisa dikoneksikan dengan GSM/GPRS network dengan menggunakan koneksi
+
+Short Message Relay Service Element (SMRSE), 3GPP TS 23.047
+SMRSE berdasarkan ETSI specification GSM 03.47.
+merupakan protokol berbasis TCP/IP menggunakan layer fisik Ethernet LAN
+atau OSI/X.25 menggunakan layer fisik X.21 atau V.35.
+
+Mobile Application Part (MAP), 3GPP TS 29.002
+
+MAP is not a protocol by itself, but a set of non-call-related signaling protocols.
+MAP interface berdasar pada spesifikasi ETSI GSM 09.02 dan 3GPP TS 29.002.
+
+MAP enables the SMS Center to be connected to any SS7-based signalling
+network, which allows the connection to several network subsystems, for
+example MSCs and HLRs, simultaneously.
+
+MAP versions 1, 2 and 3 for SMS operations are supported in GSM
+network. For GPRS functionality, version 3 is used.
+
+
+The gateway MSC (GMSC) and interworking MSC (IWMSC) 
+
+
+Computer Interface to Message Distribution (CIMD2) Nokia
+
+
+SMPP (Short message Peer-to-Peer protocol) - SMS Forum
+EMI/UCP (External Machine Interface) CMG, sekarang LogicaCMG
+OIS (Open Interface Specification) SemaGroup, sekarang Airwide
+Computer Access Service and Protocol - Ericsson
+
+
+
+
+PSPDN
+
+3GPP TR 23.039 Interface protocols for the connection of Short Message Service Centres (SMSCs) to Short Message Entities (SMEs)
+
+
+

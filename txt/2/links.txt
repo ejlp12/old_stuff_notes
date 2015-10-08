@@ -1,0 +1,12 @@
+JDBC : SQL vs PL/SQL, Which performs better
+http://asktom.oracle.com/pls/ask/f?p=4950:8:::::F4950_P8_DISPLAYID:499097979114
+
+
+passing arrays into pl/sql stored procedures
+http://asktom.oracle.com/pls/ask/f?p=4950:8:::::F4950_P8_DISPLAYID:712625135727
+
+
+homepage.mac.com/mraible/demos/staticHeaders.html
+http://www15.boulder.ibm.com/cgi-bin/fulfill/internal/knac.cgi?hash=6c6cfbc767c26780c4906a805660f6e2&exp=1087880701&issuer=li01&ip=9.184.105.152&ec=na&tktid=Christian+Budisusetia/Indonesia/IBM&timeout=84400
+
+http://sourceforge.net/project/showfiles.php?group_id=49260&package_id=42607&release_id=237653

@@ -1,0 +1,9 @@
+UMTS-ATM
+
+ATM dipilih sebagai core networking technology
+
+Has been defined as the core networking technology
+ATM allows circuit switched transfer of data using packets.
+High speed data transfer – currently maximum 10 Gbps
+Guarantee of quality of service for the duration of packet transfer
+Small packets used called cells for the transfer of data to minimise the impact on the routers, network and switches.

@@ -1,0 +1,44 @@
+OSS/BSS (Operation and Business Support Sistem) atau sering juga ditulis O/BSS adalah sistem atau platform yang melingkupi masalah operasional dan bisnis (non-teknis) yang mendukung berjalannya suatu jaringan dan layanan dari operator telekomunikasi.
+
+Dalam pandangan saya yang masih terbatas dalam hal OSS/BSS ini, saya melihat bahwa OSS merupakan sistem pendukung operasional yang bersifat teknis misalnya untuk memonitor, mengelola dan memanajemen resource atau elemen yang ada dalam jaringan telekomunikasi. Sedangkan BSS merupakan sistem yang bersifat pendukung bisnis misalnya managemen pelanggan (customer), billing system, CRM, call center, datawarehouse, business intelligent, reporting/settlement dan lain-lain.
+
+Sebagai bacaan awal agar lebih memahami lingkupan dari O/BSS anda bisa baca artikel di wikipedia tentang <a href="http://en.wikipedia.org/wiki/Operations_Support_Systems">OSS</a> dan <a href="http://en.wikipedia.org/wiki/Business_Support_Systems">BSS</a>.
+
+Cakupan OSS adalah (disingkat FCAPS):
+
+    * Fault Management 
+    * Configuration Management 
+    * Accounting Management
+    * Performance Management
+    * Security Management
+
+Sedangkan cakupan BSS:
+
+    * Product Management
+    * Customer Management
+    * Revenue Management
+    * Order Management
+
+Memang terlihat cakupan dari OSS/BSS ini sangat luas implementasinya pun bisa melibatkan banyak produk dan protokol untuk integrasi antar produk atau elemen.
+
+Lalu untuk memahami gambaran besar tentang OSS/BSS kita mulai dari mana?
+
+Seperti telah kita ketahui perkembangan teknologi pada dunia telekomunikasi banyak didorong oleh standar sehingga arah untuk mempelajari OSS/BSS sebaiknya dimulai dari standarisasi.
+
+Standarisasi OSS/BSS yang paling sukses adalah Open Systems Interconnection (OSI) Systems Management Overview (SMO) dari ISO yang kemudian diadopsi oleh ITU-T Telecommunications Management Network (TMN), serta TOM (Telecom Operations Map) yang dibuat oleh TeleManagement Forum (TM Forum) yang juga diadopsi oleh ITU-T (Lihat Recommendation M.3050.0-4). 
+
+Dokumen yang baik dibaca untuk awal adalah ITU-T Recommendation diantaranya:
+
+<a href="http://www.itu.int/rec/T-REC-M.3010-200002-I/en">M.3010 Telecommunications Management Network (TMN)</a>
+<a href="http://www.itu.int/rec/T-REC-M.3400-200002-I/en">M.3400 TMN management functions</a>
+
+<a href="http://www.itu.int/rec/T-REC-M.3050/en">M.3050 Enhanced Telecommunications Operations Map (eTOM) - Supplements</a>
+<a href="http://www.itu.int/rec/T-REC-M.3050.0-200407-S/en">M.3050.0 Enhanced Telecom Operations Map (eTOM) - Introduction</a>
+<a href="http://www.itu.int/rec/T-REC-M.3050.1-200703-I/en">M.3050.1 Enhanced Telecom Operations Map (eTOM) - The business process framework</a>  
+<a href="http://www.itu.int/rec/T-REC-M.3050.2-200703-I/en">M.3050.2 Enhanced Telecom Operations Map (eTOM) - Process decompositions and descriptions</a> 
+<a href="http://www.itu.int/rec/T-REC-M.3050.3-200703-I/en">M.3050.3 Enhanced Telecom Operations Map (eTOM) - Representative process flows</a>   
+<a href="http://www.itu.int/rec/T-REC-M.3050.4-200703-I/en">M.3050.4 Enhanced Telecom Operations Map (eTOM) - B2B integration: Using B2B inter-enterprise integration with the eTOM</a>
+
+
+Untuk link dokumen yang lebih up-to-date, ikuti link pada halaman <a href="http://www.itu.int/rec/T-REC-M/en">ITU-T Recommendation M series</a>
+

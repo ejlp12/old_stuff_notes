@@ -1,0 +1,57 @@
+
+Untuk meng-install modul dari CPAN, cara yang mudah adalah dengan cara yang dijelaskan sebagai berikut.
+Mudah karena modul akan otomasis di-download, di-install dan jika modul memiliki ketergantungan ke modul lain maka modul tersebut juga akan otomatis di-download kemudian di-install.
+Syaratnya anda harus terkoneksi ke Internet.
+
+Berikut perintah untuk meng-install modul: 
+
+
+perl -MCPAN -e 'install MODULE::Name'
+
+Cara lain adalah dengan mode interaktif, yaitu dengan perintah:
+
+perl -MCPAN -e shell
+
+Perintah diatas akan memberikan sebuah shell dimana kita bisa memberikan perintah selanjutnya:
+
+cpan> install MODULE::Name
+
+Kita juga dapat mencari modul yang kita butuhkan, dengan cara sbb:
+
+cpan>i /<kata kunci>/
+
+Misalnya perintah "i /LDAP/" akan mencari modul-modul yang memiliki kata LDAP
+
+Untuk keluar dari shell berikan perintah 'quit'
+
+Menginstall module di direktori lain
+
+cpan> o conf makepl_arg INSTALL_BASE=/mydir/perl
+cpan> o conf commit
+
+Untuk menggunakan library tersebut bisa dengan menggunakan opsi -I seperti berikut
+
+perl -I/path/to/my/dir program.pl
+
+atau mengeset environment varibel PERL5LIB atau PERLLIB
+atau tambahkan dalam code seperti ini
+
+use lib "/my/directory";
+
+atau 
+
+BEGIN {push @INC, '/my/directory'}
+use SOMETHING;
+
+
+-----------------
+
+Jika anda menggunakan perl di windows dengan menggunakan ActiveState, maka anda bisa menggunakan Perl Package Manager (PPM).
+PPM memiliki GUI sehingga mudah digunakan, untuk menggunakan PPM gunakan perintah 'ppm' di windows command prompt.
+
+Jika menggunakan proxy, set di environment variabel 
+
+set http_proxy=http://proxy:port
+set https_proxy=http://proxy:port
+ 
+

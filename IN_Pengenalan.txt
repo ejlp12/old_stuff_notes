@@ -1,0 +1,158 @@
+IN (Intelligent Network) 
+
+IN adalah istilah yang biasa digunakan dalam dunia telekomunikasi untuk mendeskripsikan suatu fungsionalitas dalam jaringan telekomunikasi yang bersifat intelligent.
+Intelligent disini dapat berarti terkontrol walaupun tidak bersifat 'pintar' seperti istilah intelligent control yang digunakan di dunia kontrol industri.
+
+Arsitektur IN pada jaringan sentral (core network) telekomunikasi memisahkan antara fungsi switching dan pengaturan logic. Dalam jaringan sentral GSM atau CDMA, IN biasanya diasosiasikan dengan sebuah elemen yang mengatur jalannya end user service seperti call control, SMS, GPRS, USSD dan lain-lain. Elemen tersebut biasanya adalah sebuah mesin (server) yang berdiri sendiri yang dihubungkan dengan MSC (Mobile Switching Center). Operator menggunakan elemen IN untuk mendefinisikan setiap logika pengontrolan dari sebuah service.
+
+Sebelum MSC memproses sebuah service digunakan oleh user, misalnya layanan pemanggilan (call), MSC akan menghubungi elemen IN untuk menayakan bagaimana service itu akan ditangani. Elemen IN kemudian akan menganilis service berdasarkan logic yang telah didefinisikan, kemudian memberikan hasil eksekusi logic tersebut ke MSC. Contoh hasil eksekusi misalnya "lanjutkan pemanggilan" atau "putuskan pemanggilan" (reject call) atau "lanjutkan pemanggilan dan beritahu IN untuk keputusan berikutnya setiap satu menit". 
+
+Dengan adanya IN maka service yang diberikan oleh operator menjadi beragam karena adanya fasilitas analisa untuk pengambilan keputusan pada jalannya suatu service. 
+IN juga membuat operator mudah untuk mengubah suatu logic service. Hal ini sangat berguna bagi operator untuk melakukan suatu promosi. 
+
+Contoh promosi yang bisa diimplementasikan pada IN adalah close user group (CUG) untuk pemanggilan yaitu fasilitas yang mengatur logic untuk sebuah kelompok nomor. Promosi ini biasa disebut "friend and family" dimana anda dapat mendefinisikan beberapa nomor-nomor teman atau keluarga anda sehingga setiap anda melakukan panggilan pada nomor tersebut anda mendapatkan potongan harga. Beberapa fasilitas seperti CUG, call forwarding dan lain-lain telah distandarisasi atau didefinisikan dalam suatu arsitektur network misalnya dalam standar GSM yaitu CAMEL (Customized Application for Mobile network Enhanched Logic) atau dalam standar CDMAOne/CDMA200/IS yaitu WIN (Wireless Intelligent Network) atau standar ITU yaitu CS (Capability Set).
+
+
+-= Sejarah IN =-
+
+
+Sebelum adanya konsep IN, sebuah telecommunication switching (exchange) melakukan semua proses yang diperlukan dalam memberikan layanan terhadap pengguna telekomunikasi. Fungsi call-processing, service data dan service logic terdapat pada switch sehingga sering disebut monolithic platform.
+
+Konsep IN pertama kali diperkenalkan oleh Telcordia (atau Bellcore) yaitu advanced intelligent networks (AIN) pada tahun 1980. Pada awalnya Bellcore membuat konsep AIN untuk mempermudah pengelolaan dan deployment dari suatu service baru di sebuah oprerator cabang yang berada di daerah dengan cara membuat suatu elemen pengontrol (service control logic) yang terpusat. Telcordia mengawali IN dengan versi pertamanya yaitu IN/1 kemudian dalam beberapa tahun merilis seri spesifikasi yaitu AIN 0, AIN 0.1, AIN 0.2
+
+Spesifikasi AIN 0.1:
+TR-NWT-001284, Advanced Intelligent Network (AIN) 0.1 Switching Systems Generic Requirements
+TR-NWT-001285, Advanced Intelligent Network (AIN) 0.1 Switch-Service Control Point (SCP Application Protocol Interface Generic Requirements)
+
+Spesifikasi AIN 0.2:
+GR-1298-CORE, AINGR: Switching Systems
+GR-1299-CORE, AINGR: Switch-service Control Point (SCP)/Adjunct
+
+Sekitar tahun 1990, setelah Telcordia mempublikasikan AIN 0.1, Organisasi internasional ITU kemudian membuat standar IN dengan yang berbasis pada AIN. Pada tahun 1993, akhirnya ITU mempublikasikan standard IN pada dokumen seri ITU Q.1200 dan sampai saat ini standar tersebut menjadi dasar hampir semua teknologi IN sekarang.
+
+Standard IN yang dispesifikasikan ITU selalu diperbarui terus menerus sehingga dibuatlah versi yang menunjukan sebuah rilis yaitu yang disebut capability set (CS). Setiap CS mendefinisikan sebuah himpunan fitur-fitur dimana sebuah service baru dapat dibuat.
+
+Sejak pertama kali standar IN dibuat, ITU telah merilis beberapa capability set yaitu
+
+Tahun 1992, capability set yang pertama CS-1 
+Tahun 1995, CS-1 direvisi menjadi CS-1 R atau CS-1+
+Tahun 1997, dirilis CS-2
+Tahun 1999, dirilis CS-3
+Tahun 2001, dirilis CS-4
+
+Standard untuk masing-masing CS tersebut adalah
+
+Q.12x0 Structure of IN CS-x
+Q.12x1 Introduction to IN CS-x
+Q.12x2 IN Service Plane Architecture for CS-x (not for CS-1)
+Q.12x3 IN Global Functional Plane Architecture for CS-x
+Q.12x4 IN Distributed Functional Plane Architecture for CS-x
+Q.12x5 IN Physical Plane Architecture for CS-x
+Q.12x8 IN Interface Recommendations for CS-x
+Q.12x9 IN User Guide for CS-x
+
+dengan x menunjukan angka rilis CS yaitu 1,2,3,4 dan seterusnya.
+
+-= Model Konsep IN =- 
+
+Dalam jaringan telekomunikasi yang berbasis CCS, switching sering disebut sebagai SSP (Service Control Point) dan elemen IN disebut SCP (Service Control Point). Hubungan SSP dan SCP dapat digambarkan sebagai berikut:
+
+                              -------query------->
+                          SSP                      SCP
+                              <----response-------
+
+
+Fungsi utama SCP adalah sebagai Service Control Function (SCF). Selain SCF beberapa fungsi lainnya diantaranya adalah:
+
+- Service Data Function (SDF)
+  SDF menyimpan data Subscriber dan network yang diperlukan oleh SCF pada eksekusi service.
+- Service Resource Function (SRF)
+  SRF menyediakan specialized resources yang dibutuhkan ketika eksekusi service pada SCF misalnya penerima digit, yang melakukan play announcement, dan lain-lain.  
+- Service Management Function
+  SMF memberikan fungsi provision, deployment dan support 
+- Service Management Access Function
+  SMAC merupakan fungsi interface bagi user untuk mengakses SMF
+- Service Creation Environtment Function
+  SCEF memberikan fungsionalitas untuk mendefiniskan, menbuat (develop) dan melakukan test suatu service.
+
+Fungsi-fungsi diatas didefinisikan pada IN Conceptual Model (INCM) yang didefinisikan pada standar ITU (CCITT Recommendation Q.1201). INCM merupakan suatu basis untuk standarisasi dan petunjuk (guidelines) desain untuk arsitektur sebuah IN. INCM menjelaskan konsep IN dalam 4 bidang (planes) yaitu:
+
+- Service plane
+- Global functional plane
+- Distributed functional plane
+- Physical plane
+
+INCM dijelaskan pada standar-standar berikut:
+
+Q.1200 General Series IN Recommendations Structure
+Q.1201 Principles of the IN Architecture
+Q.1202 IN Service Plane Architecture
+Q.1203 IN Global Functional Plane Architecture
+Q.1204 IN Distributed Functional Plane Architecture
+Q.1205 IN Physical Plane Architecture
+Q.1208 General Aspects of the IN Application Protocol
+Q.1290 Glossary of Terms Used in the Definition of IN
+
+-= Realisasi IN =-
+Karena jaringan telokomunikasi dari mulai adanya IN hingga saat ini berbasis CCS atau SS7 maka realisasi IN pada jaringan telekomunikasi juga menggunakan protokol SS7.  Telcordia mespesifikasikan  IN/1 dan AIN sebagai protokol antara SSP dan SCP, sedangkan ITU dan ETSi membuat protokol INAP.
+
+Gambar dibawah ini menunjukan posisi protokol IN tersebut dalam stack SS7
+
+    | INAP | IN/1 | AIN |
+    +-------------------+
+    |        TCAP       |
+    +-------------------+
+    |        SCCP       |
+    +-------------------+
+    |    MTP Layer 3    |
+    +-------------------+
+    |    MTP Layer 2    |
+    +-------------------+
+    |    MTP Layer 1    |
+    +-------------------+
+
+INAP yang dispesifikasikan oleh ETSI menggunakan standar ITU TCAP, sedangkan AIN menggunakan ANSI TCAP.
+
+-= ETSI INAP =-
+
+Dengan adanya standar IN dalam arsitektur maupun protokol maka diharapkan implementasi IN dalam jaringan telekomunikasi yang terdiri dari berbagai elemen dari manufaktur yang berbeda menjadi lebih mudah. Kenyataannya hal itu tidak terjadi, banyak bagian dari spesifikasi yang diinterpretasikan berbeda karena tidak mendetailnya spesifikasi yang dibuat ITU-T. Oleh sebab itu, ETSI membuat standar INAP yang berbasis dari ITU-T INAP.
+
+Untuk dapat diimplementasikan di mobile network yaitu GSM, ETSI membuat spesifikasi yang memperluas ETSI INAP yaitu CAMEL. Relasi rilis INAP dan CAMEL diperlihatkan pada gambar dibawah
+
+   ITU-T CS-1  --->  ITU-T CS-2  ---> ITU-T CS-3 ---> ITU-T CS-4
+         :              :                :
+         :              :                :
+   CORE INAP 1 --->  CORE INAP 2 --->  CORE INAP 3
+        \ \______________  \_____________   \____________           
+         \               \               \               \
+          \               \               \               \
+          CAMEL 1  --->  CAMEL 2  --->  CAMEL 3  --->   CAMEL 4
+          
+          
+
+(c)20070928, 20080122 ejlp12@yahoo.com 
+
+-----------------
+
+http://www.iec.org/online/tutorials/in/  
+http://www.iec.org/online/tutorials/win/
+
+Phase  Network Adaptation           Key Capability
+==============================================================================
+CS-1   PSTN, N-ISDN                 INCM
+                                    Frame recommendation of INAP
+-------------------------------------------------------------------------------
+CS-2   PSTN, N-ISDN                 Network interconnection
+                                    Call Party Handle
+-----------------------------------------------------------------                      
+CS-3   B-ISDN                       Combination of B-ISDN and IN                        
+-----------------------------------------------------------------
+CS-4   B-ISDN, IMT-2000             Interconnection between IP network and IN
+                                    Support of mobile network
+                                    Using ODP (Open Distribution Processing)
+                                    and Obeject Oriented technology                                             
+
+
+
+
+

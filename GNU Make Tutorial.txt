@@ -1,0 +1,7 @@
+http://www.gnu.org/software/make/manual/
+
+Make adalah program utilitas (tool) untuk mencompile source code menjadi program (file yang dapat dieksekusi) atau library.
+
+Kenapa perlu tool?
+Jika kita bayangkan melakukan kompilasi dari sebuah aplikasi besar misalnya Apache Web Server, yang terdiri
+dari banyak source code dan menghasilkan banyak library dan file-file executable 

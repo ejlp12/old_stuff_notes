@@ -1,0 +1,269 @@
++--[ Menampilkan Gambar / Menggambar
+
+o Pilih superclass mana yang akan digunakan untuk mendapatkan turunan (inherit) 
+  dari property dan methodenya. 
+  Misalnya ingin menampilkan tombol dengan bentuk yang kita tentukan sendiri maka 
+  sebaiknya class gambar yang kita buat extends JButton.
+o Disarankan untuk extends JPanel, jika ingin menggambar suatu grafik. 
+o Gunakan methode paintComponent(Graphics g) dari class JComponent
+o Dalam applet/awt/swing semua penggambaran dilakukan dengan menggunakan objek Graphics
+  yang merupakan instatiasi dari java.awt.Graphics
+o Setiap objek Graphics memiliki koordinat sistemnya sendiri untuk menggambarkan
+  garis, kotak, poligon, dan lain-lain dengan methode-nya.
+
+
+o Pada aplet setiap penggambaran dilakukan dalam methode init(Graphics g) yang 
+  secara otomatis akan dipanggil ketika applet berjalan.
+o Contoh:
+
+    public class Gambar extends java.applet.Applet {
+      public void paint(java.awt.Graphics g) {
+        g.drawString("Hello World", 50, 50);
+      }
+    }
+
++--[ Menggambar garis
+
+o Untuk menggambar garis digunakan methode drawLine() pada objek Graphics
+
+    g.drawLine(x1, y1, x2, y2)
+
+  dengan (x1,y1) adalah titik awal garis dan (x2,y2) titik akhirnya.
+  
+o Contoh:
+  
+    import java.applet.*;    
+    import java.awt.*; 
+
+    public class SimpleLine extends Applet {
+      public void paint(Graphics g) {
+        g.drawLine(0, 0, this.getSize().width, this.getSize().height);
+      }
+    }
+
++--[ Menggambar kotak
+
+o Untuk menggambar kotak, kita dapat memanggil methodhe Graphics berikut:
+
+    public void drawRect(int x, int y, int width, int height)
+
+  x dan y adalah koordinat titik pada kiri atas kotak
+  
+o Untuk menggambar kotak berisi (filled rectangle) gunakan methode fillRect()
+o Untuk menghilangkan atau membersihkan Graphics berupa kotak clearRect()
+
++--[ Menggabar elips dan lingkaran
+
+o Untuk menggambar elips (oval) dan lingkaran dapat digunakan dua methode berikut:
+
+    public void drawOval(int left, int top, int width, int height) 
+    public void fillOval(int left, int top, int width, int height)
+
+o Untuk menggambar lingkaran berari kita tinggal menyamakan varibel width dan height
+
++--[ Menggambar poligon
+
+o Untuk menggambar poligon diperlukan objek Poligon yang dapat diinstantiasi dengan
+  constructor berikut:
+  
+    public Polygon(int[] xpoints, int[] ypoints, int npoints)
+    
+  dengan xpoint dan y point adalah titik untuk koordinat x dan y sedangkan npoints adalah
+  banyaknya titik.
+ 
+o Penggambarannya pada Graphics menggunakan methode:
+
+     drawPolygon(Polygon p)
+  
+  atau tanpa menggunakan objek Polygon, dapat langsung memanggil methode:
+    
+    drawPolygon(int[] xPoints, int[] yPoints, int nPoints)
+    fillPolygon(int[] xPoints, int[] yPoints, int nPoints)
+    
+
++--[ Menggambar Polyline
+
+o Polyline adalah poligon yang tidak tertutup. Untuk menggambarkan polyline
+  kita dapat memanggil methode pada class Graphics:
+
+    drawPolyline(int[] xPoints, int[] yPoints, int nPoints)   
+
++--[ Membuat Objek Image
+
+o Image adalah gambar berupa file, bisa dalam bentuk GIF atau JPG
+o Objek Image disediakan oleh class java.awt.Images
+
+o Pembuatan Image dengan cara memanggil file dengan methode getImage() 
+  dari java.applet.Applet
+o Objek Image diambil dari sebuah URL yang menspesifikasikan 'alamat'
+  file. File tersebut dapat di local disk atau di remote server.
+
+    Image img = myApplet.getImage(myURL);
+	
+o URL adalah sebuah objek yang disediakan oleh java.net.URL
+
+    URL imgURL = new URL("http://eryan.dhs.org/image.gif");
+
+o Memanggil Image dengan getImage() relatif dari URL halaman HTML atau applet:
+  
+  - Gunakan methode getDocumentBase() dari java.applet.Applet untuk mendapatkan 
+    URL dari halaman HTML
+  - Gunakan methode getCodeBase() dari java.applet.Applet untuk mendapatkan
+    URL dari parameter "codebase".
+    
+    Image img = this.getImage(this.getDocumentBase(), "image.gif");
+    Image img = this.getImage(this.getCodeBase(), "image.gif");
+
++--[ Menggunakan warna
+
+o Warna dapat dibuat dengan objek Color yang diinstantiasi dari class java.awt.Color
+o Penspesifikasian warna mengunakan nilai desimal dalam format RGB
+o Contoh 
+
+    Color hijauTerang = new Color(0, 55, 0);
+
+o Beberapa wana yang sudah di spesifikasikan dalan API dan dapat langung diakses
+  menggunakan nama diataranya:
+  
+     Color.black 
+     Color.blue 
+     Color.cyan 
+     Color.darkGray 
+     Color.gray 
+     Color.green 
+     Color.lightGray 
+     Color.magenta 
+     Color.orange 
+     Color.pink 
+     Color.red 
+     Color.white 
+     Color.yellow 
+
+o Untuk mulai menggunakan objek warna pada Graphics gunakan methode setColor
+
+    g.setColor(myColor);
+  
+  dan untuk mengambil nilai warna dari suatu objek Graphics kita bisa menggunakan
+  methode getCOlor()
+  
+o Kita dapat menggunakan warna pada setting sitem operasi dengan menggunakan class
+  java.awt.SystemColor yang merupakan subclass dari class java.awt.Color
+  
++--[ Menampilkan teks (Font)
+
+o drawString(String s, int x, int y)
+  (x,y) alah koorditat kiri bawah dari teks yang akan di gambar
+
+o "Serif" seperti Times
+  "Mono" (monospaced) seperti courier
+  "SansSering" seperti Helvetica
+  
+o Melihat list font yang dapat digunakan (platform dependent) :  
+
+    import java.awt.*;
+    import java.applet.*;
+
+    public class FontList extends Applet {
+      String[] availableFonts;
+
+      public void init () {
+        Toolkit t = Toolkit.getDefaultToolkit();
+        availableFonts = t.getFontList();
+      }
+
+      public void paint(Graphics g) {
+        for (int i = 0; i < availableFonts.length; i++) {
+        g.drawString(availableFonts[i], 5, 15*(i+1));
+      }
+    }
+
+o Memilih jenis font dan ukurannya
+
+  - Untuk memilih jenis dan ukuran font, digunakan objek Font yang disediakan
+    oleh java.awt.Font. Konstruktor class ini adalah:
+    
+      Font(String name, int style, int size)  
+
+    dengan name adalah jenis font yaitu Serif, Mono dan SanSerif,
+    style adalah style dari font yaitu Font.PLAIN, Font.BOLD, atau 
+    Font.ITALIC, sedangkan size adalah ukuran font dalam pixel (standar adalah 12)
+
+    
+  - Untuk menggambarkan teks dengan font yang telah kita spesifikasikan dengan
+    objeck font, kita bisa memanggil methode setFont() sebelum memanggil drawString()
+    
+      g.setFont(Font f)
+
+/********************************************************************************************/
+
+Images
+
+Image pada Java adalah file bitmapped GIF atau JPG yang berisi gambar.
+Sebuah gambar diload ke Java dalam bentuk instansiasi dari class java.awt.Image
+
+8 methode yang dimiliki class Image:
+
+  public abstract int getWidth(ImageObserver observer)
+  public abstract int getHeight(ImageObserver observer)
+  public abstract ImageProducer getSource()
+  public abstract Graphics getGraphics()
+  public abstract Object getProperty(String name, ImageObserver observer)
+  public Image getScaledInstance(int width, int height, int hints)
+  public abstract void flush()
+
+perlakukan pada gambar biasanya dilakukan pada class lain misalnya java.awt.Graphics, java.awt.COmponent dan java.awt.Toolkit.
+
+Pada applet Image dipanggil dengan menggunakan objek URL dengan menggunakan methode getImage(URL)
+
+Diluar applet Image dapat dipanggil dengan cara seperti ini:
+
+  Image img = Toolkit.getDefaultToolkit.getImage(imageURL);
+
+
+Menggunakan return value dari drawImage()
+  methode drawImage() memiliki nilai rerutn true jika Image yang akan
+  ditampilkan telah selesai/berhasil ditampilkan
+
+MEngubah ukuran Images
+
+Kita dapat menampilkan image dengan ukuran yang berbeda dengan image aslinya
+
+ drawImage(Image img, int x, int y, int width, int height, ImageObserver io)
+
+dengan width dan height adalah lebar dan tinggi dari image.
+gunakan reference "this" untuk ImageObserver jika image digambar dalam applet
+
+Paket java.awt.image
+ Paket ini memberikan kemampuan untuk membuat gambar instead of memanggilnya
+dari file gambar.
+
+Interface:
+
+  ImageConsumer
+  ImageObserver
+  ImageProducer
+
+Classes:
+
+  AreaAveragingScaleFilter
+  ColorModel
+  CropImageFilter
+  DirectColorModel
+  FilteredImageSource
+  ImageFilter
+  IndexColorModel
+  MemoryImageSource
+  PixelGrabber
+  RGBImageFilter
+  ReplicateScaleFilter
+
+ImageProducer, ImageObserver dan ImageConsumer
+  Sebuah image tidak langsung ditampilkan ketika methode getImage() dipanggil
+tetapi perlu waktu pembacaan file image tersebut.
+
+
+
+--
+(c) 20020612, eryan12@yahoo.com
+http://eryan.dhs.org
+

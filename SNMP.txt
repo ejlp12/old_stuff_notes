@@ -1,0 +1,214 @@
+Simple Network Management Protocol (SNMP)
+
+SNMP berawal dari kebutuhan terhadap suatu alat untuk mengadministrasi atau mengelola (manage) jaringan TCP/IP. Untuk itu perlu standarisasi protokol yang berfungsi untuk mengelola jaringan. Protokol yang didesain untuk itu kemudian dibuat diantaranya adalah SNMP dan CSMIE/CMP (Common Management Information Service Element / Common Management Information).
+
+CMOT (Common Management Information Services and Protocol over TCP/IP) juga dibuat oleh OSI untuk keperluan yang sama. Cepatnya proses standarisasi SNMP oleh IETF dibanding CMOT yang dibuat OSI serta karena SNMO lebih sederhana membuat SNMP lebih cepat digunakan oleh publik.
+
+Sebelumnya SNMP bernama SGMP (Simple Gateway Monitoring Protocol) yang didefinisikan pada RFC 1028 dan telah digunakan untuk monitoring gateway atau router.
+
+SNMP dibuat berawal dari kebutuhan yang didefinisikan pada RFC 1052 (IAB Recommendations for the Development of Internet Network Management Standards). Setelah itu, tahun 1998 beberapa RFC mengenai SNMP dipublikasikan, yaitu:
+
+  RFC 1065 - Structure and Identification of Management Information for TCP/IP-based internets
+  RFC 1066 - Management Information Base for Network Management of TCP/IP-based internets
+  RFC 1067 - A Simple Network Management Protocol
+
+Setelah mengalami beberapa perubahan, barulah muncul standar SNMP versi 1.0 yang lengkap pada tahun 1991 dengan beberapa RFC berikut:
+
+  RFC 1155 - Structure and Identification of Management Information for TCP/IP-based Internets
+  RFC 1212 - Concise MIB Definitions
+  RFC 1213 - Management Information Base for Network Management of TCP/IP-based internets: MIB-II
+  RFC 1157 - Simple Network Management Protocol (SNMP)
+
+Detail daftar RFT untuk SNMP v1 bisa dilihat disini. http://www.sei.cmu.edu/str/indexes/references/SNMPv1_Specs.html
+
+April 1993, SNMP V2 menjadi standar dengan perubahan utama pada penambahan fitur baru yaitu keamanan dan otentifikasi. SNMP versi 2 tidak kompatibel dengan versi 1 karena SNMP v2 message memiliki header dan format PDU yang berbeda serta menggunakan 2 operasi protokol yang tidak dispesifikasikan pada versi sebelumnya.
+
+
+  RFC 1902 - MIB Structure
+  RFC 1903 - Textual Conventions
+  RFC 1904 - Conformance Statements
+  RFC 1905 - Protocol Operations
+  RFC 1906 - Transport Mappings
+  RFC 1907 - MIB
+  RFC 1908 - Coexistence between Version 1 and Version 2
+
+Detail daftar RFT untuk SNMP v2 bisa dilihat disini. http://www.ietf.org/html.charters/OLD/snmpv2-charter.html
+
+
+
+Tahun 1997 SNMP V3 mulai dibuat. Dibanding versi sebelumnya, SNMP V3 memiliki fitur-fitur berikut:
+
+- keamanan yang lebih baik dengan enkripsi dan access control,
+- pengembangan remote configuration,
+- privacy & message integrity
+
+  RFC 3410 - Intoduction to Network Management Frameworks v3
+  RFC 3411 - An Architecture for Describing SNMP Management Frameworks
+  RFC 3412 - Message Processing and Dispatching
+  RFC 3413 - SNMP Applications
+  RFC 3414 - User-based Security Model (USM)
+  RFC 3415 - View-based Access Control Model (VACM)
+  RFC 3416 - Protocol Operations
+  RFC 3417 - Transport Mappings
+  RFC 3418 - MIB
+
+Detail daftar RFT untuk SNMP v3 bisa dilihat disini.http://www.ietf.org/html.charters/OLD/snmpv3-charter.html
+
+
+
+-== Arsitektur ==-
+
+
+Managed device yaitu elemen yang dimonitor atau di-manage oleh NMS. Managed device dapat berupa elemen jaringan seperti router, hub, switch maupun komputer.
+
+Agent adalah program atau software module yang berjalan di setiap elemen yang di monitor yang mengetahui informasi yang harus di-manage dan mentranslasikan informasi tersebut menjadi informasi yang kompatibel dengan SNMP atau dapat dikirimkan ke NMS melalui SNMP.
+
+Manager atau NMS (Network-Management Station) adalah elemen yang menjalankan program untuk memonitor dan mengontrol managed device. NMS bisa mendapatkan langsung informasi dari agent misalnya informasi trap (alarm) atau meminta informasi dari agent.
+
+-== Management Information ==-
+
+Management Information Base (MIB) adalah koleksi informasi yang diorganisasi dalam bentuk hirarki. Sebuah file MIB adalah sebuah teks file dalam format ASN.1 yang merepresentasikan struktur hirarki dari informasi yang dapat diperoleh dari sebuah aplikasi atau sistem.
+
+Dibawah ini adalah contoh hirarki yang menggambarkan MIB tree.
+                            .
+                            |
+              --------------------------------------------------
+              |             |               |                  |
+           ccitt(0)       iso(1)          itu(2)       joint-iso-ccitt(3)
+                            |
+                   ---------------------
+                   |     |      |      |
+                                     org(3)
+                                       |
+                                     dod(6)
+                                       |                           
+                                   internet(1)
+                                       |
+                             ----------------------
+                             |         |          |  
+                                    mgmt(2)    private(4)
+                                       |          | 
+                                    mib-2(1)   enterprise(1)
+                                       |          |
+                                       |         ...
+                                       |
+       --------------------------------------------------------------------...
+       |         |               |           |     |      |     |     |     
+    system   interfaces   addr-translation   ip   icmp   tcp   udp   egp   
+      (1)       (2)             (3)         (4)   (5)    (6)   (7)   (8)
+
+
+Managed object atau MIB object adalah sebuah atau beberapa karakteristik pada sebuah managed device misalnya beban CPU, besar memory yang digunakan. MIB pada dasarnya merupakan hirarki dari managed object.
+
+Object identifier atau Obejct ID (OID) digunakan sebagai indentifikasi yang unik untuk setiap managed object yang ada dalam hirarki MIB. OID dapat direprensentasikan dalam sebuah nama misalnya .iso.org.dod.internet.mgmt.mib-2.interfaces.ifnumber atau nomor yang disebut sebagai object descriptor, misalnya .1.3.6.1.2.1.2.1
+
+Sebuah managed object sebagai contoh ifnumber (number of interface) adalah sebuah ide abstrak, sedangkan representasi real dari informasi itu disebut dengan "instance" yang memiliki nilai dari object tersebut. Misalnya instance dari ifnumber adalah ifnumber.0 yang memiliki nilai 3 yang berarti sistem memiliki 3 network interface. Untuk mendapatkan nilai instance tersebut, NMS harus meminta informasi dengan mendefinisikan OID yaitu .1.3.6.1.2.1.2.1.0 (OID dari object ifnumber dengan ditambahkan .0 dibelakangnya).
+
+Ada dua macam managed object, yaitu:
+
+ - Scalar object yaitu sebuah object instance contohnya ifnumber 
+ - Tabular object yaitu beberapa object instance yang saling berelasi. Sebagai contoh object ifDescr yang merupakan informasi deskripsi dari masing-masing network interface akan memiliki 3 nilai yang berbeda jika jumlah network interface ada 3, misalnya:
+ 
+    ifDescr.1 = "lo0"
+    ifDescr.2 = "ce1"
+    ifDescr.3 = "ce2" 
+ 
+Suatu managed object ada yang hanya bisa dibaca dan ada pula yang bisa diset nilainya.
+ 
+ http://www.softwaresecretweapons.com/jspwiki/snmpwithmibandoid
+
+
+Karena pada awalnya SNMP didesain untuk me-manage jaringan TCP/IP, maka versi pertama MIB memiliki informasi yang spesifik untuk TCP/IP yaitu:
+ - Deskripsi dari sistem
+ - Jumlah dari networking interfaces yang dimiliki sebuah elemen (Ethernet adapters, serial ports ..)
+ - Alamat IP address untuk setiap network interface
+ - Jumlah (counts) dari paket atau datagram yang masuk (incoming) dan keluar (outgoing)
+ - Tabel informasi tentang koneksi TCP yang aktif
+
+Perlu diingat bahwa SNMPv1 menggunakan MIB-II. Pada MIB-II (RFC-1213) dispesifikasikan juga informasi untuk kategori-kategori yang umum seperti terlihat pada tabel berikut:
+
+   Category          Information
+  ----------        ---------------------------------------------
+   system            The host or router operating system information
+   interfaces        Network interrfaces information
+   addr-translation  Address translation information
+   ip                IP protocol information
+   icmp              ICMP protocol information
+   tcp               TCP protocol information
+   udp               UDP protocol information
+   egp               Exterior Gateway protocol information
+
+
+Sebuah perusahaan atau vendor dapat membuat sendiri cabang (branch) dalam struktur MIB yang disebut sebagai private MIB. Cabang tersebut berada dibawah object .iso.org.dod.internet.private.enterprise dan harus didaftarkan ke IANA. List dari nomor untuk OID untuk perusahaan dapat dilihat di daftar ini. http://www.iana.org/assignments/enterprise-numbers Pendaftaran mencegah adanya OID yang sama.
+
+Membuat MIB http://msdn.microsoft.com/en-us/library/aa909833.aspx
+
+-== Structure of Management Information (SMI) ==-
+
+SMI adalah satu set aturan yang menspesifikasikan format untuk mendefinisikan managed object. Jadi jika kita membuat MIB maka kita perlu memahami SMI untuk dapat membuat struktur dan mendeskirpsikan managed object.
+
+SMIv1 memiliki standar berikut:
+
+  RFC 1155 - Structure and Identification of Management Information for TCP/IP-based Internets
+  RFC 1212 - Concise MIB Definitions
+  RFC 1215 - A Convention for Defining Traps for use with the SNMP
+
+
+SMIv2 memiliki standar berikut:
+
+  RFC 2578 - SMIv2 of SNMPv2
+  RFC 2579 - Textual Conventions for SNMPv2
+  RFC 2580 - Conformance Statements for SNMPv2
+
+-== Tipe Message ==-
+
+Bagaimana manager mendapatkan nilai dari suatu MIB object?
+
+Untuk mendapatkan nilai (value) variabel MIB, maka manager dapat mengirimkan GET request atau GET-NEXT request ke agent dan kemudian agent akan menngirimkan message GET response ke manager. GGET-NEXT request digunakan untuk memperoleh nilai-nilai pada tabular object dengan sekali perintah.
+
+Mananger juga dapat mengeset nilai pada variabel MIB dengan mengirimkan message SET request ke agent.
+
+Selain itu, agent juga dapat mengirimkan nilai varibel MIB tanpa diminta oleh manager yaitu mengirimkan message TRAP. TRAP biasanya digunakan untuk memberitahukan manager jika terjadi sesuatu hal yang penting misalnya terjadi kesalahan (fault) pada sistem. Sebuah message TRAP pada SNMPv2 dapat diset sehingga client mengharapkan respon (acknowledge) dari penerima trap dan melakukan retransmisi jika dibutuhkan.
+
+
+Kesimpulannya, ada 5 tipe message yang menunjukan operasi atau perintah (command) pada SNMP v1 yaitu:
+
+ - GET request
+ - GET-NEXT request
+ - GET response
+ - SET request
+ - TRAP
+
+Pada SNMP v2 terdapat tipe message baru, yaitu:
+
+ - GETBULK request
+ - INFORM request
+ - REPORT request
+
+Format message (PDU) dari GET request, GET-NEXT request dan GET response adalah sebagai berikut:
+
+ - Version : version of SNMP (0 is for version 1)
+ - Community : password used to control access to node information. It does not provide a lot of protection against spying on the LAN .
+ - Command : one of the five message type.
+ - Request ID : used to correlate the request and its answer. Because a station can shoot hundreds of request at the same time.
+ - Error status : in response, it is used to indicate if the request was successful or not.
+ - Error index : in case of error indicates which variable in the request caused problem.
+ - A list of pairing OBJECT IDENTIFIER (string of integer) and variable value of the parameter pointed by the OBJECT IDENTIFIER.
+
+
+-== Community ==-
+
+Akses kesebuah agent dibatasi oleh community yaitu semacam password yang didefinisikan pada agent. Manager akan mengirimkan message ke agent untuk memberikan community yang dimilikinya. Berdasarkan community tersebut agent menentukan level hak akses dari manager.
+
+Setiap device yang terkoneksi pada jaringan yang termonitor dengan SNMP harus memiliki 2 communities yang terkonfigurasi. Default community yang biasa digunakan adalah "public" dan "private"
+
+ - public membolehkan manager untuk meminta (request) suatu nilai dari suatu object 
+ - private membolehkan manager untuk mengeset nilai object yang bersifat read-write
+
+
+
+
+
+
+
+

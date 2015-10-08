@@ -1,0 +1,226 @@
++-- JDBC dengan PostgreSQL --+
+
+Pertama instal PostgreSQL, agar mensupport JDBC driver.
+Untuk itu diperlukan standar JDK dan Java-Ant. Setting environtment agar 
+mendukung Java dan Ant yaitu terutama PATH dan CLASSPATH-nya.
+
+Setelah itu buid driver sebelum instalasi PostgreSQL dengan menggunakan opsi
+"--with-java" pada saat melakukan perintah "configure"
+
+Jika PostgreSQL telah terinstall dengan driver jdbc-nya, ikuti cara berikut ini...
+
++-- Seting Awal --+
+
+Untuk menggunakan driver, pastikan file postgresql JDBC driver yaitu postgresql.jar 
+masuk dalam CLASSPATH. Secara default file tersebut akan ada di /usr/local/pgsql/share/java/
+Misalnya, jika Anda menggunakan shell bash:
+
+  export $CLASSPATH=$CLASSPATH:/usr/local/pgsql/share/java/postgresql.jar
+
+atau jika menggunakan shell tcsh:
+
+  setenv CLASSPATH ${CLASSPATH}:/usr/local/pgsql/share/java/postgresql.jar
+
+
+Atau install driver tersebut sebagai sebuah Java Extension yaitu dengan memasukan
+file postgresql.jar ke direktori $JRE_HOME/lib/ext/ sehingga ANda tidak perlu lagi
+mengeset CLASSPATH.
+
+Link: http://java.sun.com/docs/books/tutorial/ext/
+      http://java.sun.com/products/jdk/1.2/docs/guide/extensions/
+
+Pada aplikasi yang dibuat, untuk menggunakan driver pertama kita harus
+memberikan statement import paket "java.sql"
+
+  import java.sql.*
+
+!!  Kita tidak perlu mengimport paket "org.postgresql", jika hal itu dilakukan
+    maka akan terjadi error saat kompilasi, karena class yang ada di "java.sql"
+    akan "bentrok" dengan class yang ada di "org.postgresql"
+
+Jalankan postmaster (postgresql daemon) dengan opsi "-i" agar  
+mensuport layanan dari network
+
++-- Loading Driver --+
+
+Sebelum melakukan koneksi ke sebuah database, maka kita perlu me-load driver
+hal ini dapat dilakukan dengan dua cara, yaitu
+
+1. Menggunakan method Class.forName() seperti berikut:
+
+    Class.forName("org.postgresql.Driver");
+
+   Statement ditas akan mehasilkan return sebuah class dari 
+   Jika ada error 'java.lang.ClassNotFoundException: ogr.potsgresql.Driver'
+   saat kompilasi, pastikan:
+
+   o Paket jdbc untuk postgresql (postgresql.jar) sudah masuk dalam classpath,
+     atau masuk ke direktori $JRE_HOME/lib/ext/ dengan JRE_HOME adalah direktori
+     jre yang Anda gunakan.
+   
+   o Kita memiliki permisi pembacaan ke file tersebut, 755 is good!
+   
+   o Paket tersebut merupakan paket driver terbaru. Ada perubahan nama class
+     dari "postgresql.Driver" menjadi "org.postgresql.Driver" sejak versi 7.0
+   
+   Statemen diatas sama dengan kita menginstantiasi class org.postgresql.Driver,
+   sehingga statement diatas sama dengan statement berikut:
+
+    Driver driver = (Driver) Class.forName("org.postgresql.Driver").newInstance(); 
+    DriverManager.registerDriver(driver);
+
+2. Mendefinisikan driver saat JVM mulai menjalankan suatu program dengan 
+   argumen -D seperti contoh berikut:
+
+    java -Djdbc.drivers=org.postgresql.Driver example.AplikasiDatabase
+
++-- Koneksi ke Database --+
+
+Menggunakan JDBC, database direpresentasikan oleh sebuah URL seperti contoh2
+berikut:
+
+1. jdbc:postgresql:<database>
+
+2. jdbc:postgresql://<host>/<database>
+
+3. jdbc:postgresql://<host>:<port>/<database>
+
+Untuk melakukan koneksi kita perlu membuat sebuah instance "Connection" dengan menggunakan 
+method DriverManager.getConnection()
+
+  Connection db = DriverManager.getConnection(url, username, password);
+
+dengan 'username' adalah argumen untuk username pada database PostgreSQL dan
+'password' adalah password untuk user PostgreSQL tersebut.
+
+Koneksi juga bisa dilakukan dengan cara memberikan satu argumen pada method :
+
+   Connection db = DriverManager.getConnection(url)
+
+dengan "url" merupakan string yang memiliki format seperti berikut:
+
+   jdbc:postgresql://<host>:<port>/<database>?user=<user>&password=<password>
+
+!! Perhatikan cara penulisan URL, kesalahan penulisan menyebabkan koneksi tidak
+   dapat terjadi. Pastikan juga nama host, port, nama user dan password yang 
+   digunakan oleh PostgreSQL.
+   Pastikan juga postmaster dijalankan dengan opsi "-i"
+   
+Anda bisa menghilangkan bagian ":<port>" jika koneksi dilakukan pada port default (5432).
+Anda juga bisa menghilangkan bagian "//<hostname>" jika koneksi dilakukan ke
+databese pada localhost.
+
+Beberapa kesalahan pada penulisan (BOGUS) url dapat memberikan pesan error 
+yang berbeda diantaranya:
+
+ "jdbc:BOGUS://hostname:portnumber/dbname" memberikan pesan error :
+   java.sql.SQLException: No suitable driver
+
+ "jdbc:postgresql://BOGUS:portnumber/dbname" memberikan pesan error :
+   The connection attempt failed because java.net.UnknownHostException: BOGUS
+
+ "jdbc:postgresql://hostname:9999/dbname" (kesalahan pada nomor port atau PostgreSQL
+  tidak menerima koneksi TCP) memberikan pesan error :
+   Connection refused. 
+   
+ "jdbc:postgresql://hostname:portnumber/BOGUS" gives
+   java.sql.SQLException: FATAL 1:  Database "BOGUS" does not exist in the system catalog.
+
+
+ "BOGUS:postgresql://hostname:portnumber/dbname" memberikan pesan error :
+   java.sql.SQLException: No suitable driver
+
+ Kesalahan pada nama user, memberikan pesan error : 
+ java.sql.SQLException: FATAL 1:  SetUserId: user 'BOGUS' is not in 'pg_shadow'
+
+
+
++-- Menutup Koneksi --+
+
+Jika koneksi ingin diakhiri, setelah semua transaksi dilakukan, anda tinggal 
+memanggil method close() dari objek Connection yang telah dibuat, seperti ini:
+
+    db.close();
+
++-- Melakukan Transaksi dengan Query dan Memproses Hasilnya --+
+
+Setiap kita akan melakukan memberikan query ke database kita butuh sebuah
+instance "Statement". Dari instance tersebut kita dapat menggunakan
+method executeQuery() untuk memberikan query ke database. 
+Method tersebut akan menghasilkan return sebuah "ResultSet".
+Contoh dibawah ini, mengilustrasikan hal tersbut:
+
+    Statement st = db.createStatement();
+    ResultSet rs = st.executeQuery("SELECT * FROM mytable");
+    while( rs.next() ) {
+        System.out.print("Column 1 returned ");
+        System.out.println(rs.getString(1));
+    }
+    rs.close();
+    st.close();
+
++-- Menangkap Exception --+
+
+Ketika kita melakukan inisialisasi, koneksi dan transaksi jangan lupa untuk 
+melakukannya dalam blok try-catch untuk menangkap exception dari error jika ada
+
+Exception yang penting adalah "java.sql.SQLException" 
+
++-- Contoh Source code (PostgreSQLTest.java) --+
+
+  import java.sql.*;
+
+  class PostgreSQLTest {
+
+    public static void main (String[] args) {
+
+        String user = "postgres";
+        String password = "postgres123";
+        String url = "jdbc:postgresql:mydatabase";
+
+        try {
+            Driver driver = (Driver) Class.forName("org.postgresql.Driver").newInstance();
+            DriverManager.registerDriver(driver);
+
+            Connection con = DriverManager.getConnection(url, user, password);
+            Statement  stm = con.createStatement();
+
+            stm.setQueryTimeout(10);
+            ResultSet  rs  = stm.executeQuery("select mycolumn1 from mydatabase");
+
+            rs.next();
+
+            System.out.println(rs.getString(1));
+
+        }
+        catch (SQLException e) {
+            System.out.println("Exception :: " + e.toString());
+        }
+        catch (Exception e) {
+            e.printStackTrace(); 
+        }
+
+    }
+  }
+
+Untuk menjalankan program diatas, buatlah database bernama "mydatabase" dalam postgresql
+Ikuti langkah-langkah berikut:
+
+  root# su - postgres
+  postgres$ createdb mydatabase
+  postgres$ psql mydatabase
+    
+  mydatabase=# create table mytable (mycolumn1 varchar(255));
+  mydatabase=# insert into mytable (mycolumn1) values ('Selamat, Anda berhasil mengakses data dari database!!');
+  mydatabase=# select mycolumn1 from mytable;
+  mydatabase=# \q
+  
+Setelah itu compile kode diatas dan jalankan.
+
+  root# javac testdb.java
+  root# java PostgreSQLTest
+
++-- Referensi --+
+
+PostgreSQL Programmer's Guide
+JDBC API Documentation - http://java.sun.com/j2se/1.3/docs/guide/jdbc/

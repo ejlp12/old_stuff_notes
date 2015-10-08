@@ -1,0 +1,90 @@
+// import log4j packages
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
+private final static Logger log = Logger.getLogger(ForgotPasswordServlet.class);
+
+log.setLevel(Level.INFO)
+
+logger hanya akan me-log kategori yang prioritasnya lebih besar atau sama dengan level yang diset
+
+Komponen : 
+logger
+appender interface ke tujuan statemen log
+layout
+
+Kategori (berdasarkan prioritas):
+DEBUG 
+INFO
+WARN
+ERROR
+FATAL
+
+      cat.debug();
+        cat.info();
+        cat.warn();
+        cat.error();
+        cat.fatal();
+
+ConsoleAppender(for console), 
+FileAppender (for file), 
+JDBCAppender (for database), 
+SMTPAppender (for SMTP server), 
+SocketAppender (for remote server) and even 
+Instant Messenger (for IMAppender).
+NTEventLogAppender, 
+SyslogAppender, 
+JMSAppender, 
+AsyncAppender and 
+NullAppender. 
+
+
+ PatternLayout, SimpleLayout, DateLayout, HTMLLayout, and XMLLayout.
+
+
+Import log4j package in the class. 
+Inside the class, instantiate a logger object using Logger.getLogger( ) static method. 
+Instantiate layouts (readymade or user-defined) to be assigned to appenders. 
+Instantiate appenders and assign desired layout to them by passing the layout object as parameter to their constructors. 
+Assign the instatiated appenders to the Logger object by invoking its addAppender( ) method with desired appender as parameter. 
+Invoke appropriate printing methods on Logger object to perform logging. 
+
+
+import org.apache.log4j.*;
+
+public class MyClass {
+
+  static Logger myLogger = Logger.getLogger(MyClass.class.getName( ));
+  Appender myAppender;
+   SimpleLayout myLayout;
+
+  public MyClass(){ 
+    myLogger.setLevel(Level.INFO);
+    myLayout = new SimpleLayout();
+    myAppender = new ConsoleAppender(myLayout);  
+    myLogger.addAppender(myAppender);
+    ...  
+  } 
+
+  public void do_something( int a, float b){
+    myLogger.info("Log this " + a, b); */
+    ...
+  }
+}
+
+
+
+org.apache.log4j.BasicConfigurator.configure()
+
+PropertyConfigurator.configure(args[0]);
+
+PropertyConfigurator.configureAndWatch("log4j.properties");
+
+
+http://logging.apache.org/log4j/docs/documentation.html
+
+
+Scripting for Java
+
+http://www.robert-tolksdorf.de/vmlanguages.html
+

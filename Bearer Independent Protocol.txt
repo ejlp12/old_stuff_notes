@@ -1,0 +1,13 @@
+Bearer Independent Protocol merupakan istilah untuk interface antara (U)SIM card dengan perangkat bergerak (mobile equipment) yang digunakan untuk mengakses data bearer yang di-support oleh perangkat bergerak misalnya GPRS, bluethoot, SMS, CSD, USSD.
+
+    SIM card <---BIP---> Mobile phone <---GPRS/SMS/dll---> SGSN/SMSC/dll <---> Server
+
+Dengan adanya BIP, layanan seperti Remote File Management (RFM) atau Remote Application Management (RAM) dapat dilakukan dengan mudah oleh (U)SIM Application Toolkit (SAT). Dengan BIP, sebuah SAT dapat melakukan perintah proaktif untuk membuat data channel dengan mobile equiptment yaitu dengna perintah OPEN CHANNEL, CLOSE CHANNEL, SEND DATA, RECEIVE DATA, GET CHANNEL STATUS.
+
+Dokumen spesifikasi yang terkait dengan BIP ini diantaranya:
+
+3GPP TS 22.038 (U)SIM Application Toolkit (USAT/SAT); Service description; Stage 1 
+3GPP TS 11.14 Specification of the SIM Application Toolkit for the Subscriber Identity Module - Mobile Equipment (SIM - ME) interface
+
+Di 3GPP TS 11.14 juga dijelaskan perintah-perintah proaktif yang menunjukan kapabilitas dari sebuah SAT/SIM card misalnya membuat pemanggilan (setup call), mengirimkan DTMF, membuka browser, memainkan tone, mengirimkan SMS, mengirimkan USSD dan lain-lain. Dengan perintah tersebut berarti operator dapat membuat menu item yang dipergunakan misalnya untuk shortcut untuk pemanggilan ke customer support atau shortcut untuk melihat website/portal operator.
+

@@ -1,0 +1,112 @@
+Generasi pertama
+
+H.320 Telepon multimedia dan terminal untuk Narrowband-ISDN (N-ISDN) dan PSTN data rate 64-1920 Kbps
+H.321 Adaptasi H.320 pada jaringan ATM dan Broadband-ISDN
+H.322 Adaptasi H.320 untuk LAN/Internet/ISO-Ethernet dengan QoS (new IEEE 802 standards)
+
+Generasi kedua
+H.323 sistem komunikasi multimedia berbasis pakett (packet-based)
+H.324 Terminal for low bit-rate multimedia communication,
+      intended for use with V.34 modems (Plain old telephone system/POTS) operating over the General Switched Telephone Network (GSTN)
+
+-------------------------------------------------------------------------------------
+Media       Narrow Band ATM       ISO-Ethernet  Ethernet  Low Bitrate   High Res ATM
+            (H.320)     (H.321)    (H.322)      (H.323)   (H.324)         (H.310)
+=====================================================================================
+Approval    1990        1995      1995          1996      1996
+date
+-------------------------------------------------------------------------------------
+Video       H.261       H.261     H.261         H.261     H.261         MPEG-2
+                                                H.263     H.263       H.261
+-------------------------------------------------------------------------------------
+Audio       G.711       G.711     G.711         G.711     G.723         MPEG-1
+            G.722       G.722     G.722         G.722                   MPEG-2
+            G.728       G.728     G.723         G.723
+                                  G.728         G.728
+                                                G.729
+-------------------------------------------------------------------------------------
+Data        T.120       T.120     T.120         T.120     T.120         T.120
+                        H.281                             T.434
+                        (H.224)                           T.84
+                                                          Others
+-------------------------------------------------------------------------------------
+Multiplex   H.221       H.221     H.221         H.225.0   H.223         H.222.1
+                                                                        H.221
+-------------------------------------------------------------------------------------
+Signaling   H.230       H.230     H.230         H.230     H.245         H.245
+            H.242       H.242     H.242         H.245
+-------------------------------------------------------------------------------------
+Multi-point H.243       H.243     H.243         NA        NA            NA
+-------------------------------------------------------------------------------------
+MCU         H.243       H.321     H.321         H.323     NA            H.224
+            H.231       H.243     H.243                                 H.281
+-------------------------------------------------------------------------------------
+Encryption  H.233       H.233     H.320         TBD       H.233/324     NA
+            H.234       H.234     H                       H.234
+
+-------------------------------------------------------------------------------------
+Comm. I/F   I.400       AAL I.363 I.400         TCP/IP    V.34 modem
+                        AJM I.361 TCP/IP
+                        PHY I.400
+=====================================================================================
+Source: www.zytrax.com/tech/protocols/multimedia_stds_itu .htm
+
+MCU = Multipoint Control Unit
+
+
+H.323 1996, versi 2 1998, versi 3 1999, versi 4 2000
+
+
+The ITU-T H.323 Recommendation covers the technical requirements for multimedia communication systems in a Packet Based Network. Packet-based networks may include Local Area Networks, Enterprise Area Networks, Metropolitan Area Networks, Intra-Networks, and Inter-Networks (including the Internet). The Recommendation defines H.323 entities including:
+
+    * H.323 Terminals—endpoints that enable real-time voice or video communications with other H.323 terminals, gateways or MCUs on the network.
+    * MCU/MC/MPs—Multipoint Controller Units, which include a Multipoint Controller (MC) and one or several Multipoint Processors (MPs), that enable managed multipoint conferences. The MC rules as the “brain” of the multipoint conference and generates commands to MPs to handle mixing and matching of multimedia streams between participants.
+    * Gateways—devices that allow intercommunication between IP networks and legacy Switched Circuit Networks (SCNs), such as ISDN and PSTN. They provide signaling mapping as well as transcoding facilities. For example, Gateways receive an H.320 stream from an ISDN line and converted it to an H.323 stream and then send it to the IP network.
+    * Gatekeepers—perform the role of the central “managers” of VoIP services to the endpoints. Mandatory functionality includes address resolution (aliases to IP address mapping), authentication and service authorization. In addition, gatekeepers may offer an array of services such as CDR generation (service accounting for billing), supplementary services (such as call forward, diversion and park and pick-up) and dialing plans. Gatekeepers commonly use LDAP and DNS technologies to achieve their required functionality.
+
+H.323 is an umbrella standard composed of protocols and frameworks such as:
+
+    * H.225.0 (comprising RAS, Q.931 and RTP/RTCP) for gatekeeper management services, connection, setup, media transport and resource access.
+    * H.245 for call control and capability negotiation.
+    * H.235 security framework.
+    * H.450.x for supplementary services such as call transfer, forwarding, call offering, call intrusion and more.
+
+H.323 protocols are above the transport layer. In theory, H.323 is transport-independent but in practice, RAS runs over UDP, RTP/RTCP runs over UDP or ATM (AAL2, AAL5) and other protocols run over TCP and UDP (Annex E). SCTP is planned for the near future.
+
+All of the above-mentioned H.323 protocols (except RTP/RTCP) use a binary encoded (ASN.1) syntax.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

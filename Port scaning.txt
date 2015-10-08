@@ -1,0 +1,7 @@
+[1] TCP connect 
+
+3 way handshake
+tidak perlu priviledge khusus
+connnect()
+
+TCP SYN scanning

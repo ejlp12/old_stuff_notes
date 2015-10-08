@@ -1,0 +1,97 @@
+
+MM7 schema binding dengan JAXB
+
+Ini adalah pengalaman saya menggunakan JAXB untuk men-generate class source code untuk MM7.
+MM7 merupakan spesifikasi untuk mengirimkan MMS ke MMSC menggunakan XML SOAP. MM7 biasanya digunakan untuk menghubungkan content provider dengan operator telco.
+Contoh ini mungkin berguna bagi yang mulai mencoba menggunakan JAXB dan menemui kesulitas dengan error yang sama.
+
+Untuk membuat source code dari schema file (xsd) dengan meggunakan JAXB, gunakan perintah xjc.bat atau xjc.sh
+Pertama kali yang saya lakukan untuk melakukan binding XML schema ke java code adalah dengan perintah seperti berikut:
+
+    C:\USERS\ejlp>%JWSDP_HOME%\jaxb\bin\xjc.bat -nv -extension REL-5-MM7-1-2.xsd
+    
+REL-5-MM7-1-2.xsd adalah file XML schema MM7 dan %JWSDP_HOME% adalah environtment varibel dari Java Web Service Developer Pack terinstal.
+Yang saya dapat dari perintah diatas adalah pesan error seperti dibawah ini:
+
+
+    Warning: JAVA_HOME environment variable is not set.
+      If build fails because sun.* classes could not be found
+      you will need to set the JAVA_HOME environment variable
+      to the installation directory of java.
+    
+    parsing a schema...
+    [WARNING] warning: <anyAttribute> ignored
+      line 48 of
+    [WARNING] warning: <anyAttribute> ignored
+      line 56 of
+    [WARNING] warning: <anyAttribute> ignored
+      line 64 of
+    [WARNING] warning: "final" attribute of <complexType> is not supported
+      line 99 of
+    [WARNING] warning: <anyAttribute> ignored
+      line 117 of
+    [WARNING] warning: <anyAttribute> ignored
+      line 324 of REL-5-MM7-1-2.xsd
+    [ERROR] A class/interface with the same name "org.xmlsoap.schemas.soap.envelope.Envelope" is already in use. Use a class customization to resolve this conflict.
+      line 42 of
+    [ERROR] (Relevant to above error) another "Envelope" is generated from here.
+      line 41 of
+    [ERROR] A class/interface with the same name "org.xmlsoap.schemas.soap.envelope.Body" is already in use. Use a class customization to resolve this conflict.
+      line 60 of
+    [ERROR] (Relevant to above error) another "Body" is generated from here.
+      line 59 of
+    [ERROR] A class/interface with the same name "org.xmlsoap.schemas.soap.envelope.Fault" is already in use. Use a class customization to resolve this conflict.
+      line 99 of
+    [ERROR] (Relevant to above error) another "Fault" is generated from here.
+      line 98 of
+    [ERROR] A class/interface with the same name "org.xmlsoap.schemas.soap.envelope.Header" is already in use. Use a class customization to resolve this conflict.
+      line 52 of
+    [ERROR] (Relevant to above error) another "Header" is generated from here.
+      line 51 of
+    Failed to parse a schema.
+
+Saya abaikan pesan warning, saya cuma concern pada pesan error yang saya kira membuat file source java tidak terbuat.
+Error tersebut terjadi karena ada konflik penamaan. JAXB akan membuat class dengan nama yang sama, dalam hal ini adalah Envelope, Body, Fault dan Header.
+Setelah mencari informasi penyebab error tersebut maka saya mendapatkan solusi yaitu dengan membuat file binding.xjb yang merupakan konfigurasi binding yang harus dilakukan JAXB.
+Dalam file yang dibuat tersebut, saya buat agar setiap class yang akan di-generate dengan package org.xmlsoap.schemas.soap.envelope dari elemen bernama Fault akan diberinama SOAPFault bukan Fault,
+dan yang dari elemen Header akan diberinama SOAPHeader bukan Header, begitu juga dengan elemen Body dan Envelope.
+
+Dibawah ini adalah isi dari file binding.xjb
+
+  <jxb:bindings version="1.0"
+                 xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+                 xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <jxb:bindings schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" node="/xs:schema">
+  
+      <jxb:schemaBindings>
+        <jxb:package name="org.xmlsoap.schemas.soap.envelope"/>
+        <jxb:nameXmlTransform>
+          <jxb:elementName suffix="Element"/>
+        </jxb:nameXmlTransform>
+      </jxb:schemaBindings>
+  
+      <jxb:bindings node="//xs:element[@name='Fault']">
+        <jxb:class name="SOAPFault"/>
+      </jxb:bindings>
+      
+      <jxb:bindings node="//xs:element[@name='Header']">
+        <jxb:class name="SOAPHeader"/>
+      </jxb:bindings>
+      
+      <jxb:bindings node="//xs:element[@name='Body']">
+        <jxb:class name="SOAPBody"/>
+      </jxb:bindings>
+      
+      <jxb:bindings node="//xs:element[@name='Envelope']">
+        <jxb:class name="SOAPEnvelope"/>
+      </jxb:bindings>            
+  
+    </jxb:bindings>
+  
+  </jxb:bindings>
+
+Setelah itu saya jalankan lagi perintah ditas tadi dengan menggunakan file konfigurasi binging bernama binding.xjb.
+Dengan konfigurasi diatas, tidak terjadi lagi konfilik penamaan class.
+
+    C:\USERS\ejlp>%JWSDP_HOME%\jaxb\bin\xjc.bat -nv -extension REL-5-MM7-1-2.xsd -b binding.xjb
+    

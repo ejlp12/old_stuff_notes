@@ -1,0 +1,124 @@
+Bearer Independent Call Control (BICC) adalah protokol signaling pada jaringan telekomunikasi seperti halnya ISUP. BICC dibuat berdasarkan N-ISUP yang digunakan pada Narrowband-ISDN. BICC dispesifikasikan pada ITU-T Recommendation seri <a href="http://www.itu.int/rec/T-REC-Q.1901-200006-I/en">Q.1901</a> dan Q.1902. BICC dapat digunakan pada jaringan PSTN/ISDN maupun PLMN.
+
+
+BICC memisahkan antara signaling plane dengan media plane (bearer connection control) sehingga signaling dapat melalui jalur yang berbeda dengan media plane hal ini berbeda dengan ISUP yang membawa baik call control maupun informasi bearer control.
+Disebut bearer independent karena BICC dirancang untuk dapat digunakan pada berbgai macam teknologi tranfer misalnya IP, SS7, TDM atau ATM. 
+
+BICC Capability Set 2 atau CS2 yang spesifikasinya selesai tahun 2001, digunakan oleh 3GPP sebagai protokol pada UMTS release 4 dimana arsitekturnya menggunakan MSS (MSC Server System) dan MGW (Media Gateway). BICC digunakan untuk antar dua MSS yang berhubungan (Nc interface) sebagai pengganti ISUP. Selain itu BICC juga dapat membawa message APM (Application Transport Mechanism) yang digunakan untuk saling tukar informasi bearer dari suatu call. APM dapat membawa misalnya alamat dari virtual MGW (BNC-ID), Global Title dari MGW (BIWF), code dan juga informasi IP bearer seperti IP address dan port number.
+
+Arsitektur jaringan network BICC terdiri dari beberapa node atau elemen yang disebut serving node (SN) yaitu 
+
+>>> Interface Serving Node (ISN) yang merupakan gateway atau proxy antara jaringan tradisional PSTN/ISDN dengan jaringan BICC. ISN memiliki 3 fungsi penting yaitu: 
+    - Bearer Function (BF) yaitu merupakan media gateway yang mengkonversi sinyal data/voice/multimedia dari jaringan TDM yang digunakan PSTN/ISDN ke sinyal berbasis paket yang digunakan pada jaringan BICC.
+    - Bearer Control Function (BCF) yaitu fungsi yang mengontrol atau memberikan informasi bearer
+    - Call Serving Function (CSF) yaitu fungsi yang mengontrol panggilan yang pada jaringan PSTN/ISDN ditangani oleh ISUP
+         
+
+>>> Transit Serving Node (TSN).
+    TSN merupakan node yang menangani BICC di dua sisi yang menghubungkan ISN dengan ISN/TSN atau ISN/TSN dengan GSN.
+
+>>> Gateway Serving Node (GSN)
+    GSN serupa dengan TSN yaitu menagani BICC di dua sisi yang menghubungkan ISN/TSN dengan GSN pada jaringan BICC lain.
+    
+SN bisa saja tanpa BCF, SN ini disebut Call Mediation Node (CMN). Gambar Network Functional Model dari BICC architecture dapat dilihat di dokumen ITU-T Rec Q.1902.1.
+
+Dibawah ini adalah gambar BICC Network Architecture yang diimplementasikan pada UMTS release 4.
+
+<img src="http://lh4.ggpht.com/ejlp12/SEiyNsvFEwI/AAAAAAAAABY/Ar4Xw8yJvhg/BICC_Network_Architecture.png"/>
+
+Nc interface biasanya mengunakan IP sebagai transport dengan SIGTRAN sebagai protokol ditasnya. BICC dibawa dengan dengan M3UA dan SCTP pada SIGTRAN.
+
+    .------------.
+    |    BICC    |
+    +------------+
+    |    M3UA    |
+    +------------+
+    |    SCTP    |
+    +------------+
+    |     IP     |
+    +------------+
+    |  Ethernet  |
+    '------------'
+    
+
+Interworking BICC dan ISUP pada MSS dipesifikasikan pada ITU recommendation Q.1912.1 (ISUP-BICC Interworking) dan Q.19.12.2 (Interworking between selected signalling systems and BICC).
+
+-== BICC message ==-
+
+BICC message menggunakan format ASN.1. Packet data unit (PDU) dari sebuah BICC message memiliki bagian-bagian sebagai berikut
+
+  ---------------------------
+  | Call Instance Code (CIC)|
+  ---------------------------
+  | Message type code       |
+  --------------------------- 
+  | Mandatory fixed part    |
+  ---------------------------
+  | Mandatory variable part |
+  ---------------------------
+  | Optional part           |
+  ---------------------------
+  
+Call Instance Code (CIC) digunakan untuk menunjukan relasi signaling antara dua peer BICC node.  
+
+Seperti halnya ISUP, BICC message dispesifikasikan pada ITU-T Rec Q.1902.3) dibagi dalam baberapa group yaitu
+
+- Message yang berhubungan dengan call control ( yaitu
+
+  ACM Address Complete Message
+  ANM Answer message
+  APM Application Transport message
+  COT Continuity message
+  CPG Call Progress message
+  CON Connect message
+  IDR Identification Request message
+  IRS Identification Response message
+  INF Information message
+  INR Information Request message
+  IAM Initial Address message
+  PRI Pre-release Information message
+  REL Release message
+  RLC Release Complete message
+  RES Resume message
+  SGM Segmentation Message
+  SAM Subsequent Address Message
+  SUS Suspend message
+  USR User-to-user information message
+  
+ - Message yang berhubungan dengan maintenance 
+
+  CGB	 Group Blocking message
+  CGBA Circuit/CIC Group Blocking Acknowledgement message
+  GRS	 Circuit/CIC Group Reset message
+  GRA	 Circuit/CIC Group Reset Acknowledgement message
+  CGU	 Circuit/CIC Group Unblocking message
+  CGUA Circuit/CIC Group Unblocking Acknowledgement message
+  CQM	 Circuit/CIC group Query Message
+  CQR	 Circuit/CIC group Query Response message
+  CFN	 Confusion message
+  FAA	 Facility Accepted message
+  FRJ	 Facility Reject message
+  FAR	 Facility Request message
+  RSC	 Reset Circuit/CIC message
+  UCIC Unequipped Circuit Identification Code message
+
+
+Dibawah ini saya list rekomendasi ITU-T untuk BICC CS-2:
+
+Q.1902.1, BICC CS2 Functional Description
+Q.1902.2, BICC CS2 General functions of messages and signals
+Q.1902.3, Common Formats and Codes for BICC and ISUP
+Q.1902.4, BICC protocol elements
+Q.1902.5, Exceptions to APM in the context of BICC
+Q.19xx.1, Interworking between BICC and ISUP
+Q.19xx.2, Interworking between ISUP compatible signalling systems and the BICC protocol
+Q.19xx.3, Interworking between the H.225.0 Multimedia Call Control protocol in an H.323 network and the BICC protocol
+Q.19xx.4, Interworking DSS 2 to BICC
+Q.19xy, Interaction between the INAP protocol and the BICC protocol
+Q.ibcp, BICC IP Bearer Control Protocol
+Q.cbc, Call and Bearer Control Protocol
+Annex E to Q.1901, Signalling Transport Convergence for SCTP
+
+
+-------
+http://www.3gpp.org/ftp/tsg_t/TSG_T/TSGT_24/Docs/PDF/TP-040131.pdf

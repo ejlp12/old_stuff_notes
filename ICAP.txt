@@ -1,0 +1,103 @@
+ICAP
+
+ICAP adalah kependekan dari Internet Content Adaptation Protokol, sebuah protokol yang digunakan untuk keperluan adaptasi konten sehingga konten yang di-deliver ke pengguna semakin baik.
+
+ICAP diperkenalkan pada tahun 1999 oleh <a href="http://www.icap-forum.org">ICAP Forum</a> sebagai standar protokol yang digunakan antara proxy server dan callout server. Protokol ini dispesifikasikan pada <a href="http://tools.ietf.org/html/rfc3507">RFC 3507</a> tapi belum menjadi standard global dari IETF.
+
+ICAP biasanya digunakan pada sebuah web proxy atau WAP untuk berkomunikasi dengan ICAP server. Dalam hal ini web proxy atau WAP gateway adalah sebuah ICAP client. ICAP server memiliki fungsi tersendiri misalnya virus scanning, pengubahan/adaptasi konten, pengubahan bahasa, penambahan iklan, penyaringan konten, kompresi data dan lain-lain.
+
+Pada dasarnya protokol ini merupakan sebuah remote procedure call yang dibangun diatas protokol HTTP jadi cukup sederhana dan didesain agar scalable. ICAP memiliki dua komponen utama yaitu:
+
+1. Transaction semantics -- "Bagaimana client meminta layanan adaptasi?"
+2. Control of policy -- "Kapan client hatus meminta layanan dapatasi, dan adaptasi seprti apa dan dari mana?"
+
+Secara teknis operasi pada ICAP berfokus pada modifikasi pada HTTP request dan modifikasi pada HTTP response sehingga didefinisikan 2 mode operasi yaitu:
+
+1. request modification (REQMOD) mode
+
+      origin-server
+          |  ^
+          |  |
+       5  |  |  4
+          |  |
+          v  |              2
+      ICAP-client    -------------->   ICAP-resource
+        (proxy)    <--------------   on ICAP-server
+          |  ^             3
+          |  |
+       6  |  |  1
+          |  |
+          V  |
+         client
+
+
+2. response modification" (RESPMOD) mode
+
+
+      origin-server
+          |  ^
+          |  |
+       3  |  |  2
+          |  |
+          V  |            4
+      ICAP-client    -------------->   ICAP-resource
+      (surrogate)    <--------------   on ICAP-server
+          |  ^            5
+          |  |
+       6  |  |  1
+          |  |
+          v  |
+         client
+
+
+Seperti halnya HTTP, ICAP juga mendukung otentifikasi, enkripsi. Sebuah ICAP client juga dapat melakukan caching dengan menyimpan response hasil dari ICAP server ke internal cache.
+
+Seperti apa sederhananya protokol ini kita lihat saja dari contoh operasi REQMOD berikut ini yang menambahkan (insert) data pada response yang didapat dari www.origin-server.com
+
+
+   RESPMOD icap://icap.example.org/satisf ICAP/1.0
+   Host: icap.example.org
+   Encapsulated: req-hdr=0, res-hdr=137, res-body=296
+
+   GET /origin-resource HTTP/1.1
+   Host: www.origin-server.com
+   Accept: text/html, text/plain, image/gif
+   Accept-Encoding: gzip, compress
+
+HTTP Response dari www.origin-server.com
+
+   HTTP/1.1 200 OK
+   Date: Mon, 10 Jan 2000 09:52:22 GMT
+   Server: Apache/1.3.6 (Unix)
+   ETag: "63840-1ab7-378d415b"
+   Content-Type: text/html
+   Content-Length: 51
+
+   33
+   Ini data yang diberikan oleh server www.origin-server.com
+   0
+
+
+Contoh ICAP Response-nya dalah sebagai berikut:
+
+   ICAP/1.0 200 OK
+   Date: Mon, 10 Jan 2000  09:55:21 GMT
+   Server: ICAP-Server-Software/1.0
+   Connection: close
+   ISTag: "W3E4R7U9-L2E4-2"
+   Encapsulated: res-hdr=0, res-body=222
+
+   HTTP/1.1 200 OK
+   Date: Mon, 10 Jan 2000  09:55:21 GMT
+   Via: 1.0 icap.example.org (ICAP Example RespMod Service 1.1)
+   Server: Apache/1.3.6 (Unix)
+   ETag: "63840-1ab7-378d415b"
+   Content-Type: text/html
+   Content-Length: 92
+
+   5c
+   Ini data yang diberikan oleh server www.origin-server.com.
+   IKLAN: Iklan ini ditambahkan oleh ICAP server.
+   0
+
+

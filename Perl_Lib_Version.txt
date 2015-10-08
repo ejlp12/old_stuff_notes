@@ -1,0 +1,72 @@
+PPM (Perl Package Manager)
+
+
+C:\Net-SMPP-1.10>C:\Perl\bin\perl.exe Makefile.PL
+Perl lib version (v5.6.1) doesn't match executable version (v5.8.8) at C:\oracle\product\10.1.0\Db_1\perl\5.6.1\lib\MSWin32-x86/Config.pm line 21.
+Compilation failed in require at C:/Perl/lib/ExtUtils/MakeMaker/Config.pm line 6.
+BEGIN failed--compilation aborted at C:/Perl/lib/ExtUtils/MakeMaker/Config.pm line 6.
+Compilation failed in require at C:/Perl/lib/ExtUtils/MakeMaker.pm line 7.
+BEGIN failed--compilation aborted at C:/Perl/lib/ExtUtils/MakeMaker.pm line 7.
+Compilation failed in require at ../Net-SMPP-1.10/makefile.pl line 1.
+BEGIN failed--compilation aborted at ../Net-SMPP-1.10/makefile.pl line 1.
+
+C:\Net-SMPP-1.10>set PERL5LIB=c:\perl\bin;c:\perl\bin\lib;c:\perl\site\lib
+
+C:\Net-SMPP-1.10>C:\Perl\bin\perl.exe Makefile.PL
+Checking if your kit is complete...
+Looks good
+Writing Makefile for Net::SMPP
+
+
+http://support.microsoft.com/default.aspx?scid=kb;en-us;Q132084
+
+ftp://ftp.microsoft.com/softlib/mslfiles/nmake15.exe
+
+nmake15.exe
+
+C:\Perl\Net-SMPP-1.10>c:\nmake
+
+Microsoft (R) Program Maintenance Utility   Version 1.50
+Copyright (c) Microsoft Corp 1988-94. All rights reserved.
+
+cp bind-hammer.pl blib\lib\Net\bind-hammer.pl
+cp esme.pl blib\lib\Net\esme.pl
+cp esme-rec.pl blib\lib\Net\esme-rec.pl
+cp esme-hammer.pl blib\lib\Net\esme-hammer.pl
+cp sendmessage.pl blib\lib\Net\sendmessage.pl
+cp SMPP.pm blib\lib\Net\SMPP.pm
+cp smsc.pl blib\lib\Net\smsc.pl
+
+C:\Perl\Net-SMPP-1.10>c:\nmake test
+
+Microsoft (R) Program Maintenance Utility   Version 1.50
+Copyright (c) Microsoft Corp 1988-94. All rights reserved.
+
+        C:\Perl\bin\perl.exe "-Iblib\lib" "-Iblib\arch" test.pl
+1..93
+ok 1
+ok 2
+
+
+C:\Perl\Net-SMPP-1.10>c:\nmake
+
+Microsoft (R) Program Maintenance Utility   Version 1.50
+Copyright (c) Microsoft Corp 1988-94. All rights reserved.
+
+cp bind-hammer.pl blib\lib\Net\bind-hammer.pl
+cp esme.pl blib\lib\Net\esme.pl
+cp esme-rec.pl blib\lib\Net\esme-rec.pl
+cp esme-hammer.pl blib\lib\Net\esme-hammer.pl
+cp sendmessage.pl blib\lib\Net\sendmessage.pl
+cp SMPP.pm blib\lib\Net\SMPP.pm
+cp smsc.pl blib\lib\Net\smsc.pl
+
+C:\Perl\Net-SMPP-1.10>c:\nmake test
+
+Microsoft (R) Program Maintenance Utility   Version 1.50
+Copyright (c) Microsoft Corp 1988-94. All rights reserved.
+
+        C:\Perl\bin\perl.exe "-Iblib\lib" "-Iblib\arch" test.pl
+1..93
+ok 1
+ok 2

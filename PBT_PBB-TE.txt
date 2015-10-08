@@ -1,0 +1,31 @@
+
+Saat ini teknologi <a href="http://en.wikipedia.org/wiki/Carrier_Ethernet">carrier-ethernet</a> sedang mulai booming, hal ini didorong oleh semakin berkembangnya teknologi telekomunikasi dan internet yang mengarah pada konvergensi teknologi menggunakan komunikasi berbasis paket (packet-based). Teknologi ethernet (IEEE 802.3) menjadi favorit karena relatif murah, mudah digunakan dan dapat memberikan bandwith yang cukup besar. Ethernet juga telah banyak digunakan terutama pada jaringan komputer (LAN).
+
+
+Istilah PBT (Provider Backbone Transport) diperkenalkan oleh Nortel Networks dan British Telecom Group pada tahun 1996 sebagai sebuah produk atau teknologi baru untuk koneksi Ethernet yang disebut-sebut sebagai telnologi carrier-class. Carrier-class maksudnya adalah teknologi berkelas provider jaringan telekomunikasi (carrier) yang berarti memiliki QoS (Quality of Service) yang baik dan berkecepatan tinggi sehingga dapat digunakan untuk Metro Area Networks (MAN) atau disebut juga jaringan metro.
+
+Secara ringkas kebutuhan dari jaringan metro diantaranya adalah:
+
+- Infrastruktur yang efisien dan dapat melayani aplikasi packet data, voice, video 
+- Minimal biaya implementasi
+- Kualitas yang tinggi dengan memaksimalkan penggunaan fasilitas yang ada
+- Meminimalkan biaya operasional
+- Memberikan Service Level Agreement (SLA)
+- Meminimalkan masalah kompabilitas dengan teknologi yang sudah dipakai (backward compability issue)
+
+<a href="http://www.ieee802.org/1/files/public/docs2005/ah-bottorff-pbt-for-iee-v41-0905.pdf">Kebutuhan tersebut</a> yang mendasari teknologi PBT.
+
+PBB-TE (Provider Backbone Bridge – Traffic Engineering) merupakan standarisasi dari PBT dengan beberapa perubahan (enhancement). PBB-TE didefinisikan pada standard IEEE 802.1Q, 802.1ah, 802.1ad dan masih dalam proses tetapi beberapa provider sudah mulai tertarik dan mengadopsi teknologi ini.
+
+PBT/PBB-TE pada dasarnya memisahkan antara service layer dari Ethernet dengan network layer atau tunnel layer sehingga dapat provider dapat membuat point-to-point Ethernet tunnel yang bisa digunakan untuk mendeliver service apapun. PBT juga menghilangkan beberapa konsep yang terdapat pada Ethernet seperti flooding atau broadcasting, spanning tree protocol dan MAC address learning sehingga mengurangi kompleksitas.
+
+Jaringan PBT terdiri dari Provider Backbone Bridge (PBB) yang distandarisasi pada IEEE 802.1ah disebut juga Mac-in-Mac atau MinM. Teknologi MAC-in-MAC menggunakan konsep VLAN tagging seperti yang digunakan pada teknologi Q-in-Q (IEEE 802.1ad). Kelebihannya dibanding QinQ adalah PBB dapat menangani lebih banyak (jutaan) layanan (service).
+
+PBT beroperasi dengan cara memberikan konfigurasi routing pada Provider Backbone Bridged Network. Kemudian,  provider dapat membuat trunk (jalur) maupun layanan untuk koneksi point-to-point pada jaringan Ethernet dengan sistem provisioning dan manajemen yang dimiliki PBT. Sebuah trunk didefinisikan dengan menggunakan VLAN ID dan pasangan alamat sumber serta alamat tujuan.
+
+Sebagai catatan, teknologi ini sedang bersaing dengan T-MPLS yang distandarisasi oleh ITU. 
+
+Lebih lanjut tentang PBT ini dapat anda baca di artikel nya LightReading: <a href="http://www.lightreading.com/document.asp?doc_id=146364">A Guide to PBT/PBB-TE</a> atau baca juga slide ini dan ini 
+
+http://www.oiforum.com/public/documents/2008-2%20OIF%20Workshop%20Bottorff.pdf
+http://www.ethernetalliance.org/technology/white_papers/Provider_Backbone2.pdf

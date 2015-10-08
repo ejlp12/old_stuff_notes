@@ -1,0 +1,146 @@
+Common Object Request Broker Architecture (CORBA) 
+
+CORBA adalah  
+
+- dibuat oleh Object Management Group (OMG) [http://www.omg.org/]
+- sebuah standar arsitektur untuk system objek terdistribusi
+- menggantikan RPC (remote procedure call) yang tidak bersifat object oriented
+- sering diasosiasikan sebagai middleware karena biasanya digunakan pada software agar dapat saling berkomunikasi
+- memberikan kemudahaan beberapa objek untuk saling berinteraksi dalam lingkungan terdistribusi
+- paradigma: suatu permintaan layanan (service request) dari suatu object terdistribusi
+
+
+Server adalah sebuah proses yang menyimpan objek-objek
+Client adalah sebuah proses yang melakukan pemanggilan kepada objek-objek
+Sebuah aplikasi CORBA dapat berupa server sekaligus client
+
+Service diberikan dalam bentuk interface yang disebut Interface Definition Language (IDL)
+IDL dapat disamakan dengan API (application programming interface) yang disediakan oleh objek-objek yang berada dalam sebuah aplikasi server
+
+sebuah interface dalam IDL berisi atribut dan operasi
+sebuah operasi dapat memiliki parameter, dapat menghasilkan return value, menghasilkan exception karena terjadi kesalahan
+
+
+Servant class
+
+Istilah servant class adalah object yang dibuat dengan bahasa pemrograman yang mengimplementasikan fungsionalitas dari sebuah CORBA object. Jadi servant class merepresentasikan sebuah CORBA object tapi bukan CORBA object itu sendiri. 
+
+
+CORBA object hanyalah sebuah konsep yang direpresentasikan oleh servant class.
+Servant class dapat hilang karena aplikasi server dimatikan tetapi akan dibuat lagi ketika aplikasi server dihidupkan.
+
+
+Servant class ini tidak dapat di-generate oleh IDL compiler tapi implementasinya harus ditulis manual. 
+Servant class inherits dari skeleton class yang di-generate dari IDL sehingga harus mengimplmentasikan semua operasi yang ada pada IDL
+Servant class dapat berisi constructor, serta variabel dan operasi yang tidak ada di IDL
+
+
+Object adapter
+
+Bagaimana servant class disebuah server dapat melayani client yang dihubungkan dengan jaringan?
+OA meruapakan bagian dari CORBA runtime system yang mengadaptasikan konsep CORBA object ke servant class.
+OA melakukan operati low-level untuk 
+- membaca request, umarshalling parameter dari request dan 
+- memetakan object reference ke servant yang mengimplementasikannya. 
+- membuat servant dan menyimpannya ke persistent storege misalnya file di disk atau ke database  jika servant akan mati
+- mengasosiasikan policy (quality of service) dengan suatu CORBA object
+
+
+Dua macam Object Adapter:
+  1. Basic Object Adapter (BOA)
+  2. Portable Object Adapter (POA).
+
+BOA dispesifikasikan pada CORBA versi awal tetapi tipe OA ini tidak memenuhi kebutuhan sehingga banyak vendor melakukan enhancement sendiri pada BOA. 
+
+Sejak CORBA 2.2, BOA sudah tidak digunakan lagi (deprecated) dan digantikan oleh POA yang memiliki kelebihan
+
+- Memiliki banyak fungsionalitas yang sudah disediakan (built-in)
+- Arsitekturnya lebih terbuka untuk fungsionalitas baru sehingga dapat dikembangkan dengan tetap mempertahankan backward compability
+
+Java IDL 
+
+- Java IDL adalah teknologi untuk objek terdistribusi yaitu interaksi objek pada platform yang berbeda lewat network berbasis model CORBA (Common Object Request Broker)
+
+- CORBA adalah standar arsitektur untuk model objek terdistribusi. 
+- CORBA dapat diimplementasikan menggunakan berbagai bahasa pemrograman (tidak spesifik pada suatu bahasa)
+- CORBA memiliki IDL (Interface Definition Language) yaitu bahasa yang netral untuk mendeskripsikan suatu objek dan yang menjadi antar muka (mapping) dari bahasa yang mendukung CORBA.
+- Untuk dapat berinteraksi antar object maka suatu aplikasi CORBA harus memiliki suatu komponen yang disebut ORB (Object Request Broker)
+- ORB yang mengatur semua kebutuhan infrastruktur untuk kominkasi.
+- ORB menggunakan protokol yang disebut IIOP (Internet Inter-ORB Protocol) untuk interaksi lewat network
+
+
+
+IDL Type                        Java Type
+------------------------------  --------------------
+float				float
+double				double
+long , unsigned long 		int
+long long, unsigned long long	long
+short, unsigned short		short
+char, wchar			char
+boolean				boolean
+octet				byte
+string, wstring			java.lang.String
+
+any			        set of related classes
+interface			set of related classes
+sequence		        array
+struct			        final class
+
+module			        package
+exception		        exception class
+			        (inheriting from org.omg.CORBA.UserException)
+
+
+
+
+
+
+- Tie Model
+- Inheritance Model
+
+- Persistent CORBA object
+Suatu persistent CORBA object adalah object yang akan hidup terus selama secara eksplisit belum dimusnahkan. Jika client memiliki reference ke persistance CORBA object maka object tersebut akan tetap dapat digunakan walaupun server dari object tersebut mati. 
+
+ORB daemon, akan otomatis menjalankan server jika ada pemanggilan ke suatu persistance CORBA object.
+
+- Transient CORBA object
+Suatu transient CORBA object hanya hidup sepanjang eksekusi (proses) pada server yang membuat object tersebut berlangsung. Jika server berhenti (terminated) maka reference object tersebut di client juga menjadi tidak valid.
+
+
+Class POA (dalam contoh adalah TimePOA) merupakan server skeleton yaitu abstract class yang memberikan fungsionalitas dasar pada server CORBA.
+
+Dynamic Invocation Intervace (DII)
+Dynamic Skeleton Interface (DSI)
+
+
+C:\>idlj -fall Time.idl
+
+C:\>dir TimeApp
+
+TimePOA.java
+Time.java
+TimeOperations.java
+
+TimePOATie.java
+
+_TimeStub.java
+Time.java
+TimeHolder.java
+TimeHelper.java
+TimeOperations.java
+
+
+C:\>javac Client.java TimeApp/*.java
+
+C:\>javac TimeServer.java
+
+C:\>start orbd -ORBInitialPort 1050 -ORBInitialHost localhost
+
+C:\>start java  TimeServer -ORBInitialPort 1050 -ORBInitialHost localhost
+
+C:\>java Client -ORBInitialPort 1050 -ORBInitialHost localhost
+
+
+http://www.randomwalk.com/~sbarber/owuk98/ShorterJavaCORBADeeperOWUK98/
+http://java.sun.com/developer/onlineTraining/corba/corba.html

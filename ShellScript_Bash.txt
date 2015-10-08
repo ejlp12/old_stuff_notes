@@ -1,0 +1,239 @@
+
+-== Shell script ==-
+
+#!/bin/bash
+
+-== Komentar ==-
+
+Komentar dalam shell script ditandai dengan karakter # diawal komentar
+
+
+-== Variabel ==-
+
+Kita dapat mendifinisikan varibel sebebagai berikut
+
+ nama_variabel="Hello world"
+ nama_variabel=3
+
+dan untuk menggunakan varibel tersebut kita menuliskannya sebagai berikut $nama_variabel (dengan tanda $ didepan nama variabel)
+atau dengan menulis ${nama_variabel}
+
+Jika dalam varibel terdapat spasi diperlukan tanda kutip diawal dan diakhir nilai variabel
+
+Contoh penggunaan
+
+ #!/bin/bash
+ variabel="Hello world"
+ echo $variabel
+
+Perintah echo adalah perintah untuk menampilkan kalimat "Hello world" di standar output (layar monitor) 
+beberapa catantan penting untuk perintah echo:
+
+  -n Perintah echo tidak akan menambahakan newline diakhir output
+  -e Perintah echo akan mendeteksi  backslash-escaped character misalnya 
+     \NNN  untuk menuliskan karakter dimana NNN adalah ASCII code
+     \\ untuk menulikan karakter \
+     \n untuk baris baru
+     \t untuk horizontal tab
+     
+-== Memanipulasi varibel string ==-
+
+Substring
+
+nama="Ejlp Javanensis"
+echo ${nama:0:3}
+
+Script diatas akan mengaekstrak karakter dari variabel 'nama' mulai dari posisi 0 sampai 3.
+hasil script diatas adalah "Ejlp"
+     
+     
+-== Variabel khusus ==-
+
+    $0   -- Nama dari script atau fungsi yang dipanggil
+    $*   -- All the positional parameters, i.e. $1 $2 $3 etc.
+    $#   -- Jumlah parameter
+    $?   -- Exit code dari proses yang paling terakhir dieksekusi
+    $$   -- PID dari shell yang sedang digunakan
+    
+    
+Variabel-variabel ditas bisa juga ditulis dengan ${}, misalnya ${0}, ${*}, ${#}
+    
+-== Ekspresi matematik ==-
+
+Ekspresi matematik dapat dituliskan menggunakan $(( )), misalnya
+
+  total=$(( 200 + 90 + 34 ))
+  echo Total $total
+
+-== Kondisi ==-
+
+if condition1
+then
+	statement1
+	statement2
+	..........
+elif condition2
+then
+	statement3
+	statement4
+	........    
+elif condition3
+then
+	statement5
+	statement6
+	........    
+fi
+
+echo -n "Input a choice (1, 2):"
+read Option   # read from keyboard    
+case "$Option" in
+  1) 
+     echo "You choice is 1"
+     ;;
+  2)
+     echo "You choice is 2"
+     ;;
+  *)
+     echo "bad choice"
+     ;; 
+esac
+
+
+-== Pengecekan kondisi ==-
+
+  -z VARSTRING             Benar jika VARSTRING kosong (empty)
+  -n VARSTRING             Benar jika VARSTRING tidak kosong
+  VARSTRING1 = VARSTRING2  Benar jika VARSTRING1 sama dengan VARSTRING2
+
+  VARNUMBER op VARNUMBER   Pengecekan aritmetik, op dapat berupa 
+  
+  -eq sama dengan
+  -ne tidak sama dengan
+  -lt lebih kecil
+  -le lebih kecil atau sama dengan
+  -gt lebih besar
+  -ge lebih besar atau sama dengan
+
+  ! EXPR                   Negasi dari nilai ekspresi EXPR
+  EXPR1 -a EXPR2           Operator logik AND
+  EXPR1 -o EXPR2           Operator logik OR
+
+[ -e file ] true if file exist
+[ -f file ] true if file is a regular file
+[ -d file ] true if file is a directory
+[ -L file] true if file is a symbolic link
+[ -r file ] true if file is readable
+[ -w file ] true if file is writable
+[ -x file ] true if file is executable
+[ -u file ] true if file's UID bit is set
+[ -g file ] true if file's GID bit is set
+
+-== Pengulangan (Loop) ==-
+
+Pegulangan dengan for
+
+#!/bin/bash
+for myvar in 1 2 3 4 5 6 7 8 9 10 
+do
+    echo $myvar
+done 
+
+Script diatas juga bisa dituliskan dalam satu line
+
+for myvar in 1 2 3 4 5 6 7 8 9 10; do echo $myvar; done 
+
+
+
+for myvar in $(seq 15)
+do
+    echo $myvar
+done 
+
+Pengulangan menggungakan while
+
+i=0
+while [ $i -lt 10 ]; do
+  echo "$i"
+  let i=i+1    # calculation
+done
+
+while [ -n "$(ping -c 1 -W 1 10.67.108.53|grep 100%)" ];do echo "Trying to ping"; done; echo "Host is alive"
+
+
+cat file.txt | while read i; do echo $i; done
+
+
+
+-== Eksekusi perintah ==- 
+
+Eksekusi perintah dalam sebuah shell script bash dapat dituliaskan didalam tanda `` atau tanda $()
+Perhatiakan karakter ` tidak sama dengan karakter '. Perhatikan contoh dibawah ini
+
+  YESTERDAY=`date -d "-1 day" +%Y-%m-%d`
+  
+atau bisa juga ditulis
+
+  YESTERDAY=$(date -d "-1 day" +%Y-%m-%d)
+  
+-= Fungsi =-
+Cara penulisan fungsi
+
+function function_name {
+  command...
+}
+
+atau 
+
+function_name() {
+  command...
+}
+
+Fungsi harus didefinisikan sebelum pemanggilan atau fungsi tersebut digunakan.
+Variabel-variabel $1, $2, $3 ... didalam fungsi adalah argumen dari fungsi tersebut.
+
+myfunc() {
+ echo "Lihat $1 $2"
+}  
+
+myfunc "kanan" "kiri"
+
+Script diatas akan menghasilkan ouput: Lihat kanan kiri
+
+Return dari suatu fungsi sebaiknya digunakan hanya untuk menunjukan error tidaknya
+suatu fungsi nilai return haruslah bilangan dan tidak boleh terlalu besar.
+
+myfunc() {
+ if [ kondisi ] 
+ then
+    
+ else
+    return 1
+ fi  
+}
+
+Return value dari fungsi diatas dapat diperoleh dengan cara $?
+
+myfunc
+if [ $? -eq 1 ]
+then
+  echo "myfunc call error"
+fi
+
+Adalah salah jika anda mencoba untuk mendapatkan return value dengan cara dibawah ini, 
+
+MYVAR=myfunc
+
+karena MYVAR akan berisi string yang dikeluarkan ke standar output dari fungsi myfunc.
+Jadi MYVAR akan bernilai "Lihat kanan kiri"
+
+
+
+
+-= Standar output & error =-
+
+./command 2>&1 | tee -a LOGS/stdout.log
+
+
+http://www.faqs.org/docs/abs/HTML/index.html
+
+bin/ibhmerger.sh 2>&1 | tee -a ibhmerger.log

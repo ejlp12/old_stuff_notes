@@ -1,0 +1,221 @@
+--= Tutorial Bahasa Pemrograman C.
+
+Contoh sederhana:
+
+1: #include <stdio.h>
+2:
+3: /* Program contoh untuk menampilkan tulisan di layar */
+4: int main() {
+5:   char name[] = "world";
+6:   printf("Hello %s!", name);
+8:   return 0;
+9: }
+
+Baris 1 menunjukan bahwa program menggunakan (include) file header stdio.h
+Baris 3 adalah komentar yang tidak akan diproses oleh compiler
+Baris 4 sampai 7 adalah sebuah fungsi tanpa argument yang bernama "main". Fungsi ini adalah fungsi utama yang akan dipanggil pertama kali saat program dijalankan.
+Baris 5 adalah deklarasi suatu varibel array bernama name yang berisi string "World"
+Baris 6 adalah penggunaan fungsi untuk menampilkan tulisan "Hello world!" di layar
+Baris 8 adalah kode yang memerintahkan untuk keluar (selesai) dari fungsi yang berarti program berakhir.
+
+Proses compile
+Buar file hello.c dengan isi seperti diatas dan gunakan perintah berikut untuk meng-compile file tsb:
+
+gcc hello.c -o runhello
+
+Perintah tersebut akan menghasilkan sebuah file bernama "runhello" yang bisa dieksekusi. Jalankan program runhello seperti berikut dan kita akan mendapatkan output dari program tersebut.
+
+./runhello 
+
+Hasilnya adalah:
+
+Hello world
+
+--= Tipe data
+
+char, short, int, long, float, double and long double
+
+signed (default)
+unsigned
+
+--= Nama variabel (identifier)
+
+Beberapa contoh nama varibel yang diperbolehkan
+
+sum
+jumlah1
+_jumlah_
+
+Nama varibel tidak boleh angka atau diawali dengan angka misalnya 5um, 7umlah
+Nama varibel tidak boleh sama dengan keyword yang digunakan dalam bahasa C
+Nama varibel tidak boleh dimulai dengan karater operator yang digunakan dalam bahasa C misalnya =, +, -, *
+
+Inisialisasi varibel
+
+int a = 2;
+int x = y = 4;
+int a = 1, b = 3;
+int a, b = 100;
+
+--= Keyword
+
+Beberapa keyword yang digunakan dalam bahasa pemrograman C
+
+auto       double     int          struct
+break      else       long         switch
+case       enum       register     typedef
+char       extern     return       union
+const      float      short        unsigned
+continue   for        signed       void
+default    goto       sizeof       volatile
+do         if         static       while
+
+--= Karakter
+
+char a = 'a'
+char enter = '\n'
+char hex = '\0x41'
+char oct = '\0101'
+
+\a alert (bell) character 
+\\ backslash
+\b backspace 
+\? question mark
+\f formfeed 
+\' single quote
+\n newline 
+\" double quote
+\r carriage return 
+\ooo octal number
+\t horizontal tab 
+\xhh hexadecimal number
+\v vertical tab
+\0 null character
+
+
+
+3.14159
+.2
+4e16
+0.1e3
+.8E-5
+100.
+
+Integer dan Long
+
+Untuk menandai bahwa suatu angka bukan integer tapi long, kita bisa menggunakan 
+simbol (literal) huruf "L" atau "l" misalnya
+
+123l 
+123L
+
+--= Komentar
+
+//
+/* */
+
+--= Konstanta
+
+Konstanta adalah varibel yang tidak dapat diubah.
+Bisa dibuat dengan beberapa cara yaitu dengan prepocessor #define atau dengan cons 
+
+#define
+
+
+--= Enumeration
+
+enum pilihan_t { BENAR, SALAH };
+
+enum hari_t {
+  senin = 1,
+  selasa,
+  rabu,
+  kamis,
+  jumat,
+  sabtu
+};
+
+enum error_code {
+  DISCONNECTED = 01
+  SERVER ERROR = 10
+  UNKNOWN      = 11
+};
+
+enum pilihan_t {
+  t = 't',
+  f = 'f',
+  u = '?'
+};
+
+hari_t hari = jumat;
+
+
+Tiap nama konstanta dalam enum harus berbeda
+Nilai dari konstanta dalam enum bisa int, char 
+Nilai konstanta dari char sebenarnya adalah nilai ASCII
+
+Variabel dengan tipe data yang berbeda dapat dikelompokan menjadi sebuah structure.
+Isi dari structure bisa berupa varibel sederhana, array, pointer, structure, dan lain-lain.
+Contoh:
+
+struct orang {
+	char nama[25];
+	int umur;
+	int jenis;
+} budi, andi;
+
+Contoh diatas membuat dua buah variabel structure budi dan andi dengan tipe "orang". Masing-masing
+field dari structure dapat diakses dengan menggunakan operator "." misalnya budi.umur, budi.nama
+
+struct orang wati, sari;
+
+
+Contoh lain sebuah struc dengan recursion
+
+struct folder {
+  char *name;
+  struct folder parent;
+};
+
+struct zipcode int code;
+
+
+kita juga dapat membuat tipe data structure tanpa variabel dengan menggunakan typedef.
+Jadi 
+
+typedef struct {
+	char nama[25];
+	int umur;
+	int jenis;
+} orang;
+
+
+-= Union
+
+Union mirip dengan struct, hanya saja varibel dalam union menempati bagian memory yang sama.
+
+typedef struct {
+	smiUINT32 syntax;
+	union {
+		smiINT sNumber;
+		smiUINT32 uNumber;
+		smiCNTR64 hNumber;
+		smiOCTETS string;
+		smiOID oid;
+		smiBYTE empty;
+	} value;
+} smiVALUE, *smiLPVALUE; 
+
+
+
+--= Array
+
+int arr[4];
+int arr[3] = {10, 20, 30};
+int arr[4][4];
+
+int *ptr_arr;
+ptr_arr = (int [2]){10, 20}
+
+  
+

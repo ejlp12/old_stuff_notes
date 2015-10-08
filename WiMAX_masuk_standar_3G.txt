@@ -1,0 +1,12 @@
+Pada tanggal 19 Oktober 2007, standar teknologi komunikasi nirkabel pita-lebar (broadbad wireless access) IEEE 802.16 atau yang lebih dikenal dengan WiMAX, telah diresmikan oleh organisasi telkomunikasi dunia (ITU) menjadi salah satu set standar teknologi 3G. Ini berarti WiMAX telah berada pada posisi yang sejajar dengan teknologi 3G yang lain seperti W_CDMA/UMTS (IMT-MC), cdma2000 EV/DO (IMT_DS) yang lebih dulu banyak digunakan sebagai teknologi 3G untuk telepon bergerak.
+
+Standar 3G yang dimaksud adalah IMT-2000 yang merupakan standar global yang mendefinisikan kebutuhan dari teknologi 3G dan sebuah set dari standar-standar lain yang disebut Recommendation yang dibuat oleh ITU. Terminologi untuk teknologi IEEE 802.16 yang dispesifikasiakan pada ITU-R M.1457 Recommendation adalah "IMT-2000 OFDA TDD WMAN"
+
+WiMAX sebenernya telah ramai diimplementasikan di berbagai negara, dan kelihatannya di Indonesia WiMAX akan mulai populer juga walaupun saat ini (November 2007) belum ada layanan WiMAX komersial yang beroperasi. Implikasi dari sisi komersial dari dimasukannya WiMAX menjadi teknologi 3G standar adalah persaingan antar perusahan (vendor, operator telekomunikasi, pemroduksi alat-alat telekomunikasi) yang telah bergerak di teknologi 3G lainnya dengan perusahaan yang bergerak di teknologi WiMAX.
+
+Persaingan akan menjadi menarik karena teknologi WiMAX merupakan teknologi murah (low cost) dan berbasis layanan wireless internet. Berbasis wireless internet berarti semua elemen telah berbasis pada jaringan IP (all-IP network) mulai dari jaringan inti (Core network) sampai pada perangkat pengguna (user equipment). Karena berbasis IP, WiMAX menggunakan teknologi VoIP (Voice over Internet Protocol) untuk komunikasi suara antar pelanggan. Pada telnologi 3G lainnya, arsitektur All-IP dan VoIP belum mulai diterapkan. Pada teknologi 3G UMTS, arsitektur All-IP dan VoIP mulai diterapkan pada standar 3GPP rilis 5 dan saat ini kebanyakan operator mengimplementasikan 3GPP rilis 4.
+
+Dari sisi teknis, diadopsinya WiMAX pada standar IMT-2000 berarti tambahan pekerjaan bagi organisasi-organisasi terkait untuk membahas bagaimana jaringan telepon tetap (fixed network) dan teknologi 3G lainnya dapat berinteraksi dengan teknologi WiMAX secara harmonis.
+
+Press release dari masuknya WiMAX menjadi standar 3G dapat dilihat disini.[http://www.itu.int/newsroom/press_releases/2007/30.html]
+

@@ -1,0 +1,7 @@
+Session Description Protocol (SDP) digunakan untuk mengirimkan informasi tentang 'media stream' dalam sesi komunikasi multimedia.
+
+SDP includes
+–Session name and purpose
+–Time(s) the session is active
+–The media comprising the session
+–Information to receive those media (addresses, ports, formats and so on)

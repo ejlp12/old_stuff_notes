@@ -1,0 +1,32 @@
+AOP = aspect-oriented programming
+
+separation of concern
+cross-cutting concern
+
+example: transaction, logging, security
+
+Aspect
+- cross-cutting concerns as full stand-alone modules
+
+Joint points 
+- represent well-defined points in a program's execution
+- method calls, access to class members, and the execution of exception handler blocks, etc
+- Join points may contain other join points
+
+Pointcuts
+- a language construct that picks out a set of join points based on defined criteria
+- expressions that list join points
+
+Advice
+- code that executes before, after, or around a join point
+
+weaving
+- injecting the advice presented in aspects into the specified join-points associated with each advice
+
+
+Tools for Java
+
+AspectJ (http://eclipse.org/aspectj)
+AspectWerkz (http://aspectwerkz.codehaus.org/index.html)
+JBoss-AOP (http://www.jboss.com/products/aop)
+Spring (http://www.springframework.org/)

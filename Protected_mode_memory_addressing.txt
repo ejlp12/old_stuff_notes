@@ -1,0 +1,156 @@
+Protected Mode
+
+Dalam prosesor 80386 terdapat register-register baru yang belum ada prosesor
+pendahulunya. Register tersebut adalah:
+
+   GDTR (Global Descriptor Table Register)
+   IDTR (Interrupt Descriptor Table Register)
+   LDTR (Local Descriptor Table Register)
+   TR (Task Register)
+   CR0-CR3 (Control Registers)
+   DR0-DR7 (Debug Registers)
+
+Pengalamatan memori pada protected mode (P-mode)
+
+Pada P-mode, segment register tidak mengunjukan pada base address sebuah segment
+seperti pada real mode.
+
+Segment register berisi sebuah selector (pemilih) yang digunakan untuk memilih 
+sebuah descriptor dari sebuah tabel descriptor. Descriptor tersebut menyimpan 
+informasi dari suatu segment misalnya base address, tipe segment, pangjang 
+segment, access right.
+
+Artinya sebuah alamat memori yang ditunjukan oleh segment register dan offset 
+ditranslasikan ke alamat memori fisik dengan cara melihat tabel descriptor 
+dahulu.  Segment register menunjukan informasi yang harus diambil dalam tabel
+tersebut.
+                          Descriptor Table
+                        +-------------------+
+                        | Descriptor        |
+                        +-------------------+
+      .------------.    | Descriptor        |
+      | Selector   |    +-------------------+
+      `------------'    | Descriptor        |
+             |          +-------------------+
+             \--------->| Descriptor        |
+                        +-------------------+
+                        | Descriptor        |
+                        +-------------------+
+
+
+DS:EBX
+0008:00000078
+
+0008 0000FA00 menunjukan alamat memory 0000FA78
+
+-== Selector ==-
+
+Selector adalah nilai yang disimpan dalam 16-bit segment register. Selector ini
+memiliki bagian sebegai berikut:
+
+   16                                   3  2  1  0
+  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+  |            Descriptor index          |TI| RPL |  
+  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+     
+  
+  RPL (Request Privilege Level) yaitu nilai kode hak akses. Akses diperbolehkan 
+  jika RPL lebih kecil dari DPL pada Access Righ dalam segment descriptor. 
+      00 adalah level privilege tertinggi, 11 adalah level terendah
+      
+      
+  TI (Table Index) yaitu nilai yang menunjukan tabel register mana yang digunakan. 
+  Terdapat dua jenis descriptor table yang dapat dipilih yaitu: 
+     TI=0 Global Descriptor Table (GDT)
+     TI=1 Local Descriptor Table (LDT)
+     
+  Descriptor index (bit ke-3 sampai bit-13) digunakan untuk mengakses descriptor 
+  pada GDT ataupun LDT
+  
+  
+-== Descriptor Table ==-
+
+Terdapat tiga macam descriptor table yaitu:
+
+
+1. Global Descriptor Table (GDT).
+   Tabel ini digunakan oleh semua program.
+   
+2. Local Descriptor Table (LDT).                                           
+   An LDT can optionally be defined on a per-task basis and is used to expand 
+   the addressable range of the task.                                        
+   
+3. Interrupt Descriptor Table (IDT).                                       
+   The IDT is a direct replacement to the interrupt vector table used in 8086 
+   systems.                                                                  
+
+Setiap tabel dapat menyimpan descriptor-descriptor sebanyak 8192 buah descriptor.
+
+Descriptor table bertempat didalam memori dan lokasinya ditunjukan oleh register 
+khusus yaitu      
+
+   GDTR (Global Descriptor Table Register)
+   LDTR (Local Descriptor Table Register)
+   IDTR (Interrupt Descriptor Table Register)
+    
+
+Register-register tersebut meruapakan 48-bit register yang menunjukan alamat 
+linear (bukan pasangan segment:offset) yang diset saat prosesor masuk dalam 
+protected mode. 
+
+  
+  
+-= Segment Descriptor =-
+
+Ada beberapa macam descriptor yaitu:
+
+ - Code Descriptor dan Data Descriptor yang memiliki format sama
+ - LDT descriptor
+ - TSS descriptor
+ - Task Gate
+ - Call Gate
+ - Trap Descriptor dan Intterupt Descriptor yang memiliki format sama
+
+ 64          56      52         48             40                 16          0
+   +---------------------------------------------------------------------------+
+   | Base      |G|D|X|U| Limit    | Access Right | Base Address     | Limit    |  
+   | (B31-B24) | | | | | (L19-L16)|              |  (B23-B0)        | (L15-L0) |
+   +---------------------------------------------------------------------------+
+ 
+ Limit (20 bit) menyimpan nilai panjang segment dikurang 1
+ Base Address (25 bit) menyimpan alamat awal dari segment
+ Access Right (5 bit) 
+    
+    +-+-+-+-+-+-+-+-+-+
+    |P| DPL |S|TYPE |A|
+    +-+-+-+-+-+-+-+-+-+
+    
+    A=0 segment tidak diakses, A=1 segment diakses
+    TYPE menunjukan tipe segment yang ditungukan oleh descriptor  
+         000  0  Data, read-only
+         001  1  Data, read/write
+         010  2  Stack, read-only
+         011  3  Stack, read/write
+         100  4  Code, execute-only 
+         101  5  Code, exceute/read (no self-modifying)
+         110  6  Code, execute-only, conforming
+         111  7  Code, exceute/read, conforming   
+    S menunjkan bagaimana descriptor akan diinterpretasikan               
+      S=0 system descriptor
+      S=1 code, data atau stack
+    DPL (Descriptor Privilege Level)
+    P menunjukan valid tidaknya descriptor
+      P=0 descriptor tidak didefinisikan yang menyebabkan prosesor tidak akan memproses
+          jika ada intruksi yang mengakses descriptor
+      P=0 descriptor berisi base dan limit yang benar (valid)
+        
+ Bit 52-55 (G, D, X, U):
+   G: Granularity bit
+      jika 0 berarti segment bisa berukuran 1 byte sampai 1MB
+      jika 1 berarti segment bisa berukuran 4KB sampai 4GB
+   D: Default/Big bit
+      Menunjukan bagaimana prosesor mengakses register dan memory data saat dalam
+      kondisi P-mode
+      jika D=0, instruksi berarti 16bit denan register 16bit dan offset 16bit, stack juga 16bit.
+      jika D=1, instruksi berarti 32bit.
+   X: reserved by Intel
+ 

@@ -1,0 +1,52 @@
+GT Number
+Trunk group
+member number LNO
+LTG
+TS = Time Slot
+
+SL = Signaling Link
+LTU/DIU
+
+C7 channel mengambil satu timeslot dari trunk group
+sisanya digunakan untuk voice channel
+
+trunk member : digital timeslot
+
+DDF = Digital Distribution Frame
+SDL = 
+
+
+
+E1.1.1
+
+
+TSU (Telecom Signaling Unit)
+  satu TSU dapat terdiri dari beberapa TSC
+  link
+  timeslot
+TSC (Telecom Signaling Card)
+ memiliki port untuk mengkoneksikan trunk
+ 
+ satu trunk (E1 conection) membutuhkan dua buath kabel coaxial 75-ohm atau sebuah kabel pair 120-ohm
+ konektor yang digunakan adalah konektor BNC atau RJ45
+ 
+TMC (telecom card)
+
+PCM : Digital 2 megabits per second Telephone Line
+
+SCU L3OM TUPOM
+
+
+
+A-Links (Access links)
+ Mengkoneksikan SSP (atau SCP) ke pasangan STP
+B-Links (Bridge links)
+ Mengkoneksikan pasangan STP ke pasangan STP (level yang sama)
+C-Links (Cross links)
+ Mengkoneksikan antar pasangan STP (kedua STP) 
+D-Links (Diagonal links)
+ Mengkoneksikan pasangan STP primer ke pasangan STP sekunder
+E-Links (Extended links)
+ Mengkoneksikan SSP ke pasangan STP "remote"
+F-Links (Fully Associated links)
+ Mengkoneksikan  SPP dengan SSP

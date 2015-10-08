@@ -1,0 +1,9 @@
+JINI/JavaSpaces
+
+API yang sederhana untuk digunakan. Hanya 3 proses utama yaitu: write(), read(), take(). 
+
+JavaSpaces is a distributed, object-based system
+
+Suatu program mengirim service/job ke spaces, maka satu atau lebih program lain dapat
+mengambil job tersebut menjalankannya dan mengirim kembali hasilnya ke space. Program
+pertama mengambil hasil tersebut.

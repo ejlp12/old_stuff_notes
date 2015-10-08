@@ -1,0 +1,64 @@
+Layanan USSD callback (UCB) 
+
+Proses charging pelanggan prabayar harus dilakukan secara realtime, hal ini membuat proses tersebut sulit dilakukan jika pelanggan tersebut roaming di luar negeri. Interoperability antar dua jaringan yang berbeda sulit dilakukan karena setiap oprator bisa jadi menggunakan protokol yang sama sekali berbeda atau berbeda versi.
+
+Salah satu solusi untuk pelanggan prabayar yang roaming adalah menggunakan CAMEL Phase 2, hanya saja masalahnya tidak semua operator mendukung CAMEL-2. Untuk itulah ada solusi lain yang disebut USSD callback.
+
+Prinsip USSD callback ini adalah, pelanggan (A number) mengirimkan kode perintah kepada home network agar  home network melakukan pemanggilan (call) ke pelanggan itu sendiri (A number) dan ke pelanggan yang dituju (B number).
+
+Karena solusi ini menggunakan USSD, maka pelanggan yang roaming hanya perlu melakukan dial dengan kode akses tertentu, misalnya #123*628012345678# untuk menghubungi nomor +628012345678.
+
+Proses dan arsitektur dari USSD callback adalah sebagai berikut:
+
+
+      VISITED NETWORK      |      HOME NETWORK
+                       
+     .-----------.         |          .-----------.
+     |           |--2.USSD Request--->|           |
+     |    MSC    |         |          |    HLR    |
+     |           |                    |           |
+     '-----------'         |          '-----------'
+           ^                                |
+           |               |                | 3.USSD Request
+           |                                v
+        1.Dial             |          .-----------. 4. Cek     .------------------.
+           |                          |           |----------->|  Billing System  |
+           |               |          |UCB System |            |  atau IN         |
+        Penelpon <-----6.Callback-----|           |----------->|                  |
+                           |          '-----------' 7. Commit  '------------------'
+                                            |
+                           |           5a.Setup call
+                                            |
+                           |                V
+                                      .-----------.
+                           |          |           |  5b.Setup call
+                                      |    MSC    |----------------> Yang ditelpon
+                           |          |           |
+                                      '-----------'
+
+1. Pelanggan pra-bayar yang berada di visited network mengirimkan perintah USSD dan diterima oleh VMSC
+2. USSD request diteruskan ke HLR di home network
+3. HLR mengetahui bahwa perintah USSD tersebut adalah perintah callback yang harus diteruskan ke UCB system
+4. USSD Callback system kemudian melakukan pengecekan terhadap sisa pulsa (balance) dari penelpon dengan mengirimkan pesan ke Billing System atau Intelligent Network (Service COntrol Point)
+   Pengecekan dapat dilakukan secara terus menerus (reguler) selama percakapan berlangsung, atau hanya pada saat awal. 
+   Jika pengecekan dilakukan satu kali disaat awal, maka UCB system harus tahu kapan percakapan harus diputuskan dengan sisa pulsa yang dimiliki si pemanggil.
+   Karena penelpon berlokasi diluar home network (roaming) dan biasanya harga percakapan roaming berbeda (lebih mahal) maka biasanya UCB system akan mengirimkan MAP ATI (Any-Time Interrogation) ke HLR untuk mendapatkan lokasi dari pemanggil.
+   
+5. Jika penelpon masih memiliki pulsa maka UCB system melakukan pemanggilan ke nomor tujuan.
+6. UCB system melakukan pemanggilan ke penelon untuk membuat sambungan dengan nomor tujuan. Dalam gambar ditunjukan panah langsung dari USSD Callback Server ke penelepon hanya untuk mempermudah pemahaman. Pada kenyataaanya, USSD Callback Server akan melakukan pemanggilan lewat Gateway MSC di home network untuk kemudian diteruskan ke VMSC.
+7. Pengurangan pulsa dilakukan USSD Callback server dengan cara mengirimkan commit request ke billing system atau IN.
+
+Adakalanya layanan UCB dilakukan oleh IN/SCP, beberapa produk IN telah menambahkan fasilitas ini didalamnya sehingga operator tidak memerlukan produk atau server terpisah. Operasi InitiateCallAttempt diperlukan untuk dapat terjadinya callback ke penelpon dan sambungan ke orang yang ditelpon. InitiateCallAttempt didukung oleh ETSI INAP CS-1 atau CAP-4 (CAMEL Application Part phase 4) atau phase yang lebih tinggi. INAP atau CAP digunakan hanya untuk interaksi antar SCP/IN dengan MSC/MSS sehingga visited network tetap tidak perlu mendukung CAMEL. 
+
+Apa yang diperlukan oleh USSD Callback System?
+
+Dari arsitektur diatas kita bisa tahu bahwa sebuah USSD Callback System perlu mendukung atau memiliki
+
+- Signaling link (SS&/SIGTRAN) dengan MAP untuk mendapatkan informasi USSD message dari HLR
+- ISUP untuk setup/release pemanggilan (call)
+- Koneksi untuk voice trunk 
+- Koneksi ke elemen lain misalnya SMSC untuk pengiriman notifikasi
+- Charging protokol misalnya Diameter
+
+
+(c) 20071106 ejlp12@yahoo.com

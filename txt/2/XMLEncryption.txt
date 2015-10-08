@@ -1,0 +1,28 @@
+  <EncryptedData Id? Type? MimeType? Encoding?>
+  
+    <EncryptionMethod/>?
+    <ds:KeyInfo>
+      <EncryptedKey>?
+      <AgreementMethod>?
+      <ds:KeyName>?
+      <ds:RetrievalMethod>?
+      <ds:*>?
+    </ds:KeyInfo>?
+  
+    <CipherData>
+      <CipherValue>?
+      <CipherReference URI?>?
+    </CipherData>
+    <EncryptionProperties>?
+  </EncryptedData>
+  
+  xmlns='http://www.w3.org/2001/04/xmlenc#'
+  
+  Type='http://www.w3.org/2001/04/xmlenc#Element'
+  Type='http://www.w3.org/2001/04/xmlenc#Content'
+  
+  MimeType='text/xml'
+  
+  Algorithm='http://www.w3.org/2001/04/xmlenc#tripledes-cbc'
+  Algorithm='http://www.w3.org/2001/04/xmlenc#aes128-cbc'
+  Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"

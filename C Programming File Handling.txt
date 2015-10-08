@@ -1,0 +1,15 @@
+File handling
+
+stdio.h
+
+file pointer 
+
+FILE *my_file_ptr
+
+FILE *fopen( const char *filename, const char *mode );
+
+mode
+r      Membuka file untuk dibaca
+w      Membuka file untuk ditulis (file akan dibuat jika belum ada)
+a      Membuka file untuk append  (file akan dibuat jika belum ada)
+rw     Membuka file untuk dibaca dan ditulis (file akan dibuat jika belum ada)

@@ -1,0 +1,25 @@
+Algoritma garbage collection tidak didefinisikan
+Karena tidak didefinisikan kita tidak tau bagaimana suatu garbage collection berjalan dalam JVM
+Jadi kita tidak tahu kapan suatu object akan di garbage collected
+Java spesification hanya menjamin bahwa setiap instance yang akan di-garbage collected akan dipanggil method finalize()-nya.
+Jangan mendesain program Java yang kebenarannya (correctness) bergantung pada finalization suatu instance
+Garbage collector mengabaikan setiap exception dari finalizer.
+Garbage collector normalnya tidak akan mengeksekusi finalizer suatu object yang tersisa di heap pada saat aplikasi selesai (exit).
+Method static Runtime.runFinalizersOnExit(boolean) akan membuat GC mengeksekusi finalizer saat aplikasi selesai. Method ini deprecated.
+Kita dapat menghidupkan kembali (resurrect) suatu object dalam finalizer. Misalnya dengan menambahkan reference pada object yang akan di finalize ke suatu static linked list yang masih 'hidup'
+JVM hanya akan memanggil finalize() method sekali.
+Hindarkan menghidupkan kembali (resurrect) suatu object dalam finalizer, gunakan mekanisme cloning/copy object.
+
+Contoh kegunaan finalizer:
+- Membebaskan (free) memori yang dialokasikan oleh native method
+- Memberikan suatu mekanisme fallback untuk melepaskan resource non-memory yang terbatas, misalnya file handler atau socket
+
+Semua data (object, array, primitive data type) akan disimpan di heap
+Heap merupakan daerah shared memory yang dapat diakses oleh semua thread dari JVM
+Suatu object yang tidak direferensikan oleh suatu thread yang aktif akan di de-allocate
+Object tidak secara langsung (immediately) dihancurkan ketika tidak direfensikan.
+GC thread dapat mekalaim kembali memory kapan saja.
+
+
+Simulasi applet Getting loaded menjelaskan bagaimana suatu java byte code file di load oleh JVM
+http://pl.changwon.ac.kr/~pl/seminar/jvm/insidejvm/applets/GettingLoaded.html

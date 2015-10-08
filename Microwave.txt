@@ -1,0 +1,28 @@
+Microwave
+
+Dua tipe produk microwave yaitu
+
+- short-haul yang digunakan untuk access applications
+- long-haul yang digunakan untuk trunking applications
+
+Berdasarkan protokol Layer 2 yang digunakan, microwave dapat dibedakan juga menjadi
+
+- Plesiochronous Digital Hierarchy (PDH)
+  murah dan paling banyak digunakan
+  biasanya digunakan untuk access applications
+  memiliki bandwith 2 Mbit/s (E1) dan dapat di-multiplex sehingga kapasitasnya menjadi 4 x E1, 8 x E1 atau 16 x E1. 
+  Saat ini telah ada juga memberikan kapasitas 72 x E1 yang disebut Super PDH
+  Kapasitas PDH yang paling banyak digunakan adalah 4 x E1
+  
+- Synchronous Digital Hirarchy (SDH) 
+  SDH dikembangkan dari PDH
+  SDH menawarkan bandwith yang lebih tinggi dan pengiriman data yang lebih baik karena menggunakan jaringan yang tersinkronisasi
+  biasanya digunakan untuk long-haul applications yang membutuhkan performansi tinggi
+  kapasitasnya SDH adalah 155 Mbits/s (STM1) atau 50 Mbits/s (STS1) pada Sonet system
+  
+Terrestrial atau ground system  
+
+penghalang (obstructions)
+
+long-haul (jarak transmisi lebih dari 5 mil) 
+  

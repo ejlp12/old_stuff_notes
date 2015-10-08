@@ -1,0 +1,7 @@
+SAAJ covers is an API for SOAP with Attachments that can be used by other specs like JAX-RPC without depending on the rest of JAXM.
+
+
+JAXM is a Service Provicer Interface (SPI) specification. JAXM handles XML using a DOM-oriented model and allows you to examine the contents of a SOAP message by retrieving individual attachment parts. JAXM encapsulates attachments in an object called an AttachmentPart. You set the MIME headers for each AttachmentPart object, then add it to a message.
+
+The getContent method retrieves the contents and header from an AttachmentPart object. Using DataContentHandler objects, you can handle the attachment as a Java object corresponding to the MIME type or as an InputStream containing the content as bytes.
+

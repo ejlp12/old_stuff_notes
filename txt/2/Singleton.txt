@@ -1,0 +1,19 @@
+
+public static synchronized Singleton getInstance() {
+}
+
+
+
+Double Checked Locking pattern
+
+public static Singleton getInstance() {
+  if (_instance == null) {
+    synchronized(Singleton.class) {
+      if (_instance == null)
+        _instance = new Singleton();
+    }
+  }
+  return _instance;
+}
+
+

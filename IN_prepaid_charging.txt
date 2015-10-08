@@ -1,0 +1,9 @@
+IN dan prepaid charging
+
+Kalau saya lihat bagaimana IN digunakan di jaringan telekomunikasi di Indonesia ini maka saya lihat IN cenderung identik dengan prepaid charging yaitu tempat dimana rating dilakukan untuk pelanggan prabayar.
+
+Fungsi utama IN adalah sebagai SCP (Service Control Point) yaitu sebagai otak dimana eksekusi logic untuk pengontrol call berlangsung. Fitur online charging mulai ada dalam spesifikasi CAMEL 2 oleh sebab itu fungsi rating (penentuan biaya panggilan) dapat dilakukan secara internal yaitu pada mesin IN itu sendiri maupun secara eksternal.
+
+ETSI European Norm (EN) 301 140-1 (‘Capability Set 2’, CS2) yang merupakan induk dari CAMEL mendefinisikan sebuah elemen bernama SDP (Service Data Point) yang berisi tabel call rating atau inforamsi account pelanggan. Jadi rating call tiap pelanggan dilakukan dengan cara mengambil informasi rating yang spesifik untuk pelanggan tersebut dari SDP. SDP dapat terintegrasi dalam IN atau merupakan elemen yang terpisah.
+
+Bagaimana integrasi antara SDP dengan SCP tidak didefinisikan pada ETSI EN 301 140-1 maupun pada CAMEL sehingga biasanya integration point ini menggunakan protokol yang dibuat sendiri oleh vendor produk IN.

@@ -1,0 +1,1 @@
+proses mengkonversi call detail record (CDR) ke layout/format yang ditentukan sehingga dapat diimpor ke billing system atau elemen lain.

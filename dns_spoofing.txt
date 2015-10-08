@@ -1,0 +1,176 @@
+Ketika kita akan melakukan koneksi ke suatu host/server dengan memberikan nama host (hostname), misalnya anda browsing ke http://www.google.com, komputer yang kita gunakan akan melakukan perubahan (translasi) dari nama domain www.google.com ke IP address.
+
+Sebuah jaringan TCP/IP menggunakan alamat IP sebagai pengenal suatu host, alamat IP tersebut disimpan dalam tiap paket IP yang membawa data/informasi. Dengan adanya IP maka switch/router dapat menentukan jalur kemana paket tersebut harus dikirim.
+
+Nama domain digunakan untuk mempermudah kita dalam mengingat suatu hostname. Proses translasi dilakukan oleh Domain Name System yaitu sebuah database terditribusi yang digunakan aplikasi TCP/IP untuk memetakan antara hostname dengan IP address.
+
+Konsep DNS dispesifikasikan pada RFC 1034, sedangkan implementasinya dijelaskan pada RFC 1035
+
+sebuah hostname biasanya direpresentasikan dalam sebuah fully qualified domain name (FQDN) yang memiliki bentuk/format sbb:
+
+   <domain>.<top level domain>
+
+Hostname seperti ejlp.blogspot.com, google.com, students.abc.ac.id adalah contoh-contoh FQDN.
+
+Top level domain
+
+- arpa merupakan domain khusus yang diperuntukan untuk mentranslasi dari IP address ke hostname
+- organizational domain misalnya com, org, net, edu, gov, mil
+- country/geographical domain misalnya id untuk indonesia, uk untuk ingrris, de untuk jerman
+  
+  +----------------+
+  | IP (20 bytes)  |
+  +----------------+
+  | UDP (8 bytes)  |
+  +----------------+
+  | DNS header     |
+  +----------------+
+  | question       |
+  +----------------+
+  | answer         |
+  +----------------+
+  | answer         |
+  +----------------+
+
+DNS message memiliki header yang panjangnya tetap 12 bit kemudian diikuti oleh varibel yang panjangnya tidak tetap.
+
+Header terdiri dari
+
+- identification yang diset oleh client dan dikembalikan dengan nilai yang sama oleh server, bagian ini dipergunakan untuk mengetahui pasangan request dan response
+
+- flags yang terdiri dari 16 bit
+
+  +----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+  | QR |      opcode       | AA | TC | RD | RA |     zero     |       rcode       |
+  +----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+ 
+  <----> = 1 bit 
+ 
+
+
+QR (query-response) 0 berarti query, 1 berarti response
+opcode 4 bit 0 standar query, 1 inverse query, 2 server status request
+AA
+TC bit yang menunjukan jika jika paket dipecah (truncated) karena data yang dibawa lebih dari 512 byte.
+RD bit yang beraarti recursion desired
+RA bit yang beraarti recursion available
+rcode (return code) 0 berarti no error, 3 berarti name error yang berarti hostname yang dimaksud tidak ada
+
+DNS query dan answer biasanya menggunakan protokol UDP (RFC-768), tetapi dapat juga menggunakan  protokol TCP. Protokol TCP digunakan jika resolver mendapatkan jawaban yang tidak dapat dikirim dengan sebuah paket UDP karena panjang jawaban lebih dari 512 bytes. 
+Proses query pertama kali dilakukan dengan menggunakan UDP. Jika paket lebih dari 512, name server akan memberikan jawaban dengan flag TC yang bernilai 1 kemudian klien akan melakukan query lagi dengan menggunakan TCP. Name server kemudian akan memberikan answer dengan paket TCP yang memiliki feature fragmentasi paket sehingga data yang lebih besar dari 512 bytes bisa dikirimkan ke resolver.
+
+Query type
+
+Nama    Nilai numerik Query  Response  Deskripsi
+------- ------------- ------ --------- -----------
+ A        1            Y       Y        IP address
+ NS       2            Y       Y        Name server
+ CNAME    5            Y       Y        Canonical name
+ PTR      12           Y       Y        Pointer record
+ HINFO    13           Y       Y        Host info
+ MX       15           Y       Y        Mail exchange record
+ AXFR     252          Y       -        request zone transfer
+ ANY      255          Y       -        request semua record
+
+klien melakukan koneksi ke name server atau DNS server pada port 53
+
+Contoh query & reponse DNS yang diambil dari wireshark (www.wireshark.com):
+
+--- Query ----------------------------------------------------------------------
+   Frame 15 (82 bytes on wire, 82 bytes captured)
+   Ethernet II, Src: Usi_e2:a1:78 (00:16:41:e2:a1:78), Dst: Cisco_e3:e4:00 (00:16:9c:e3:e4:00)
+   Internet Protocol, Src: 192.1.1.1 (192.1.1.1), Dst: 192.1.1.17 (192.1.1.17)
+   User Datagram Protocol, Src Port: 4038 (4038), Dst Port: domain (53)
+       Source port: 4038 (4038)
+       Destination port: domain (53)
+       Length: 48
+       Checksum: 0x6cbc [correct]
+   Domain Name System (query)
+       [Response In: 18]
+       Transaction ID: 0x4e5c
+       Flags: 0x0100 (Standard query)
+           0... .... .... .... = Response: Message is a query
+           .000 0... .... .... = Opcode: Standard query (0)
+           .... ..0. .... .... = Truncated: Message is not truncated
+           .... ...1 .... .... = Recursion desired: Do query recursively
+           .... .... .0.. .... = Z: reserved (0)
+           .... .... ...0 .... = Non-authenticated data OK: Non-authenticated data is unacceptable
+       Questions: 1
+       Answer RRs: 0
+       Authority RRs: 0
+       Additional RRs: 0
+       Queries
+           halo.halo.com: type A, class IN
+               Name: halo.halo.com
+               Type: A (Host address)
+               Class: IN (0x0001)
+--------------------------------------------------------------------------------
+
+--- Response -------------------------------------------------------------------
+   Frame 16 (132 bytes on wire, 132 bytes captured)
+   Ethernet II, Src: Cisco_e3:e4:00 (00:16:9c:e3:e4:00), Dst: Usi_e2:a1:78 (00:16:41:e2:a1:78)
+   Internet Protocol, Src: 10.4.3.7 (10.4.3.7), Dst: 10.1.1.39 (10.1.1.39)
+   User Datagram Protocol, Src Port: domain (53), Dst Port: 4041 (4041)
+       Source port: domain (53)
+       Destination port: 4041 (4041)
+       Length: 98
+       Checksum: 0x6677 [correct]
+   Domain Name System (response)
+       [Request In: 33]
+       [Time: -3.000686000 seconds]
+       Transaction ID: 0x4e5c
+       Flags: 0x8183 (Standard query response, No such name)
+           1... .... .... .... = Response: Message is a response
+           .000 0... .... .... = Opcode: Standard query (0)
+           .... .0.. .... .... = Authoritative: Server is not an authority for domain
+           .... ..0. .... .... = Truncated: Message is not truncated
+           .... ...1 .... .... = Recursion desired: Do query recursively
+           .... .... 1... .... = Recursion available: Server can do recursive queries
+           .... .... .0.. .... = Z: reserved (0)
+           .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+           .... .... .... 0011 = Reply code: No such name (3)
+       Questions: 1
+       Answer RRs: 0
+       Authority RRs: 1
+       Additional RRs: 0
+       Queries
+           halo.halo.com: type A, class IN
+               Name: halo.halo.com
+               Type: A (Host address)
+               Class: IN (0x0001)
+       Authoritative nameservers
+           nokia.com: type SOA, class IN, mname ns.nokia.com
+               Name: nokia.com
+               Type: SOA (Start of zone of authority)
+               Class: IN (0x0001)
+               Time to live: 40 minutes, 57 seconds
+               Data length: 38
+               Primary name server: ns.halo.com
+               Responsible authority's mailbox: hostmaster.halo.com
+               Serial number: 2008032501
+               Refresh interval: 2 hours
+               Retry interval: 1 hour
+               Expiration limit: 14 days
+               Minimum TTL: 1 hour
+--------------------------------------------------------------------------------
+
+
+
+DNS cache poisoning
+
+DNS memiliki sebuah mekanisme caching yaitu penyimpanan sementara mapping antara hostname dan IP address setelah sebuah name server (NS) menerima informasi mapping tersebut dari NS lain sehingga 
+
+Data yang salah dari sebuah host penyerang (attacker) yang berperan remote Name Server (NS) disimpan pada DNS cache Name Server korban.
+
+Menebak destination port (65,535 kemungkinan)
+Menebak DNS transaction ID (identification) yang ada pada header paket DNS (65,535 kemungkinan)
+Menabak hostname/domain name yang yang di-query oleh klien
+
+Karena implementasi yang kurang baik pada resolver, port dan transaction ID yang dibuat oleh klien dapat juga dengan mudah diprediksi oleh penyerang. Hal ini yang terjadi pada celah keamanan DNS pada Windows<http://www.infosecwriters.com/text_resources/pdf/predictability_of_Windows_DNS_resolver.pdf>. Penggunaan port dan transaction ID yang tidak random membuat DNS spoofing lebih mudah dilakukan.
+
+Pekerjaan menebak menjadi lebih mudah jika penyerang melakukan penyadapan pada jaringan antara klien dan DNS server. Penyerang dapat 
+
+
+
+DNS ID Spoofing
+
+

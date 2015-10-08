@@ -1,0 +1,44 @@
+Jaringan seluler pertama, AMPS (Advanced Mobile Phone System)
+1979 GSM ( Global System for Mobiles) 900MHz
+1996 DCS (Digital Communication System) 1800MHz
+
+
+
+IP Multimedia Subsystem (IMS)
+
+DVB/DAB (Digital Video Broadcasting/Digital Audio Broadcasting)
+
+
+CSD (Circuit Switched Data, sometimes just called GSM Data).
+
+
+UMA (Unlicensed Mobile Access) 
+it just like VoIP
+lets you use your wireless broadband Internet connection such as Bluetooth or WLAN/WiFi (802.11) for mobile phone services.
+UMA Network Controller (UNC)
+
+http://umatechnology.org/
+
+
+Over-the-Air Technology (OTA)
+Part I: OMA Client Provisioning 1.1 -> sending an XML document using WAP Push over concatenated SMS. 
+Part II: OMA Device Management 1.1.2 -> allows for continuous management of a device's settings: modifying settings, diagnostics, and troubleshooting. Continuous management can take place via GPRS, Bluetooth, Infrared, wireless LAN, or fixed LAN connections.
+
+
+
+
+PTT
+Push to talk over Cellular (PoC) 
+
+WiMAX
+Wireless Fideality (WiFi)
+Wave LAN (WLAN)
+TDD-Solution
+
+
+UTRAN LTE (UTRAN Long Term Evolution)
+speed up to 100Mbps 
+
+RTT
+
+

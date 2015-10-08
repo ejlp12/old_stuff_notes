@@ -1,0 +1,62 @@
+
+PON (Passive Optical Network) adalah jaringan point-to-multipoint berbasis fiber optik yang memiliki elemen pembagi optik (optical splitter) yang berfungsi sebagai penyalur data pada beberapa tujuan. Elemen pembagi tersebut bersifat passive artinya tidak melakukan manipulasi sinyal seperti penguatan pada sinyal optik.
+
+PON pertama kali dibuat oleh http://www.fsanweb.org/ FSAN (Full Service Access network) yang kemudian distandarisasi oleh ITU-T (A/BPON, GPON) or IEEE (EPON).
+
+Arsitektur sebuah jaringan PON adalah sebagai berikut:
+
+http://www.infocellar.com/networks/new-tech/PON/pon1.gif
+
+
+Sinyal optik downstream dan upstream merupakan dua buah sinyal yang berbeda panjang gelombangnya dan dilewatkan pada jalur fiber yang sama. Sinyal tersebut digabungkan dan dipisahkan oleh sebuah alat pada ujung jaringan yaitu pada kantor pusat service provider atau pada alat yang ada di sisi pelanggan. Pemisahan dan penggabungan sinyal optik dilakukan menggunakan sebuah filter wavelength division multiplexer (WDM).
+
+Sinyal downstream adalah berupa paket-paket yang dikirimkan dengan cara broadcast lewat sebiuah fiber, kemudian optical splitter akan mengirimkan paket-paket tersebut ke semua end-point. Jadi setiap ujung (terminatition) akan menerima paket data yang sama untuk kemudian disaring hanya data yang ditujukan padanya saja yang akan diproses. Untuk menjaga keamanan data maka setiap paket atau frame dapat dienkripsi tersebih dahulu.
+
+Karena kemampuannya untuk mentransfer dengan bandwith yang tinggi dan jarak yang jauh (sekitar 20 sampai 30 km), PON biasa digunakan untuk jaringan metro atau untuk mobile backhaul yaitu antara core network dengan core network lain atau antara base station dengan core network.
+
+
+Jaringan PON memiliki beberapa tipe. Tipe-tipe yang populer adalah
+
+ APON atau BPON
+ GPON
+ EPON atau GEPON
+
+APON/BPON 
+
+APON atau ATM PON adalah standar yang dikeluarkan oleh ITU-T dan diratifikasi tahun 1998 dengan standard G.983.1. APON menggunakan ATM sebagai transport protokolnya (layer 2). Setelah adanya penambahan standar G.983.3, APON kemudian diganti namanya menjadi BPON atau Broadband PON
+BPON 
+
+ITU-T BPON standards:
+• G.983.1 R: Basic architecture, PMD and TC for ATM-based B-PON
+• G.983.2 R2: Operations Management Communications Interface 
+• G.983.3: WDM enhancement, for video overlays on B-PON 
+  - G.983.3 A1: Support for higher bit rates
+  - G.983.3 A2: Optical best practices for B-PON
+• G.983.4: DBA enhancement, for efficient bandwidth distribution 
+• G.983.5: Survivability enhancement, for protection switching
+
+
+GPON 
+GPON atau Gigabit PON juga distandarisasi oleh ITU-T. GPON dapat mentransmisikan ATM cell atapun ethernet packet. Dengan berbasis teknologi Generic Framing Procedure (GFP) (standar ITU-T G.7041) membuat GPON memiliki bandwith efisiensi yang lebih baik yaitu 93% (BPON memiliki bandwith efisiensi sekitar 70%).
+
+ITU-T GPON standards:
+• G.984.1: Requirements 
+• G.984.2: Physical layer 
+• G.984.3: Transmission Convergence layer
+• G.984.3 A1: Refinements to TC layer
+• G.984.4: Management layer
+• G.984.4 A1: Refinements to Management layer
+
+
+EPON 
+EPON atau Ethernet PON atau sering juga disebut GEPON (Gigabit Ethernet PON) merupakan standar IEEE 802.3ah yang diselesaikan tahun 2004. Standar ini merupakan bagian dari proyek Ethernet in the Last Mile (EFM) http://www.ieee802.org/3/ah/index.html. Seperti namanya, EPON menggunakan paket ethernet untuk mengirimkan informasi.
+
+
+
+
+Alcatel-Lucent
+Huawei
+NSN
+SUmitomo
+Tellabs
+

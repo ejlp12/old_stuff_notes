@@ -1,0 +1,28 @@
+
+Mungkin agak telat untuk membahas tentang WADL ini. Tulisan ini ditrigger dari OneAPI yang merupakan REST based Services yang sedang dikembangkan GSMA dan semakin populernya RESTful Web Services akhir-akhir ini.
+Pertanyaan yang muncul pertama kali dibenak saya adalah kenapa RESTful, toh sudah ada SOAP Web Services yang cukup mature dengan begitu banyak standar WS-*.
+Kemudian, apa RESTful memiliki descriptor seperti halnya SOAP memiliki WSDL? 
+
+Tunggu dulu, apakah WSDL adalah descriptor untuk SOAP web service saja?
+WSDL dirancang untuk menjadi standar decriptor web service bukan hanya untuk SOAP dan bukan hanya untuk HTTP binding. Perlu diingat bahwa SOAP juga tidak dirancang spesifik
+untuk menggunakan HTTP sebagai transport protocol-nya, tapi bisa menggunakan FTP, SMTP, Messaging dan lain-lain.
+WSDL 1.1 yang saat ini sudah menjadi standar de-facto sebagai descriptor Web Services memiliki keterbatasan pada HTTP binding dimana GET atau POST saja.
+Untuk kebutuhan pendeskripsian suatu RESTful Web Service maka kita perlu menggunakan WSDL versi 2.0.
+
+Selain WSDL, REST based Services juga dapt menggunakan Web Application Description Language (WADL) sebagai descriptor.
+WADL dibuat oleh Sun Microsystem. Dokumen spesifikasi WADL dapat diperoleh disini [https://wadl.dev.java.net/]. Spesifikasi tersebut disubmit dan dipublikasikan juga oleh
+W3C, tetapi bukan sebuah standar (Recommendation) yang dikeluarkan W3C. [http://www.w3.org/Submission/wadl/].
+
+
+--
+http://www.ibm.com/developerworks/webservices/library/ws-rest1/
+
+
+
+
+
+===============
+http://roy.gbiv.com
+
+
+

@@ -1,0 +1,10 @@
+RMI
+
+Pada awalnya RMI menggunakan protokol khusus yaitu JRMP (Java Remote Method Protocol).
+Dengan menggunakan JRMP, RMI tidak dapat saling beroperasi (interoperability) dengan bahasa pemrograman lain atau platform lain.
+Jika RMI menggunakan JRMP maka hanya dapat digunakan antar program Java.
+
+RMI-IIOP API mendukung JRMP dan IIOP
+Class server yang dibuat dengan API RMI-IIOP dapat menggunakan JRMP ataupun IIOP tanpa perlu mengubah kode programnya.
+Suatu RMI-IIOP client dapat mengakses CORBA server, tetapi terbatas (tidak semua object dapat diakses).
+

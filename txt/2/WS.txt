@@ -1,0 +1,13 @@
+WSDL address/URL
+Web Service Security 
+ SSL
+ HTTP basic authentication
+
+WS-Security
+ Username tokens
+
+SAML: Security Assertion Markup language
+XACML: XML Access Control Markup Language
+
+XKMS: XML Key Management Specification 
+XrML: eXtensible Rights Markup Language 

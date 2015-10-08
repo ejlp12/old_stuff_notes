@@ -1,0 +1,89 @@
+
+GSM -> GPRS -> UMTS R99 -> UMTS Rel-4
+
+
+
+
+
+Evolusi UMTS
+
+Hampir tiap tahun 3GPP mempublikasikan release baru.
+
+o Release 99 April 1999,
+
+Difinalisasi pada tahun 2000
+GSM RAN (Radio Access Network) digantikan UTRAN (UMTS Radio Access Network), yaitu 
+ - Menggunakan WCDMA sebagai air interface, tapi juga mendukung GSM/EDGE/GPRS radio-access network.
+ - Pita frekuensi (bandwidth) yang lebih lebar
+ - Macrodiversity, soft handover
+ - 
+
+UL/DL flexible RAB configurations
+Dedicated and shared resource usage
+Handovers to/from GSM
+
+
+o Release 4 (Rel'4) April 2001,
+
+Hampir tidak ada perubahan pada FDD
+Diperkenalkan Low ChipRate TDD
+Mendukung MMS
+Pemisahan antara user-plane (Transport) dan control-plane pada domain CS. Pemisahan tersebut dilakukan dengan memperkenalkan arsitektur Mobile Switching Server yaitu menggunakan MGW (Media Gateway) sebagai elemen yang mengatur user-plane dan MMS (Mobile Switching Server) sebagai elemen yang pengotrol MGW.
+Domain CS dapat berbasis IP (tidak lagi harus TDM)
+
+
+o Release 5 (Rel'5) tahun 2002 
+
+ HSDPA menggunakan 
+  - Hybrid Automatic Repeat Request (HARQ), 
+  - link adaptation, 
+  - orde modulasi yang lebih tinggi untuk meningkatkan efisiensi spektral yaitu menggunakan 16QAM
+  - Hybrid ARQ
+  - Turbo Codes
+
+ Core network mengalami perubahan yaitu adanya arsitektur IMS (IP Multimedia Solution) dengan memperkenalkan jaringan yang berbasis IP dan elemen-elemen fungsional baru yang mendukung VoIP (Voice overIP) yang menggunakan protokol SIP (Session Initiation Protocol).
+ IP UTRAN (Layer 2 antara RNC dan GGSN tidak harus berbasis ATM)
+ Iu Flex:
+   - Hubungan RNC dengan SGSN adalah many-to-many: Satu RNC dapat terhubung ke beberapa SGSN dan satu SGSN melayani banyak RNC. 
+   - RNC melakukan pemilihan SGSN ketika UE akan melakukan koneksi GPRS sehingga dapat terjadi load balancing
+   - Beberapa RNC dikelompokan dalam sebuah grup yang disebut "Pool Area", begitu pula beberapa SGSN dikelompokan dalam Pool Area
+   - Sebuah Pool Area dilayani oleh satu atau lebih SGSN secara paralel
+   - 
+
+o Release 6 uplink 
+
+HSUPA dengan menggunakan Enhanced Dedicated Channel (E-DCH) 
+E-DCH menggunakan sheduled uplink dengan TTIs (Transmission Time Intervals) yang lebih singkat
+dan penambahan Hydbrid Automatic Retransmission Request (HARQ) processing
+
+Multicast and broadcast service menggunakan Multimedia Broadcast/Multicast Service (MBMS)
+Integrasi dengan WLAN
+IP Multimedia Subsystem yang sudah di-enhance 
+
+Extended location based services (LBS), with built in anonymization
+PS streaming service with adaptation to available network resources (GERAN/GPRS, UTMS, WLAN)
+DRM
+Charging Management Framework (for extended payment system)
+
+o Release 7
+
+HSPA+ atau HSPA Evolved
+
+penambahan fungsionalitas data GSM
+Optimasi pada  rilis sebelumnya untuk meningkatkan performansi
+meningkatkan kapasitas
+resistansi pada interferensi yang lebih baik
+Optimasi pada VoIP lewat HSPA
+EUDCH (?)
+
+- Receive Diversity & LMMSE Equalizer Receiver for HSDPA UE (Type 3 Receivers)
+- higher order modulations (HOMs) such as 64QAM (Quadrature Amplitude Modulation) in the downlink
+- multi-antenna techniques (MIMO) in the downlink,
+- RAN architecture "one tunnels solution" (OTS) dimana fungsi RNC terintegrasi dengan NodeB
+  semakin sedikit nodes sehingga mengurangi latency
+
+
+
+o Release 8
+
+Terdapat perubahan mendasar secara menyeluruh 

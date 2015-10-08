@@ -1,0 +1,252 @@
+-= ISDN User Part =-
+
+ISUP adalah protokol dan prosedur untuk men-"set up", mengatur (manage) dan merilis (melepas) trunk circuit yang membawa voice,data atau multimedia/video call antara elemen switch (exchange) yang saling berhubungan. Untuk memperjelas bagaimana ISUP digunakan perhatikan gambar dibawah ini yang menjelaskan bagaimana sebuah voice call dapat terjadi.
+
+
+ISUP merupakan signaling yang digunakan antar perangkat switch. Call yang berujung (terminate) pada switch yang sama tidak menggunakan ISUP. 
+Sebelum ISUP, jaringan PSTN menggunakan TUP (Telephone User Part) yang distandarisasi oleh ITU pada Rec. Q.721-Q.725 sebagai signaling yang mengatur pemanggilan.
+Sekarang ini ISUP digunakan pada jaringan ISDN maupun yang bukan ISDN. ISUP digunakan juga pada jaringan nirkabel GSM/UMTS maupun CDMAOne/CDMA2000.
+
+Pelanggan A           Switch A                                  Switch B            Pelanggan B
+-----------           --------                                  --------            -----------
+     |                    |                                         |                    |
+     |--------Setup------>|-------------------IAM------------------>|                    |
+     |                    |                                         |--------Setup------>|
+     |                    |<------------------ACM-------------------|                    |
+     |                    |                                         |                    |
+     |<----Nada dering----|<--------------CPG (ALERT)---------------|-----Nada dering--->|
+     |<-----Connect-------|<------------------ANM-------------------|<------Jawab--------|
+     |                                                                                   |
+     |<==================================== Percakapan =================================>|
+     |                                                                                   |
+     |                    |<------------------REL-------------------|<------Putus--------|
+     |<------Putus--------|                                         |                    |
+     |                    |-------------------RLC------------------>|------------------->|
+     |                    |                                         |                    |
+     
+1. Ketika sebuah call dilakukan oleh seorang pelanggan A, maka swith A akan memberitahu ke switch tujuan bahwa ada pemanggilan ke pelanggan B dari pelanggan A.
+2. Pemberitahuan itu dilakukan dengan mengurimkan ISUP message: IAM (Initial Address Message).
+3. Swith tujuan kemudian mencoba mengontak pelanggan B, jika kontak dapat dilakukan swith B akan menjawab dengan mengirimkan ISUP message yang menujukan bahwa call dapat dilakukan (ACM). Pelanggan A kemudian dapat mendengar nada sambung (CPG).
+4. Jika pelanggan B mengangkat telponnya, switch B akan mengirimkan ISUP message ACM (Answer Complete Address) yang menunjukan pelanggan B menjawab panggilan .
+5. Kedua swith kemudian mengkoneksikan  pelanggan A dan pelanggan B dengan sebuah voice trunk sehingga percakapan bisa dilakukan.
+6. ISUP message REL (Release Mesage) kembali dikirimkan dari switch B ke switch A jika pelanggan B melakukan pemutusan percakapan.
+7. Setelah Switch A memutuskan jalur komunikasi dengan pelanggan A, switch A akan memberitahukan switch B bahwa koneksi telah diputuskan dengan mengrimkan ISUP message RLC (Release Complete Message)
+
+Ada beberapa standar ISUP, yaitu
+
+
+Standar ITU-T Rec. Q.761 (ISUP functional description)
+              Rec. Q.762 (ISUP general functions of message and signals)
+              Rec. Q.763 (ISUP formats and codes)
+              Rec. Q.764 (ISUP signaling procedures)
+              Rec. Q.766 (ISUP performace objective)
+              Rec. Q.767 (ISUP yang disederhanakan untuk keperluan interkoneksi internasional)
+              Rec. Q.730 (ISDN user part supplementary services)
+              Rec. Q.784 (ISUP Basic Call Test Specification)
+
+
+Selain standar diatas ada beberapa standar lain yang banyak digunakan di Amerika, yaitu
+
+- Standar ANSI T1.113
+- Telcordia GR-246 
+- Telcordia GR-317 LSSGR
+- Telcordia GR-394 LSSGR
+
+dan standar yang banyak digunakan di Eropa
+
+- ETSI ETS 300-121
+- ETSI ETS 300-156-x
+
+
+Gambar posisi ISUP pada SS7 stack:
+
+        ----------------------
+        
+                 ISUP 
+        
+        ----------+
+           SCCP   |
+        ----------------------
+           MTP Level 3
+        ----------------------
+           MTP Level 2
+        ----------------------
+           MTP Level 1
+        ----------------------
+
+Seperti telihat pada gambar, informasi ISUP dibawa pada service information field (SIF) pada sebuah MSU dari MTP3/MTP3b.
+Nilai Service Information Octet (SIO) yang mengindikasikan ISUP adalah 0101.        
+
+-= Format ISUP Message =-
+
+Struktur sebuah ISUP message dibagi menjadi beberapa bagian yaitu
+- Routing tabel yang dideskripsikan pada standar Q.704. SLS (Signaling Link Set) bits dicopy dari 4 LSB (least significant bits) pada CIC
+- Circuit identification code (CIC) yang panjangnya 14-bit (ANSI) atau 12-bit (ITU)
+- Field yang menunjukan tipe message (message type field) misalnya IAM, ACM, ANM, REL, RLC.
+- Mandatory fixed part, bagian yang berisi parameter-parameter yang harus ada, urutannya tetap dan panjang tiap field-nya tetap.
+- Mandatory variable part, bagian yang harus ada tetapi panjang variabelnya tidak ditentukan
+- Optional part yang berisi parameter-parameter yang panjang field-nya dapat tetap atau tidak ditentukan. Tiap parameter memiliki parameter code, panjang parameter, dan isi dari parameter.
+
+Struktur mandatory fixed part, mandatory variable part dan optional part mengikuti format ASN.1.
+
+-= ISUP Message =-
+
+Message ISUP dapat dikelompokan menjadi dua bagian berdasarkan operasi yang ditangani ISUP
+
+(*) ISUP message yang berhubungan dengan call control, seperti:
+
+  Message	    Kode      Deskripsi
+  -------- ----------- --------------------------------------
+   ACM	   0000 0110   Address Complete Message      
+   ANM	   0000 1001   Answer message
+   APM	   0100 0001   Application Transport message
+   CPG	   0010 1100   Call Progress message
+   CRG	   0011 0001   Charge information message   
+   CON	   0000 0111   Connect message
+   FOT	   0000 1000   Forward Transfer message
+   IDR	   0011 0110   Identification Request message
+   IRS	   0011 0111   Identification Response message
+   INF	   0000 0100   Information message
+   INR	   0000 0011   Information Request message
+   IAM	   0000 0001   Initial Address message                       
+   PAM	   0010 1000   Pass Along Message
+   PRI	   0100 0010   Pre-release Information message
+   REL	   0000 1100   Release message
+   RLC	   0001 0000   Release Complete message
+   RES	   0000 1110   Resume message
+   SGM	   0011 1000   Segmentation Message 
+   SDM	   0100 0011   Subsequent Directory Number message
+   SAM	   0000 0010   Subsequent Address Message
+   SUS	   0000 1101   Suspend message
+   USR	   0010 1101   User-to-user information message
+
+(*) ISUP message yang berhubungan dengan maintenance, seperti:
+
+  Message	    Code      Deskripsi
+  -------- ----------- --------------------------------------
+   BLO	   0001 0011   Blocking message 
+   BLA	   0001 0101   Blocking Acknowledgement message    
+   CGB	   0001 1000   Circuit Group Blocking message  
+   CGBA	   0001 1010   Circuit Group Blocking Acknowledgement message
+   GRS	   0001 0111   Circuit Group Reset message  
+   GRA	   0010 1001   Circuit Group Reset Acknowledgement message  
+   CGU	   0001 1001   Circuit Group Unblocking message  
+   CGUA	   0001 1011   Circuit Group Unblocking Acknowledgement message
+   CQM	   0010 1010   Circuit group Query Message  
+   CQR	   0010 1011   Circuit group Query Response message  
+   CFN	   0010 1111   Confusion message  
+   COT	   0000 0101   Continuity message  
+   CCR	   0001 0001   Continuity Check Request message
+   FAA	   0010 0000   Facility Accepted message  
+   FAC	   0011 0011   Facility message  
+   FRJ	   0010 0001   Facility Reject message  
+   FAR	   0001 1111   Facility Request message  
+   LPA	   0010 0100   Loop back Acknowledgement message  
+   LOP	   0100 0000   Loop Prevention message  
+   NRM	   0011 0010   Network Resource Management message  
+   OLM	   0011 0000   Overload Message  
+   RSC	   0001 0010   Reset Circuit message  
+   UBL	   0001 0100   Unblocking message  
+   UBA	   0001 0110   Unblocking Acknowledgement Message  
+   UCIC	   0010 1110   Unequipped Circuit Identification Code message
+   UPA	   0011 0101   User Part Available message  
+   UPT	   0011 0100   User Part Test message  
+
+
+-= Metode pengiriman nomor tujuan =-
+
+Ketika pemanggilan (call) dilakukan oleh seseorang, switch akan mengirimkan IAM message ke switch tujuan dengan membawa informasi nomor yang dituju (called party). Ada dua cara untuk membawa informasi nomor tujuan, yaitu:
+
+- Enbloc operation, nomor tujuan dikirimkan dalam satu parameter pada IAM
+- Overlap operation, nomor tujuan dikirimkan terpisah sesuai urutan dalam IAM dan kemudian beberapa SAM (Subsequent Address Message)
+
+-= Timer =-
+
+T1_TIMER    Time to wait for a response to a release message sent.
+T2_TIMER    Time to wait for a resume message after a suspend message received.    
+T4_TIMER    Time to wait for call modification complete message.	
+T5_TIMER    Time to wait for a response to initial release message sent.
+T6_TIMER    Time to wait for a resume message after a suspend (network) message received.
+T7_TIMER    Time to wait for a response (for example, ACM, ANS, or CON) to the latest address message sent.
+T8_TIMER    Time to wait for a continuity message after receiving IAM requiring continuity check.
+T9_TIMER    Time to wait for answer of outgoing call after ACM message received.
+T12_TIMER    Time to wait for response to blocking message.
+T13_TIMER    Time to wait for a response to the initial blocking message sent.
+T14_TIMER    Time to wait for a response to an unblocking message sent.
+T15_TIMER    Time to wait for a response to the initial unblocking message sent.
+T16_TIMER    Time to wait for a response to a reset message sent.
+T17_TIMER    Time to wait for a response to initial reset message sent.
+T18_TIMER    Time to wait for a response to a group blocking message sent.
+T19_TIMER    Time to wait for a response to initial group blocking message sent.
+T20_TIMER    Time to wait for a response to a group unblocking message sent.
+T21_TIMER    Time to wait for a response to initial group unblocking message sent.
+T22_TIMER    Time to wait for a response to a circuit group reset message sent.
+T23_TIMER    Time to wait for a response to initial circuit group reset message sent.
+T27_TIMER    Time to wait for a continuity check request after ensuing continuity check failure indication is received. See the TCCR_TIMER field below.
+T28_TIMER    Time to wait for a CQR after sending a CQM.
+T31_TIMER    Time to wait before reusing call reference after a connection is cleared.
+T33_TIMER    Time to wait for a response to information request message sent.
+
+-= Circuit Identification Code =-
+
+Setiap ISUP message memiliki informasi CIC yang menunjukan digital timeslot dari voice channel yang menghubungkan dua exchange (Circuit Switch) 
+
+Ketika dua buah exhange akan dikoneksikan maka perlu ditentukan penomoran CIC pada kedua node tersebut. Penomoran CIC pada kedua exchange yang saling berhubungan langsung haruslah sama. Jika suatu node mengirimkan ISUP message yang tidak dikenali oleh node penerima message, maka node penerima akan menggirimkan ISUP message UCIC (Unequiped Circuit Code) 
+
+Panjang CIC pada ISUP untuk standard ITU adalah 12 bit (4096 circuit), sedangkan standard ANSI memiliki panjang 14 bit (16384 circuit).
+
+Format CIC
+
+|   8   |  	7   |   6   |   5   |   4   |   3   |   2   |   1   | <- Nomor bit
+|---------------------------------------------------------------| 
+| CIC (least significant bits)                               LSB|
+|---------------------------------------------------------------|
+| Spare	                        | CIC(most significant bits) MSB|
++---------------------------------------------------------------+
+
+-= Continuity Test =-
+
+Pada saat terjadinya call setup, sebuah exhange tidak tahu apakah jalur suara (voice trunk) antara originating exchange dengan terminated exchange dalam kondisi baik atau tidak. Tidak ada gunanya jika sebuah call setup dilakukan tetapi koneksi voice trunk tidak dapat dilakukan karena pengguna tidak dapat melakukan permbicaraan. Oleh karena itu pengetesan akan kontinuitas koneksi voice trunk antar dua exchange yang saling berhubungan diperlukan. Test kondisi koneksi voice trunk ini disebut continuity test.
+
+Continuity test dilakukan dengan cara menghubungkan circuit voice trunk yang akan digunakan kemudian originating exchange mengirimkan sebuah nada test ke terminating exchange. Terminating exchange kemudian mengirimkan nada jawaban ke originating exchange untuk diproses. Originating exchange akan menentukan apakah nada jawaban tersebut baik atau tidak, jika baik maka koneksi voice trunk dianggap baik. Hasil continuity test dilaporkan oleh originating exchange dengan cara mengirimkan message COT. Jika hasil test adalah voice trunk tidak dalam kondisi baik maka circuit akan di blok.
+
+Ada dua metode pengecekan kontinuitas yaitu:
+
+(1) Metode Loopback dimana terminating exchange akan membuat sambungan loopback sehingga nada (tone) yang dikirimkan originating exchange akan dikirim kembali. Jadi pada metode ini hanya digunakan satu tone.
+
+(2) Metode Transceiver dimana terminating exchange akan mambuat receiver untuk menerima tone dan membuat transmiter yang mengirimkan tone lain yang berbeda frekuensi ke originating exchange sebagai jawaban. Jadi pada metode ini digunakan dua tone.
+
+Pengecekan kontinuitas yang terjadi pada saat panggilan telpon normal (call setup) berlangsung biasanya diinisialisasi oleh originating exchange dan dilakukan sesekali saja. Seberapa sering continuity test harus dilakukan tergantung dari konfigurasi exchange yang bersangkutan. Biasanya dilakukan sekali untuk setiap 8 kali pemanggilan. Sebuah exchange menginisialisasi continuity test dengan cara memberikan flag Continuity Check Indicator pada field Nature of Connection di message IAM yang dikirimkannya. Setelah mengirimkan IAM dengan flag Continuity Check Indicator yang diset true, exhange akan mengkoneksikan circuit dengan pembangkit nada (tone generator) 
+
+-= Continuity test untuk maintenance atau troubleshooting =-
+
+Berbeda dengan pengecekan kontinuitas pada saat terjadinya sambungan (call), kontinuitas untuk keperluat test menggunakan message Continuity Check Request (CCR). Exchange yang menerima CCR akan mengirimkan Loop back Acknowledgement/Loop Around (LPA) yang menandakan bahwa circuit telah terkoneksi untuk keperluan test. Exchange yang menginisialisasi test kemudian akan melaporkan hasil test dengan message COT.  
+
+-= Kondisi Abnormal =-
+
+Beberapa kondisi abnormal
+(1)- Dual seizure (pengambilan bersamaan)
+  Dual seizure atau cicuit glare adalah kondisi dimana dua buat switch/exchange yang saling teRhubung melakukan pengambilan (seize) circuit yang sama pada saat yang hampir bersamaan misalnya ketika kedua exchange mencoba men-setup call. Hal ini bisa terjadi karena SS7 circuit memiliki kemampuan operasi dua arah. 
+
+  Sebagai contoh, Switch X terhubung langsung dengan switch Y. Seorang pelanggan A yang terhubung pada switch X melakukan pemanggilan telepon ke pelanggan P yang tehubung dengan switch Y dan pada saat yang bersamaan, pelanggan B yang terhubung dengan switch Y melakukan pemanggilan telepon ke pelanggan Q yang terhubung dengan switch X. Pada kondisi tersebut switch X akan memilih circuit yang kosong pada koneksi X dan Y begitu pulan switch Y. Karena kejadian tersebut bersamaan maka ada kemungkinan kedua switch tersebut memilih nomor circuit yang sama. Hal ini tidak boleh terjadi karena sebuah voice trunk yang diidentifikasi oleh nomo/koder circuit hanya bisa digunakan untuk komunikasi pelanggan A dan P saja atau B dan Q saja.
+
+  Kondisi dual seizure biasanya diminimalisasi dengan cara membedakan metode switch untuk memilih circuit.
+
+Metode pertama adalah dengan pengambilan circuit yang saling berkebalikan arah (opposite order) untuk sebuah circuit group dua arah. 
+
+Misalnya sebuah circuit group memiliki code 1, 2, 3 sampai 30. Maka exchange yang satu diset agar mengambil code dari yang kecil ke besar, mulai dari 1, 2, 3 dan seterusnya. Sedangkan exchange yang lain diset agar mengambil code dari yang besar ke kecil, mulai dari 30, 29, 28 dan seteresnya. 
+  
+Metode kedua adalah dengan pengambilan prioritas. Misalnya sebuah exchange memprioritaskan untuk menggunakan circuit yang berkode ganjil dahulu sedangkan exchange yang lain memprioritaskan untuk menggunakan cicuit bercode genap. Atau prioritas lain misalnya satu exchange memprioritaskan untuk menggunakan circuit yang paling lama idle (most idle) dulu sedangkan exchange yang lain memprioritaskan penggunaan circuit yang idle-nya sebentar (least idle) dahulu. 
+  
+  
+(2)- Reset circuit dan circuit group
+(3)- Temporary trunk blocking
+(4)- Kesalahan informasi pensinyalan
+
+(c) 200710 ejlp12@yahoo.com
+
+
+CAS -> TUP -> ISUP
+
+Blue book ISDN-UP 1998
+ISUP'92 istilah untuk ISUP yang berdasarkan Recomendation yang dipublikasikan tahun 1993

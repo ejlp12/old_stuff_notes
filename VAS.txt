@@ -1,0 +1,18 @@
+PRBT (Personal Ring-Back Tone)
+Location Based Service (LBS)
+SMSC (Short Messaging Service Center)
+MMSC (Multimedia Messaging Service Center)
+USSD Gateway
+VMS(Voice Mail Server) 
+
+STK server
+Device Management 
+Video ring-back tone
+
+
+BGMS (Background Music System)
+Message Call Service/ Voice Short Message Service (V-SMS)
+UMS(Unified Messaging Sever) unifies voice, fax, E-mails, short messages, and multimedia messages into registered users' single mailbox.
+
+Vendor:
+http://www.tisquare.com

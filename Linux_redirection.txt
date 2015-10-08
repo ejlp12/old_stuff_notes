@@ -1,0 +1,22 @@
+0 = stdin
+1 = stdout
+2 = stderr
+
+
+stdout ke out.txt & stderr ke err.txt
+
+./cmd 1>out.txt 2>err.txt
+
+./cmd 1>>out.txt 2>>err.txt
+
+stdout masih tampil dilayar
+cmd | tee tee.txt
+cmd | tee -a tee.txt
+
+
+echo "halo" >&1
+echo "halo" >&2
+
+cmd 2>&1 1>outfile.txt
+
+

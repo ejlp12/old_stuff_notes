@@ -1,0 +1,112 @@
+Mobile device capability
+
+
+Ada banyak alasan mengapa operator telekomunikasi atau service provider perlu mangetahui perangkat yang digunakan oleh pelanggannya. Alasan utamanya adalah untuk dapat menentukan atau memberikan layanan yang sesuai untuk diberikan kepada pelanggannya terutama layanan nilai tambah (value added service). Sebagai contoh operator yang mengetahui hanya sebagian kecil saja dari pelanggannya yang menggunakan perangkat 3G maka operator tersebut dapat menentukan agar tidak terlalu fokus pada promosi layanan 3G seperti video call. Contoh lain misalnya sebuah penyedia konten (content provider) yang harus memberikan konten yang memang dapat ditampilkan atau dijalankan pada perangkat si pembeli.
+
+Informasi yang perlu diketahui dari sebuah perangkat? 
+
+Kita mengenal sebuah perangkat misalnya ponsel dengan nama produsen dan tipenya, misalnya Nokia N80, SonyEricsson , Samsung SGH800 dan lain-lain. Dengan mengetahui tipe suatu perangkat maka kita akan mengetahui kapabilas dari perangkat tersebut misalnya perangkat mana yang mendukung 3G atau perangkat yang dapat menjalankan Java game dan lain-lain. Jadi yang menjadi fokus informasi dari sebuah perangkat adalah segala aspek kemampuan (capability) dari perangkat tersebut. Jika informasi kapabilitas yang diketahui dari suatu perangkat lebih lengkap tentu saja lebih baik.
+
+Ada banyak cara operator atau service provider mengetahui perangkat yang digunakan oleh pelanggannya. Dua cara yang paling umum adalah
+
+- Mengetahui nomor seri perangkat atau IMEI 
+Untuk mengetahui IMEI dari perangkat yang digunakan pelangganya, operator menyimpan aplikasi didalam SIM card yang men-trigger proses pada saat perangkat tersebut diaktifkan. Proses tersebut akan membaca IMEI untuk kemudian mengirimkannya bersama-sama dengan informasi IMSI/ICCID/MSISDN ke sebuah sistem lewat SMS. 
+
+Cara ini hanya dapat mengetahui jenis atau tipe perangkat saja sehingga untuk mengetahui detil kapabilitas dari perangkat tersebut perlu adanya database lain mengelola data kapabilas dari setiap perangkat. Data tersebut perlu dikelola (maintain), terutama jika ada perangkat baru di pasaran maka database perlu diperbarui dengan data kapabilitas perangkat baru tersebut.
+ 
+
+- Mengetahui jenis perangkat dari informasi yang diberikan pada HTTP/WAP header.
+Jika aplikasi browser pada perangkat melakukan koneksi HTTP/WAP pada sebuah web server maka browser akan memberikan informasi client pada HTTP header. Informasi client tersebut terdapat dalam parameter user-agent atau x-wap-profile. Contoh sebuah HTTP header dari request sebuah ponsel:
+
+  host: operator.co.id
+  accept-language: en
+  user-agent: Nokia6680/1.0(5.04.40) SymbianOS/8.0 Series60/2.6 Profile/MIDP-2.0 Configuration/CLDC-1.1
+  x-wap-profile: "http://nds1.nds.nokia.com/uaprof/N6680r100.xml"
+  accept: text/html,text/vnd.wap.wmlscript,*/*;q=0.001,text/ecmascipt,application/x-javascript,application/vnd.oma.dd+xml,text/x-co-desc,applicaiton/vnd.wap.sic,application/vnd.wap.mms-message, application/vnd.oma.drm.content,application/vnd.oma.drm.message, <diahpus karena terlalu panjang>
+  accept-charset: iso-8859-1,utf-8,iso-10646-ucs-2;q=0.600,*;q=0.001
+  accept-encoding: gzip, deflate,indentity;q=0.900,*;q=0.001
+  Connection: Keep-Alive
+
+Dengan metode ini, setiap sistem yang diakses oleh pengguna (user) dapat mengetahui jenis atau kapabilitas dari perangkat yang digunakan meskipun sistem itu berada diluar jaringan operator.
+
+User-Agent
+
+Dari sebuah user-agent header kita biasanya dapat menemukan jenis perangkat, versi dari sistem operasi, versi dari browser atau aplikasi client yang digunakan pada perangkat tersebut, kapabilitas Java dan lain-lain. 
+
+Pada contoh header diatas kita bisa lihat bahwa orang yang mengakses sistem menggunakan Nokia tipe 6680 dengan sistem operasi SymbianOS jenis Series60. Dengan mengetahui informasi tersebut maka sebagian besar kapabilitas dari perangkat dapat ketahui karena sebuah tipe perangkat dengan versi yang sama akan memiliki kapabilitas yang sama pula.
+
+Biasaya informasi yang lengkap didapatkan jika koneksi HTTP/WAP dilakukan oleh browser/aplikasi client bawaan dari pembuat perangkat tersebut. Ada kalanya jika kita menggunakan browser lain yang kita install sendiri maka informasi user-agent header tidak lengkap.
+
+
+User agent Profile (UAprof)
+
+UAProf adalah sebuah standar yang menspesifikasikan pendokumentasian dari kapabilitas sebuah suatu perangkat (user agent). Informasi tentang jenis/tipe perangkat serta kapabitasnya tersebut disimpan dalam sebuah dokumen XML. UAProf dibuat oleh OMA berdasarkan standar CC/PP (Composite Capabilities/Preferences Profiles) dan RDF (Resource Description Framework) yang dibuat oleh W3C.
+
+UAProf dari sebuah perangkat disimpan pada sebuah server yang dapat diakses oleh publik yang biasanya dikelola oleh perusahaan yang membuat perangkat. Alamat URL dimana UAProf berada dapat diketahui pada HTTP header yaitu pada parameter x-wap-profile seperti contoh diatas atau jika koneksi yang digunakan adalah WSP/WAP maka URL ada pada parameter Profile.
+
+Pada contoh diatas xml dokumen UAProf berada di 
+
+  http://nds1.nds.nokia.com/uaprof/N6680r100.xml
+
+Dengan mengakses URL tersebut kita dapat melihat kapabilitas dari perangkat Nokia 6680. Kapabilitas dari suatu perangkat dibagi dalam beberapa blok deskripsi yaitu:
+
+- Hardware platform yang mendeskripsikan karakteristik hardware misalnya tipe perangkat, model, ukuran layar, kemampuan input output dan lain-lain
+- Software platform yang berisi koleksi atribut yang berhubungan dengan lingkungan operasi perangkat misalnya OS, video atau audio encoder, API yang didukung oleh perangkat dan lain-lain
+- BrowserUA yang berisi parameter-parameter yang mendeskripsikan aplikasi browser
+- NetworkCharacteristics yang berisi parameter-parameter yang berhubungan dengan kemampuan akses jaringan 
+- WapCharacteristics yang berisi parameter-parameter yang berhubungan dengan kemampuan WAP
+- PushCharacteristics yang berisi parameter-parameter yang berhubungan dengan Push (WAP push)
+
+Contoh sebuah blok UAProf:
+
+         <rdf:Description rdf:ID="PushCharacteristics">
+            <rdf:type rdf:resource="http://www.openmobilealliance.org/tech/profiles/UAPROF/ccppschema-20021212#PushCharacteristics"/>
+            <prf:Push-Accept-Charset>
+               <rdf:Bag>
+                  <rdf:li>ISO-8859-1</rdf:li>
+                  <rdf:li>ISO-10646-UCS-2</rdf:li>
+                  <rdf:li>US-ASCII</rdf:li>
+                  <rdf:li>UTF-8</rdf:li>
+               </rdf:Bag>
+            </prf:Push-Accept-Charset>
+            <prf:Push-Accept-Encoding>
+               <rdf:Bag>
+                  <rdf:li>base64</rdf:li>
+                  <rdf:li>quoted-printable</rdf:li>
+               </rdf:Bag>
+            </prf:Push-Accept-Encoding>
+            <prf:Push-Accept-Language>
+               <rdf:Seq>
+                  <rdf:li>en-US</rdf:li>
+               </rdf:Seq>
+            </prf:Push-Accept-Language>
+            <prf:Push-Accept-AppID>
+               <rdf:Bag>
+                  <rdf:li>x-wap-application:wml.ua</rdf:li>
+                  <rdf:li>*</rdf:li>
+               </rdf:Bag>
+            </prf:Push-Accept-AppID>
+            <prf:Push-MsgSize>34170</prf:Push-MsgSize>
+         </rdf:Description>
+
+Penjelasan lebih lanjut tentang UAProf dapat dibaca di dokumen spesifikasinya <http://www.openmobilealliance.org/release_program/uap_v20.html>
+
+Dengan adanya UAProf maka operator dapat memiliki data kapabilitas dari perangkat tanpa perlu susah payang mengelolanya karena UAProf biasanya disediakan oleh pembuat perangkat. Tetapi tidak semua perangkat mendukung UAProf sehingga operator mungkin perlu membuat data kapabilitas sendiri untuk perangkat-perangkat yang tidak mendukung UAProf.
+
+
+(c) 20071222 ejlp12 
+
+
+Menyambung <a href="http://ejlp.blogspot.com/2007/12/kemampuan-kapabilitas-suatu-perangkat.html">posting sebelumnya</a> tentang kapabilitas perangkat bergerak (mobile device), kali ini saya akan berbicara tentang database perangkat yaitu database yang menyimpan data-data perangkat dan kapabilitasnya.
+
+Dilatar belakangi oleh perlunya mengetahui kapabilitas suatu perangkat, suatu sistem yang memberikan layanan kepada pelanggannya biasanya dilengkapi dengan database perangkat. Sebagai contoh adalah WAP portal
+
+OTA
+WAP push
+
+
+WURFL (Wireless Universal Resource File) <http://wurfl.sourceforge.net/index.php>
+
+Portal
+CMS/Download server
+MMSC

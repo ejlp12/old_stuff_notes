@@ -1,0 +1,8 @@
+A20-Gate
+
+Pertama kali 
+
+8086 hanya memiliki 20 bits address bus sehingga hanya dapat mengakses ruang memori hanya sampai ~1MB.
+
+Mulai prosesor 286 dan seterusnya misalnya 386, 486, Pentium, dll 
+

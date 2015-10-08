@@ -1,0 +1,5 @@
+Ultra Mobile Broadband (UMB) 
+
+Spesifikasi 'air interface' UMB (3GPP2 C.s0084-0 v2.0) dipublikasikan oleh dua organisasi yang menaungi teknologi CDMA2000 yaitu CDMA Development Group (CDG) dan 3GPP2.
+
+http://www.3gpp2.org/Public_html/News/Release_UMBSpecification24SEP2007.pdf

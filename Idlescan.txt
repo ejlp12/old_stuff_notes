@@ -1,0 +1,11 @@
+Idle scan yang pada awalnya bernama "dumb host scan"
+
+membutuhkan sebuah host yang idle artinya tidak ada network traffic pada host tersebut.
+menggunakan IP.ID 
+
+
+
+http://seclists.org/bugtraq/1998/Dec/0079.html
+http://seclists.org/bugtraq/1999/Dec/0058.html
+
+http://nmap.org/idlescan.html

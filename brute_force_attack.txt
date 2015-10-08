@@ -1,0 +1,18 @@
+
+Password brute force 
+Menebak sesuatu dengan cara coba-coba secara terus menerus. kemungkinan (probabilitas)
+
+Mencoba berbagai macam kata dari sebuah dictionary 
+
+
+admin
+admin123
+administrator
+password
+passwd
+pass
+test
+asdf
+root
+r00t
+love

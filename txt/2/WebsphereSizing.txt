@@ -1,0 +1,10 @@
+Test the deployment and adjust settings
+
+Adjusting memory
+Run the application under moderately heavy load for several minutes allowing memory usage to peak.
+Use profiling or monitoring software to obtain a more accurate memory usage estimate.
+Set JVM heap maximum and minimum size to this value plus an additional 20%.
+
+Observing processor usage
+
+Monitoring the deployment

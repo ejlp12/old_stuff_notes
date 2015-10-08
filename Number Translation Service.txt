@@ -1,0 +1,11 @@
+Number Translation Service (NTS) adalah istilah yang digunakan untuk aplikasi seperti tolfree, premium rate number, televoting
+
+
+• Reverse charging
+The service subscriber is charged, the calling party is not charged.
+• Premium rate charging
+The service user (calling party) is charged higher than for normal calls.
+• Split charging
+The charge is split between calling party and service subscriber.
+
+NumberTranslation@vantage (NTS@vantage)

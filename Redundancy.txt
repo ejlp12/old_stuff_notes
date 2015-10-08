@@ -1,0 +1,49 @@
+Redundancy untuk high availability
+
+Redundancy adalah kemampuan suatu sistem untuk tetap berfungsi dengan normal walaupun terdapat elemen yang tidak berfungsi. Hal ini biasanya dicapai dengan memiliki komponen backup yang berfungsi sama dengan elemen sistem.
+
+1+1 Redundancy
+
+Pada artitektur redundancy 1+1 berarti setiap elemen memiliki masing-masing satu elemen backup. Pada arsitektur ini, jika terjadi kegagalan (failure) pada satu elemen atau lebih, maka sistem secara keseluruhan masih dapat berfungsi seperti keadaan sebelumnya (tidak terjadi failure). Redundancy seperti ini sering disebut dengan active-stanby.
+
+             +----------------+
+       ,-----| Elemen utama   |
+       |     +----------------+
+   ----+    
+       :       +---------------+
+       :.......| Elemen backup |
+               +---------------+
+
+             +----------------+
+       ,-----| Elemen utama   |
+       |     +----------------+
+   ----+    
+       :       +---------------+
+       :.......| Elemen backup |
+               +---------------+
+
+
+N+1 Redundancy
+
+Parsitektur redundancy N+1 berarti sekumpulan elemen yang berfungsi sama untuk melayani beban pasa saat bersamaan, memiliki sebuah elemen backup. Arsitektur ini didesain untuk tetap tidak terpengaruh oleh kegagalan pada satu elemen dan memiliki harga (cost) yang efektif karena tidak memiliki banyak elemen backup.
+
+
+             +----------------+
+       ,-----| Elemen utama   |
+       |     +----------------+
+   ----+    
+       |     +----------------+
+       +-----| Elemen utama   |
+       :     +----------------+
+       :    
+       :       +---------------+
+       :.......| Elemen backup |
+               +---------------+
+
+Arsitektur redundancy yang memiliki elemen backup secara fisik disebut systemic redundancy atau physical redundancy.
+
+Redundancy dapat juga dibuat secara modular yaitu dalam sebuah system terdapat beberapa elemen dengan fungsi yang sama yang berguna sebagai modul backup. 
+
+
+Selain itu ada juga istilah N, N+1, 2N, 2(N+1) 
+http://www.crsc.com/Computer%20Room%20Services%20Corporation%20-%20Newave_files/articles_files/N_N_1_2N_Levels_of_Redundancy.pdf

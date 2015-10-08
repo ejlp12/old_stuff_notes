@@ -1,0 +1,459 @@
+Mengapa Belajar C
+
+C merupakan bahasa pemrograman yang cukup tua dan populer, walaupun telah mulai
+tergantikan oleh C++ tetapi C masih sering dipakai misalnya untuk membuat kernel
+Linux.
+
+-== Proses kompilasi ==-
+
+Membuat sebuah program/software dengan bahasa C dimulai dengan membuat source
+file. Proses kompilasi (compile) biasanya merujuk pada proses membuat file 
+binary yang dapat dieksekusi (executable) atau siap digunakan. Sebenarnya proses 
+kompilasi dalam C merupakan serangkaian proses yang terdiri dari
+
+1. Preproses yaitu menggabungkan antara file-file header yang digunakan dengan
+   file-file kode sumber menjadi sebuah file tanpa kode-kode preprocessor. Kita
+   akan lihat nanti apa itu kode preprocessor.
+   
+2. Kompilasi dari kode sumber yang telah di-preprocess menjadi sebuah file kode 
+   assembler yang meruapakan bahasa yang lebih dekat dengan bahasa mesin yang 
+   dimengerti oleh CPU.
+   
+3. Assembler yaitu membuat object file dari kode assembler
+  
+4. Linking menggabungkan beberapa object file dengan system library sehingga 
+   menjadi file executable atau menjadi sebuah library yang siap digunakan.
+   
+   Gambaran proses tersebut dapat dilukiskan sebagai berikut:
+
+   source file    user header file         standar 
+     [test.c]          [test.h]          header file
+        |                 |                   |
+        |                 |                   |
+        `-----------------+-------------------'                     
+                          |
+                  1.Preprocess (cpp)
+                          |
+                     [test.cc]
+                          |
+                    2.Compile (cc1)
+                          |                          
+                       [test.s]
+                          |
+                   3.Assembler (as)
+                          |
+    file object           |
+     lainnya          [test.o]       system library
+        |                 |                 |
+        `-----------------+-----------------' 
+                          |  
+                      4.Linking (ld)
+                          |
+                   executable file
+                       [runtest]
+
+cpp, cc1, as, ld adalah program (perintah) yang digunakan untuk melakukan proses diatas.
+Keempat program tersebut merupakan bagian dari GNU C Compiler yaitu program compiler untuk
+bahasa C yang biasanya menjadi standar aplikasi dalam distribusi Linux apapun.
+
+--= Kompilasi source code =--
+
+Sekarang kita coba membuat contoh program dan mulai mengkompilasi menggunakan GNU C Compiler sehingga 
+menjadi file executable.
+
+Buatlah ketiga contoh file dibawah ini   
+
+------- test.h ------- 
+int tambah(int, int);
+
+
+------- test.c ------- 
+int tambah(int a, int b) {
+  return a + b;
+}
+
+------- main.c ------- 
+#include "test.h"
+#include <stdio.h>
+
+int main() {
+  int a = 2;
+  int b = 5;
+  int c = tambah(a + b);
+  printf("%d", c);
+}
+
+Perintah kompilasi menggunakan gcc pada source code tesebut dapat dilakukan dengan sekali perintah
+seperti berikut:
+
+gcc main.c -o runtest
+
+Perintah tersebut akan menghasilkan file program executable bernama "runtest".
+
+Kita juga dapat mengkompilasi secara bertahap menggunakan sebagai berikut:
+
+cpp main.c > main.cc
+/usr/lib/gcc/i486-linux-gnu/4.3.3/cc1 main.cc
+
+gcc -E main.c > main.cc
+gcc -S main.cc
+gcc -c main.s
+gcc -o runtest main.o test.o
+
+Perintah gcc -E hanya akan melakukan proses preprocessor, ini kita lakukan jika kita ingin
+melihat source code setelah baris-baris preprocessor dihilangkan dalam contoh diatas berarti
+baris #include diganti dengan file header sebenarnya. Disini saya hanya ingin menunjukan 
+bagaimana program compiler melakukan preprocessing.
+
+Perintah gcc -S digunakan untuk menkompilasi source code menjadi perintah-perintah dalam bahasa
+assembly. Hasil dari perintah ini adalah file bernama "main.s"
+
+Perintah gcc -c adalah perintah kompilasi (assemble) tanpa proses linking. Perintah ini menghasilkan 
+object file bernama test.o dan main.o.
+
+Perintah terakhir, gcc -o digunakan untuk melakukan linking dari sebuah atau beberapa object file.
+
+Aplikasi gcc menggunakan perintah eksternal untuk melakukan linking yaitu perintah "ld".
+Program untuk melakukan linking ini sering disetbut linker.
+
+
+Beberapa opsi gcc yang penting lainnya:
+
+   -I untuk meng-include direktori dimana kompiler harus mencari file
+   -l untuk meng-include suatu library yang berlokasi di direktori standar, 
+      misalnya '-lpam' untuk mengikutsertakan file library 'libpam.a'. Standar 
+      library biasanya berada di direktori /lib, /usr/lib
+   -L untuk meng-include direktori dimana kompiler harus mencari file library 
+   
+   -print-search-dirs
+
+Contoh
+
+   gcc -o test main.o test.o -I ../include/ -lpam
+
+--= Binary output format =--
+
+Format file binary yang digunakan oleh Linux saat ini adalah format ELF.
+
+ELF (Executable and Linking Format)<http://en.wikipedia.org/wiki/Executable_and_Linking_Format> adalah sebuah format binary file yang 
+dibuat pertama kali oleh USL (UNIX System Laboratories) yang kemudian digunakan
+pada Linux untuk mengganti format yang lama yaitu a.out<http://en.wikipedia.org/wiki/A.out>
+
+gcc akan menghasilkan file bernama a.out jika kita tidak menspesifikasikan 
+output file dengan opsi -o, tetapi file tersebut tidak dalam format a.out melainkan ELF. Hal ini karena dulu format standar file binary di Linux adalah a.out.
+
+--= Alat bantu coding ==-
+
+Beberapa perintah di Linux yang berguna sebagai alat bantu membuat aplikasi atau
+suatu program dengan bahasa C:
+
+   Editor (emacs, vi)
+   Compiler (gcc, g++)
+   Linker (ld)
+   Assembler (as)
+   Debuger (gdb)
+   Profiler (gprof)
+
+nm  untuk melihat list dari simbol dari suatu object file
+ldd Untuk melihat shared library yang diperlukan dari suatu file executable atau file library
+
+
+--= Manual untuk coding =--
+
+Sebagai referensi untuk membuat program, kita bisa membaca manual dari fungsi-
+fungsi system call dan standard library dengan perintah 'man'.
+
+Manual pada linux memiliki beberapa kategori atau section diantaranya yaitu
+   
+   Section   Deskripsi
+   -------- ---------------------------
+    1         User (shell) commands             
+    2         System calls              
+    3         Standard library functions
+    8         System/administrative commands
+   
+Perintah 'man 3 printf' adalah perintah untuk melihat manual untuk fungsi printf
+pada standard library. 
+
+Perintah 'man printf' akan menghasilkan deskripsi yang berbeda dengan perintah 
+'man 3 printf' karena perintah tersebut akan menampilkan manual untuk user 
+command printf. Kebetulan printf adalah sebuah nama fungsi pada standard library 
+pemograman C dan juga nama perintah shell pada Linux.
+
+Linux juga memiliki manual untuk file header, misalnya dengan mengetikan 
+'man unistd.h' kita akan mendapatkan manual dari file header unistd.h.
+
+Perintah 'info' seperti halnya 'man' akan menampilkan juga dokumentasi dari 
+beberapa komponen Linux. Beberapa perintah info yang penting untuk programmer:
+
+   info gcc
+   info libc   
+   info gdb 
+   info ld
+   info as        
+   info gprof
+   
+Selain itu, source code termasuk juga file header merupakan referensi buat programmer. 
+Source code Linux terdapat pada direktori /usr/src/linux, sedangkan file header 
+yang penting ada di
+
+   /usr/include/bits 
+   /usr/include/asm
+   /usr/include/linux        
+  
+Adakalanya perintah 'grep' penting untuk digunakan untuk mencari sesuatu pada 
+file header, misalnya
+
+   cd /usr/include                 
+   grep EXIT_ *.h 
+   
+Howto dokumen seperti 
+
+http://www.faqs.org/docs/Linux-HOWTO/GCC-HOWTO.html
+   
+
+--= Static library & shared library =--
+
+Pustaka pemrograman (library) adalah sebuah koleksi fungsi dan object file yang
+disatukan dalam sebuah bentuk yang siap digunakan.
+
+Static library berarti library yang dapat digunakan pada saat kompilasi saja. 
+Kompiler & linker akan mengatur bagaimana menyatukan program yang anda buat 
+dengan fungsi-fungsi dari static library yang anda gunakan sehingga menjadi 
+sebuah file executable. Static library biasanya memiliki ekstensi file '.a'
+
+Shared library atau dinamic shared object (DSO) berarti library yang digunakan 
+pada saat program dijalankan (runtime). Ketika sebuah code yang menggunakan 
+fungsi pada shared library dikompilasi, kompiler akan membuat referensi ke 
+shared library yang dimaksud. Jika program dijalankan maka eksekusi fungsi yang 
+menunjuk pada fungsi di shared library akan membuat progam memanggil shared 
+library yang di load di memory.  Shared library biasanya memiliki ekstensi 
+'.so' (ELF) atau '.sa' (a.out)  
+
+Keuntungan menggunakan shared library adalah
+
+- Menghemat ruang disk maupun memory saat runtime
+- Upgrade library berefek langsung ke program yang menggunakannya, tidak perlu 
+  melakukan relink sebagaimana halnya upgrade static library. Oleh sebab itu 
+  suatu shared library sebaiknya backward compatible.
+
+Shared library di Linux biasanya disimpan di /usr/local/lib
+
+Sebuah file shared library bisa saja membuatuhkan shared library lain. Untuk 
+mengecek ketergantungan (dependency) dari suatu shared libray ataupun file 
+executable dapat digunakan perintah ldd, misalnya:
+
+  ldd /usr/local/lib/libcypt.so
+  
+  
+
+--= Membuat static library =--
+
+Beberapa static library dapat disatukan menjadi sebuah file yang disebut archive.
+File archive biasanya memiliki extension ".a"       
+
+  #ifndef __MATH_API
+  #define __MATH_API
+  
+  extern int tambah(int, int);
+  extern int kurang(int, int);
+  extern int kali(int, int);
+  extern int bagi(int, int);
+  
+  #endif /* __MATH_API */
+  
+  
+  ar -cr libtest.a test.o test2.o
+  
+  gcc -o testmain2 testmain.c -L. -ltest 
+  
+Kita dapat menginspeksi file objek yang ada dalam sebuah static library dengan
+opsi -t pada perintah ar:
+
+  ar -t libtest.a  
+  
+Seperti perintah archiving lainnya misalnya zip, dengan ar kita juga dapat 
+mengekstrak, menghapus, menambahkan sebuah file object dari/ke dalam library. 
+Untuk lebih jelasnya, silakan baca manual.                                                        
+
+--= Membuat shared library =--
+                               
+Pertama kita perlu mengkompilasi source code dengan opsi PIC (position-
+independence code)
+                               
+  gcc -c -fPIC test.o 
+  gcc -c -fPIC test2.o
+
+Setelah file objek dibuat barulah kita buat shared library dengan opsi -shared:
+  
+  gcc -shared -fPIC -o libtest.so test.o test2.o
+
+Dengan menggunakan shared library kita kompilasi 
+  
+  gcc -o main main.c -L. -ltest
+  
+Sekarang kita test program main yang menggunakan shared library, dengan 
+sebelumnya memindahkan file ke direktori /usr/lib agar sistem dapat menemukan
+file library
+
+  cp libtest.so /usr/lib
+  ./main
+
+
+Jika libtest.so dan libtest.a ada dalam satu direktori, maka gcc akan menggunakan
+shared library kecuali jika kita berikan opsti "-static"
+
+Jika shared library digunakan, linker tidak akan mereferensi ke tempat full path
+dari library tetapi hanya memberikan nama dari library. Pada saat eksekusi 
+program, barulah tempat shared library yang diperlukan dicari dan di-load. 
+Pencarian library akan dilakukan diseriap direktori yang tercantum pada 
+variabel LD_LIBRARY_PATH pada environtment. 
+
+  echo $LD_LIBRARY_PATH
+  /lib:/usr/lib:/usr/local/lib:/opt/lib
+
+Pada saat kompilasi kita juga dapat menambahkan direktori tempat shared library 
+berada yaitu dengan opsi "-Wl,-rpath,"
+
+  gcc -o main main.c -L. -ltest -Wl,-rpath,/home/myprogam/lib   
+  
+-Wl berarti opsi yang mengikutinya akan diberikan pada linker yaitu perintah "ld"
+Jadi -rpath akan diberikan pada saat gcc memanggil ld, kita dapat lihat dari 
+manual ld bahwa -rpath berfungsi untuk "Add  a directory to the runtime library 
+search path"
+
+--= Linux Standard Library =--
+
+Linux saat ini menggunakan GNU C Library<http://en.wikipedia.org/wiki/GNU_C_Library> (glibc versi 2.x), tetapi sebelumnya 
+pernah menggunakan versi glibc yang dikembangkan terpisah dari GNU yang disebut
+"Linux libc". Linux libc saat ini sudah tidak dikembangkan lagi.
+
+proses pengembangan (forking) Linux library adalah sbb:
+
+glibc --> Linux libc 2.x, 3.x, 4.x, 5.x --> glibc 2.0 (atau Linux libc 6)
+
+File glibc versi 2.0 di Linux saat ini bernama 'libc.so.6' yang merupakan library
+yang mengikuti standar-standar berikut
+
+    * ISO/ANSI C: The international standard for the C programming language.       
+    * POSIX: The ISO/IEC 9945 (aka IEEE 1003) standards for operating systems.
+    * Berkeley Unix: BSD and SunOS.                                           
+    * SVID: The System V Interface Description.                               
+    * XPG: The X/Open Portability Guide.                 
+    
+lebih detail tentang glibc bisa dibaca manual<http://www.gnu.org/software/libc/manual/html_node/index.html> dan FAQ-nya<http://sourceware.org/glibc/glibc-faq.html>.                     
+
+Standar utility function stdlib.h
+Character Type Macros and Functions (ctype.h) 
+Input Output (stdio.h)
+String and Memory (string.h)
+Signal Handling (signal.h)
+Time Function (time.h)
+Localization (locale.h)
+errno.h
+
+Variable argument list (stdarg.h atau varargs.h)
+
+--= Header file =-
+
+/usr/include
+
+--= Kode pengembalian suatu program (Exit/return Code) =--
+
+echo $?
+
+Untuk eksekusi program yang sukses maka return code adalah 0
+
+--= Program argument =--
+
+getopt.h
+
+--= Proses =--
+
+Sebaiknya kita mengetahui bagaimana sebuah proses ditangani oleh sistem operasi
+Linux. Penanganan semua program aplikasi dilakukan oleh kernel yang diload 
+ke memory pada saat boot. Kernel lah yang mengakses langsung physical device seperti
+CPU, memory, disk, I/O device, network interface.
+
+Gambar dibawah ini menunjukan arsitektur sebuah program yang berjalan di sistem operasi Linux.
+   _____________________________________________
+  | Aplikasi                                    |
+  |                                             |
+  |_____________________________________________|
+  | Runtime Library Fungction                   |
+  |                                             |
+  |_____________________________________________|
+  | Linux Kernel   _____________________________|
+  |               |      Device Driver          |
+  |_______________|_____________________________|
+     |       |       |         |           |
+    CPU   Memory   Disk   I/O device   lain-lain
+
+
+-== System Call ==-
+
+Dalam runtime library disediakan fungsi-fungsi untuk mengakses langsung ke 
+kernel yang disebut system call. Fungsi-fungsi tersebut merupakan fungsi dasar 
+(low-level) sehingga tidak efektif jika digunakan langsung. Oleh karena itu 
+biasanya dibuat fungsi-fungsi yang membungkus system call agar pemrograman 
+menjadi lebih mudah.
+
+Sebgai contoh bandingkan penggunaan system call write() yang berfungsi untuk 
+mengirimkan data string ke output sream dengan printf() yang berfungsi untuk
+menampilkan data string pada standard output.
+
+  #include <stdio.h>
+  
+  int main() {
+    char *c = "Halo halo Bandung";
+    printf("%s\n", c);
+  
+    write(1, c, 17);
+  }
+
+
+Dengan printf() kita tidak perlu tau berapa panjang data atau karakter yang akan
+diberikan pada argument tetapi dengan write kita harus menspesifikasikan file
+descriptor, dalam hal ini adalah standar output stream (nilai 1 pada parameter 
+pertama) dan juga menuliskan besarnya bytes dari buffer (jumlah karakter).  
+
+Dapat dilihat, menggunakan printf() mempermudah pekerjaan kita. Fungsi printf() 
+sebenarnya adalah fungsi yang membungkus (wrap) system call write(). Walaupun 
+lebih sulit menggunakan system call, adakalanya kita harus menggunakannya untuk
+fungsi yang tidak dapat dilakukan oleh standard library atau membuat agar 
+program menjadi lebih efisien.           
+
+XXX: Harap direvisi: write() bukanlah system call
+
+Tabel system call dapat dilihat disini. <http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html>
+atau di entry.S (arch/i386/kernel/entry.S)
+
+call *sys_call_table(,%eax,4)
+
+System call tidak dapat diakses oleh aplikasi karena untuk melindungi ...
+
+
+Kita dapat melihat system call yang dilakukan oleh sebuah program dengan 
+perintah "strace"
+
+  strace hello
+  
+  
+
+Segabaimana sistem yang berbasis UNIX lainnya sebuah proses di Linux
+memiliki process ID atau PID. PID ini adalah sebuah angka 16 bit yang  diberikan 
+sistem operasi secara otomatis ketika sebuah proses mulai berjalan.
+
+Kita dapat melihat list proses yang sedang berjalan dalam sistem operasi dengan 
+perintah `ps`
+
+  ps 
+
+
+Komentar
+
+/* Komentar 
+   Komentar
+*/
+
+   

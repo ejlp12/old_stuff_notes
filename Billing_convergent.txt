@@ -1,0 +1,38 @@
+Istilah corvergent billing atau converged billing sering digunakan sebagai istilah dalam tekomunikasi saat ini terutama pada bidang telekomunikasi nirkabel (wireless). Istilah ini menjadi tren marketing sehingga maksud sebenarnya menjadi bias.
+
+Convergent menurut saya dapat diterjemahkan menjadi memusat atau memfokus. Dalam bahasa inggris istilah ini dijelaskan sebagai "tending to come together from different directions." Jadi secara harfiah convergent billing bisa diartikan billing terpusat.
+
+Entah bagaimana sejarahnya kata convergent ini jadi begitu populer tapi yang jelas kalau kita lihat sekarang, hampir semua billing system yang digunakan saat ini adalah sistem yang terpusat artinya hanya sebuah sistem yang digunakan untuk melayani semua layanan (service) baik itu layanan suara (voice), data,SMS, GPRS, VAS content dan lain-lain. Istilah convergent billing juga sering digunakan untuk menunjukan bahwa proses billing untuk layanan pelanggan prabayar dan pascabayar dilakukan pada satu system.
+
+Convergent billing berarti billing yang berfokus pada customer dalam hal ini pelanggan layanan telekomunikasi dan bukan berfokus pada masing-masing layanan yang diberikan.  Ini berarti setiap customer memiliki sebuah data pembayaran yang komprehensif dalam satu sistem sehingga memudahkan customer care dalam melayani pelanggannya. Biasanya convergent billing system memiliki antar muka untuk customer care yang menjadi alat utama saat melayani keluhan pelanggan dan bahkan produk billing system ini biasanya dilengkapi dengan customer relationship management (CRM).
+
+Pendaftaran layanan (service provisioning) untuk customer akan menjadi lebih mudah dengan adanya convergent billing, yaitu dengan memiliki sebuah (single point) service provisioning pada billing system untuk semua service. Hal ini dapat dicapai dengan mendaftarkan pelanggan pada semua elemen service sehingga pada dasarnya setiap pelanggan dapat menggunakan layanan yang tersedia pada operator tetapi penggunaan layanan dikontrol secara realtime ketika data tagihan (charging record) dikirim ke billing system. Cara ini dapat dilakukan dengan asumsi bahwa convergent billing system adalah biling system modern yang menangani customer prabayar dan customer pascabayar dengan cara yang sama yaitu realtime charging. Single point service provisioning juga baik dilakukan jika aspek negatif diabaikan seperti pembebanan jaringan dan begitu besarnya lisensi dari produk suatu service element karena harus menyimpan semua data pelanggan sejak awal.
+
+Keuntungan lain dengan adanya convergent billing adalah fleksibilitas pendefinisian mekanisme pembayaran. Operator dapat dengan fleksibel melakukan kalkulasi harga pada setiap layanan atau kalkulasi yang melibatkan beberapa layanan. Hal ini penting bagi operator untuk dapat bersaing dengan melukan promosi atau diskon pada layanan yang diberikannya.
+
+Secara teknis pemusatan pada satu sistem billing berarti integrasi antara beberapa elemen layanan (service element) menuju sebuah elemen yang berujung pada sistem billing. Karena service element seperti MSC, SGSN/GGSN, SMSC, MMSC dan lain-lain memiliki format rekaman tagihan  dan juga protokol tersendiri untuk mengirimkannya ke billing system maka convergent billing system harus mampu beradaptasi terhadap semua perbedaan tersebut. Jika fitur adaptasi tidak dimiliki billing system, maka paling tidak adaptasi harus dilakukan pada elemen lain di depan billing system. 
+
+Biasaya billing system tidak memiliki antar muka untuk dapat melayani semua elemen dan operator tidak mau mengeluarkan effort yang banyak dengan membuat lapisan adaptasi pada setiap elemen. Oleh karena itu, dalam arsitektur convergent billing biasanya ada elemen lain yang disebut mediation device atau charging gateway yang berfungsi untuk mengadaptasi baik data tagihan maupun protokol antara service element dengan billing system. Arsitektur dan aliran data tagihan digambarkan dibawah ini
+
+                            ,-------------.          ,----------------.
+   service element -------->|             |          |                |
+                     +----->|  Mediation  |=========>| Billing system |
+   service element --' +--->|             |          |                |
+                       |    `-------------'          `----------------'
+   service element ----'      
+   
+Beberapa produsen produk convergent billing system yang digunakan oleh operator di Indonesia diantaranya adalah:
+
+ - Amdocs dipakai Excelcomindo
+ - Convergys, produknya bernama IRB atau Geneva dipakai Telkomsel, Indosat, HCPT Indonesia 
+ - Comverse [www.comverse.com], dipakai NTS, mobile8
+ - Redknee [http://www.redknee.com], dipakai Bakrie Telecom
+
+(c)20071005
+----
+
+http://www.isp-planet.com/cplanet/tech/0004phifer.html
+ 
+mobile8
+ 
+ Intec Singl.eView, FTS

@@ -1,0 +1,126 @@
+
+java.text.NumberFormat
+
+getCurrencyInstance(locale)
+getPercentInstance(currentLocale)
+
+String amount = new NumberFormat().getNUmberInstance(currentLocale).format(new Double(128.5));
+
+java.text.DecimalFormat
+
+DecimalFormat myFormatter = new DecimalFormat("$###,###.### ");
+String output = myFormatter.format(value);
+
+java.text.DecimalFormatSymbols
+
+setDecimalSeparator(char)
+setGroupingSeparator(char)
+setGroupingSize(int)
+
+DecimalFormatSymbols unusualSymbols = new DecimalFormatSymbols(currentLocale);
+unusualSymbols.setDecimalSeparator('|');
+unusualSymbols.setGroupingSeparator('^');
+
+
+String weird = new DecimalFormat("#,##0.###", unusualSymbols).setGroupingSize(4)
+
+
+
+getDateInstance(,)
+getTimeInstance(,)
+getDateTimeInstace(,,)
+
+java.text.DateFormat
+
+String now = new DateFormat().getDateInstance(DateFormat.DEFAULT,currentLocale);
+
+java.text.SimpleDateFormat 
+
+String now = new SimpleDateFormat("EEE d MMM yy", currentLocale).format(new Date());
+
+
+"yyyy.MMMMM.dd GGG hh:mm aaa" detailnya ada di: http://java.sun.com/docs/books/tutorial/i18n/format/datepattern.html
+
+
+
+
+
+
+  ResourceBundle messages = ResourceBundle.getBundle("MessageBundle", new Locale("en", "US"));
+
+Nama file MessageBundle_en_US.properties
+
+template = At {2,time,short} on {2,date,long}, we detected \
+	      {1,number,integer} spaceships on the planet {0}.
+planet = Mars
+
+
+atau
+
+public class Message_fr_FR extends ListResourceBundle {
+        public Object[][] getContents() {
+                return contents;
+        }
+
+        static final Object[][] contents = {
+                {"main.title", "Musique sans frontières"},
+                {"main.subhead", "Sons du village global"},
+            {"main.addLabel","Ajouter"},
+             . . .
+            {"cd.quantityLabel","Quantité"}
+        }
+}
+
+
+set message argument
+
+  Object[] messageArguments = {
+    messages.getString("planet"),
+    new Integer(7),
+    new Date()
+  };
+
+
+Buat formater
+
+  MessageFormat formatter = new MessageFormat("");
+  formatter.setLocale(currentLocale);
+
+
+Applying
+
+formatter.applyPattern(messages.getString("template"));
+String output = formatter.format(messageArguments);
+
+
++--
+
+pattern = There {0} on {1}.
+noFiles = are no files
+oneFile = is one file
+multipleFiles = are {2} files
+
+
+double[] fileLimits = {0,1,2};
+String [] fileStrings = {
+    bundle.getString("noFiles"),
+    bundle.getString("oneFile"),
+    bundle.getString("multipleFiles")
+};
+
+
+ChoiceFormat choiceForm = new ChoiceFormat(fileLimits,
+                                           fileStrings);
+
+String pattern = bundle.getString("pattern");
+messageForm.applyPattern(pattern);
+
+
+Format[] formats = {choiceForm, null,
+                    NumberFormat.getInstance()};
+messageForm.setFormats(formats);
+
+
+Object[] messageArguments = {null, "XDisk", null};
+String result = messageForm.format(messageArguments);
+

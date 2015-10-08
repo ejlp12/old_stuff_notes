@@ -1,0 +1,13 @@
+linear congruential pseudorandom number generator (LCG) 
+
+k-distribution test
+diehard test by G.Marsaglia
+load test by P.Hellekalek and S.Wegenkittl. 
+
+Alg period equidistribution
+MT19937 2^19937-1         623-dimensional 
+TT800 2^800-1
+Numerical Recipies 
+
+
+testing http://csrc.nist.gov/rng/

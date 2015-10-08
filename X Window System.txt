@@ -1,0 +1,78 @@
+
+X Windows System atau biasa disebut X saya adalah sebuah system atau aplikasi untuk me-manage tampilan GUI pada sebuah komputer atau komputer lain yang dihubungkan lewat network.
+X didesain secara modular dan mengimplementasikan arsitektur client-server sehingga bisa dibilang cukup kompleks. 
+X memiliki komponen sbb:
+
+
+X Display Server (X server): 
+  memproses eksekusi di workstation yaitu menampilkan GUI atau tampilah di layar.
+  memanage graphics outout, dan input dari keyboard atau mouse
+  Xserver dapat jg berada pada mesin yang sama dengan client.
+  Server juga bertanggung jawab memberikan informasi ke client biasanya berupa event, misalnya ketika tombol mouse di clik, server akan mengirimkan input event ke client yang membuat window yang memiliki mouse pointer.
+
+
+X client
+
+Komunikasi antara client dan server dengan cara saling berkirim paket lewat jaringan menggunakan X protocol.
+Client yang menginisiasi koneksi ke server, kemudian server akan menerima atau menolak koneksi.
+Setelah itu client dapat memberikan perintah ke server.
+Contoh perintah yang biasanya ada saat memulai sebuah aplikasi adalah membuat sebuah window.
+
+X protocol
+merupakan komunikasi 2 arah yang asynchronous
+Ada 3 tipe paket yang digunakan untuk komunikasi dalam X, yaitu:
+1. Request
+2. Reply
+3. Event
+4. Error
+
+Xlib library 
+  adalah pustaka pemrograman yang dibuat dengan bahasa C
+  fungsi-fungsi dalam Xlib diantaranya:
+
+    * Melakukan koneksi ke X Display
+    * Menggunakan resource di server seperti colors, fonts, dll
+    * Menggambar dasar elemen grafik seperti garis, lingkaran, kotak, dll
+    * Mengatur (manage) event
+    * Menangani error
+
+Tipikal struktur suatu program X-Windows
+
+    * Inisialisasi
+          o Koneksi ke X display
+          o Sets up window system for user interaction
+          o Creates a top level window application
+          o E.g toplevel = XtAppInitialize ( &app, "Hello", NULL, 0, &argc, argv, NULL, NULL, 0 ); //initialize a top level window
+    * Event-loop
+          o Repeatedly solicits events from window system
+          o E.g XtAppMainLoop ( app ); //enter main event loop
+    * Clean-up
+          o Performs necessary clean-up
+          o E.g XmStringFree ( xmstr ); //free compound string no longer used
+
+
+NetWM atau EWMH (Extended Window Manager Hints) http://blackboxwm.sourceforge.net/NetWM
+adalah kumpulan standar-standar yang mengatur fusinalitas WINDOW MANAGER pada X Windows System.
+Standar ini dibuat agar interaksi antar window managers dapat dilakukan dengan cara yang konsisten mengingat banyaknya aplikasi windows manager yang bisa kita gunakan seperti GNOME, KDE.
+
+Standar ini direkomendasikan oleh proyek freedesktop.org dan merupakan lanjutan dari standar sebelumnya yaitu ICCCM (Inter-Client Communications Conventions Manual) http://blackboxwm.sourceforge.net/ICCCM, yang bisa dibaca disini: http://tronche.com/gui/x/icccm/
+Standar bisa dibaca disini: http://freedesktop.org/Standards/wm-spec
+
+
+Display
+
+Display adalah sebuah structure yang memiliki queue dari message yang datand dari server dan queue yang akan dikirimkan ke server.
+Saat kita melakukan koneksi ke X server maka fungsi yang digunakan akan mengembalikan sebuah pointer ke structure Display tersebut.
+
+GC - Graphics Context
+Graphics Context adalah sebuah structure yang menyimpan banyak properties untuk menggambarkan suatu objek tertentu misalnya warna foreground, backgound, font yang digunakan, sudut pertemuan garis, dan lain-lain.
+Saat kita menggunakan beberapa operasi penggambaran (drawing), kita buat struktur ini, set opsi-opsi yang dibutuhkan, kemudian gunakan pointer ke struktur ini untuk memanggil fungsi-fungsi penggambaran.
+
+
+
+
+
+
+=== Reference
+http://technet.microsoft.com/en-us/library/bb463223.aspx
+http://www.linfo.org/x.html

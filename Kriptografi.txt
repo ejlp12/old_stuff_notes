@@ -1,0 +1,25 @@
+
+Simetrik Blok Chiper
+ IDEA  1992
+ RC5   1995
+ RC6   1996
+ DES (Data Encryption Standard) 1997 
+ 3DES  
+ AES (Advance Encryption Standard)
+ 
+Hash Function, Message digest
+ DMDC (DES-like Message Digest Computation)
+ MD4 1990
+ MD5 1992
+ SHA (Secure Hash Algorithm) 1993
+ SHA-1  1995
+ 
+Asimetrik public-key kriptosistem
+
+RSA (1978) 
+ElGamal (1985)
+Schnorr (1990) 
+ECC (1985)
+
+
+DSA (Digital Signature Algorithm)

@@ -1,0 +1,51 @@
+Mobile advertising
+
+Saat ini mobile advertising atau iklan lewat media perangkat bergerak sedang menjadi topik yang banyak dibicarakan. Beberapa analis memprediksikan mobile advertising ini akan menjadi potensi besar dan akan menjadi revenue stream batu buat operator. Memang kalau dibandingkan dengan internet advertising,
+bisnis mobile advertising ini masih sedikit jadi ada potensi besar untuk makin berkembang. Apalagi didukung dengan semakin besarnya pemakaian layanan data lewat perangkat bergerak.
+
+Dibanding layanan value-added lainnya seperti SMS, RBT yang merupakan penyumbang keuntungan terbesar di pasar Indonesia, kemungkinan mobile advertising bisa menjadi penyumbang ketiga terbesar jika operator dapat menggarapnya dengan lebih baik. Perlu kreativitas dalam membuat layanan berbasis mobile advertising ini karena iklan sebernarnya bukan layanan tetapi merupakan informasi tambahan yang dapat ditambahkan atau dilewatkan pada layanan lain misalnya SMS, MMS, RBT, MCA, VMS dan lain-lain.
+
+Contoh sederhana mobile ad adalah pengiriman informasi iklan lewat SMS secara broadcast. Contoh lain yang lebih kreatif misalnya:
+
+ - Penambahan teks iklan pada SMS yang dikirimkan dari seseorang ke orang lain dengan memanfaatkan sisa karakter yang bisa dimuat dalam SMS yaitu 160 karakter. Bagi si pengirim SMS menjadi gratis atau mendapatkan diskon karena pesan singkatnya disisipi oleh iklan.
+ - Iklan dalam bentuk RBT. Pelanggan yang menggunakan RBT iklan akan mendapatkan tambahan pulsa atau gratis layanan lainnya setiap kali RBT-nya didengarkan oleh pemanggil.
+ - Penambahan teks iklan pada SMS missed-call alert.
+ - Banner iklan pada halaman portal mobile-site operator.
+
+Layanan-layanan yang mendapat diskon karena disisipi oleh iklan atau pelanggan yang mendapatkan gratis layanan lain karena dia mendapatkan iklan membuat konsep mobile advertising menarik bagi pelanggan. Konsep ini disebut 'ad founded' dimana pelanggan mendapatkan keuntungan dari iklan.
+
+Mobile ad ini akan menjadi lebih baik jika operator dapat melakukan targeted advertising yaitu hanya memberikan iklan pada orang yang dimungkinkan tertarik pada jenis iklan tertentu. Hal ini dapat dilakukan karena operator memiliki data pelanggannya apalagi jika data tersebut bisa lebih detail misalnya dengan melihat histori dari konten-konten yang pernah didownload oleh pelanggan.
+
+Mobile ad menjadi menarik bagi para agensi iklan atau perusahan yang memerlukan promosi produknya karena targeted, sehingga iklan ini bisa dibilang lebih personal. Mobile ad juga dapat dikirim kapan saja karena perangkat bergerak yang dimiliki pelanggan hampir selalu 'online' dan pelanggan memiliki billing relationship dengan operator sehingga membuat kemudahaan dalam memberikan benefit pada pelanggan.
+
+Mobile ad bisa juga mejadi lebih menarik jika lebih tertarget pada posisi pelanggan. Hal ini bisa dilakukan dengan menggunakan Location-Based Service (LBS).
+
+Semakin booming-nya mobile ad ini terlihat juga dati berlomba-lombanya vendor-vendor telekomunikasi mulai melirik bisnis ini. Beberapa perusahan alat telekomunikasi mulai bergerak untuk memiliki portofolio produk/layanan untuk mobile ad dengan cara membuatnya atau mengakuisisi peruhaan yang sudah dulu dibisnis ini.
+
+
+September 2007, perusahaan telekomunikasi <a href="http://www.nokia.com/A4136001?newsid=1153772">Nokia mengakuisisi enPocket</a> sebuah perusahaan yang memimpin di dunia mobile advertising. Sep 2008, Nokia juga mengabarkan bahwa <a href="http://www.mobileeurope.co.uk/news_wire/114141/European_media_players_join_Nokia_Media_Network.html">beberapa pemain di industri media besar di eropa masuk dalam "Nokia Media Network"</a>. Pemain dalam industri media itu termasuk Agence France-Presse, France; RTL Mobile, Germany; Cuatro, Spain; Grupo Prisa, publisher of El País, Spain; Unidad Editorial, publisher of El Mundo, Spain; CNET, UK; Telegraph Media Group, UK; Trinity Mirror, UK; and International Herald Tribune, pan-European
+
+
+Feb 2008, <a href="http://www.ericsson.com/id/ericsson/press/2008/13022008.shtml">Ericsson juga melakukan launching layanan hosted mobile advertising</a> dan pada 14 Sep 2008, mereka mengumumkan </a href="http://www.cellular-news.com/story/33605.php
+">kerjasamanya dengan operator KPN dari Belanda untuk implementasi layanan hosted mobile advertising</a> pada pelanggan KPN. Dengan layanan hosted mobile advertising, KPN dapat melakukan targeted advertisements dengan berbasis preferensi konsumennya dan agensi juga dapat membuat dan mengelola iklan menggunakan reporting tools.
+
+<a href="http://www.fiercewireless.com/press-releases/amobee-media-systems-raises-additional-equity-capital">Motorola, lewat Motorola Ventures juga mulai melakukan investasi di bisnis mobile ad</a> ini dengan memberikan dana pada <a href="http://www.amobee.com">Amobee Media Systems</a> untuk pengembangan teknologi mobile ad.
+
+
+Permasalahan Mobile Ad.
+
+
+Mobile advertising is massively overhyped, says analyst firm
+http://www.fiercewireless.com/europe/story/mobile-advertising-massively-overhyped-says-analyst-firm/2008-11-03
+
+Regulasi
+
+
+hati-hati agar tidak menggangu (intrusive0
+
+mobile is another channel, kita membayar untuk layanan 
+personal device
+
+preimum service untuk menghindari advertising
+artikel Ad-averse Mobile Users Will Pay to Avoid Advertising survey yang menunjukan walopun 56% reponden berpendepat bahwa mendownload content harusnya bisa gratis tetapi, ada kecenderungan konsumen yang tidak menginginkan adanya iklan dan mereka memilih membayar lebih untuk menghindari iklan. Dari survey tersebut telihat juga untuk kalangan muda, kebanyakan tidak keberatan untuk membayar konten yang didalamnya tidak terdapat iklan.
+http://www.cellular-news.com/story/33587.php

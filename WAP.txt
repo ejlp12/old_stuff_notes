@@ -1,0 +1,92 @@
+WAP 1.1 
+WAP 1.2 di-approve Nov 1999 oleh WAP Forum.
+  menghilangkan abiguitas di versi sebelumnya
+  koreksi terhadap editorial 
+  mengenalkan arsitektur WAP push
+  meng-enhace Wireless Telephony Applications (WTA)
+  menambahkan teknologi bearer baru yang disupport
+  memperkenalkan Wireless Identity Module (WIM) yang meningkatkan keamanan
+versi minor 1.2.1 juga telah dirilis
+
+
+
+
+WAP versi 2.0 dipublikasikan Agustus 2001
+
+Kapabilitas perangkat bergerak semakin baik karena kemajuan hardware. 
+WAP 2.0 mendukung WML maupun XHTML dan CSS Mobile Profile
+ Data synchronization SyncML
+ Multimedia Messaging Service (MMS), 
+ Persistent Storage Interface, 
+ Provisioning, 
+ Pictograms
+ 
+ UAProf
+
+XHTML (WML2)
+TCP, HyperText Transfer Protocol (HTTP/1.1), Transport Layer Security (TLS).
+Color graphics
+Animation
+Large file downloading
+Location-smart services
+Pop-up/context sensitive menus
+Data synchronization with desktop PIM
+
+<http://www.wirelessdevnet.com/channels/wap/features/images/wap_12.gif>
+
+Spesifikasi WAP bisa diperoleh di sini <http://www.openmobilealliance.org/tech/affiliates/wap/wapindex.html>
+
+Fitur-fitur WAP 2.0 dapat dibaca di artikel ini <http://www.wapforum.org/what/WAPWhite_Paper1.pdf>
+
+
+Wireless Application Environment (WAE)
+Wireless Session Protocol (WSP)
+Wireless Transaction Protocol (WTP)
+Wireless Transport Layer Security (WTLS)
+Wireless Datagram Protocol (WDP)
+Bearers e.g. Data, SMS, USSD
+
+
+
+    Wireless Application Environment
+
+    The WAE defines the user interface on the phone. The application development environment to facilitate the development of services that support multiple bearers. To achieve this, the WAE contains the Wireless Markup Language (WML), WMLScript - a scripting micro-language similar to JavaScript - and the Wireless Telephony Application (WTA). These are the tools that allow WAP-based applications to be developed. 
+ 
+    Wireless Session Protocol
+
+    A sandwich layer that links the WAE to two session services - one connection oriented operating above the Wireless Transaction Protocol and a connectionless service operating above the Wireless Datagram Protocol. 
+ 
+    Wireless Transaction Protocol
+
+    Runs on top of a datagram service such as User Datagram Protocol (UDP); part of the standard suite of TCP/IP protocols, to provide a simplified protocol suitable for low bandwidth mobile stations. WTP offers three classes of transaction service: unreliable one way request, reliable one way request and reliable two way request respond. Interestingly, WTP supports Protocol Data Unit concatenation and delayed acknowledgement to help reduce the number of messages sent. This protocol therefore tries to optimise the user experience by providing the information that is needed when it is needed - it can be confusing to received confirmation of delivery messages when you are expecting the information itself. By stringing several messages together, the end user may well be able to get a better feel more quickly for what information is being communicated. 
+ 
+    Wireless Transport Layer Security
+
+    WTLS incorporates security features that are based upon the established Transport Layer Security (TLS) protocol standard. Includes data integrity checks, privacy on the WAP Gateway to client leg and authentication. 
+ 
+    Wireless Datagram Protocol
+
+    Allows WAP to be bearer independent by adapting the transport layer of the underlying bearer. WDP presents a consistent data format to the higher layers of the WAP protocol stack thereby conferring the advantage of bearer independence to application developers.
+
+------
+
+
+Bearer
+
+SMS
+CSD (Circuit Switched Data)
+USSD
+GPRS
+
+
+WDP
+The WAP datagram protocol (WDP) is the transport layer that sends and receives messages via any available bearer network, including SMS, USSD, CSD, CDPD, IS–136 packet data, and GPRS.
+
+WTLS
+Wireless transport layer security (WTLS), an optional security layer, has encryption facilities that provide the secure transport service required by many applications, such as e-commerce.
+
+WTP
+The WAP transaction protocol (WTP) layer provides transaction support, adding reliability to the datagram service provided by WDP.
+
+WSP
+The WAP session protocol (WSP) layer provides a lightweight session layer to allow efficient exchange of data between applications.

@@ -1,0 +1,18 @@
+LCD (liquid crystal display)
+Keypad
+Loudspeaker
+Aerial (antena)
+Microphone
+
+Circuit board
+SIM card reader
+DSP (Digital Signal Processor)
+CODEC
+RF Unit (Power Amplifier chip, transmitter chip, receiver chip)
+Flash Memory chips
+ROM (Read-Only_memory)
+Mixed signal (Analog baseband) CODEC, Voiceband DAC & ADC
+
+SIM (Subscriber Identity Module) card
+Batere
+

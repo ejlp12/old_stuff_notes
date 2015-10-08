@@ -1,0 +1,14 @@
+Dari kesimpulan hasil test yang dilakukan pada 9 java decompiler,
+JODE merupakan Java decompiler terbaik.
+
+Lihat detail testnya disini
+
+http://www.program-transformation.org/Transform/JavaDecompilerTests
+
+Java decompiler wiki page 
+http://www.program-transformation.org/Transform/JavaDecompilers
+
+
+http://blog.technoetic.com/jode-eclipse-plugin/
+
+JAD http://www.kpdus.com/jad.html

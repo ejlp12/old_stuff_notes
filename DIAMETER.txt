@@ -1,0 +1,52 @@
+Charging protocol
+
+CAMEL
+RADIUS
+
+Merupakan protokol untuk authentication, authorization and accounting (AAA)
+
+DIAMETER
+
+Nama Diameter sendiri diambil dari nama protokol pendahulunya yaitu radius (Diameter adalah dua kali radius). Tetapi Diameter tidak kompatibel dengan radius.
+Diameter didefinisikan pada RFC 3588 (Diameter Base Protocol). Disebut base karena RFC tersebut hanya mendefiniskan kebutuhan minimum dari suatu prokol AAA.
+
+Suatu Diameter application, yaitu protokol aplikasi yang menggunakan protokol Diameter, dapat memgembangkan protokol dasar dengan menambahkan perintah (Command) baru atau atribut.
+
+Keamanan pada protokol ini dapat dilakukan dengan mengunakan IPSec atau TLS 
+
+Diameter credit-control application (DCCA)
+
+3GPP mengadopsi Diameter and DCCA (RFC 4006) sebagai standard charging protokol untuk 3G.
+
+
+
+
+
+
+
+Diameter Base Protocol dipilih sebagai sebagai standar untuk real-time rating protocol pada IMS
+
+fail-over
+transmission-level security
+reliable transport
+
+base protocol provide basic services needed by applications, such as capabilities negotiation, peer discovery and session handling.
+applications
+
+Diameter Credit Control Application (CCA) provide real-time credit control to the service charging in IP networks
+bidirectional credit control functionality 
+
+
+
+
+The integration of Diameter and the CCA complies with the 3GPP’s IMS charging descriptions, defined in the documents TS 32.225 and TS 32.296.
+
+
+August 2005: DCCA got RFC status (RFC 4006)
+
+
+
+RFC 3588 “Diameter Base Protocol”
+RFC 4006 “Diameter Credit Control Application”
+3GPP TS 32.299 “Diameter Charging Application” (Gy)
+3GPP TS 32.251 “Packet Switched (PS) domain charging” (fields and triggers of CDRs produced in Packet Core as well as events causing CCRs (Credit Control Request) and their contents)

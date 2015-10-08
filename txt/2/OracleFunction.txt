@@ -1,0 +1,45 @@
+Oracle String Functions
+
+initcap(char) - Returns a char with the first letter of each word in uppercase 
+instr(char1, char2,n,m) - n=position m=occurance returns the numeric position of char2 in char1 
+length(char) - Length of char 
+lower(char) - Returns char with all lower case 
+lpad(char1,n,char2) - Return a char with char1 left pad with char2 
+ltrim(char) - Remove all leading spaces 
+rpad(char1,n,char2) - Returns char with char1 right pad with char2 
+rtrim(char) - Remove all trailing spaces 
+substr(char,m,n) - Returns substring start at m for n characters 
+upper(char) - Converts all characters to uppercase 
+chr(n) - Returns the ascii code equivalent 
+concat(char1, char2) - Return a char which is the result of char1 and char2 
+
+Oracle Time Functions
+
+ADD_MONTHS(d,n) - Add n months to d date 
+LAST_DAY(d) - Returns last day of the month 
+MONTHS_BETWEEN(d1,d2) - Difference between d1 and d2 
+ROUND(d,fmt) - Round to format 
+TO_CHAR(string,format) 
+TO_DATE(string,format) 
+
+Oracle Number Functions
+
+ABS(value) - Absolute value 
+CEIL(value) - Smallest integer larger than equal to value 
+COS(value) - Cosine value 
+EXP(value) - e raise to value 
+FLOOR(value) - Largest value smaller than equal to value 
+ROUND(value) - Rounding of value to precision 
+SIGN(value) - 1 if positive -1 if negative 
+SQRT(value) - Square root of value 
+TAN(value) - Tangent of value 
+TRUNC(value) - Value truncated to precision 
+
+Oracle Group Functions
+
+Avg(value) - Average of value for a group of rows 
+Count(value) - Count rows of columns 
+Max(value) - Maximum of all value for groups of rows 
+Min(value) - Minimum of all values for groups of rows 
+Sum(value) - Sum of all values for groups of rows 
+

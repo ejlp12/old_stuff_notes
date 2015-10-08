@@ -1,0 +1,11 @@
+Jika Anda bekerja di bidang telekomunikasi terutama yang berhubungan dengan system yang memiliki data pelanggan (subscriber) tentu akan mendengar istilah subscriber provisioning. Kalau saya lihat di kamus bahasa Inggris, provisioning berarti "the activity of supplying or providing something." 
+
+Istilah provisioning sering digunakan sebagai istilah teknis yang menunjukan proses penyediaan suatu layanan. Dalam hal subscriber provisioning, penyedian service biasanya dicapai dengan penyedian data subscriber pada sebuah system sehingga subscriber dapat menggunakan layangn yang disediakan oleh sistem tersebut. Jadi provisioning berhubungan penyediaan sesuatu sebagai persiapan agar sustu sistem atau layanan dalam digunakan.
+
+Dalam dunia telekomunikasi provisioning tidak hanya berkaitan dengan subscriber, tetapi bisa entitas lain misalnya subscriber, content provider, perangkat bergerak (ponsel), konten yang dapat digunakan oleh pelanggan di ponselnya dan lain-lain.
+
+Karena banyak sekali layanan yang dapat diberikan suatu operator telekomunikasi, maka biasanya suatu layanan memiliki standar proses provisioning atau proses provisioning yang umum sehingga memudahkan operator telekomunikasi dan juga pelanggannya. Misalnya layanan GPRS, yang proses provisioningnya biasanya menggunakan OTA (Over-the-air) yaitu operator mengirimkan setting untuk GPRS ke ponsel pelanggan untuk kemudian bisa disimpan sehigga layanan GPRS bisa langsung digunakan.
+
+
+
+

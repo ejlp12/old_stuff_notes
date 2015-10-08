@@ -1,0 +1,84 @@
+Setiap kali kita akan bekerja dengan CVS kita perlu menentukan dimana lokasi cvsroot dengan menggunakan opsi -d
+
+cvs -d /repos/cvsroot <command> 
+
+Untuk mempermudah pekerjaan, tanpa perlu opsi -d untuk menentukan lokasi cvsroot kita dapat mengeset variabel CVSROOT pada environtment.
+Di UNIX ini dapat dilakukan dengan perintah
+
+CVSROOT=/repos/cvsroot
+export CVSROOT
+
+
+Untuk mengimport project ke CVS repository gunakan perintah import berikut:
+
+cvs import -m <komentar> <direktori> <vendor tag> <release tag>
+
+Contoh
+
+cd /home/me/project
+cvs import -m "First import" testproj MulantTechnologies test_version_0ls
+
+Ambil source yang ada di CVS repository
+
+cvs checkout <nama_modul>
+
+Mengambil source dari suatu branch/tag
+
+cvs checkout -r <nama brach> <nama modul>
+
+Semua file yang ada di modul di CVS repository akan di-copy ke lokal folder
+
+Memperbarui file-file yang ada di lokal direktori
+
+cvs update -d
+
+cvs update -C <nama file yang akan ditimpa>
+
+Mengecek atau membandingkan file-file yang ada di direktori kerja dengan repositori
+
+cvs -nq update
+-q berarti mode quiet; -n berarti tidak akan mengubah suatu file
+
+U File baru atau lebih baru ada di repository
+P File yang lebih baru ada di repositori dan CVS akan mengirimkan patch-nya
+A File baru di direktori kerja akan dimasukan ke repositori jika dilakukan perintah commit
+R File dihapus di direktori kerja dan akan dihapus juga yang ada di repositori jika ada perintah commit
+M Tidak ada perubahan file, atau file akan digabungkan (merge) tanpa konflik
+C Konflik antara file di direktori kerja dengan di repositori
+? File di direktori kerja tapi tidak ada di repositori
+
+Menambahkan file baru ke repository
+
+cvs add -kt -m "versi 1" file1.txt file2.txt
+cvs commit -m "versi 1" file1.txt file2.txt
+
+Untuk menambahakan binary file gunakan opsi -kb
+
+Mengedit file dan melakukan update file yang ada di repository
+
+cvs commit -m "versi 2" file1.txt
+
+Membuat tag atau mendai source code dengan suatu versi
+
+cvs tag <nama tag/versi>
+
+Membuat branch
+
+cvs tag -b <nama branch> <nama modul>
+
+Di direktori 'working copy'
+cvs tag -b <branch_name>
+
+Suatu direktori kerja yang merupakan hasil checkout dari branch, memiliki file bernama Tag didalam direktori CVS
+Isi file tersebut adalah nama dari branch dengan didahului karakter "T"
+
+Perbedaan branch dengan version
+Branch juga selalu memiliki angka 0 pada angka kedua dari akhir
+
+Untuk mengetahui tag yang ada
+
+cvs log -h
+
+cvs -q log -h | perl -e "while(<>){print if /\s+([^:]+):\s(\d+\.)+\d/ }"
+
+cvs -q log -h | perl -e "while(<>){print if /\s+([^:]+):\s(\d+\.)*0\.(\d+)/ }"

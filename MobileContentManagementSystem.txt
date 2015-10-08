@@ -1,0 +1,35 @@
+CMS (Content Management System) identik dengan system yang digunakan untuk mengelola kontent web yang biasanya berupa halaman html (teks & gambar).
+
+Operator telekomunikasi atau content provider saat ini biasanya memiliki apa yang disebut Mobile Content Management System, yaitu CMS untuk mengelola konten perangkat bergerak yang dijual kepada pelanggannya. Konten yang dimaksud misalnya:
+
+- Gambar atau Wallpaper
+- Nada dering (ringtone)
+- Kontent teks seperti berita, ramalan, pesan bijak
+- Nokia smart messaging (Operator logo, gambar, ringtone)
+- Games
+- Rekaman video (recorded)
+- Live video/TV 
+- Audio/video ring back tone (Nada sambung pribadi)
+- Multimedia presentation (SMIL)
+- Theme
+
+Karena banyaknya jenis konten yang disediakan maka CMS ini lebih kompleks dari CMS biasa.
+
+Apa yang spesifik atau yang membedakan antara CMS untuk sebuah website dengan CMS untuk mobile content? Dibawah ini adalah daftar karakteristik atau fitur yang dimiliki Mobile-CMS tapi biasanya tidak terdapat pada web-CMS:
+
+- Jenis kontennya lebih beragam
+- Konten dijual, berarti memiliki harga dan melibatkan proses pembayaran (charging) sehingga memerlukan integrasi dengan billing system
+- Kontent tidak diperuntukan untuk semua jenis perangkat sehingga perlu manajemen perangkat agar dipastikan pelanggan yang membeli konten dapat menikmati konten yang dibelinya.
+- Akses untuk mendapatkan kontent beragam misalnya melalui situs WAP/WEB, SMS, USSD, IVR, STK
+- Kanal pengiriman (delivery channel) beragam bisa lewat SMS, MMS, wap push
+- Perlu integrasi dengan network elemen lain seperti SMSC, MMSC untuk pengiriman konten
+- Karena dijual jadi kadang perlu dilengkapi dengan fitur promosi misalnya diskon, broadcast, content bundling, quiz, limited time frame free, recommended contents (top contents), pin based draw (pengundian), syembara untuk membuat dan mengirimkan kontent 
+- Integrasi dengan streaming server
+- Perlu adanya modul untuk customer care 
+- Reporting atua statisktik yang diperlukan yang lebih kompleks
+- Perlu adanya database pelanggan termasuk didalamnya mungkin data jenis/tipe perangkat atau ponsel yang digunakan pelanggan
+- Karena konten tidak gratis dan rawan pembajakan maka diperlukan proteksi (DRM) terhadap konten dari pengkopian ilegal 
+- Konten biasanya berasal dari beberapa content provider sehingga diperlukan mekanisme pembagian keuntungan (revenue sharing)
+- Perlu deskripsi yang jelas untuk setiap konten karena pelanggan tidak dapat langung menikmati konten. Fitur preview biasanya diperlukan untuk memperjelas seperti apa konten yang bisa didapatkan oleh pembelinya.
+- Adanya layanan berlangganan (Subcription) dengan pengiriman terjadwal (scheduled/automatic delivery)
+

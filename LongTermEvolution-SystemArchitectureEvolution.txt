@@ -1,0 +1,15 @@
+LTE/SAE (Long Term Evolution/System Architecture Evolution) 
+
+perbaikan efisiensi spektral: penggunaan spektrum yang fleksibel dan lebat pita (band with) yang scalable dari 1.25MHz sampai 20 MHz
+peningkatan kapasitas
+lower latency
+operating cost yang lebih rendah
+high-performance
+
+target: downlink/uplink peak data 100/50 Mbps
+
+Kata Evolution agaknya diambil karena para pencetus LTE mulai memikirkan perubahan besar dengan melihat teknologi baru pada air interface dan arsitektur sistem tanpa melihat sistem yang ada saat ini. Hal ini menyebabkan adanya banyak perubahan, misalnya  seperti penggunaan teknologi OFDM (Orthogonal Frequency Division Multiplexing) sebagai basis air interface pada lapisan akses radio (radio access layer), arsitektur system flat IP, level modulasi yang lebih tinggi dan lain-lain.
+
+
+
+

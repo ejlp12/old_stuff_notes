@@ -1,0 +1,104 @@
+LDAP (Lightweight Directory Access Protocol)
+
+Standar 
+
+X.500
+ Standar untuk directory service yang dikeluarkan ITU & ISO
+ Menggunakan DAP (Directory Access Protocol)
+ Memudahkan pencarian data yang tersusun secara hirarkis
+
+ Standar ini menspesifikasikan:
+   Model adalah client-server
+   Client disebut DUA (Directory user agent) dan server disebut DSA (Directory System Agent)
+   Antar DSA dapat saling berinteraksi menggunakan DSP (Directory System Protocol)
+   Interaksi DUA dan DSA (client-server) menggunakan DAP (Directory Access Protocol)
+   Struktur data yaitu berupa Directory Information Tree
+   Perintah pencarian data (read & serach)
+
+
+
+LDAP
+ Versi lightweight dari X.500 yang dikembangkan akademisi dari U.Michigan
+ Menggunakan TCP/IP
+
+Directory service (RFC1777)
+
+Data struktur hirarki
+
+LDAP
+    Lightweight Directory Access Protocol 
+DN (Distinguish Name)
+RDN (Relative Distinuished Name)
+DIT (Directory Information Tree)
+OID (Object Identifier)
+
+LDIF (LDAP Data Interchange Format)
+ LDIF merepresentasikan LDAP entri dalam bentuk teks
+ Format yang terbaca oleh manusia
+ Mempermudah modifikasi data
+
+Contoh LDIF:
+
+dn: uid=bmarshal,ou=People,dc=pisoftware,dc=com
+uid: bmarshal
+cn: Brad Marshall
+objectclass: account
+objectclass: posixAccount
+objectclass: top
+loginshell: /bin/bash
+uidnumber: 500
+gidnumber: 120
+homedirectory: /mnt/home/bmarshal
+gecos: Brad Marshall,,,,
+userpassword: {crypt}aknbKIfeaxs
+
+
+
+Schema
+ Suatu set aturan yang menjelaskan data seperti apa yang disimpan
+ Membantu merawat kosistensi dan kuliatas data
+ Menghindari adanya duplikasi data
+ Atribut dari object class 
+ Schema mendefinisikan 
+   Atribut-atribut yang diperlukan (required),
+   Atribut-atribut yang diperbolehkan
+   Cara membandingkan atribut
+   Batasan tipe data yang dapat disimpan suatu atribut
+   Membatasi informasi yang bisa disimpan
+
+Singkatan-singkatan atribut yang biasanya adalah (lihat RFC2256)
+
+uid   User id 
+cn    Common Name 
+sn    Surname 
+l     Location 
+ou    Organisational Unit 
+o     Organisation 
+dc    Domain Component 
+st    State 
+c     Country
+
+LDAP URL (Lihat RFC1959)
+
+<ldapurl> ::= "ldap://" [ <hostport> ] "/" <dn> [ "?" <attributes>
+                        [ "?" <scope> "?" <filter> ] ]
+
+
+<hostport> ::= <hostname> [ ":" <portnumber> ]
+<dn> ::= a string as defined in RFC 1485
+<attributes> ::= NULL | <attributelist>
+<attributelist> ::= <attributetype>
+                  | <attributetype> [ "," <attributelist> ]
+<attributetype> ::= a string as defined in RFC 1777
+<scope> ::= "base" | "one" | "sub"
+<filter> ::= a string as defined in RFC 1558
+
+contoh
+
+    * ldap://foo.bar.com/dc=bar,dc=com
+    * ldap://argle.bargle.com/dc=bar,dc=com??sub?uid=barney
+    * ldap://ldap.bedrock.com/dc=bar,dc=com?cn?sub?uid=barney 
+
+ 
+
+http://www.iit.edu/~gawojar/ldap

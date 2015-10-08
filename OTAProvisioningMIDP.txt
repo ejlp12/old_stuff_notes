@@ -1,0 +1,119 @@
+Over-the-air Provisioning untuk Aplikasi MIDP
+
+Provisioning dapat diartikan sebagai membuat sesuatu tesedia. Over-the-air (OTA) provisioning memberikan pengertian proses tersedianya aplikasi MIDP (MIDlet) pada device hingga siap digunakan yang ditransfer lewat sebuah jaringan nirkabel (wireless network). Proses OTA provisioning untuk MIDlet mencakup proses mendapatkan aplikasi (discovery), download, install/update maupun penghapusan (removal).
+
+Pada sisi pengguna, OTA provisioning mempermudah pengguna untuk melakukan verifikasi dan installasi MIDlet. Pada sisi penyedia layanan OTA provisioning memberikan kemampuan untuk memberikan informasi content, melakukan proses pembiayaan (charging) dan lain-lain.
+
+OTA provisioning untuk aplikasi MIDP awalnya merupakan rekomendasi praktis bukan suatu spesifikasi. Rekomendasi tersebut dibuat setelah spesifikasi MIDP 1.0 namun kemudian rekomendasi ini masuk dalam spesifikasi MIDP 2.0 dengan beberapa pembaruan atau tambahan. 
+
+Arsitektur sebuah OTA provisioning aplikasi MIDlet terdiri dari:
+
+- Provisioning server
+
+Provisioning server adalah HTTP/Web server yang menyimpan file dan pemroses status hasil provisioning. File yang disimpan adalah file metadata atau java application descriptor (JAD) dan aplikasi MIDP (content) yang berupa file JAR. Content dapat juga disimpan di tempat lain misalnya pada suatu repository server atau content management system (CMS). Provisioning server berinteraksi  dengan network elemen misalnya WAP gateway yang menghubungkannya dengan device pengguna. Server ini juga dapat berinteraksi dengan sistem lain misalnya charging/billing server, Authentication Authorization server dan lain-lain.
+
+- Client atau AMS 
+
+Application Management Software (AMS) biasa digunakan sebagai istilah untuk software  pada sebuah device yang bertanggung jawab untuk mengatur suatu aplikasi misalnya mendownload, menyimpan (install), menjalankan (execution) atau bahkan membuang aplikasi. AMS biasa juga disebut Java Application Manager (JAM) untuk menunjukan software yang bertanggung jawab mengatur aplikasi MIDP pada device.
+
+
+Proses OTA provisioning dimulai dengan content discovery yaitu proses mendapatkan content dari web server. Pengguna biasanya mendapatkan content dari suatu website atau halaman WAP yang menggandung link ke file descriptor (JAD). Contoh link pada halaman WML:
+
+<a href="http://www.javanensis.net/sample.jad">MIDlet sample</a>
+
+
+Jika pengguna mengklik link tersebut, AMS (browser) akan mendownload file JAD menggunakan HTTP GET request ke web server.
+
+Web server akan meresponse request dengan memberikan file JAD. File tersebut harus diberikan dengan MIME type "text/vnd.sun.j2me.app-descriptor" pada HTTP response header.
+
+Dibawah ini contoh suatu file JAD yang didapat dari web server:
+
+  Manifest-Version: 1.0
+  Created-By: 1.3.1 (Sun Microsystems Inc.)
+  MIDlet-Version: 1.0.3
+  MIDlet-Name: Sample MIDlet
+  MIDlet-Vendor: Javanensis
+  MIDlet-1: System Viewer, /icons/system.gif, net.javanensis.sample,SystemViewer
+  MIDlet-2: Bluethoot Test, , net.javanensis.sample.BluethootTest
+  MIDlet-Description: Contoh aplikasi MIDP
+  MIDlet-Jar-Size: 86445
+  MIDlet-Jar-URL: http://www.javanensis.net/contents/sample.jar
+  MIDlet-Install-Notify: http://www.javanensis.net/MidpOtaProvisioing.do?file=sample.jar
+  MIDlet-Delete-Notify: http://www.javanensis.net/MidpOtaProvisioing.do?file=sample.jar
+  MIDlet-Delete-Confirm: Anda yakin akan menghapus aplikasi 'Sample MIDlet'?
+
+
+Setelah mendapatkan file descriptor, AMS biasanya melakukan verifikasi dan konfirmasi. Dari informasi yang ada pada file descriptot AMS bisa melakukan verifikasi apakah aplikasi yang akan diinstall sesuai dengan device, atau apakah ukuran file mencukupi untuk diinstall. Sebelum proses dilanjutkan, AMS dapat pula memberikan informasi yang tertera pada file descriptor kepada user dan meberikan konfirmasi kepada user untuk melanjutkan proses download dan install atau menghapus aplikasi jika aplikasi telah ada.
+
+Jika user memilih untuk melanjutkan proses download maka AMS akan mendownload MIDlet (file JAR) dari alamat URL yang tertera pada file descriptor bagian "MIDlet-Jar-URL". Proses download file JAR adalah proses HTTP download. AMS akan melakukan HTTP request ke web server, dan web server akan mengirimkan response yang berisi file dengan MIME type pada HTTP header adalah "application/java-archive"
+
+Setelah proses pengambilan file selesai, AMS akan melakukan installasi di tempat (directory) yang telah ditentukan.
+
+Bila proses installasi selesai, AMS akan memberitahukan ke provisioning server apakah proses tersebut berhasil atau tidak. Pemberitahuan hasil proses provisioning dilakukan AMS dengan mengirimkan HTTP POST request yang bersisi kode status dan pesan ke URL yang tertera pada "MIDlet-Install-Notify" dalam file descriptor. 
+Contoh pengiriman status:
+
+  POST /MidpOtaProvisioing.do?file=sample.jar HTTP/1.1
+  Host: www.javanensis.net
+  Content-Length: 13
+
+  900 Success
+
+
+Bila user memilih hapus aplikasi karena aplikasi telah ada. Status proses penghapusan dapat juga dikirimkan oleh AMS ke URL yang tertera pada "MIDlet-Delete-Notify"
+
+ Code	Description (Status Message)
+ ------ ---------------------------------------------------------
+ 900	Success
+ 901	Insufficient Memory
+ 902	User Cancelled
+ 903	Loss of Service
+ 904	JAR size mismatch
+ 905	Attribute Mismatch
+ 906	Invalid Descriptor
+ 907	Invalid JAR (MIDP 2.0)
+ 908	Incompatible Configuration or Profile (MIDP 2.0)
+ 909	Application authentication failure (MIDP 2.0)
+ 910	Application authorization failure (MIDP 2.0)
+ 911	Push registration failure (MIDP 2.0)
+ 912	Deletion Notification (MIDP 2.0)
+ 913	Required package not supported by the device (MIDP 2.0)
+
+Contoh proses diatas adalah proses yang biasa. Dibelakang layar sebuah provisioning server, penyedia layanan dapat menambahakan proses-proses yang diperlukan misalnya:
+
+- Klasifikasi berdasarkan device pada saat user melakukan discovery
+- Autentikasi user menggunakan Basic HTTP Authentication atau menggunakan cookies
+- Charging (pembiayaan) pada user  
+- Tracking
+
+Proses OTA provisioning MIDP ini diadopsi pada cakupan yang lebih luas yaitu Spesifikasi provisioning untuk  aplikasi klien J2EE (JSR 124) dan OMA download.
+
+== Spesifikasi provisioning untuk aplikasi klien J2EE
+
+JSR 124 didesain tidak hanya untuk aplikasi MIDP, tapi masih mirip dengan OTA provisioning aplikasi MIDP. JSR 124 lebih kompleks karena menspesifikasikan cara untuk mengirimkan content termasuk packaging, publishing, authentication, policies, adapter, plug-in, konfigurasi device serta API untuk mengakses content repository. 
+Descriptor yang digunakan pada JSR 124 berupa XML. 
+
+== OMA Download OTA
+
+Proses OMA download juga mirip dengan OTA provisioning aplikasi MIDP. OMA download tidak dikhususkan untuk men-download MIDlet atau tipe media spesifik lainnya, tetapi merupakan framework untuk mendownload media object apapun. OMA download juga menambahakan kemampuan untuk menghindari dari pengkopian ilegal suatu content dengan menambahkan spesidikasi Digital Rigth Management (DRM). Content descriptor yang digunakan OMA download berupa XML kecuali untuk aplikasi MIDP descriptor tetap menggunakan file JAD.
+
+Contoh descriptor pada OMA download OTA:
+
+  <media xmlns="http://www.openmobilealliance.org/xmlns/dd">
+	  <type>image/gif</type>
+	  <objectURI>http:/foo.bar.com/pic-dir/picture.gif
+	  </objectURI>
+	  <size>1234</size>
+	  <installNotify-URI>http:/foo.bar.com/status</installNotify-URI>
+  </media>
+
+
+== Links
+
+MIDP 1.0 OTA recommendation http://java.sun.com/products/midp/OTAProvisioning-1.0.pdf
+MIDP 2.0 specification http://www.jcp.org/jsr/detail/118.jsp
+J2EE Client Provisioning http://www.jcp.org/jsr/detail/124.jsp, http://java.sun.com/j2ee/provisioning
+Deploying Wireless Java Applications http://wireless.java.sun.com/midp/articles/deploy
+OMA Download OTA v.1.0 http://www.openmobilealliance.org/release_program/download_v10.html
+
+20061031
+

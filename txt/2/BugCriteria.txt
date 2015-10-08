@@ -1,0 +1,13 @@
+summary:
+open
+in progress
+reopened
+resolved
+closed
+
+priority:
+blocker
+critical
+major
+minor
+trivial

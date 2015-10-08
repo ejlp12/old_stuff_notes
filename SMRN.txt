@@ -1,0 +1,22 @@
+MSRN (Mobile Station Roaming Number)
+
+Digunakan pada jaringan GSM untuk keperluan routing saat ada pemanggilan (terminated call) ke MS (mobile station)
+MSRN dialokasikan pada seorang subscriber saat subscriber berada di visited network atau sedang roaming di jaringan operator lain.
+MSRN yang dialokasikan hanya bersifat sementara pada VLR/MSC. Setiap MSC biasanya memiliki range dimana MSRN bisa dialokasikan.
+
+Pengalokasian MSRN hanya dilakukan sesaat ketika MT call akan berlangsung sampai percakapan benar-benar terjadi. 
+Ketika GMSC menerima ISUP IAM message, GMSC akan meminta informasi routing ke HLR.
+Kemudian HLR akan meminta informasi nomor roaming (MSRN) ke serving VLR/MSC. 
+Informasi MSRN kemudian dikirimkan VLR lewat HLR ke GMSC. 
+Berdasarkan nomor MSRN, GMSC akan mengirimkan ISUP IAM message ke serving VLR/MSC. 
+Pada saat percakapan terjadi, MSRN sudah dihapus di VLR.
+
+http://www.eventhelix.com/realtimemantra/telecom/GSM_Terminating_Call_Flow.pdf 
+
+Format MSRN mengikuti penomoran E.164. Strukturnya sama dengan MSISDN yaitu
+
+Country Code (CC) dari visited network
+National Destination Code (NDC) dari visited network
+Subcriber Number (SN) yang dialokasikan oleh visited network
+
+Karena MSRN pada dasarnya adalah nomor MSISDN, maka range nomor ini juga harus diplan oleh sebuah operator GSM.

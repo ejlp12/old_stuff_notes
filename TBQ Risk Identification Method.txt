@@ -1,0 +1,49 @@
+http://www.sei.cmu.edu/pub/documents/93.reports/pdf/tr06.93.pdf
+
+
+SEI (Software Engineering Institure) mengembangkan sebuah metode untuk identifikasi risk dalam
+proyek pengembangan perangkat lunak (software development).
+
+SEI membuat metode didentifikasi risk dengan asumsi-asumsi sebagai berikut:
+
+• Resiko dalam software development secara general telah diketahui oleh staf teknis proyek tetapi sangat minim dikomunikasikan.
+• Sebuah metode yang terstruktur dan dalam diulangin (repeatable) dalam indentifikasi resiko dibutuhkan untuk managemen resiko yang konsisten.
+• Indentifikasi resiko yang efektif haruslah mengcakup semua bagian area pengembangan dan support dari project.
+• The risk identification process must create and sustain a non-judgmental and
+non-attributive risk elicitation environment so that tentative or controversial
+views are heard.
+• No overall judgment can be made about the success or failure of a project
+based solely on the number or nature of risks uncovered.
+
+
+Metode yang dikembangan SEI disebut Taxonomy-Based Questionnaire (TBQ). TBQ mereka sebut sebagai metode semi terstruktur
+
+
+Dalam mengembangkan metode TBQ, SEI memulai dengan mendefinisikan taxonomy atau lebih tepatnya
+"Software Development Risk Taxonomy". Taxonomy adalah framework untuk mengorganisasi dan 
+mempelajari isu-isu pengembangan software. Software taxonomy terdiri dari 3 kelas utama yaitu
+
+- Product Engineering
+  Requirement, Design, Code and Unit Test, Integration and Test, Engineering Specialities
+- Development Environment
+  Development Proceds, development System, Management Process, Management Methods, Work Environment
+- Program Contraints
+  Resources, Contract, Program Interface
+
+Setiap kelas tersebut kemudian di-breakdown menjadi beberapa elemen dan tiap elemen dikarakterisasi
+dengan atribut-atribut. Dibawah ini ilustrasi diagram pohon dari software development taxonomy:
+
+
+
+Detail taxonomy yang digunakan untuk TBQ adalah sebagai berikut
+
+
+Dari taxonomy tersebut kemudian dibuat sebuah list pertanyaan untuk mengidentifikasi resiko dalam pembangunan software.
+List pertanyaan (questinnaire) dapat dilihat di Appendix B dari dokumen yang TBQ yang dipublikasikan oleh SEI. Dibawah ini 
+adalah capture dari beberapa pertanyaan dalam TBQ.
+
+Pelaksanaan TBQ dalam prakteknya dapat dijalankan dalam bentuk risk identification session yaitu sebuah sesi tanya-jawab (interview)
+dari orang-orang yang dipilih dalam proyek. Orang yang terlibat dalam diskusi adalah orang-orang dari shareholder proyek, yang mencakup
+orang yang berada dalam hirarki organisasi proyek maupun orang fungsional seperti developer, support, dan lain-lain. 
+Sebelum pelaksaan sesi identifikasi resiko yang akan berisi tanya-jawab dan klarifikasi issue, sebaiknya dilakukan training
+

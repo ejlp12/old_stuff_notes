@@ -1,0 +1,21 @@
+Arsitektur UMTS Release-4
+
+IETF telah mendesign sebuah protokol (<a href="http://www.faqs.org/rfcs/rfc2705.html">RFC 2705</a>) untuk mengontrol VoIP Gateway dari elemen eksternal pada tahun 1990. Protokol tersebut kemudian disebut media gateway control protocol (MGCP). MGCP dirancang untuk mengontrol jaringan yang menggunakan H.323, SIP RTSP, maupun SAP (Session Announcement Protocol).
+
+MGCP kemudian dikembangkan IETF bersama-sama ITU.Hasil pengembangannya adalah protokol MEGACO yang dipublikasikan menjadi RFC 3525 oleh IETF sedangkan oleh ITU dipublikasikan sebagai H.248. RFC 3524 merupakan realisasi dari RFC 2805 "Media Gateway Control Protocol Architecture and Requirement".
+
+Konsep arsitektur ini kemudian diadopsi oleh 3GPP untuk arsitektur jaringan UMTS. 3GPP membuat Mc interface (3GPP 29.232) yang merupakan modifikasi dari spesifikasi H.248 agar dapat digunakan dalam lingkungan GSM dan UMTS. Arsitektur ini dirilis pada UMTS Release-4 dan disebut-sebut sebagai distributed architecture atau layered architecture.
+
+Inti dari arsitektur ini adalah <a href="http://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> (pemisahan) antara user plane dan control plane. User plane dimana media dikirimkan ditangani oleh Media Gateway (MGW) sedangkan control plane ditangani oleh MSC Server (MSS). (G)MSS melakukan control terhadap satu atau beberapa MGW.
+
+Dibawah ini gambar aristektur UMTS Release-4.
+
+
+
+
+Dengan dipisahkannya antara user plane dan control plane maka didapat beberapa keuntungan yaitu:
+
+- Satu MSC Server dapat mengontrol beberapa media gateway secara remote. 
+- Satu MGW juga dapat dibagi menjadi beberapa virtual MGW yang dikontrol oleh MSC Server yang berbeda.
+- Ekspansi antara control plane (signaling) dan user plane (bearer) lebih fleksibel karena terpisah.
+- Mempermudah migrasi dari GSM ke UMTS dan ke arsitekture All-IP network

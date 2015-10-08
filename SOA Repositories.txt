@@ -1,0 +1,9 @@
+SOA repositories 
+
+service life-cycle management solutions
+
+workflow agar setiap service dapat di-review dan disetujui (approve) dengan proses yang benar 
+Pengkategorian service dan aset-aset lainnya
+Meng-capture relasi antar service sehingga mudah di-review
+Reporting untuk mendukung planning dan assessment
+Flexible customization of asset types and life cycles.

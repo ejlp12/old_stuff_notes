@@ -1,0 +1,53 @@
+
+Dibawah ini saya jelaskan bagaimana proses suatu MMS diterima pada sebuah ponsel dari jaringan operator.
+
+MMSC sebagai elemen yang menerima MMS dari subscriber akan mengirimkan notifikasi (MMS notification) kepada ponsel tujuan.
+Notifikasi MMS yang memberitahukan ponsel bahwa subscriber mendapat kiriman MMS diterima ponsel dalam bentuk WAP-push yang dikirim lewat SMS bearer.
+WAP-push indikator tersebut memiliki header content type yang berisi "application/vnd.wap.mms-message" dan header X-Wap-Application-Id yang berisi "x-wap-application:mms.ua"
+Dari header tersebut ponsel tau bahwa WAP push tersebut adalah MMS notification indicator dan harus diproses oleh MMS agent. 
+MMS agent kemudian memproses notification tersebut yaitu meresponse untuk memberitahu MMSC bahwa notification indicator telah diterima kemudian melakukan request (WSP/HTPP GET) ke MMSC untuk mendownload content dari MMS.
+
+Sebuah MMS notification indicator membawa informasi diantaranya:
+
+- Nomor versi MMS
+- Alamat pengirim MMS
+- Subject dari MMS
+- Delivery report status yang menunjukan pengirim membutuhkan status delivery report atau tidak
+- MMS message class, yang menunjukan prioritas pengiriman
+- Ukuran MMS
+- Waktu kadaluarsa (expiry) dari MMS
+- Lokasi MMS content yaitu alamat untuk mengambil isi dari MMS
+
+Informasi tersebut dispesifikasikan pada dokumen spesifikasi OMA yang berjudul "Multimedia Messaging Service Encapsulation Protocol"
+dan juga spesifikasi 3GPP TS 23.140 (Multimedia Messaging Service (MMS); Functional description) pada bagian yang membahas tentang MM1 interface.
+MM1 interface adalah interface yang menhubungkan antara MMSC dengan ponsel.
+
+Dalam spesifikasi OMA, notifikasi MMS disebut M-Notification.ind dan serponsenya disebut M-NotifyResp.ind. Sedangkan pada MM1 interface, 
+notifikasi MMS disebut MM1_notification.REQ dan responnya disebut MM1_notification.RES
+
+Sebuah ponsel biasanya memiliki setting untuk penerimaan MMS yaitu
+
+- Cara penerimaan yang menentukan apakah MMS client/agent akan otomatis mengambil MMS content setelah mendapat MMS notifikasi
+- APN (Access Point Name) yang merupakan setting GPRS bearer agar MMS content dapat dikirim dari ponsel ke MMSC atau diambil dari MMSC
+
+Pada kasus pengambilan MMS langsung (otomatis) proses pengambilan digambarkan sbb:
+
+
+ponsel                                     MMS Proxy-Relay (MMSC)
+------                                     ----------------------
+  |                                                 |
+  |<-- M-Notification.ind / MM1_notification.REQ ---|
+  |                                                 |
+  |--- M-NotifyResp.ind / MM1_notification.RES ---->|
+  |                                                 |
+  |----- MM1_retrieve.REQ (WAP/HTTP GET) ---------->|
+  |                                                 |
+  |<---- MM1_retrieve.RES / M-retrieve.conf --------|
+  |                                                 |
+  |-- M-NotifyResp.ind / MM1_acknowledgement.REQ -->|
+  |                                                 |
+  |                                                 |
+  |                                                 |
+
+ 
+

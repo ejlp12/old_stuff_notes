@@ -1,0 +1,8 @@
+
+Non-delivery report 
+
+Spammers can avoid email filters built into many systems by taking advantage of a mail systems sending of a non-delivery report (NDR).  An NDR is generated when a message cannot be delivered as addressed and returns the original contents.  
+
+CMS calls this a "Reverse NDR attack" (RNDR). Many sites experience this, some so badly that over 99% of their email is attributed to RNDR spam.
+
+The result is the spammer has attained a form of mail relaying with your server's resources being stolen to deliver spam.

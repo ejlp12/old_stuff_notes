@@ -1,0 +1,24 @@
+Direct Transfer Application Part (DTAP) – 
+DTAP digunakan antara MS dengan MSC dilewatkan pada Abis dan A interface.
+Protokol ini DTAP dispesifikasikan pada GSM TS 04.08 [49];
+
+                   +-----+
+MS ------DTAP----->| MSC |------ISUP------>
+                   +-----+
+
+         LLC -----------------> Access transport
+         HLC -----------------> User teleservice information
+         BC ------------------> User service Information
+
+Saat seorang subscriber akan melakukan panggilan, MS akan menginformasikan parameter-parameter
+ke MSC seperti 
+ - bearer capability (BC), 
+ - low-layer compatibility (LLC) 
+ - high-layer compatibility (HLC)
+
+berdasarkan paramater tersebut makan MSC akan membuat basic service sesuai rule pada GSM TS 09.07.
+MSC akan mengedek ke VLR apakah subscriber tersebut memiliki basic service yang diminta, jika tidak
+ada maka MSC tidak akan melanjutkan service yang diminta.
+
+Jika terdapat IN (CAMEL service) di jaringan, maka MSC akan menanyakan ke IN/SCP "bagaimana MSC 
+harus memproses request tersebut?"

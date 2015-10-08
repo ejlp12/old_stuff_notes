@@ -1,0 +1,13 @@
+CORBA
+
+Common Object Request Broker Architecture (CORBA) 
+- dibuat oleh Object Management Group (OMG) [http://www.omg.org/]
+- sebuah standar arsitektur untuk system objek terdistribusi
+- memberikan kemudahaan beberapa objek untuk salingberinteraksi dalam lingkungan terdistribusi
+- paradigma: suatu permintaan (request) layanan (service) dari suatu object terdistribusi
+
+Service diberikan dalam bentuk interface yang disebut Interface Definition Language (IDL)
+
+
+
+

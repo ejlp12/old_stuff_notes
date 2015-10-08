@@ -1,0 +1,12 @@
+Telecomunication Management Network (TMN)
+
+TMN model diperkenalkan oleh ITU pada M.3100
+
+Piramida TMN dimana manajemen dibagi dalam beberapa layer
+
+
+Bussines Management
+Service Management
+Network Management
+Element Management
+Network Elements

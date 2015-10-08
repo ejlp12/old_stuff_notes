@@ -1,0 +1,18 @@
+#!/bin/bash
+
+read_sql_stmt() {
+  typeset stmt=$1
+  typeset login=$2
+
+  #output per row should in in one line
+  echo "
+    set feedback off verify off heading off pagesize 0 linesize 300
+    $stmt;
+    exit
+  " |  sqlplus -s  $login
+}
+
+read_sql_stmt "SELECT id, applicationid, applicationname FROM mc_mgmtreportinfo WHERE expirydate IS NULL ORDER BY applicationname" "hydra/hydra@hydradb" | while read u i j
+do
+  echo -e "application: $j, id: $u, appid: $i"
+done

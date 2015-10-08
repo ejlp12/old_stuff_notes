@@ -1,0 +1,38 @@
+Missed call alert (MCA) merupakan layanan yang diberikan operator selular agar pelanggannya tahu jika ada panggilan yang tidak terjawab dari pelanggan lain yang diakibatkan karena ponselnya mati, sibuk, tidak memperoleh sinyal akibat diluar area layanann ataupun panggilan yang memang tidak dijawab. Pelanggan biasanya mendapatkan informasi berupa SMS yang memuat informasi waktu panggilan (call) dan nomor telepon pemanggil.
+
+Dengan layanan ini pelanggan akan selalu tau siapa yang mencoba mengontak walaupun ponselnya sedang tidak dalam keadaan aktif. Dari sisi oprator, layanan ini memberikan nilai tambah karena persentase pemanggilan-kembali (call back) akan meningkat karena pelanggan cenderung untuk menelepon balik si penelopon jika dia tahu bahwa ada panggilan yang tidak terjawab. Peningkatan jumlan pemanggilan ini, otomatis berarti memberikan peningkatan keuntungan. Oleh sebab itu, biasanya layanan ini tidak berbayar dan merupakan layanan standar. Pelanggan biasanya hanya dibebani biaya penginriman SMS dengan harga standar. Beberapa operator ada pula yang memberi tarif pada layanan ini dan tidak memberikannya sebagai layanan standar sehingga pelanggan memiliki kebebasan untuk tidak menggunakannya. 
+
+Ada 2 metode untuk sistem MCA yaitu
+
+1. Call dilempar (forward) ke MCA server atau solusi MCA yang terintegrasi dengan VMS.
+Layanan MCA kadang merupakan fitur dari sebuah VMS (Voice Mail System) sehingga tidak perlu sebuah box terpisah yang menangani layanan ini.
+Pada metode ini, jika switch (MSC) tidak dapat menghubungi nomor tujuan maka switch akan mengalihkan panggilan ke MCA server atau VMS. MCA/VMS mengetahui dengan langsung dengan meneripa ISUP message (IAM) dari switch. Pada solusi tanpa VMS, MCA akan pemproses event tersebut dengan mengirimkan ISUP message ke switch untuk memutuskan sambungan REL dan menyiapkan sebuah pesan teks untuk kemudian dikirimkan ke SMSC.
+
+Jika solusi MCA berada di VMS biasanya pemanggil akan mendengerkan pesan suara (interactive voice response) yang meminta pemanggil meninggalkan pesan suara. Jika pemanggil meninggalkan pesan suara maka VMS akan mengirimkan pesan yang berisi informasi adanya voice mail kepada nomor tujuan. Jika pemanggil tidak meninggalkan pesan (memutuskan sambungan) maka VMS akan memproses sebagai missed call yaitu menyiapkan sebuah pesan teks yang menginformasikan adanya missed call untuk kemudian dikirimkan ke SMSC.
+   
+Arsitektur dari solusi ini adalah sebagai  berikut:
+
+           +-------+                   +-----------+
+    A# ----|  MSC  |<----------------->| VMS / MCA |
+           +-------+                   +-----------+
+                                            |
+           +-------+                        |
+    B# <---|  SMSC |<-----------------------'       
+           +-------+  
+                
+2. Mendeteksi missed call lewat penyadapan (tapping) signaling dari MSC ke VMS.
+
+Pada metode ini, MCA server merupakan elemen terpisah dengan VMS dan switch secara otomatis akan selalu mengalihkan pemanggilan ke VMS jika nomor tujuan (B#) tidak dapat dihubingi. MCA server mengetahui adanya missed call dengan cara melakukan penyadapan signaling link antara switch dengan VMS. MCA memilih message ISUP yang sesuai yaitu IAM kemudian memprosesnya dengan membuat SMS dan mengirimkannya ke SMSC. 
+
+
+           +-------+                   +------+
+    A# ----|  MSC  |<--------+-------->| VMS  |
+           +-------+         |         +------+
+                             |
+                      +------------+
+                      | MCA server |
+                      +------------+
+                             |  
+           +-------+         |  
+    B# <---|  SMSC |<--------'  
+           +-------+                           

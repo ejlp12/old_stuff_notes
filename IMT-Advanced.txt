@@ -1,0 +1,29 @@
+IMT-advanced
+
+Saat ini teknologi 3G yang dipayungin oleh standar ITM-2000 terlihat sudah semakin banyak digunakan sehingga kebutuhan akan akses data nirkabel yang memiliki kecepatan tinggi semakin dibutuhan baik untuk layanan bergerak maupun tidak bergerak (nomadic). Untuk itu, ITU sebagai organisasi telekomunikasi mulai mendefinikan sistem komunikasi masa depan yang diharapkan bisa memenuhi kebetuhan tersebut.
+
+Untuk mencapai sistem komunikasi bergerak/nirkabel masa depan yaitu system beyond 3G/IMT-2000, Kelompok kerja Working Party 8F (WP 8F) yang berada dibawah ITU Radiocommunication Sector (ITU-R) mendefinikan IMT-Advanced. Tim tersebut akan berkerja untuk mendefinikan dan prinsip-prinsip teknologi yang akan digunakan dan memanggil secara terbuka kandidat dari teknologi ini selama tahun 2008-2009. Jadi kemungkinan IMT-Advanced ini juga akan memayungi beberapa standar teknologi, tapi bisa juga hanya satu teknologi yang disetujui.
+
+Fitur-fitur yang menjadi kunci dari IMT-Advanced ini diatantanya adalah:
+
+- Konvergensi dari semua sistem komunikasi bergerak/nirkabel
+- Memiliki bermacam layanan dan QoS yang memberikan kenyamanan pada pengguna
+- Kecepatan data (data rate) yang lebih tinggi mencapai 100Mbps pada mobilitas tinggi dan 1Gbps jika dalam kondisi diam
+- Kemampuan roaming secara global
+- Handover antar jaringan akses yang berbeda-beda
+- Memiliki arsitektur jaraingan All-IP
+- Memiliki QoS yang setara dengan jaringan wireline
+
+IMT-Advanced mulai dibicarakan awal tahun 2007 http://www.itu.int/newsroom/press_releases/2007/12.html dan diharapkan mulai available secara komersial pada awal tahun 2011.
+
+Saat ini teknologi nirkabel seperti wireless broadband dan 3G terlihat semakin konvergen. OFDM atau OFDMA menjadi teknologi utama yang digunakan sebagai air interface pada generasi berikutnya dari UMTS, CDMA2000 dan WiMAX. Teknologi OFDM/OFDMA diperkirakan dapat memenuhi kebutuhan data rate yang tinggi yang didefiniskan pada IMT-Advanced, oleh karena itu kemungkinan besar IMT-Advanced akan mengadopsi OFDM/OFDMA sebagai teknologi utama.
+
+Karena OFDM/OFDMA telah diadopsi oleh WiMAX 2, LTE/SAE (pengembangan dari UMTS) dan UMB (pengembangan dari EV-DO) dan ketiga standar itu dinaungi oleh organisasi yang kuat maka akan ada persaingan yang bersifat politis agar ketiga teknologi tersebut diadopsi sebagai basis teknologi IMT-Advanced.
+
+
+
+
+
+
+
+http://www.mitf.org/public_e/archives/index.html

@@ -1,0 +1,68 @@
+Jika Anda bekerja di bidang telekomunikasi nirkabel atau pelajar yang mempelajarinya, dan pekerjaan Anda membawa Anda untuk membaca dokumen spesifikasi standar GSM/3GPP maka sebaiknya Anda pelajari bagaimana 3GPP melakukan versioning atau rilis dokumennya. Lakukan hal ini sebelum anda bingung spesifikasi mana yang seharusnya Anda baca.
+
+Sebelumnya saya telah sedikit menjelaskan bagaimana versioning dari spesifikasi yang dikeluarkan OMA. Tidak banyak yang ditulis karena memang sederhana dan tidak banyak dokumen yang dihasilkan jika dibandingkan dengan 3GPP.
+
+Mempelajari spesifikasi dari 3GPP sangat menarik karena dokumen yang ada begitu banyak dan teknologi yang dilingkupinya begitu luas dan kompleks. Dengan mempelajari spesifikasi 3GPP, kita dapat memahami bagaimana teknologi GSM atau 3G/UMTS bekerja mulai dari telepon selularnya, arsitektur jaringan operator hingga detil bagaimana antar elemen pada arsitektur itu berkerja. Selain itu kita juga bisa melihat dengan detil bagaimana teknologi telekomunikasi nirkabel berevolusi dari 2G ke 3.9G atau 4G.
+
+Tentang 3GPP
+
+3GPP adalah oragnisasi yang membuat standar atau spesifikasi untuk 3GSM/UMTS yaitu pengembangan teknologi dari GSM. 3GPP merupakan kolaborasi  dari beberapa organisasi telekomunikasi.
+
+beberapa Technical Specification Group (TSG)
+
+Suatu tujuan/target, perubahan (enhancement) substansial atau penambahan fitur (Feature) baru biasanya direncakan dalam sebuah Work Plan. Work plan berisi item-item pekerjaan yang lebih rinci yang akan dilakukan oleh group yang menghasilkan Change Request (dokumen perubahan) dan atau Technical Specification dan Technical Report. Ada baiknya kita membaca Work Plan untuk mengetahui teknologi yang digunakan atau akan digunakan pada suatu rilis (Release). 
+Work Plan dari setiap rilis dapat diunduh di sini[http://www.3gpp.org/ftp/Information/WORK_PLAN/]
+
+Lebih detail tentang metode kerja TSG dapat dilihat di dokumen TR 21.900 [http://www.3gpp.org/ftp/Specs/html-info/21900.htm]
+
+TR dan TS 
+
+3GPP mempublikasikan hasil pekerjaannya yang penting yaitu Technical Report (TR) dan Technical Specification (TS).
+
+Technical Specification adalah spesifikasi teknis dari suatu bagian/cakupan kecil suatu fitur (building-block). Suatu TS biasanya terdiri dari beberapa stage, yang akan dijelaskan dibawah.
+
+Technical Report merupakan hasil dari studi awal (initial study) dan studi kelayakan (feasibility study) suatu fitur dan didalamnya tercakup petunjuk untuk implementasi awal (early implementation) dari sebuah fitur baru.
+
+Release
+
+Sebuah rilis dibuat oleh 3GPP jika ada pemanbahan fitur atau perubahan yang drastis dari suatu kebutuhan (requirement). Jika suatu rilis diberhentikan (freeze) berarti spesifikasinya telah final. rilis baru dan tujuannya biasanya adalah untuk meningkatkan performansi, kecepatan data dan lain-lain oleh karena itu biasanya biasanya ada perubahan besar pada elemen arsitekrur atau radio interface pada setiap rilis. 
+
+Rilis 3G dimulai dari 
+ Release 99 (R99) selesai tahun 1999,  
+ Release 4 (Rel-4) selesai tahun 2001, 
+ Release 5 (Rel-5) selesai tahun 2002, 
+ Release 6 (Rel-6) selesai tahun 2005,
+ Release 7 (Rel-7) selesai tahun 2007,
+ Rilis terkini adalah Release 8 dan masih dalam pengembangan.
+
+Penomoran TS/TR
+
+Mengenal cara penomoran TS sangat penting, terutama mengetahui hubungannya dengan rilis. Agak malas menjelaskannya disini tapi karena ini penting jadi sebaiknya penjelasan mengenai numbering di web site 3GPP [http://www.3gpp.org/specs/numbering.htm] harus dibaca sebelum menlanjutkan membaca artikel ini.
+
+List feature per rilis dapat dilihat disini [http://www.3gpp.org/ftp/Specs/html-info/FeatureListFrameSet.htm]
+
+Selain cara penomoran, ada beberapa istilah yang perlu kita tahu juga yaitu stage dan phase.
+
+Stage digunakan untuk menunjukan jesni spesifikasi.
+
+ Stage 1: deskripsi kebutuhan atau layanan
+ Stage 2: Analisis logik, fungsionalitas elemen dan aliran informasi antar elemen
+ Stage 3: Detil implementasi, protokol
+
+Phase digunakan untuk menunjukan evolusi atau versi dari fungsionalitas tertentu, misalnya phase 1, phase 2, phase 2+, phase 3 dan seterusnya.
+
+Menemukan dokumen spesifikasi yang diinginkan.
+
+Untuk menemukan dokumen spesifikasi yang kita cari, sebaiknya kita buka halaman Specification Release Matrix [http://www.3gpp.org/ftp/Specs/html-info/SpecReleaseMatrix.htm], kemudian cari dengan fungsi search/find browser.
+
+
+
+
+
+
+
+
+
+
+
+

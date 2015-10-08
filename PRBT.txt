@@ -1,0 +1,59 @@
+
+PRBT (Personal Ring Back Tone) atau sering disebut Color Ring Back Tone (CRBT) atau RBT saja.
+
+
+
+Solusi berbasis IN (support CAP Phase4 or INAP C/S 2)
+
+
+Solusi berbasis Switch (non IN-based solution)
+Pada solusi ini MSC mengontrol routing pemanggilan ke RBT player. Saat seorang penelpon menghubungi nomor tujuan, MSC akan mengarahkan voice trunk ke RBT player kemudian mengalihkan voice trunk ke telepon tujuan jika orang yang ditelepon menjawab panggilan tersebut.
+
+
+Solusi pada RBT system.
+ Pada solusi ini aliran layanan (service flow) dikontrol dan diatur oleh RBT system.
+
+
+ User A   MSC     RBT    User B
+   |       |       |       |
+   |---1-->|       |       |
+   |       |-------2------>|
+   |       |<------3-------|
+   |       |       |       |
+   |       |-------4------>|
+   |       |       |       |
+   |       |---5-->|       |
+   |       |       |       |
+   |       |<--6---|       |
+   |=======7=======|       |
+   |       |       |       |
+   |       |---8-->|       |
+   |       |<--9---|       |
+   |==========10===========|
+   |       |       |       |
+
+
+ 1. Pelanggan A melakukan pemanggilan ke pelanggan B yang merupakan pelanggan RBT
+ 2. Switching elemen akan mengirimkan IAM ke RBT system, bukan ke B number.
+ 3. Kemudian RBT system mengirimkan IAM dengan nomor tujuan adalah B number ke MSC.
+ 4. MSC melakukan IAM ke ponsel pelanggan B.
+ 5. Jika pelanggan B dapat dihubungi, MSC akan mengirimkan ACM dengan nomor pengirim pelanggan B ke RBT system.
+ 6. RBT system kemudian mengirimkan ACM dengan nomor tujuan pelanggan A ke MSC.
+ 7. MSC menghubungkan voice trunk dari user A ke RBT. RBT system memainkan konten RBT milik pelanggan B sampai pelanggan B menjawab panggilan.
+ 8. Jika pelanggan B menjawab panggilan, MSC akan mengirimkan ANM dengan nomor pengirim pelanggan B ke RBT system.
+ 9. RBT system kemudian mengirimkan ANM dengan nomor tujuan pelanggan A ke MSC.
+10. MSC menghubungkan pelanggan A dan pelanggan B dalam sebuah voice trunk 
+
+
+Untuk memahami call flow diatas sebaiknya Anda mengerti mengenai SS7 dan ISUP.
+
+
+RBT player
+RBT server logic, profile database
+Sound File Manager (CMS)
+
+During call establishment the GMSC or MSC/VLR checks whether the user has active PRBT service. If service is active, the GMSC or MSC/VLR will contact 
+PRBT and further continue with call establishment.
+
+
+http://www.dialogic.com/products/signalingip_ss7components/docs/8933_CRBT_Building_Wireless_Apps_with_Signaling_Solutions_an.pdf

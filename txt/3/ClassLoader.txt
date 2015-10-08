@@ -1,0 +1,69 @@
+Class loading (20060127)
+
+Class loading adalah proses pengalokasian bytes untuk sebuah nama class dan mengkonversikannya menjadi suatu instance Class Java.
+
+Lokasi file class dapat berada di filesystem, database atau remote location.
+
+Masalah class loading yang biasa ditemukan:
+ClassNotFoundException.
+NoClassDefFoundError.
+ClassCastException.
+
+Pada spesikasi Java2 dan J2EE tidak sesederhana mendefinisikan CLASSPATH pada enviroment varible
+Class loading adalah proses locating bytes dari suatu nama class dan mengkonversikan menjadi java.lang.Class instance
+
+Dengan kemampuan dynamic loading, Java dapat membuat instance java.lang.Class yang tidak diketahui saat compile time.
+Class loader merupakan subclass dari abstract class java.lang.ClassLoader
+
+Class loader didesain agar dapat bekerja dengan satu atau lebih codesources.
+Codesource adalah lokasi paling dasar dimana JVM akan mencari class
+Misalnya: tiap elemen (direktori, jar/zip file) dalam CLASSPATH adalah coudesource
+Class loader dapat didesain agar bisa me-load class dari file system, database, remote server dll
+
+Programmer dapat membuat sendiri class loader (Custom Class Loader) dengan mekanisme tambahan misalnya men-decrypt file class sebelum class tersebut di-load ke memory.
+
+
+Masing-masing classloder (instance dari suatu subclass ClassLoader) memiliki namespace unik masing-masing.
+Namespace suatu instance adalah classloader ditambah fully qualified class name (nama package dan nama class)
+Hanya satu instance dari suatu class dapat berada pada suatu classloader, tidak dapat lebih.
+Tapi instance dari class yang sama bisa ada di beberapa classloader.
+Instance dari class yang sama tapi pada classloader yang berbeda, memiliki namespace yang berbeda.
+
+Hubungan antara classloader berbentuk struktur pohon (tree structure)
+Classloader hanya dapat 'melihat' class yang ada pada namespace-nya dan classloader diatasnya (parent).
+Parent-classloader tidak dapat 'melihat' class yang di child-classloader
+Kita dapat spesifikasikan hubungan parent-child antar classloader
+Method loadClass() digunakan saat classloader melakukan loading suatu class.
+  Jika class belum pernah di load maka classloader akan mendelegasikan pencarian class ke parent classloader
+  Jika class tidak ditemukan oleh parent maka clasloader akan memanggil method finalClass() untuk mencari class di tempatnya sendiri
+ 
+
+Bootstrap classloader
+^
+Extension classloader
+^
+System/Application classloader
+
+1. Bootstrap classloader
+- Disebut juga Primordial ClassLoader
+- Dibuat oleh JVM
+- Bertanggung jawab untuk memuat class-class Java inti seperti (rt.jar, I18n.jar, jsse.jar, jce.jar, dll).
+- Kita dapat menambahkan class yang dimuat oleh bootstrap dengan opsi -Xbootclasspath pada JVM atau menggunakan "sun.boot.class.path" system property.
+
+2. Extension classloader
+- Bertanggung jawab pada pemuatan (loading) class-class dari direktori tambahan (extension) JRE (jre/lib/ext atau yang dispesifikasikan di system property "java.ext.dirs")
+
+
+3. System classloader
+- Bertanggung jawab pada pemuatan class-class dari direktori atau file (jar) yang dispesifikasikan di CLASSPATH variabel, pada command-line atau yang dispesifikasikan pada system property "java.class.path"
+- Classloader ini dapat ditemukan dengan memanggil method static ClassLoader.getSystemClassLoader().
+
+
+
+
+
+
+  
+
+
+

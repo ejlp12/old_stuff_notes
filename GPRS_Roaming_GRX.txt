@@ -1,0 +1,73 @@
+Jika kita memiliki SIM card dari operator X dan pergi ke negara lain dimana ada cakupan sinyal radio dari operator Y, kita masih dapat  menggunakan nomor dari operator X jika operator X dan Y bekerjasama untuk saling terinterkoneksi. Tentu saja layanan yang masih dapat dilakukan tergantung dari kesepakatan kedua operator tersebut. Kemampuan untuk dapat menggunakan jaringan operator lain seperti itu disebut roaming. 
+
+Layanan yang masih dapat digunakan pada saat roaming tergantung dari kesepakatan antar kedua operator tersebut. Biasanya perjanjian roaming yang paling umum adalah untuk layanan suara (call) dan SMS. Dengan semakin meningkatnya kebutuhan akses data pada pelanggan telepon nirkabel (selular) maka kebutuhan roaming untuk akses data pun semakin dibutuhkan. Selain itu perkembangan teknologi jaringan telekomunikasi yang mengarah pada jaringan yang berbasis Internet protocol (IP) juga semakin mendorong operator untuk melakukan kerjasama roaming untuk layanan akses data atau GPRS.
+
+GPRS roaming diperlukan agar pelanggan masih dapat melakukan koneksi GPRS jika menggunakan jaringan operator lain. Ada dua macam cara koneksi roaming untuk GPRS, yaitu
+
+-1- Home GGSN roaming yaitu menggunakan GGSN yang dimiliki oleh operator asal.
+
+Pada contoh operator X dan Y diatas, cara koneksi ini berarti pelanggan menggunakan jaringan radio (BTS/Node-B, BSC) dan SGSN operator Y, tetapi tetap menggunakan GGSN operator Y. SGSN operator Y (Visited SGSN) mengetahui kemana paket data harus dikirimkan dari APN yang ada di ponsel pengguna.
+
+
+Gambar yang disederhanakan dari proses Home GGSN roaming adalah sebagai berikut
+
+
+                     VPLMN   :   HPLMN                                 
+                             : 
+                             : 
+       A --1--> SGSN --(interkoneksi)--2--> GGSN --3--> BG --4--> (Internet/Intranet)
+                             :                                         
+                             :                                         
+                             :  
+                             
+
+-2- Visited GGSN roaming yaitu menggunakan GGSN yang dimiki oleh operator dimana pengguna sedang berada (Visited GGSN)
+
+Pada proses roaming ini, pelanggan yang melakukan roaming perlu memiliki profile wild card APN (*) yang berarti pelanggan dapat menggunakan default GGSN dari Vistited SGSN. Hal ini dituliskan dalam sebuh dokumen dari 3GPP:
+
+"The APN field in the HLR may contain a wild card APN if the HPLMN operator allows the subscriber to access any network of a given PDP Type. If an SGSN has received such a wild card APN, it may either choose the APN Network Identifier received from the Mobile Station or a default APN Network Identifier for addressing the GGSN when activating a PDP context"
+
+
+                                 VPLMN   :   HPLMN                                 
+                                         : 
+                                         : 
+       A --1--> SGSN --2--> GGSN --(interkoneksi)--3--> BG --4--> (Intranet)
+                              |          : 
+                              3          :                                        
+                              |          :                                         
+                              v          :  
+                         (Internet)
+                         
+
+
+Dari kedua cara diatas, cara yang paling umum yang biasanya terjadi pada kasus GPRS roaming adalah menggunakan Home GGSN.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Ada beberapa cara koneksi agar GPRS roaming dapat terjadi, yaitu PLMN roaming dan ISP roaming.
+
+-1- PLMN roaming
+Pada PLMN Roaming hubungan antar PLMN dilakukan lewat backbone khusus yang disebut GPRS Roaming Exchange (GRX).
+
+Pemberi layanan GRX (GRX service provider) bertindak sebagai penghubung (hub) dengan operator-operator lain sehingga operator tidak perlu melakukan koneksi terpisah ke setiap partner roaming-nya. Hal ini mempermudah operator sehingga proses penyambungan untuk operator partner baru menjadi lebih cepat. GRX service provider biasanya juga bertindak sebagai broker dalam perjanjian (agreement) antar operator yang akan melakukan hubungan.
+
+GSM Association (GSMA) [http://www.gsmworld.com] merekomendasikan untuk menggunakan GRX untuk roaming antar PLMN (inter-PLMN) dan International Roaming Expert Group (IREG) yang merupakan bagian dari GSMA mengkoleksi 'potential GRX provider' yang kemudian dipulikasikan dalam sebuah dokumen. Dokumen-dokumen tersebut berisi tentang detil layanan dan hal-hal teknis yang diberikan dari GRX provider. Dokumen tersebut dapat diperoleh di sini [http://www.gsmworld.com/technology/gprs/grx_prov.shtml]. 
+
+
+Beberapa keuntungan dari penggunakan GRX service provider:
+
+- Menggunakan layanan DNS (Domain Name System) terpisah dari Internet dan menggunakan root domain tersendiri yaitu .gprs
+- Adanya QoS (Quality of Service) yang dibeberikan GRX provider
+- Lebih aman karena menggunakan VPN dan adanya jaminan keamanan dari GRX provider
+- Mendukung routing menggunakan BGP-4
+
+
+
+-2- ISP roaming
+ISP roaming adalah koneksi yang menggunakan layanan dari Internet Service Provider. Karena koneksi GPRS antar operator haruslah aman (secure) maka biasanya koneksi ini menggunakan koneksi leased line atau VPN. Dengan cara ini kesepakatan roaming dilakukan hanya antar dua operator yang saling berhubungan.
+
+
+(c) 200712 ejlp12@yahoo.com
+
+http://www.gsmworld.com/documents/index.shtml

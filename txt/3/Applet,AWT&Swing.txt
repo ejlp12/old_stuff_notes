@@ -1,0 +1,399 @@
+
+Belajar Java
+
+Applet.
+-------
+
+import java.awt.Graphics;
+import java.applet.Applet;
+
+public class HelloWorldAppler extends Applet {
+  public void paint(Graphics g) {
+    g.drawString("Hello World!", 5, 25);
+  }
+}
+
++--[ Top Level Swing Container
+
+Sebuah component GUI harus ditempatkan pada suatu containers:
+
+ o JFrame, JWindow dan JDialog
+ o JApplet
+ o RootPaneContainer
+ 
+containers biasanya diinstantiasi pada method main() :
+  
+  JFrame jf = new JFrame("Judul");
+  Container container= jf.getContentPane();
+  content.setBackground(Color.lightGray);
+  jf.setVisible(true);
+
++--[ JFrame : Top Level Container
+
+o Otomatis memiliki "content pane" yang bisa diakses dengan getContentPane()
+o Content pane dapat diubah dengan container Anda (JPanel) dengan setContentPane()
+o Otomatis menutup windows ketika di klik close button, tapi perlu addWindowListener()
+  untuk keluar dari aplikasi
+o Support layout
+o Setting ukuran content pane agar selalu sama dengan ukuran container dengan memanggil methode pack()
+
++--[ JPanel : Intermediate Container
+
+Pengganti Panel dan Canvas pada AWT
+Component dari Top-level Containers, disebut intermediate container
+Dapat ditambahkan atomic component 
+Feature baru: penambahan border dengan setBorder()
+  Membuat border dari BoderderFactory
+  6 Macam border bisa ditambahkan dengan methode :
+    
+    1 createTitledBorder()
+    2 createEtchedBorder()
+    3 createBevelBorder()
+    4 createRaisedBevelBorder()
+    5 createLoweredBevelBorder()
+    6 createLineBorder()
+    7 createMatteBorder()
+    8 createCompoundBorder() 
+    9 createEmptyBorder()
+
+Penggunaan JPanel sebagai Canvas, memerlukan 2 langkah tambahan:
+
+ o set ukuran (size) dengan setPreferredSize()
+ o untuk menggambar gunakan paintComponent() -- bukan paint()
+   perlu juga me-off-kan default double buffering sebelumnya dengan super.paintComponent(Graphics)
+
+  JPanel drawingArea = new JPanel();
+  // Preferred height is irrelevant, since using WEST region
+  drawingArea.setPreferredSize(new Dimension(400, 0));
+  drawingArea.setBorder(BorderFactory.createLineBorder (Color.blue, 2));
+  drawingArea.setBackground(Color.white);
+  content.add(drawingArea, BorderLayout.WEST);    
+
++--[ Layout Manager
+
+o LayoutManager yang diimplementasikan oleh beberapa tipe layout yaitu:
+    - GridLayout
+    - FlowLayout
+    - BorderLayout
+    - dan lain-lain
+o Suatu LayoutManager berasosiasi dengan sebuah Container 
+o Seting dilakukan dengan memanggil methode setLayout(LayoutManager) 
+  atau beberapa Container seperti Panel dapat memasukannya sebagai argumen konstruktor
+
++--[ Tipikal GUI 
+
+Suatu GUI swing terdiri dari
+ o glassPane : layer paling atas menghandle event pada window
+ o layeredPane
+   biasanya terdiri dari menuBar dan contentPane 
+   contentPane merupakan suatu Container yang sudah terbentuk waktu kita membuat container
+
+Menggunakan contentPane:
+ 
+ jf.getContentPane().add(...)
+ jf.getContentPane().setLayout(...)
+
++--[ Beberapa GUI atomic component
+
+High-level component :
+ o JFileChooser
+ o OK/Cancel choice box
+
+Low-level component :
+ o JLabel, support icon
+ o JButton, juga support icon
+ o JCheckBox
+ o JRadioButton
+ o ToolTips
+ o JComboBox
+ o JMenu
+ 
+GUI component tersebut biasanya instantiasi dan di-add() pada Jpanel (intermediate container)
+ 
++--[ Menggunakan ToolTips
+
+ToolTips adalah sebuah component. 
+Menampilkan help message pendek sesaat ketika mouse berada pada suatu component
+
+  setToolTipText(String)
+
+Contoh:
+  
+  JLabel jlab_nama = new JLabel("Nama :");
+  JTextField jtf_nama = new JTextField("");
+  jtf_nama.setText( default_nama);
+  jtf_name.setToolTipText("Nama penulis");
+  jlab_name.setFont(headerFontD);
+
++--[ Menggunakan JButton
+
+JButton adalah sebuah push button
+sebuah grafik pada button bisa didefinisikan dengan sebuah icon (interface javax.swing.Icon) 
+mengenerate sebuah ActionEvent ketika diklik
+
+  new JButton(String, Icon)
+  
+Specify the action command String with setActionCommand 
+if only an Icon, then unable to compare the setAction command to allow for interpretation 
+
+ImageIcon yang dapat digunakan untuk sebuah button (gif, animated gif, jpeg):
+  
+  setIcon()
+  setPressedIcon()
+  setRollOverIcon(), sebelumnya setRollOverEnabled(true)
+  setSelectedIcon()
+  setDisabledIcon()
+  setDisabledSelectedIcon()
+  setRollOverSelectedIcon()
+  
++--[ JLabel
+
+o Feature baru: image, format HTML dan border
+
+  JLabel( "teks", "image", alignment )
+
+o Properti image dan alignment dapat dihilangkan.
+o Teks dapat dalam format HTML dimulai dengan <html> bukan <HTML>
+o Setting font: hanya jika format teks bukan html
+
+  setFont(new Font("Serif", Font.PLAIN, 36))
+
+o alignment menggunakan static properti dari JLabel
+   CENTER
+   LEFT
+   RIGTH
+
+o Border bisa ditambahkan dengan memanggil setBorder()
+  dan membuat border dari BorderFactory
+
++--[ Actions
+
+ o Mendefinisikan apa yang dapat dilakukan oleh program Anda
+ o java.awt.swing.Action
+    : extends ActionListener
+    : defines actionPerformed(ActionEvent)
+ o Dapat memiliki deskripsi dan text
+ o May be enabled or disabled 
+    : Property change events can notify changes in enabled state 
+ o Dapat ditambahkan langusng pada JMenu atau JToolBar
+
+instance of  	Dibangkitkan saat..  					Listener  		Adapter  
+--------------------------------------------------------------------------------------------------------------------
+ActionEvent  	a component is activated				ActionListener   
+AdjustmentEvent adjustable controls adjusted				AdjustmentListener   
+ComponentEvent  a control is moved or resized				ComponentListener  	ComponentAdapter  
+ContainerEvent  a component is added to a container			ContainerListener  	ContainerAdapter  
+FocusEvent  	a component receives or loses focus			FocusListener  		FocusAdapter  
+ItemEvent  	an item is selected from a list, choice or checkbox  	ItemListener   
+KeyEvent  	there is keyboard activity  				KeyListener  		KeyAdapter  
+MouseEvent 	there is mouse activity  				MouseListener  		MouseAdapter  
+MouseEvent  	there is mouse activity  				MouseMotionListener  	MouseMotionAdapter  
+PaintEvent  	a component is painted    
+TextEvent  	a text component is modified  				TextListener   
+WindowEvent  	window activity  					WindowListener 		WindowAdapter  
+
++--[ Event Listener dan Adapter
+
+Listener merupakan suatu interface yang mendefinisikan methode standar yang dipanggil jika terjadi suatu event.
+Oleh karena itu kita harus membuat class yang mengimplementasikan listener.
+
+Agar tidak repot untuk mengoveride semua methode listener maka ada class 'Adapter' yang bisa kita gunakan
+untuk menghandle event yang kira perlukan saja. Class ini mengoveride semua methode listener dengan methode null.
+
+  JButton jb = new JButton( "Press Me" );
+  jb.addActionListener( new MyButtonListener() );
+
+  ...
+  
+  }
+  
+  class MyButtonListener implements ActionListener {
+    public void actionPerformed( ActionEvent ae ) {
+      System.out.println( ``Button Pushed'' );
+    }
+  }
+
+
+
++--[ Mengimplementasikan MVC pada Java
+
+MVC = Model View Controller
+
+           .--------,       get data       .--------,
+           | Model  |--------------------->| View   |
+           |        |<---------------------|        |
+           '--------'    data change event '--------'
+                ^                              |
+ Direct methode |       .-------------,        | Mouse event called
+    call event  '-------| Controller  |<-------' a delegate
+                        | (listener)  |
+                        '-------------'
+  o Event
+  o ObserverObservable
+  o Controller Interface
+  o JList is a delegate
+  o Component class UI is a view
+  o JList put controller and UI together thus it is a delegate
+  o Program to an interface not an implementation
+  o Interface implement polymorphism
+  
++--{ MVC dalam swing
+
+o View class : JLabel, JProgressBar
+o Controller class : Macam-macam button, JMenu
+o Beberapa class merupakan view maupun controller : Beberapa button, JScrollBar, JSlider, text editor
+
++--{ MDI : Multiple Document Interface
+
+Dua class yang mebentuk MDI
+
+ o JDesktopPane
+ o JInternalFrame 
+
+add() JDesktopPane ke contain pane utama.
+Instatiasi JInternalFrame dengan medefinisikan property resizable, closeable, maximizable, atau minimizable 
+pada constructor kemudian add() ke desktop.
+
+  Container content = getContentPane();
+  JDesktopPane desktop = new JDesktopPane();
+  content.add(desktop, BorderLayout.CENTER);
+  setSize(450, 400);
+  for(int i=0; i<5; i++) {
+      JInternalFrame frame = new JInternalFrame(("Internal Frame " + i), true, true, true, true);
+      frame.setLocation(i*50+10, i*50+10);
+      frame.setSize(200, 150);
+      frame.setBackground(Color.white);
+      desktop.add(frame);
+      frame.moveToFront();
+  }
+    
+    
++--[ JToolBar
+
+o JToolBar seperti JPanel dengan fungsi khusus yaitu tempat icon
+o Dockable atau floatable
+o Untuk membuat horizontal JToolBar tinggal panggil konstruktor JToolBar()
+  atau dengan opsi JToolBar.VERTICAL dan letakan toolbar pd window dengan add() 
+  berbarengan seting penempatan sesuai BorderLayout
+o Button untuk toolbar berbeda dengan JButton biasa
+   
+   - Buat margin yang kecil sekali (0,0,0,0) dengan memanggil methode setMargin dari sebuah objek Insets
+   - Panggil setVerticalTextPosition(BOTTOM) dan setHorizontalTextPosition(CENTER) agar teks pada button
+     tidak default dikanan gambar icon. 
+     
+  Solusi buat ToolBarButton yang inherit dari JButton dengan properti diatas.
+
+  JButton jbtn = new JButton(imageFile, teks);
+  private static final Insets margins = new Insets(0, 0, 0, 0);
+  jbtn.setMargin(margins);
+  jbtn.setVerticalTextPosition(BOTTOM);
+  jbtn.setHorizontalTextPosition(CENTER);
+  
+  ...
+  
+  JToolBar jtb = new JToolBar();
+  jbt.add(jbtn);
+  content.add(toolbar, BorderLayout.NORTH);
+  pack();
+  setVisible(true);
+
++--[ JOptionPane : Dialog Box
+
+Untuk menampilkan dialog box kita dengan mudah dapat memanggil methode static dari class JOptionPane
+yaitu:
+  
+  showMessageDialog(Container, "pesan", "title", type_message)
+  showConfirmDialog(Container, "pesan", "title", tipe_button, tipe_message)
+  showInputDialog(Container, "pesan", "title", type_message, null, selections, null)
+  showOptionDialog(Container, "pesan", "title", type_message, null, substrings(buttonLabelsField.getText()), null)
+
+varibel int static dari JOptionDialog untuk properti box image :
+
+  PLAIN_MESSAGE
+  INFORMATION_MESSAGE
+  QUESTION_MESSAGE
+  WARNING_MESSAGE
+  ERROR_MESSAGE 
+
+varibel int static dari JOptionDialog untuk properti box button:
+
+  DEFAULT_OPTION
+  YES_NO_OPTION
+  YES_NO_CANCEL_OPTION
+  OK_CANCEL_OPTION 
+
+
+
+
+
+
+
+
+
+
+Basic window monitor
+--------------------
+
+import java.awt.event.*;
+import java.awt.Window;
+
+public class BasicWindow extends WindowAdapter {
+  public void WindowClosing(WindowEvent e) {
+    Window w = e.getWindow();
+    w.setVisible(false);
+    w.dispose;
+    System.exit(0);
+  }
+}
+----------------
+// ClockLabel.java
+// An extension of the JLabel class that listens to events from
+// a Timer object to update itself with the current date & time.
+//
+import java.util.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class ClockLabel extends JLabel implements ActionListener {
+
+  public ClockLabel() {
+    super("" + new Date());
+    Timer t = new Timer(1000, this);
+    t.start();
+  }
+
+  public void actionPerformed(ActionEvent ae) {
+    setText("" + new Date());
+  }
+}
+
+----------------
+// ClockTest.java
+// A demonstration framework for the Timer driven ClockLabel class.
+//
+import javax.swing.*;
+import java.awt.*;
+
+public class ClockTest extends JFrame {
+
+  public ClockTest() {
+    super("Timer Demo");
+    setSize(300, 100);
+    addWindowListener(new BasicWindowMonitor());
+
+    ClockLabel clock = new ClockLabel();
+    getContentPane().add(clock, BorderLayout.NORTH);
+  }
+
+  public static void main(String args[]) {
+    ClockTest ct = new ClockTest();
+    ct.setVisible(true);
+  }
+}
+
+---------------------
+(c) 20020613 eryan12@yahoo.com
+http://eryan.dhs.org
+
+
+

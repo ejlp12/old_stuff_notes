@@ -1,0 +1,31 @@
+Handover
+
+1. CN Aspect
+Intra MSC Handover: Antar RNS (Radio Network Subsystem) masih dalam satu MSC
+Inter MSC Handover: Antar RNS berbeda MSC
+Intra MSC Handover on MSC B:
+SUbsequent MSC Handover: Antar RNC berbeda MSC dengan melewati MSC lain
+Subsequest Handback: 
+
+Soft handover
+- Antar BS masih dalam satu RNC
+- Antar BS berbeda RNC
+Softer handover
+- Dalam saru BS berbeda cell
+Hard handover
+- forward hard handover: GMS -> UMTS
+- backward hard handover: UMTS -> GSM
+
+
+SRNC (Serving RNC): the RNC that controls the connections to the core network domains, in other words, it is the RNC that has the Iu connection. 
+DRNC (Drift RNC): The RNC that acts as a switch, routing information between the SRNC and the UE. In other words, it is the RNC that has the Iub connection.
+Active Set: The set of cells, whose signals are used during a soft handover. 
+
+[1] T.S. Rappaport, Wireless Communications – Principles and Practice, 2nd Edition, Prentice Hall, 2001.
+
+[2] GSM 03.09 version 7.0.0 Release 1998, Digital cellular telecommunications system (Phase 2+); Handover procedures.
+
+[3] 3GPP TS 23.009 version 5.0.0, Handover Procedures, December 2001.
+
+[4] 3GPP TS 22.129 version 5.1.0, Service aspects; Handover Requirements between UTRAN and GERAN or other Radio Systems, December 2001.
+

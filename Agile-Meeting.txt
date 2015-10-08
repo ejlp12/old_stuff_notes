@@ -1,0 +1,26 @@
+SCRUM meeting
+
+self-organizing
+people report to the Process Facilitator
+no longer be as open
+nor as useful to the other team members
+quite critical to the overall effectiveness
+
+
+http://xp123.com/g4p/0410b/index.htm
+http://www.thoughtworks.com/PatternsDailyStandupJason%20Yip.pdf
+
+
+
+http://jeffsutherland.com/scrum/2006/06/why-three-questions-in-daily-scrum.html
+
+
+What did you do yesterday?
+What will you do today?
+What is blocking progress (impediments)?
+
+
+The Talking Stick is passed from person to person as they speak and only the person holding the stick is allowed to talk during that time period.” - First Nations Traditions [1]
+
+
+Alat bantu (tool) untuk SCRUM. http://www.icescrum.org

@@ -1,0 +1,31 @@
+MPLS QOS
+
+MPLS <http://datatracker.ietf.org/doc/rfc3031/>
+List dokumen dari MPLS Charter: http://datatracker.ietf.org/wg/mpls/
+
+MPLS QoS menggunakan arsitektur Differentiated Service (DiffServ) yang didefinisikan untuk QoS IP
+
+DiffServ Architecture didefinisikan pada RFC2475
+MPLS mendukung DiffServ seperti yang dijelaskan pada RFC 3270
+
+
+---
+Ada paling tidak 4 elemen agar QoS tercapai:
+
+1. Network engineering 
+   Yaitu pekerjaan deployment seperti menyiapkan perangkat switch/router, mengkonfigurasi, melakukan
+   penyambungan dan lain-lain yang pada intinya membuat jaringan siap digunakan.
+2. Traffic engineering (TE)
+3. QoS technologies
+4. Network operation
+
+Proses tersebut diatas bersifat iteratif.
+<http://www.informit.com/articles/article.aspx?p=344237>
+-- 
+4 hal penting untuk mendapatkan end-to-end QoS:
+
+1.Klasisfikasi trafik
+2.Pemrioritasan trafik
+3.Manajemen bandwith
+4.Pengawasan (monitoring) trafik
+<http://wetzelconsultingllc.com/BCR.MPLS%20QoS%20Article.pdf>

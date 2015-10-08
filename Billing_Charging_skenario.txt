@@ -1,0 +1,18 @@
+Ada dua jenis skenario online billing atau charging yang biasa digunakan dalam jaringan telekomunikasi, yaitu
+
+-> Two steps charging scenario, 
+Charging terhadap pelanggan dilakukan dengan mengirimkan permintaan (request) ke billing system dua kali yaitu:
+
+   1. Charging reserve request
+    Transaksi pembayaran yang bertujuan untuk memverifikasi apakan pelanggan memiliki balance yang cukup untuk kemudian di reserve. Jika balance yang dimiliki pelanggan cukup, billing system akan menjawab dengan positive acknowledge dan identifikasi transaksi (transaction ID) untuk kemudian service node melanjutkan proses layanannya. Transaction ID digunakan untuk melakukan langkah berikutnya. Jika balance tidak cukup, billing system akan menjawab dengan negative acknowledge dan service node menggagalkan proses layanannya dan berhenti melakukan transaksi.
+    
+   2. Charing commit/release request 
+   Transaksi ini memberitahukan billing system untuk melakukan commit terhadap transaksi sebelumnya jika layanan yang dilakukan service node berhasil atau memberitahukan untuk merilis (mengagalkan) transaksi sebelumnya jika layanan yang dilakukan service node gagal atau terjadi masalah (error).
+   
+
+-> One step billing scenario 
+Charging terhadap pelanggan dilakukan dengan mengirimkan informasi harga yang harus diambil dari kredit atau ditambahkan pada tagihan ke billing sistem. Response dari billing system yang menunjukan ya (acknowledge) atau tidak (negative acknowledge) akan menentukan apakah layanan akan dilanjutkan atau tidak jadi diberikan.
+
+Skenario charging ini lebih efisien karena transaksi lebih sedikit, tetapi skenario ini tidak dapat menggantikan skenario dua langkah karena untuk beberapa layanan, transaksi dua langkah lebih cocok digunakan misalnya untuk layanan yang bisa dibatalkan ditengah jalan.
+   
+(c) 200710 ejlp12@yahoo.com

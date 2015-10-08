@@ -1,0 +1,38 @@
+Teknologi transport untuk semua traffic seperti suara, paket data, dan signaling mengarah ke penggunakan IP. SIGTRAN (Signaling Transport) adalah sebuah standar untuk membawa SS7 signaling lewat sebuah jaringan IP. SIGTRAN dibuat oleh sebuah <a href="http://www.ietf.org/html.charters/sigtran-charter.html">Working Group di IETF</a>. 
+
+SIGTRAN didesain unagar SS7 yang tadinya menggunakan jaringan TDM dan ATM kini dapat dilewatkan pada jaringan IP (berbasis packet) dengan tetap mempertahankan karakteristik awalnya yaitu realible, memiliki mekanisme redundancy jika ada sambungan yang putus (link failure), loss dan delay yang kecil, aman terhadap serangan DoS (Denial of Service). Karakteristik tersebut tidak dapat dicapai dengan penggunaan protokol TCP ataupun UDP sehingga diimplementasikan dengan protokol baru yaitu SCTP (Stream Control Transmission Protocol) yang dispesifikasikan pada RFC 4166.
+
+Status setiap spesifikasi (RFC) sigtran yang dikeluarkan IETF dapat dilihat <a href="http://tools.ietf.org/wg/sigtran/">disini</a>. 
+
+Spesifikasi SIGTRAN terdiri dari beberapa dokumen dan implmentasinya SS7 menggunakan sigtran dapat dilakukan dengan beberapa cara. Dibawah ini saya gambarkan perbandingan antara SS7 stack tradisional dengan beberapa opsi implementasi sigtran.
+
+                   |
+                   |
++---------------+  |   +------------+  +------------+  +------------+  +------------+
+|  MAP/CAP/etc  |  |   | MAP/CAP/etc|  | MAP/CAP/etc|  | MAP/CAP/etc|  | MAP/CAP/etc|
+|---------------|  |   |------------|  |------------|  |------------|  |------------|          
+|    TCAP       |  |   |    TCAP    |  |    TCAP    |  |    TCAP    |  |    TCAP    | 
+|---------------|  |   |------------|  |------------|  |------------|  |------------|
+|    SCCP       |  |   |            |  |    SCCP    |  |    SCCP    |  |    SCCP    |
+|---------------|  |   |            |  |------------|  |------------|  |------------|
+|    MTP 3      |  |   |    SUA     |  |            |  |    MTP3    |  |    MTP3    |
+|---------------|  |   |            |  |    M3UA    |  |------------|  |------------|
+|               |  |   |            |  |            |  |    M2UA    |  |    M2PA    |
+|    MTP 2      |  |   |------------|  |------------|  |------------|  |------------|
+|               |  |   |    SCTP    |  |    SCTP    |  |    SCTP    |  |    SCTP    |  
+|---------------|  |   |------------|  |------------|  |------------|  |------------|
+|    MTP 1      |  |   |     IP     |  |     IP     |  |     IP     |  |     IP     |
++---------------+  |   +------------+  +------------+  +------------+  +------------+
+                   |         (1)            (2)             (3)              (4)
+                   |  
+    SS7 stack      |             Implementasi SS7 menggunakan SIGTRAN             
+                   |
+    
+IETF menspesifikasikan SUA, M3UA, M2UA dan M2PA sebagai protokol pengguna SCTP dan bersama-sama SCTP memberikan fungsionalitas sebagai transport layer seperti MTP2.
+
+SIGTRAN Pada Jaringan UMTS
+
+Sigtran sudah diadopsi sebgai protokol yang digunakan pada core network jaringan UMTS oleh 3GPP sejak Release 4. 3GPP memilih SCCP/M3UA sebagai satu-satunya standar untuk transport protokol SS7 lewat IP di core network. M3UA digunakan pada Mc interface antara MSC dan MGW yang dijelaskan pada 3GPP TS 29.205 dan 3GPP TS 29.232. M3UA juga dapat digunakan sebagai alternatif protokol untuk RANAP (3GPP TS 25.412) dan RNSAP (3GPP TS 25.422).
+
+Ada kemungkinan nantinya M2PA juga akan diadopsi oleh 3GPP karena berdasarkan 3GPP TR (Techincal Report) 29.801 "Feasibility study of using M2PA in 3GPP networks" diusulkan M2PA untuk juga digunakan sebagai IP based signalling networks pada interface B yaitu interface antara Signaling Gateway (SG) dengan SG lain.
+

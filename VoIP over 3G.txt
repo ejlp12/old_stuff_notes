@@ -1,0 +1,15 @@
+Masalah QoS pada VoIP misalnya
+* Hilangnya paket (packet loss), 
+* Delay 
+  - di jaringan radio baik DL maupun UL 	
+  - di PS domain 
+* Delay variation (i.e. jitter), 
+* Overhead tambahan akibat VoIP protocol stack 
+  - Real-Time Transport Protocol (RTP) encapsulated in User Datagram Protocol (UDP), which is further carried by the IP.
+  - Overhead ini bisa mencapai 60 bytes jika menggunakan IPv6
+ 
+
+maximum delay still  providing acceptable conversational quality (around 250-300ms) berdasarkan ITU-T Recommendation G.114, “One-way transmission time”, 05/2000 
+
+ROHC initialisation 
+requiring transmission of full IP/UDP/RTP headers, 

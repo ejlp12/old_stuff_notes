@@ -1,0 +1,27 @@
+Beberapa hari ini saya disibukan dengan tema Single Sign-On yang membawa saya pada beberapa pemahaman teknologi dan konsep yang berkaitan dengan SSO dan identity management seperti federated identity, SAML, WS-Trust, WS-Federation, Liberty Alliance Project (ID-FF), dan lain-lain.
+
+SSO merupakan solusi dari masalah banyaknya sistem pemberi layanan yang memerlukan penggunaan identitas seperti username dan password untuk mengaksesnya. Dengan SSO permasalahkan kita untuk mengingat username dan password menjadi terselesaikan karena kita hanya memerlukan sebuah identitas untuk dapat mengakses berbagai macam layanan. 
+
+
+
+http://developers.sun.com/learning/javaoneonline/2007/pdf/TS-4604.pdf
+
+
+
+Central Authentication Service (CAS)
+http://www.ja-sig.org/products/cas/
+
+
+OpenSSO
+https://opensso.dev.java.net/
+
+JOSSO
+http://www.josso.org/
+
+
+Authentication/Authorization protocol
+Radius
+PAM
+Kerberos
+LDAP
+

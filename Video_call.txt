@@ -1,0 +1,132 @@
+Multimedia/video call atau video telephony atau video conferencing adalah layanan yang berbasis informasi gambar bergerak (video) dan suara. Dengan layanan ini kita dapat melihat secara langsung lawan bicara kita atau menonton televisi di ponsel atau juga melakukan konferensi video dengan beberapa orang sekaligus.
+
+Layanan multimedia call pada jaringan bergerak sebenarnya sudah ada sejak era 2G, tetapi tidak banyak diimplementasikan karena kuliatasnya yang belum baik. Untuk memberikan layanan multimedia call yang baik diperlukan data rate yang cukup sehingga video dan audio dapat diterima dengan jelas dan tanpa delay yang mengganggu.
+
+Kita seringkali salah persepsi, mengganggap teknologi multimedia call sama dengan teknologi layanan video streaming. Teknologi video streaming pada jaringan bergerak didasarkan pada teknologi packet-switched yaitu jaringan GPRS yang berbasis TCP/IP. Video streaming menggunakan RTP/RTSP sebagai protokol untuk mengerimkan data dari application server ke ponsel pengguna. Jadi untuk mengakses layanan video streaming, pengguna perlu melakukan terhubung ke jaringan GPRS lewat SGSN/GGSN.
+
+Teknologi multimedia call menggunakan pada jaringan circuit-switched sehingga data dikirimkan melalui MSC (Mobile Switching Center) atau Media Gateway (MGW). Karena berbasis pada teknologi circuit-switched maka cara penggunaan layanan ini sama dengan cara menelepon biasa (call) yaitu dengan melakukan dial ke nomor tertentu. Sebagai contoh operator telekomunikasi memberikan layanan live TV dengan cara melakukan pemanggilan video call ke 888.
+
+Protokol yang digunakan untuk set-up, tear-down dari multimedia call pun sama dengan voice call yaitu ISUP. Begitu juga data (paylod) yang dikirim, menggunakan jaringan TDM (Time Division Multiplex) seperti halnya voice call. 
+
+Karena layanan multimedia call menggunakan 64-kbps TDM channels maka kualitas gambar dan suara pun terbatas pada data rate itu. Tetapi keuntungannya adalah layanan ini relatif memiliki delay dan jitter yang konstan karena paket data memiliki ukuran yang sama. Berbeda dengan teknologi berbasis IP yang delaynya relatif tidak konstan karena besarnya paket tidak selalu sama dan adanya tiap paket bisa melewati jalur (routing) yang berbeda.
+
+Layanan multimedia call pada jaringan bergerak GSM/UMTS atau CDMA2000 didasarkan pada standar H.324 (Terminal for low bit-rate multimedia communication) yang dibuat untuk PSTN dan V.34 modem protocol. H.324 adalah standar untuk memulai (setup) dan mengakhiri (tear down) sebuah konferensi video lewat sambungan telepon biasa (PSTN). Dari standar tersebut 3GPP membuat standar lain untuk diimplementasikan pada jaringan GSM/UMTS yaitu 3G-324M.
+
+3GPP mengeluarkan dua dokumen spesifikasi untuk 3G-324M yaitu:
+
+  TS 26.112 untuk circuit-switched (CS) call setup
+  TS 26.111 untuk 3G-324M inisialisasi dan prosedur operasional
+
+3GPP2 juga membuat spesifikasi 3G-324M untuk CDMA2000 yaitu
+
+  3GPP2 C.S0042 untuk Circuit-Switched Video Conferencing Services.
+
+Lebih lanjut mengenai teknologi 3G-324M akan saya bahas nanti.
+
+
+(c) 20080310, ejlp12@yahoo.com
+
+
+
+H.323, SIP, RSTP, RTP
+
+3G-324M didesain untuk 64-kbps TDM channels
+Vendor peralatan telekomunikasi ataupun operator telah berinvestasi banyak untuk jaringan berbasis TDM
+Interoperability issue 
+Multimedia berbasis IP tidak responsif.
+
+3GPP membuat dua dokumen spesifikasi untuk 3G-324M yaitu:
+
+  TS 26.112 untuk circuit-switched (CS) call setup
+  TS 26.111 untuk 3G-324M inisialisasi dan prosedur operasional
+
+3GPP2 yang juga membuat spesifikasi untuk 3G-324M yaitu
+
+  3GPP2 C.S0042 untuk Circuit-Switched Video Conferencing Services.
+
+---------------------------------------------------------------------
+
+Standar 3G-324M dibuat berdasarkan standar H.324 (Terminal for low bit-rate multimedia communication) yang dibuat untuk PSTN dan V.34 modem protocol. H.324 adalah standar untuk memulai (setup) dan mengakhiri (tear down) sebuah konferensi video lewat sambungan telepon biasa.
+
+ITU-T H.223 (Multiplexing protocol for low bit rate multimedia communication)
+
+Protokol H.223 terdiri dari multiplex/demultiplex layer dan adaptation layer. Multiplex/demultiplex layer berfungsi sebagai multiplexing antara logical channel dengan control channel sehingga menjadi sebuah bit-stream yang bisa dikirim lewat physiscal layer.
+
+H.223 Level 0 tidak memiliki mekanisme koreksi kesalahan (error resilience)
+      Level 1 didefinisikan pada H.223 Annex A
+      Level 2 didefinisikan pada H.223 Annex B
+
+Adaptation layer (AL) berfungsi untuk deteksi error    
+
+ AL1 untuk data (digunakan oleh H.245 control channel)
+ AL2 untuk audio
+ AL3 untuk digital video
+
+
+ITU-T H.245 (Control protocol for multimedia communication)
+H.245 message di-encode dengan ASN.1 menggunakan PER
+3 kategori
+ - Capability
+ - Channel management
+ - Channel operation
+ 
+4 tipe message
+ - Request
+ - Response
+ - Command 
+ - Indication
+
+Trancoding
+1. Video codec
+Pada 3G-324M, H.263 merupakan mandatory tapi MPEG-4 sangat direkomendasikan sebagai standar video coding.
+H.263 merupakan video codec yang biasa digunakan pada call/conference video Internet.
+transcode: MPEG.4 <-> H.263
+
+2. Speech/audio codec
+Spesifikasi 3G-324M menggunakan audio codec AMR sebagai mandatory audio coding.
+3G-324M juga merekomendasikan penggunakan G.723.1 yang telah banyak digunakan pada terminal H.323
+AMR <-> G.711
+AMR <-> G.723.1
+
+                                                                                                          
+                  ...............................................................                   
+                  :                     3G-324M (3GPP TS 26.111)                :                   
+                  :                                                             :                   
+      .--------.  :  .---------------------.               .-----------------.  :                   
+      | Video  |  :  | Video Codec         |               |  Multiplex/     |  :                   
+      | System |<--->| H.263, MPEG4, H.261 |<------------->|  Demultiplex    |  :                   
+      '--------'  :  '---------------------'               |                 |  :                   
+                  :                                        |                 |  :    .------.    
+      .--------.  :  .---------------------.               |                 |  :    |      |    
+      | Audio  |  :  | Speech Codec        |               |                 |  :    |      |    
+      | System |<--->| 3GPP AMR, G.723.1   |<------------->| H.223,          |<----->|      |    
+      '--------'  :  '---------------------'               | H.223 Annex A,  |  :    |      |    
+                  :                                        | H.223 Annex B,  |  :    |      |    
+   .-----------.  :  .---------------------.               | [H.223 Annex C],|  :    |      |    
+   | User Data |  :  | Data Protocols      |               | [H.223 Annex D] |  :    |      |    
+   | System    |<--->| V.14, LAPM, ...     |<------------->|                 |  :    |      |    
+   '-----------'  :  '---------------------'               |                 |  :    |      |    
+                  :                                        |                 |  :    | MSC  |    
+   .-----------.  :  .--------------.   .-----.   .----.   |                 |  :    |      |    
+   |           |  :  | Call Control |   |CCRSL|   |NSRP|   |                 |  :    |      |    
+   | System    |<--->| H.245        |<->|     |<->|    |<->|                 |  :    |      |    
+   | Control   |  :  '--------------'   '-----'   '----'   '-----------------'  :    |      |    
+   |           |  :                                                             :    |      |    
+   |           |  ...............................................................    |      |    
+   |           |                                                                     |      |    
+   |           |     .-----------------------------------------.                     |      |    
+   |           |<--->|  Call Setup                             |<------------------->|      |    
+   |           |     |  3GPP TS 28.008, 27.001, 29.007, 23.108 |                     '------'    
+   '-----------'     '-----------------------------------------'                         
+
+NSRP = Numbered Simple Retransmission protocol
+NSRP lambat kemudian diperbaiki dengan Windowed NSRP (WNSRP) dan kemudian Media Oriented Negotiation Orientation (MONA).
+
+control channel segmentation and reassembly layer (CCSRL)
+
+
+
+3GPP 26.111 "Codec for Circuit Switched Multimedia Telephony Service; Modifications to H.324"
+3GPP 26.112 "Codec for Circuit Switched Multimedia Telephony Service; Call Setup Requirements"
+
+23.972 Circuit Switched Multimedia Telephony (Release 1999)

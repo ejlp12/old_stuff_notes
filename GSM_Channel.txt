@@ -1,0 +1,72 @@
+GSM Channel Air Interface
+
+Antarmuka gelombang radio (air Interface) dalam GSM, disebut Um interface, terdiri dari dua macam logical channel, yaitu:
+
+1. Traffic Channel (TCH) 
+2. Control channel atau signaling channel
+
+1. Traffic Channel (TCH) membawa data (circuit-switched data) atau suara (voice) baik uplink maupun downlink.
+TCH menggunakan 26-frame multiframe (grup dari 26 TDMA frame), 24 frame digunakan untuk traffic channel, satu channel digunakan untuk SACCH dan satu lagi tidak digunakan.
+Panjang 26-frame multiframe adalah 120 milidetik.
+Antara TCH uplink dan downlink dipisahkan dengan periode waktu sebanyak 3 periode burst. Jadi MS tidak mengirimkan dan menerima data pada saat yang bersamaan.
+
+- Bm atau full rate traffic channel (TCH/F) membawa informasi dengan rate (gross) 22.8 kbit/s, 
+  Dengan kecepatan penggunaan aktual untuk data 9.6 sampai 14 Kbps (kira-kira 13 Kbps untuk suara)
+  Sebuah TCH/F dialokasikan pada sebuah slot dalam sebuah frame.
+
+  Speech codec yang digunakan pada channel ini biasanya adalah:
+   - Full Rate (GSM 06.10) 
+   - Enhanced Full Rate (GSM 06.60) 
+   - Adaptive Multi-Rate (GSM 06.90)
+
+- Lm atau half rate traffic channel(TCH/H) membawa informasi dengan rate (gross) 11.4 kbit/s
+  TCH/H hanya menggunakan 12 frame dari 26-multiframe.
+  Dengan kecepatan penggunaan aktual untuk data 4.8 sampai 7 Kbps
+  TCH/H dialokasikan pada sebuah slot di setiap frame kedua
+
+  Speech codec yang digunakan pada channel ini biasanya adalah:
+   - Half Rate (GSM 06.20) 
+   - Adaptive Multi-Rate (GSM 06.90)
+
+
+2. Control channel atau signaling channel
+
+Signaling channel dibagi 3 kategori
+I. Broadcast Channel (BCH)
+  Ditransmisikan pada downlink saja yaitu dari jaringan provider GMS ke MS.
+  Setiap waktu MS berada pada suatu cell harus selalu mendengarkan channel ini
+
+# Frequency Correction Channel (FCCH), 
+  burst hanya berisi nilai nol (zeros)
+  digunakan untuk memastikan bahwa ini adalah BCCH dan membuat MS dapat melakukan sinkronisasi frekuensi 
+# Synchronization Channel (SCH) 
+  digunakan untuk synchronization time-structure pada sebuah cell dimana MS berada, 
+  pendefinisian physical layer (misalnya time slots, burst time, frame number), 
+  menerima informasi BSIC (Base Station Indentity Code). BSIC hanya dapat didecode jika base station milik GSM network.
+
+# Broadcast Control Channel (BCCH) 
+  digunakan untuk identifikasi cell seperti Location Area Identity (LAI), maksimum ouput power, dll.
+   broadcasts, dan alokasi frekuensi.
+
+II. Common Control Channel (CCCH)
+# Paging Channel (PCH) 
+digunakan untuk penentuan posisi (locating) dari MT
+MT juga mendengar channel ini dalam interval tertentu untuk mengecek jika jaringan perlu melakukan kontak dengan MT misalnya karena ada incoming call.
+Informasi pada PCH adalah paging message seperti IMSI, TMSI
+PCH ditransmisikan pada downlink saja.
+
+# Random Access Channel (RACH) 
+digunakan oleh MT untuk mengirimkan access request ke jaringan jika MT membutuhkan 
+juga digunakan saat MT mengirimkan reply saat mendapatkan panggilan (pageg) lewat PCH.
+RACH hanya ditransmisikan pada uplink
+
+# Access Grant Channel (AGCH) 
+digunakan untuk mendapatkan sebuah dedicated channel. 
+AGCH hanya ditransmisikan pada uplink
+
+III. Dedicated Control Channel (DCCH)
+# Stand alone Dedicated Control CHannel (SDCCH)
+# Slow Associated Control CHannel (SACCH)
+# Fast Associated Control CHannel (FACCH)
+# Cell Broadcast CHannel (CBCH)
+

@@ -1,0 +1,5 @@
+org.apache.commons.dbutils.BasicRowProcessor
+
+line 311:
+
+columnName = StringUtils.replace(columnName, "_", "");

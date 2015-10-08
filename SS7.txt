@@ -1,0 +1,481 @@
+Overview SS7 dari ITU-T/CCITT dapat dilihat pada rekomendasi Q.700 atau ANSI standar T1.110 
+
+Elemen-elemen dalam jaringan SS7:
+
+Elemen dalam jaringan SS7
+
+1. Signalling Transfer Point (STP)
+Mentransfer paket antar node. STP menerima sinyal dan mengirimkannya ke elemen lain agar mencapai tujuan.
+
+2. Service Switching Points (SSP)
+Elemen switch dimana sinyal bermula (originate) atau berakhir (terminate). 
+Contoh SSP adalah MSC (mobile switching center).
+
+3. Service Control Points (SCP)
+Database yang berisi service control logic misalnya memerintahkan suatu pemanggilan dialihkan ke nomor lain. 
+Elemen yang biasa kita kenal sebagai IN (Intelegent Network) dalam jaringan telekomunikasi merupakan jenis SCP.
+
+Tiga elemen diatas adalah elemen logical atau fungsional. Secara fisik, sebuah elemen dapat memiliki fungsi lebih dari satu misalnya sebagai SSP maupun STP.
+
+Tipe-tipe link SS7:
+
+A-Links (Access links)
+ Mengkoneksikan SSP (atau SCP) ke pasangan STP
+B-Links (Bridge links)
+ Mengkoneksikan pasangan STP ke pasangan STP (level yang sama)
+C-Links (Cross links)
+ Mengkoneksikan antar pasangan STP (kedua STP) 
+D-Links (Diagonal links)
+ Mengkoneksikan pasangan STP primer ke pasangan STP sekunder
+E-Links (Extended links)
+ Mengkoneksikan SSP ke pasangan STP "remote"
+F-Links (Fully Associated links)
+ Mengkoneksikan  SPP dengan SSP
+
+
+Actual content: suara (Voice), data fax, data modem, dan lain-lain
+
+        ---------------    -------------------------------------------------------
+         Application 7      OMAP | ASE | INAP | IS41 | MAP |
+        ---------------    --------------------------------|
+        Presentation 6                   TCAP              |
+        ---------------    --------------------------------|
+           Session   5                                     |
+        ---------------                                    |     ISUP TUP ISDN-UP
+         Transport   4                                     |
+        ---------------    -----------------------------------.                    --.
+                                         SCCP                 |                      |
+           Network   3     -------------------------------------------------------   |
+                                       MTP Level 3                                   |
+        ---------------    -------------------------------------------------------    } Network service Part (NSP)
+          Data Link  2                 MTP Level 2                                   |
+        ---------------    -------------------------------------------------------   |
+          Physical   1                 MTP Level 1                                   |
+        ---------------    ------------------------------------------------------- --'
+        
+SCCP (Signaling Connection Control Part)
+MAP (Mobile Application Part)
+Digunakan biasanya antara MSC dengan HLR, yaitu untuk
+Registrasi/Pembatalan lokasi (location update), handover, query parameter user waktu terjadi pemanggilan (call setup), autentifikasi
+
+INAP (Intelligent Network Application Part)
+
+@@@@@@@@ Message Tranfer Part 1 (MTP1) @@@@@@@@
+
+Physical layer    
+E-1 (2048 kb/s; 32 64 kb/s channels)
+DS-1 (1544 kb/s; 24 64 kb/s channels) 
+V.35 (64 kb/s)
+DS-0 (64 kb/s) 
+DS-0A (56 kb/s)
+
+Digital system biasanya menggunakan 64 kbit/s (PCM30) atau 56 kbit/s (PCM24)
+
+@@@@@@@@ Message Tranfer Part 2 (MTP2) @@@@@@@@
+
+Dengan adanya MTP2 transfer informasi signaling antara dua signaling point (SP) yang terhubung langsung menjadi terpercaya (reliable) karena MTP2 berfungsi terutama untuk memastikan bahwa informasi pensinyalan yang dikirimkan sesuai urutan dan bebas dari kesalahan (error).
+
+MTP2 memiliki fungsi-fungsi berikut:
+
+- Pembatas dari unit-unit sinyal.
+- Pemposisian (alignment) dari unit sinyal   
+- Deteksi error pada link sinyal (signaling link)
+- Pengkoreksian error pada link sinyal dengan pentransmisian ulang (retransmission)
+- Pemposisian link sinyal awal
+- Pemonitor dan pelaporan error
+- Pengontrol aliran (flow control) link 
+  
+
+Informasi signaling ditransmisikan dalam frame-frame yang disebut signal units (SU). Besarnya SU tidak tetap karenanya ada penanda (flag) awal dan akhir pada stream data yang ditransmisikan.
+
+MTP2 merupakan signal point-to-point artinya hanya digunakan pada dua SP yang berhungan langsung. Suatu signal dibungkus dengan field-field dari MTP2 pada originating signaling point, kemudian pada destination signaling point field-field tersebut dibuang untuk kemudian signal diproses.
+
+Prosedur signal unit alignment dilakukan agar batas SU dapat dikenali dengan benar.
+
+Ada 3 tipe SU yang masing-masing memiliki format berbeda:
+
+(1) Fill-In Signal Units (FISU)
+  FISU merupakan SU yang paling dasar (basic) karena tidak membawa data apapun selain MTP2 saja.
+  Signal ini dikirim jika link dalam kondisi idle atau tidak ada SU tipe lain (LSSU atau MSU) yang dikirim. Jadi kualitas link selalu dimonitor untuk memastikan error rate masih dalam batas yang dibolehkan. Jika error rate melebihi dari batas maka MTP2 melaporkan kegagalan ke MTP3 yang kemudian memerintahkan untuk tidak menggunakan link tersebut.
+  FISU berfungsi memastikan kualitas link yang baik dengan mengirimkana sebuah CRC (cyclic redudancy check) cheksum yang kemudian dicek pada tiap ujung link. FISU juga digunakan sebagai acknowlwde dari pernerimaan MSU.
+  Jika suatu link bekualitas jelek (fault) maka trafik akan dialihkan ke link aternatif yang lain.
+  FISU hanya dikirimkan antar signaling point yang terhubung langsung karena MTP2 merupakan protokol point-to-point
+  Format dari sebuah FISU:
+  
+     [ FLAG | CK | / | LI | FIB | FSN | BIB | BSN | FLAG ]
+         8    16   2    6    1     7     1     7      8   (panjang field dalam Bits)
+      -- Arah transmisi -->
+
+Arah transfer data adalah ke kanan, sehingga baca format diatas dari kanan ke kiri.
+
+– BIB: backward indicator bit
+– BSN: backward sequence number
+– CK: check bits
+– FIB: forward indicator bit
+– FSN: forward sequence number
+– LI: length indicator
+
+BIB, BSNm FIBm FSN digunakan untuk koreksi error
+CK digunakan untuk deteksi error
+LI digunakan untuk indikasi pangjangnya data (payload)
+  
+(2) Link Status Signal Units (LSSU)
+
+LSSU mirip dengan FISU, digunakan untuk memberikan status antara dua signaling point yang saling terhubung, hanya saja LSSU dapat membawa field tambahan yaitu Status Field (SF).
+
+LSSU juga digunakan pada saat pertama kali link akan digunakan yaitu pada proses alignment (signaling link initial alignment)
+
+  [ FLAG | CK | SF | / | LI | FIB | FSN | BIB | BSN | FLAG ]
+                 8
+SF dapat berisi 2 oktet (menurut spesifikasi) tapi saat ini hanya satu oktet yang digunakan, dan dari satu  oktet tersebut hanya 3 bit yang digunakan.
+
+Nilai pada SF ( 3 bit)
+
+Bit       Status Indication       Acronym   Penjelasan
+--------- ----------------------- --------- ---------------------------------------
+00000 000  O: Out of Alignment     SIO       Link not aligned; attempting alignment
+00000 001  N: Normal Alignment     SIN       Link is aligned
+00000 010  E: Emergency Alignment  SIE       Link is aligned
+00000 011  OS: Out of Service      SIOS      Link out of service; alignment failure
+00000 100  PO: Processor Outage    SIPO      MTP2 cannot reach MTP3
+00000 101  B: Busy                 SIB       MTP2 congestion
+---------------------------------------------------------------------------------- 
+
+- SIO, SIN, SIE, SIOS digunakan untuk initial link alignment.
+- SIB digunakan untuk flow control.
+- LSSU dengan status indicator SIPO dikirimkan jika kondisi prosesor berhenti terjadi. Kondisi ini akan membuat SP menolak SU yang diterimanya dan SP yang terhubung akan memberitahu MTP3-nya sehingga mulai mengirimkan FISU secara kontinyu.
+
+(3) Message Signal Units (MSU)
+
+MSU membawa informasi signaling yaitu SIO yang merupakan bagian dari MTP3 dan Level 4 dalam SIF.
+
+  [ FLAG | CK | SIF | SIO | / | LI | FIB | FSN | BIB | BSN | FLAG ]
+               <--------->
+              
+– SIF: signaling information field
+– SIO: service information octet
+
+-= Indikator panjang =-
+
+SP biasanya menggukan indikator panjang (lenght indicator/LI) dari MTP2 untuk menentukan tipe SU.
+LI menunjukan panjang data (payload) yang berada dintara LI dengan field CRC (CK)
+
+LI      Tipe SU
+------- ------
+0       FISU 
+1 or 2  LSSU
+> 2     MSU
+
+-= Pengaturan awal dari link pensinyalan =-
+
+Sebelum link digunakan MTP3 akan meminta MTP2 untuk melakukan initial alignment. Initial aligment adalah pengaturan link pensinyalan pasa saat awal link akan digunakan.
+Hal ini diperlukan agar kedua SP mengenali flag yang ada dalam data stream dengen benar. 
+
+LSSU dengan status SIO, SIN/SIE, SIOS digunakan untuk initial alignment ini. 
+
+[1] Idle
+ LSSU dengan status SIOS dikirim secara berkala sampai MTP3 memerintahkan untuk melakukan initial alignment. LSSU tersebut memiliki FIB dan BIB yang tetap bernilai 1, dan FSN dan BSN yang tetap juga bernilai 127.
+ 
+[2] Not aligned 
+Ketika MTP2 diperintahkan untuk memulai initial alignment, SP mengirimkan LSSU dengan status SIO (out of alignment) dan timer T2 dijalankan. Jika T2 expire maka yang dikirimkan akan menjadi LSSU dengan status SIOS. 
+
+[3] Aligned
+
+[4] Proving
+
+[5] Aligned/Ready
+
+[6] In Service
+
+
+
+-= Pengendalian aliran (flow control) =-
+
+//Bagaimana jika pemrosesan sebuah unit sinyal gagal sehingga atrian (queue) sinyal yg harus diproses menjadi menumpuk melebihi kapasitas?
+
+Prosedur link flow control dilakukan untuk mengatasi masalah penumpukan (congestion) SU pada buffer MTP2 misalnya karena MTP3 gagal memproses SU. Jika kondisi penumpukan pada sebuah SP mencapai batas tertentu maka SLLU dengan status indicator SIB (busy) dikirimkan berkali-kali dalam interval yang diatur oleh timer T5 sampai kondisi penumpukan berkurang.
+
+Kondisi penumpukan juga membuat SP akan berhenti menerima SU tetapi tetap mengirimkan SU dengan nilai BSN dan BIB yang sama dengan sebelum terjadi penumpukan. Ini berarti SP yang berada diujung lain akan merasakan acknowledgement delay sehingga membuat timer T7, excessive delay of acknowledgment, time out. Timer T7 akan direset saat SP menerima status SIB.
+
+SP yang berada diujung SP yang mengalami penumpukan akan menjalankan remote congestion timer T6 saat menerima SIB. Jika T6 expire maka link ke SP tersebut akan dibuang sehingga tidak ada link dengan kondisi penumpukan yang terjadi terlalu lama.
+
+Pada kondisi penumpukan sudah berkurang, SIB tidak dikirimkan lagi dan acknowledgement dilanjutkan. Mengetahui kondisi tersebut, SP yang terkoneksi akan memberhentikan timer T6.
+
+-= Flag: Pembatasan Unit Sinyal =-
+
+//Bagaimana unit-unit sinyal dipisahkan jika dikirimkan dalam data stream lewat koneksi yang sama?
+
+Sebuah unit sinyal dibatasi oleh sebuah flag yang merupakan suatu oktet 01111110.
+Sebelum sebuah signal unit dikirim, SU akan di-scan untuk menghindari adanya oktet 01111110 didalam SU yang akan membuat kebingungan.
+Jika muncul angka 1 lima kali dalam signal unit maka akan ditambahkan angka 0 untuk menhindari adanya angka flag dalam SU.
+Metode ini dinamakan bit suffing dan proses sebaliknya yaitu bit removal dilakukan pada penerima MTP2.
+
+                         FLAG
+       ...1011111111 | 01111110 ]
+       
+Akan diproses menjadi      
+                                
+      ...10111011111 | 01111110 ]  
+              ^
+              bit 0 diselipkan disini
+
+
+-= Pemposisian unit sinyal (Signal Unit Alignement) =-
+
+//Bagaimana jika terjadi kehilangan bit sehingga merusak batas unit sinyal?
+
+Suatu data stream yang dikirimkan terus menerus diproses oleh SP penerima dengan cara mecari flag yang membatasi tiap SU untuk kemudian setiap SU diproses oleh MTP3. Pencarian flag berarti pencarian bit pattern.
+
+Suatu link dapat kehilangan alignment (loss of alignement) jika 
+
+- ditemukan bit pattern yang tidak diperkenankan (terdapat lebih dari enam bit 1 berturut-turut) 
+- panjang SU lebih kecil dari 6 oktet (FISU) atau melebihi batas maximumnya yaitu 279 oktet (MSU) atau bukan merupakan kelipatan oktet (8 bit) 
+
+
+@@@@@@@@ Message Transfer Part 3 (MTP3) @@@@@@@@
+
+MTP3 memiliki fungsi:
+
+- Signaling Message Handling (SMH) yaitu menangani sinyal yang datang apakah diproses oleh level diatasnya (MTP3 user) atau sinyal diteruskan ke mode lain (routing). 
+
+- Signaling Network Management (SNM)
+
+Kedua fungsi tersebut akan dijelaskan lebih lanjut dibawah.
+
+
+Format dari MTP3 adalah sebagai berikut:
+                               
+     +-------------------------+
+     |    SIF      |    SIO    |
+     +-------------------------+
+        N x 8 bit       8 bit
+        
+Detail dari masing-masing bagian (SIF dan SIO) adalah sebagai berikut:
+
+        
+      <------------ SIF -------------> <--------------------- SIO ---------------------->
+                  <-- Routing table -> <------------- SSF ---------->
+     +-----------------------------------------------------------------------------------+
+     | User Data | SLS  | OPC  | DPC  | Network Indicator | Priority | Service Indicator |
+     +-----------------------------------------------------------------------------------+
+                    4      14     14           4               2               4
+                                                                    --- arah transmisi -->
+
+SSF terdiri dari network indicator dan priority tetapi priority tidak digunakan dalam standar ITU-T:
+
+Binary Value Message Type
+------------ --------------------- -----
+ 00 00        International         IN0
+ 01 00        International Spare   IN1
+ 10 00        National              NA0
+ 11 00        National Spare        NA1
+ 
+Service indicator:
+
+Binary Value  Type of Payload
+------------  ---------------------------
+ 0000          Signaling Network Management Messages (SNM)
+ 0001          Signaling Network Testing and Maintenance Messages (SNT)
+ 0010          Signaling Network Testing and Maintenance Special Messages (ANSI) or Spare (ITU-T)
+ 0011          SCCP (Signaling Connection Control Part)
+ 0100          TUP (Telephone User Part)
+ 0101          ISUP (ISDN User Part)
+ 0110          Data User Part (call and circuit-related messages)
+ 0111          Data User Part (facility registration and cancellation messages)
+ 1000          Reserved for MTP Testing User Part
+ 1001          BISUP (Broadband ISDN User Part)
+ 1010          SISUP (Satellite ISDN User Part)
+ 1011 – 1111   Spare[*]
+
+-= Signaling Message Handling =-
+
+Fungsi ini dapat dibagi dalam 3 sub fungsi yaitu:
+
+- Message discrimination yaitu proses pemilihan apakah sebuah sinyal akan diproses oleh layer diatasnya atau dikirimkan ke SP lain
+- Message distribution yaitu proses 
+- Message routing yaitu proses pengiriman sinyal ke SP lain karena unit sinyal tersebut bukan untuk SP yang bersangkutan. Disini SP penerima sinyal bertindak sebagai perantara saja. SP akan melihat ke tabel routing untuk menentukan kemana sinyal harus diteruskan.
+
+Proses SMH dapat digambarkan sebagai berikut:
+
+              ,--------------------------------------------------------------------.
+              |     +------+   +------+   +------+   +--------------------+        |
+              |     | ISUP |   | TUP  |   | SCCP |   | Network Management |  ...   |
+              |     +------+   +------+   +------+   +--------------------+   /    |
+              |           \         \      /            /                    /     |
+              |            `-------. \    / .---------'                     /      |
+              |                     \ \  / / ,-----------------------------'       |
+              |                +--------------+                                    |
+              |                | Distribution |                                    |
+              |                +--------------+                                    |
+              |                   ^              DPC != LPC                        |
+              |                   |       ,--------------------.                   |
+              |           DPC=LPC |       |                    |                   |
+              |                   |       |                    v                   |
+              |                +----------------+         +---------+              |
+              |                | Discrimination |         | Routing |              |
+              |                +----------------+         +---------+              |
+              |                        ^                        |                  |
+              |                        |                        |                  |
+              `------------------------|----------------|--------------------------'
+                                       |                        |
+                             ----------'                        `------->                   
+
+
+-= Tabel Routing =-
+                               
+Tabel routing pada MTP3 message terdiri dari:
+                                                                                                    
+Originating Point Code (OPC)     Identifikasi untuk node pengirim                           
+Destination Point Code (DPC)     Identifikasi untuk penerima pengirim                                       
+Signaling Link Selector (SLS)    Digunakan untuk pendistribusian beban link atau linkset. SLS ini akan dijelaskan lebih lanjut dibawah.
+
+
+-= Format penulisan DPC =-
+         
+(1) Format internasional
+Untuk international signaling network digunakan format International Signaling Point Code (ISPC) yaitu dalam format tiga bilangan desimal sebagai berikut
+
+  Z-UUU-V
+
+- Z: Zone identification (3 bit) yang menunjukan lokasi geografis
+- UUU: Area/network identification (8 bit) yang menunjukan lokasi negara
+- V: Signaling point identification (3 bit)
+
+Kombinasi zone dan area identification disebut Signaling Area/Network Code (SANC).
+List SANC dapat dilihat di ITU-T Q.708, contoh SANC untuk Indonesia adalah 5-020 
+
+
+(2) Format penuliasan lainnya
+
+Contoh point code
+
+ 1 0 1 1 1 0 0 0 0 0 0 0 0 0 
+       -- arah transmisi -->
+              
+ Dalam hexadesimal:  2E00
+ Dalam desimal    : 11776 
+
+ Format penulisan 4-3-4-3 yaitu membagi digit point code menjadi 4 digit, 3 digit, 4 digit, 3 digit dan masing-masing bagian dirulis dalam hexadesimal.
+ Sebagai contoh, point code diatas dapat ditulis sebagai B-4-0-0. 
+ 
+ 1 0 1 1 - 1 0 0 - 0 0 0 0 - 0 0 0 
+    B        4        0        0
+    
+-= Signaling Link Selector (SLS) =-
+
+SLS merupakan indicator yang digunakan untuk pedistribusian beban (load sharing) sinyal pada bebeberapa link yang terhimpun dalam sebuah group yang disebut linkset.
+
+Sebuah SP dapat terhubung ke SP tujuan melewati SP lain yang sering disebut dengan istilah nailed up connection. Semua jalur yang didefinisikan dari sebuah SP ke SP tujuan disebut linkset.
+
+Contoh sebuah SP A akan mengirimkan sinyal ke SP B. SP A dapat mengirimkannya ke SP X atau ke SP Z atau langsung ke SP B. 
+
+     .------.           .------.             .------.           .------.
+     | SP A |---------->| SP X |------------>| SP Y |---------->| SP B |
+     '------'           '------'             '------'           '------'
+        | |                      .------.                           ^ ^
+        | '--------------------->| SP Z |---------------------------' |  
+        |                        '------'                             |
+        |                                                             |
+        '-------------------------------------------------------------'  
+        
+-= Signaling Network Management =-
+
+Signalling network maintenance and testing (SNT) messages:
+
+SLTM		Signalling Link Test Message        
+SLTA		Signalling Link test Acknowledgement
+
+
+     +-----------------------------------------+
+     | User Data | H1 | H0 | OPC  | DPC  | SIO |
+     +-----------------------------------------+
+                   4     4    14     14
+
+Link management
+
+Traffic management
+ - Emergency Changeover (ECM)
+ - Changeover (CHM)
+ - Management Inhibiting (MIM)
+ - User Part Flow Control (UFC)
+ - Traffic (TRM)
+ 
+Route management
+ - Routeset Test (RSM)
+ - Flow Control (FCM)   
+ - Transfer (TFM) 
++------------------------------------------------------------------------------------------------------------+              
+| Group                         | H0\H1| 0001| 0001  | 0001 | 0001  | 0001  | 0001  | 0001      | 0001       |
+|-------------------------------|------|-----|-------|------|-------|-------|-------|-----------|------------| 
+| Changeover (CHM)              | 0001 | COO | COA   |      |       | CBD   | CBA   |           |            |
+| Emergency Changeover (ECM)    | 0010 | ECO | ECA   |      |       |       |       |           |            |
+| Flow Control (FCM)            | 0011 | RCT | TFC   |      |       |       |       |           |            |
+| Transfer (TFM)                | 0100 | TFP | TCP[*]| TFR  | TCR[*]| TFA   | TCA[*]|           |            |
+| Routeset Test (RSM)           | 0101 | RST | RSP[*]| RSR  | RCP[*]| RCR[*]|       |           |            |
+| Management Inhibiting (MIM)   | 0110 | LIN | LUN   | LIA  | LUA   | LID   | LFU   | LLT/LLI[*]| LRT/LRI[*] |
+| Traffic (TRM)                 | 0111 | TWRA| TRW[*]|      |       |       |       |           |            |
+| Data Link (DLM)               | 1000 | DLC | CSS   | CNS  | CNP   |       |       |           |            |
+| User Part Flow Control (UFC)  | 1010 | UPU |       |      |       |       |       |           |            |
++------------------------------------------------------------------------------------------------------------+                                                                                                   
+
+ASN.1
+                        
+R4   
+
+RTU (Re-timing unit) untuk menghilangkan jitter dan wander pada sinyal E1                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,3 @@
+Reader configReader = Resources.getResourceAsReader("SqlMapConfig.xml");
+SqlMapClient sqlMap = SqlMapClientBuilder.buildSqlMapClient(configReader);
+Contact contact = (Contact) sqlMap.queryForObject("getContact", contactForm.get("contactId"));

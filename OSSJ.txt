@@ -1,0 +1,9 @@
+OSS/J API didesain dengan menggunakan design pattern yang umum misalnya Facade Pattern, Value-Object Pattern dan lain-lain.
+
+http://www.tmforum.org/OSSJDeveloperGuidelines/DesignGuidelines/31897/article.html
+
+OSS/J membagi spesifikasinya menjadi 3 integration profiles sesuai dengan teknologi yang digunakan 
+
+OSS/J Java Profile (JVT Profile)
+OSS/J XML/JMS Profile (XVT Profile)
+OSS/J Web Services Profile 

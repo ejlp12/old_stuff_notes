@@ -1,0 +1,8 @@
+http://www.huawei.com/publications/view.do?id=137&cid=79&pid=61
+
+Visited VLR akan request O-CSI dari Home HLR 
+Visited VLR mengcopy O-CSI
+Ketika user melakukan pemanggilan 
+MSC akan menanyakan ke VLR (SIFOGC)
+VLR akan memberikan CSI
+MSC (gsmSSF) kemudian akan berinteraksi dengan SCP dengan IN elemen yang berada di Home PLMN

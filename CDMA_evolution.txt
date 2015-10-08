@@ -1,0 +1,97 @@
+CDMA (code division multiple access) adalah telnologi transmisi radio. CDMA mulai dikembangkan pertama kali untuk keperluan komersial oleh Qualcomm. Pada awalnya teknologi ini banyak digunakan oleh operator di Amerika Utara dan merupakan saingan dari GSM yang menggunakan teknologi TDMA.
+
+Pada akhirnya GSM pun menggunakan teknologi CDMA yaitu WCDMA yang memiliki prinsip yang sama dengan CDMA tetapi menggunakan lebar pita yang lebih besar. Saya tidak akan membas mengenai WCDMA atau UMTS tetapi CDMA yang biasa kita kenal yaitu memiliki brand name cdmaOne yang kemudian berevolusi mejadi CDMA2000.
+
+Tahun 1993 CDMA Development Group (CDG) <http://www.cdg.org> dibentuk. CDG adalah konsorsium international dari perusahaan-perusahaan seperti operator (carrier), vendor, produsen produk yang mengadopsi teknologi CDMA (bukan WCDMA)
+
+CDMAOne merupakan nama yang digunakan CDG sebagai teknologi seluler yang berbasis pada standar IS-95. IS-95 distandarisasi oleh Telecommunication Industry Association (TIA) dan EAI Electronic Industries Association (EAI) <http://www.tiaonline.org/> pada bulan Juli 1993.
+
+Pada tahun 1995, IS-95A dipublikasikan dan merupakan standar 2G CDMA yang banyak digunakan saat ini.
+Jaringan IS-95 menggunakan lebar pita kelipatan 1.25 MHz dan beroperasi pada frekuensi 800 dan 1900 MHz.
+
+CDMAOne dapat melayani hingga pada kecepatan (data rates) 14.4 kbps.
+Jaringan cdmaOne pertama kali di-launch secara komersial di Hongkong tahun 1995.
+
+
+Topologi jaringan cdmaOne <http://www.cdg.org/images/what_is_cdmaOne.gif>
+
+IS-95 Air interface
+IS-98 Mobile station
+IS-97 Base station
+IS-634 Base station controler and switch
+IS-41 & IS-124 Signaling
+
+Setalah IS-95A, dibuat IS-95B yang meningkatkan layanan dengan memberikan data rate yang lebih tinggi yaitu sampai 64 kbps untuk data packet-switced maupun circuit-switched. IS-95B atau disebut juga TIA/EIA-95 mengadopsi standar-standar lain yaitu IS-95A, ANSI-J-STD-008 dan TSB-74. ANSI-J-STD-008 menstandarisasi kompabilitas system CDMA PCS yang beroperasi pada 1.8 sampai 2 GHz
+
+ - TSB-74 mendeskipsikan interaksi antara IS-95 dengan sistem CDMA PCS
+ - IS-95B mulai digunakan September 1995 di Korea.
+ - IS-95B disebut-sebut sebagai teknologi 2.5G karena data ratenya yang sudah diatas teknologi 2G.
+
+
+CDMAOne yang menggunakan standar IS-95 (TIA/EIA IS-95A and IS-95B) dapat disebut sebagai CDMA yang bersesuaian dengan generasi 2G atau 2.5G. Standar core network yang digunakan CDMAOne adalah ANSI-41.
+
+
+Pengembangan dari CDMAOne adalah CDMA2000 yang masuk dalam keluarga 3G (IMT-2000)
+
+3GPP2 (ARIB, CCSA, TIA, TTA & TTC) dibentuk tahun 1999
+
+CDMA2000 1x 
+
+CDMA2000 1x (IS-2000 and IS-856) menggunakan 1.25 MHz, data rates up to 144 kbps 1XRTT -> 3G
+  CDMA2000 pada awalnya mendukung mode single-carrier (1x) dan multi-carrier (3x), tetapi multi-carrier tidak pernah dikembangkan dan digunakan sampai pada standar CDMA Rev B. CDMA2000 ini diadopsi ITU-T sebagai salah satu teknologi 3G dalam payung standar IMT-2000 dengan nama CDMA Multi-Carrier (MC).
+  Pertama kali di-launch komersial tahun 2000 di Korea selatan
+  
+CDMA2000 1xEV-DO 
+  CDMA 1xEV-DO Rel 0 -> Evolution Data Optimized atau Evolution Data Only
+                        peak data-rate sampai pada 2.4Mbps pada penggunaan lebar pita 1.25 Mz
+  CDMA 1xEV-DO Revision A dilaunch Okteber 2006
+  CDMA 1xEV-DO Revision B atau CDMA2000 3x mengunakan 3.75 MHz -> uplink/downlink 1.8/3.1 Mbps, All-IP
+     - dipublikasikan dalam dokumen 3GPP2 C.S0024-B dan TIA/EIA/IS-856-B. Rev B
+     - saat ini belum ada operator yang menggunakan Rev B, dan diharapkan akan ada pada tahun 2008
+
+CDMA Release C & D (EV-DV)
+     CDMA EV-DV (Evolution Data/Voice). Tahun 2005 Qualcomm menghentikan pemengembangan EV-DV.
+
+CDMA Rev C (UMB) 288/75 Mbps
+
+
+1993      1997      1999      2000      2001      2003      2004      2006      2007
+
+                  
+
+
+
+Table 2 CDMA system in the standardization
+Standard Name   The areas                                     Interface Code                      Version evolution
+--------------- --------------------------------------------- ----------------------------------- ------------------------------------------
+IS95            Air Interface                                 Um                                  IS95, IS95A, IS95B
+IS634           A Interface                                   A                                   IS634, IS634A, IS634B
+IS41            MAP                                           B, C, D, E, M, N, H, Q              IS41, IS41A, IS41B, IS41C, IS41D, IS41E
+IS637           Short Message                                                                     
+IS53            Business                                      Users used by the added business    IS53A
+IS52            No. plan                                                                          IS52A
+IS124           Non-signaling data communications             Switch to Billing Center interface  IS124A
+                (billing data)
+IS93            MSC with PSTN and ISDN interface standards    Ai, Di                              
+IS771           Wireless Intelligent Network                                                      
+IS96            CDMA voice selection criteria 	  	                                          IS96A
+IS97            CDMA base stations minimum standards                                              IS97A
+                of performance test
+IS98            CDMA / AMPS dual-mode mobile station                                              IS98A
+                performance testing standards for the minimum
+IS99            CDMA data selection criteria
+IS125           CDMA voice Option 1 minimum 
+                standards of performance test
+IS126           Mobile Station Circular business selection 
+                criteria
+IS127           CDMA standard voice coding EVRC
+IS683           Activation of the air operations (Wireless) 
+IS725           Activation of the air operations (network)
+IS707           Data Service
+
+http://www.tiaonline.org/standards/technology/cdma2000/disclaimer.cfm
+
+
+CDMA Evolution
+http://www.rsm.govt.nz/cms/policy-and-planning/current-projects/radiocommunications/rights-at-expiry/cellular-rights/past-consultation-and-documents/submissions/cross-submissions/cross-submission-no-01/resolveUid/8ef37e83d2e73f878a5ba3c93b18da36
+

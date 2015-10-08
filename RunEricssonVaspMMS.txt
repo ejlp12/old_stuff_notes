@@ -1,0 +1,11 @@
+cd C:\Documents and Settings\ariobowo\Desktop\JAVAAPI\MM7\Ericsson\Ericsson-vasp-mm7\bin
+
+set PATH=C:\j2sdk1.4.2_12\bin
+set JAVA_HOME=C:\j2sdk1.4.2_12
+Set JWSDP_HOME=c:\jwsdp-1.4
+
+set SERVERURL=http://localhost:8080/vasp/servlet/rpcrouter
+
+set CLASSPATH=C:\tomcat50-jwsdp\shared\lib\soap.jar;.\lib\vasp.jar;%JWSDP_HOME%\jwsdp-shared\lib\mail.jar;%JWSDP_HOME%\jwsdp-shared\lib\activation.jar;%JWSDP_HOME%\saaj\lib\saaj-impl.jar;%JWSDP_HOME%;C:\j2sdk1.4.2_12\jre\lib\rt.jar
+
+C:\tomcat50-jwsdp\bin\startup

@@ -1,0 +1,232 @@
+1. Gather and define the application requirements. 
+2. Define and develop each screen requirement in terms of data collected or displayed. 
+3. Determine the access path for each screen. 
+4. Define the ActionMappings that correlate to the application business logic. 
+5. Develop any classes or APIs that are necessary to meet screen requirements. 
+6. Create the ActionForms with defined properties from the screen requirements (this can include the validation portions as well). 
+7. Develop Actions to be called by the ActionMappings, which in turn call the appropriate helpers and forward to JSPs. 
+8. Develop the application business logic (Beans, EJBs, etc). 
+9. Create JSPs to match the workflows using the ActionMappings. 
+10. Build the appropriate configuration files -- struts-config.xml, web.xml. 
+11. Build/test/deploy. 
+
+//////////////////////////////////////////////////////////////////////
+
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 1.0//EN"
+ "http://jakarta.apache.org/struts/dtds/struts-config_1_0.dtd">
+
+<struts-config>
+
+  <!-- ========== Form Bean Definitions ================= -->
+  <form-beans>
+
+    <form-bean      name="submitForm"
+                    type="hansen.playground.SubmitForm"/>
+
+  </form-beans>
+
+  <!-- ========== Action Mapping Definitions ============ -->
+  <action-mappings>
+
+    <action   path="/submit"
+              type="hansen.playground.SubmitAction"
+              name="submitForm"
+              input="/submit.jsp"
+              scope="request">
+    <forward name="success" path="/submit.jsp"/>          
+    <forward name="failure" path="/submit.jsp"/>          
+    </action>
+
+  </action-mappings>
+
+</struts-config>
+
+
+/////////////////////////////////////////////////////////////////////////
+
+<%@ page language="java" %>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+
+<html>
+<head><title>Submit example</title></head>
+<body>
+
+<h3>Example Submit Page</h3>
+
+<html:errors/>
+
+<html:form action="submit.do">
+Last Name: <html:text property="lastName"/><br>
+Address:   <html:textarea property="address"/><br>
+Sex:       <html:radio property="sex" value="M"/>Male 
+           <html:radio property="sex" value="F"/>Female<br>
+Married:   <html:checkbox property="married"/><br>
+Age:       <html:select property="age">
+             <html:option value="a">0-19</html:option>
+             <html:option value="b">20-49</html:option>
+             <html:option value="c">50-</html:option>
+           </html:select><br>
+           <html:submit/>
+</html:form>
+
+<logic:present name="lastName" scope="request">
+Hello
+<logic:equal name="submitForm" property="age" value="a">
+  young
+</logic:equal>
+<logic:equal name="submitForm" property="age" value="c">
+  old
+</logic:equal>
+<bean:write name="lastName" scope="request"/>
+</logic:present>
+
+</body>
+</html>
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+package hansen.playground;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts.action.*;
+
+public final class SubmitForm extends ActionForm {
+
+  /* Last Name */
+  private String lastName = "Hansen"; // default value
+  private String address = null;
+  private String sex = null;
+  private String married = null;
+  private String age = null;  
+
+  public String getLastName() {
+    return (this.lastName);
+  }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getAddress() {
+    return (this.address);
+  }
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public String getSex() {
+    return (this.sex);
+  }
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
+  public String getMarried() {
+    return (this.married);
+  }
+  public void setMarried(String married) {
+    this.married = married;
+  }
+
+  public String getAge() {
+    return (this.age);
+  }
+  public void setAge(String age) {
+    this.age = age;
+  }
+
+  /* ---------------- */
+
+public ActionErrors validate(ActionMapping mapping,
+         HttpServletRequest request) {
+  // Log the forms data
+  servlet.log("Lastname:" + lastName);       
+  servlet.log("Address:" + address);       
+  servlet.log("Sex:" + sex);       
+  servlet.log("Married:" + married);       
+  servlet.log("Age:" + age);
+  
+  // Check for mandatory data
+  ActionErrors errors = new ActionErrors();
+  if (lastName == null || lastName.equals("")) { 
+    errors.add("Last Name", new ActionError("error.lastName"));
+  }
+  if (address == null || address.equals("")) { 
+    errors.add("Address", new ActionError("error.address"));
+  }
+  if (sex == null || sex.equals("")) { 
+    errors.add("Sex", new ActionError("error.sex"));
+  }
+  if (age == null || age.equals("")) { 
+    errors.add("Age", new ActionError("error.age"));
+  }
+  return errors;
+}
+
+
+
+}
+
+
+//////////////////////////////////////////////////////////////////////
+
+
+package hansen.playground;
+
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
+
+public final class SubmitAction extends Action {
+
+  public ActionForward perform(ActionMapping mapping,
+      ActionForm form,
+      HttpServletRequest request,
+      HttpServletResponse response) {
+
+    SubmitForm f = (SubmitForm) form; // get the form bean
+    // and take the last name value
+    String lastName = f.getLastName(); 
+    // Translate the name to upper case 
+    //and save it in the request object 
+    request.setAttribute("lastName", lastName.toUpperCase());
+    
+    // Forward control to the specified success target
+    return (mapping.findForward("success"));
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////
+ApplicationResources.properties 
+////////////////////////////////////////////////////////////////////////
+
+errors.header=<h4>Validation Error(s)</h4><ul>
+errors.footer=</ul><hr>
+
+error.lastName=<li>Enter your last name
+error.address=<li>Enter your address
+error.sex=<li>Enter your sex
+error.age=<li>Enter your age
+
+
+
+
+             struts-config.xml
+             ActionForward
+	     ActionMapping
+
+browser	  ActionServlet         Action
+                                   ActionForm
+
+
+	  JSP File
+
+                           ApplicationResources.properties
+	  Tag libraries
+	  Template File

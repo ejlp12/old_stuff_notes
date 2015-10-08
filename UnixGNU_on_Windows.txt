@@ -1,0 +1,14 @@
+http://www.research.att.com/sw/tools/uwin/
+
+The UWIN package allows UNIX applications to be built and run on Windows XP/2000/NT/ME/98/95 with few, if any, changes necessary
+Most of the UNIX API is implemented by the POSIX.DLL dynamically loaded (shared) library. Programs linked with POSIX.DLL run under the WIN32 subsystem instead of the POSIX subsystem, so programs can freely intermix UNIX and WIN32 library calls.
+
+
+http://en.wikipedia.org/wiki/Microsoft_Windows_Services_for_UNIX
+
+Microsoft Windows Services for UNIX (SFU) or Subsystem for UNIX-based Applications (SUA).
+The subsystem included is called Interix. 
+Interix is an implementation of a user-mode subsystem running directly on top of the Windows NT kernel.
+
+Artikel terkait: http://technet.microsoft.com/en-us/library/bb496506.aspx
+Download SFU 3.5: http://www.microsoft.com/downloads/details.aspx?FamilyID=896c9688-601b-44f1-81a4-02878ff11778&DisplayLang=en

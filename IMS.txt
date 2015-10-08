@@ -1,0 +1,73 @@
+Saat ini core network suatu operator telekomunikasi masih banyak menggunakan TDM (Time Division Multiplexing) sebagai basis interkoneksi antar elemennya. TDM hampir digunakan pada setiap PSTN dan operator telepon bergerak (GSM/CDMA) di Indonesia. Dalam perkembangannya TDM akan digantikan oleh jaringan yang berbasis IP, hal ini dimulai dengan diadopsinya teknologi IP pada core network operator telepon bergerak UMTS oleh 3GPP.
+
+IP Multimedia Subsystem adalah arsitektur jaringan telekomunikasi yang berbasis pada multimedia IP (internet protocol). IMS mulai diperkenalkan oleh 3GPP pada Release 5 (3GPP Rel-5) yang selesai dispesifikasikan bulan Maret 2003 dan kemudian dikembangkan pada rilis-rilis berikutnya.
+
+Teknologi ini masih belum banyak digunakan oleh operator telepon bergerak tetapi beberapa operator 3G dengan arsitektur Release-4 telah mulai menggunakan IP sebagai basis teknologi pada core networknya. Karena belum sepenuhnya berbasis IP, maka orang sering menyebutnya sebagai Pre-IMS atau IMS R4 karena IMS (jaringan) dicoba diadopsi pada jaringan 3GPP Release 4 yang notabene masih menggunakan TDM pada core network.
+
+Latar belakang diusungnya teknologi ini adalah kemudahan pembuatan service (layanan) baru pada jaringan telekomunikasi terutama layanan multimedia. Selain itu didapatkan juga kemudahan integrasi dengan internet. Survey juga membuktikan akses data dari ponsel GPRS meningkat pesat. Hal ini didukung dengan semakin cepatnya akses data pada perangkat nirkabel dan didorong oleh persaingan teknologi broadband wireless dan internet telephony (VoIP).
+
+Teknologi IMS menggunakan SIP (Session Initiation Protocol) sebagai protocol pengontrol sesi/panggilan multimedia yang dilakukan pengguna dengan pengguna lain atau dengan suatu aplikasi. SIP menggantikan control protocol yang digunakan pada jaringan TDM atau SS7 seperti ISUP. Protokol lain yang berbasis SS7 seperti MAP (Mobile Application Part) diganti dengan Diameter.
+
+Teknologi ini kemudian diperluas oleh ETSI sebagai subsystem dari Next Generation Networks (NGN) yang disebut sebagai arsitektur TISPAN (Internet converged Services and Protocols for Advanced Networking) yang memberikan kemampuan integrasi dengan jaringan telepon kabel (wireline). 3GPP dan ETSI bekerjasama dalam mengembangkan IMS sehingga riset IMS yang dilakukan ETSI pun diadopsi oleh 3GPP.
+
+Pada prakteknya pengalihan dari jaringan berbasis TDM ke jaringan berbasis IP tidak perlu mengubah semua protokol dan elemen secara drastis. Saat ini sudah mulai banyak digunakan protokol SS7 over IP yaitu SIGTRAN. Pada dasarnya SIGTRAN hanya enkapsulasi paket SS7 sehingga dapat dilewatkan pada protokol IP. Dengan migrasi ke SIGTRAN maka effort yang dibutuhkan tidak terlalu besar karena biasanya suatu elemen yang sudah ada dalam jaringan existing telah mampu menangani SIGTRAN hal ini karena arsitektur elemen yang biasanya memisahkan antara signaling unit dengan core/logic unit. Lihat gambar dibawah ini
+
+
+                                      +---------------------------------------------------------------+
+     +-------------+                  |+----------------+                         +-----------------+ |
+     | Elemen lain | <------SS7-----> || Signaling Unit | <-----IP/SIGTRAN------> | Core/Logic Unit | |
+     +-------------+                  |+----------------+                         +-----------------+ |
+                                      +---------------------------------------------------------------+
+
+
+Signaling unit dapat berupa signaling gateway misalnya CISCO ITP (IP Transfer Point) sehingga jika elemen lain dalam gambar diatas menggunakan SIGTRAN maka yang diperlukan hanya menghilangkan Signaling Unit.
+
+(c) 2007 ejlp12@yahoo.com 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TISPAN menambahkan elemen lain pada jaringan IMS yaitu 
+
+- Network Attachment Subsystem (NASS) otentifikasi pada level network dan IP address provisioning 
+- Resource Admission Control Subsystem (RACS) pengontrolan proses masuknya (admission) dan reservasi resource
+
+IMS yang didefinisikan 3GPP disebut Core IMS dalam arsitektur TISPAN.
+3 Node yang penting dalam arsitektur TISPAN
+- Interconnect Border Control Function (IBCF)
+- Interconnect Border Gateway Function (I-BGF)
+- Access Border Gateway Function (A-BGF)
+
+
+
+Teknologi IMS berarti menghilangkan jaringan circuit switched pada core network sehingga semua jaringan berbasis paket.
+
+Call Session Control Function
+
+- Proxy (P-CSCF)
+  SIP Proxy
+  Berfungsi sebagai titik utama penghubung dengan terminal
+  Melakukan fungsi proxy antar perangkat pengguna (user equipment) dan CSCF lain
+  Melakukan fungsi charging
+  Melakukan fungsi keamanan (security) menggunakan IPSec
+   
+- Interogating (I-CSCF)
+  SIP proxy
+  Titik penghubung operator dengan jaringan IMS lain
+  Melakukan query untuk mengetahui status registrasi user atau S-CSCF pada HSS
+  Melakukan fungsi charging
+  Melakukan fungsi proxy terhadap SIP-message antara P-CSCF atau S-CSCF dengan S-CSCF atau CSCF lainnya
+
+- Serving (S-CSCF)
+    
+
+
+Multimedia Resource Function Controller (MRFC)
+MRFP
+
+HSS (Home Subscriber Server)
+SLF
+
+Breakout Gateway Control Function (BGCF)
+Media Gateway Controller Function (MGCF)
+
+

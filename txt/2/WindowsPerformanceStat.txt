@@ -1,0 +1,47 @@
+------------
+
+Heru need a list ..
+
+Object/Counter/instance
+
+Memory
+ Pages/sec
+
+Paging File
+ %Usage
+
+Server
+ Pool nOnpaged Failures
+ Pool Paged Failures
+ Pool Nonpaged Peak
+
+Processor
+ %Processor Time
+ Interrupts/sec
+ %Processor Time (_Total)
+
+System
+ Processor Queue
+
+Physical Disk
+ %Disk Time
+ Average Disk sec/Transfer
+ Current Disk Queue Length 
+ Disk Bytes/sec
+
+Thread
+ %Processor Time (_Total/_Total)
+
+Network interface
+ Bytes Total/sec 
+
+
+
+
+
+
+
+
+
+
+

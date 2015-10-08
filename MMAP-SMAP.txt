@@ -1,0 +1,169 @@
+Kirim SMS menggunakan MMAP.
+
+Bisnis content untuk telepon selular di Indonesia saat ini sangat besar. Hal ini membuat perusahaan content provider semakin banyak tumbuh. Perusahaan content provider bekerja sama dengan operator selular untuk dapat menjakau konsumennya. Di Indonesia protokol yang digunakan oleh content provider untuk menerima atau mengirimkan SMS kebanyakan dibuat sendiri oleh operator dan tidak standar. 
+
+Operator-operator biasanya menggunakan protokol sendiri dengan alasan kesederhanaan dan kemudahan. Operator yang menggunakan protokol standar untuk menerima dan mengirim SMS biasanya menggunakan protokol SMPP. Artikel ini membahas secara singkat tentang protokol MMAP/SMAP yang merupakan alternatif protokol untuk menerima atau mengirim SMS antar operator dan content provider.
+
+-= Definisi =-
+
+MMAP (Mobile Messaging Access Protocol) mendefinisikan seatu cara untuk melakukan pertukaran pesan bergerak (mobile message) menggunakan SOAP. MMAP hanya mendefinisikan bagain bagaimana koneksi antara dua entitas dan suatu mobile message dipertukarkan, oleh karenanya MMAP disebut SOAP access framework. MMAP dapat digunakan untuk melakukan pertukan data XML yang anda buat sendiri, tetapi biasanya MMAP digunakan sebagai pembungkus protokol SMAP. Format MMAP mengikuti standar SOAP 1.2 dan biasanya menggunakan HTTP sebagai transport protokolnya. MMAP menggunakan tidak menggunakan model SOAP RPC tetapi menggunakan SOAP messaging model (document model).
+
+
+-= SMAP =-
+
+SMAP adalah suatu set XML elemen untuk mengirimkan, menerimana dam me-manage suatu pesan singkat (SMS). SMAP hanya mendefinikan suatu set XML dokumen (elemen) tapi tidak mendefinisikan bagaimana XML dokumen tersebut dipertukarkan. SMAP dapat dimasukan (embed) dalam MMAP sehingga menjadi protokol yang lengkap untuk pertukaran data SMS.
+
+-= Menggapa menggunakan MMAP/SMAP? =-
+
+Dibandingkan dengan protokol yang dibuat sendiri (proprietary protocol), MMAP merupakan standar terbuka sehingga memudahkan untuk dikuti semua operator dan content provider. 
+
+Dibandingkan SMPP yang merupakan binary protokol, MMAP lebih mudah dipelajari dan dibuat implementasinya karena MMAP berbasiskan SOAP (teks). Hal ini juga membuat MMAP mudah di-debug.
+
+-= Alasan untuk belum menggunakan MMAP? =-
+
+Dibanding proprietary protocol, tentu saja MMAP/SMAP lebih lengkap dan lebih rumit untuk diimplementasikan. Selain itu, library untuk MMAP/SMAP yang gratis sejauh ini belum ada. Hal ini berbeda dengan SMPP, library untuk SMPP yang gratis banyak terdapat di internet sehingga akan memudahkan developer untuk menggunakan protokol SMPP.
+
+
+-= Penggunaan MMAP/SMAP =-
+
+Ilustrasi penggunakan MMAP dan SMAP dapat dilihat pada gambar dibawah ini.
+
+ -------------------------------
+| ,---------.      ,---------.  |
+| | Message |      |         |  |            ,----------.
+| | center  |&lt;----&gt;| SMS     |  |  MMAP/SMAP |          |
+| | (SMSC)  |      | Gateway |  |&lt;----------&gt;| Aplikasi |
+| `---------'      | Function|  |            |          |
+|                  |         |  |            `----------'
+|                  `---------'  |
+|  Mobile message service       |
+ -------------------------------
+
+- Mobile center adalah elemen yang bertanggung jawab untuk meneruskan pesan ke tujuan misalnya nomor telepon selular seseorang.
+
+- SMS gateway function adalah elemen yang memberikan layanan koneksi terhadap aplikasi atau elemen lain yang akan menggirimkan pesan. SMS gateway function tersebut bisa jadi telah ada dalam message center (SMSC) sehingga bukan merupakan elemen terpisah dari message center.
+
+- Aplikasi merupakan elemen yang membutuhkan layanan untuk dapat mengirim atau menerima pesan. Aplikasi pada diagram diatas biasanya adalah aplikasi eksternal yang dibuat oleh rekanan dari operator misalnya content provider. Karena MMAP/SMAP merupakan standar terbuka dan gratis, content provider dapat dengan mudah menggunakannya untuk mengirimkan atau menerima pesan (content) kepada pelanggannya.
+
+-= Struktur MMAP =-
+
+MMAP memiliki 2 bagian yaitu:
+
+1. MMAP header
+MMAP header berisi informasi application context misalnya, session, kontrol akses (username dan password), billing, dan parameter-parameter lain yang bisa ditambahan. MMAP header berada pada SOAP header. Contoh MMAP header:
+
+       &lt;MMAP:MMAPHeader soap:mustUnderstand="1"
+             xmlns:MMAP="http://www.smsforum.net/schemas/mmap/v1.0"
+             xsi:schemaLocation="http://www.smsforum.net/schemas/mmap/v1.0
+             http://www.smsforum.net/schemas/mmap/v1.0/mmap.xsd"&gt;
+           &lt;MMAP:ApplicationContext bodyType="Request" sourceOperationReference="123"/&gt;
+					 &lt;MMAP:AccessControl&gt;
+					     &lt;MMAP:ApplicationIdentity&gt;testApp&lt;/mmap:ApplicationIdentity&gt;
+					     &lt;MMAP:Authentication&gt;
+					         &lt;MMAP:Password&gt;secret&lt;/mmap:Password&gt;
+					     &lt;/MMAP:Authentication&gt;
+					 &lt;/MMAP:AccessControl&gt;           
+           &lt;MMAP:ServiceContext serviceName="test"/&gt;
+      &lt;/MMAP:MMAPHeader&gt;
+
+2. Request/response MMAP data.
+MMAP data berada pada SOAP body yang membawa informasi standar untuk operasi request dan response.
+Fungsi MMAP sebagai access framework yang hanya menspesifikasikan operasi untuk me-maintain koneksi atau session saja, tergambar dari semua XML data elemen yang dimilikinya berikut ini:
+
+BindRequest,
+BindResponse/BindBackResponse,
+BindBack request,
+UnbindRequest,
+UnbindResponse,
+BatchRequest, 
+BatchResponse,
+BatchResult request,
+EnquireLink request,
+EnquireLinkResponse,
+SuccessResponse,
+ErrorResponse
+
+Dibawah ini adalah contoh suatu SOAP message yang menunjukan tempat bagian MMAP berada:
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope
+    http://www.w3.org/2003/05/soap-envelope"&gt;
+    &lt;soap:Header&gt;
+       &lt;!-- MMAP header disini --&gt;
+    &lt;/soap:Header&gt;
+    &lt;soap:Body&gt;
+       &lt;!- MMAP data element disini --&gt;
+		&lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+
+-= Mode Operasional MMAP =-
+
+Ada 4 mode operasional hubungan antar aplikasi dengan message service pada MMAP, yaitu:
+ 
+1. Mode Immediate.
+Pada mode ini aplikasi tidak menyimpan session untuk koneksifitas dengan mobile message service. Mobile message service hanya mengirimkan respon hanya jika diminta. Mode ini dapat digunakan untuk mengirimkan pesan saja.  Pesan berada di SOAP body element dan operasi MMAP tidak diperlukan pada mode ini.
+
+2. Mode client-session.
+Pada mode ini aplikasi menyimpan (maintain) session dengan message service dengan cara mengirimkan bind request. Setiap SOAP message yang kirim berisi sebuah application context yang mengidentidikasikan session yang dimiliki client.
+
+Proses ini diawali dengan client menggirimkan BindRequest ke message service. Pada element BindRequest, sessionType parameter pada elemen SessionControl berisi "client". Message service meresponse dengan membawa informasi session ID pada MMAP header dan elemen BindResponse pada SOAP body.
+
+Setelah melakukan proses bind, maka client dapat melakukan pengiriman pesan. Mode ini diakhiri client dengan mengirimkan UnbindRequest ke message service dan message service akan mengirimkan UnbindResponse pada client.
+
+3. Mode Peer-to-peer
+Pada mode ini, aplikasi dan message service melakkan session dua arah (bi-directional session) sehingga komunikasi dapat dilakukan secara asynchronous. Message service akan memberikan respon segera setelah menerima pesan dari client. Respon tersebut hanya mengindikasikan bahwa message service telah menerima pesan. Setelah pesan diproses makan message service akan mengirimkan respon lagi kepada client.
+
+Proses ini diawali dengan client menggirimkan BindRequest ke message service. Berbeda dengan mode client-session, pada mode ini sessionType parameter berisi "peer". Kemudian message service akan meresponse dengan BindResponse dan informasi session IF pada MMAP header. Selain merespon BindRequest, message service dengan segera juga akan mengirimkan BindBackRequest ke client. Client atau aplikasi akan merespon BindBackRequest dengan BindBackResponse dan menginformasikan session ID pada MMAP header.
+
+Mode ini diakhiri dengan pengiriman UnbindRequest dari client ke message service dan sebaliknya.
+
+4. Mode batch
+Pada mode ini, message service menerimana satu set MMAP request untuk diproses.
+
+Aplikasi mengirimkan BatchRequest ke message service dan direspon dengan BatchReponse yang menunjukkan request telah diterima. Kemudian message service akan memproses setiap operasi yang ada dalam batch request. Setelah selesai semua operasi, message service akan mengirimkan BatchResult request yang berisi status hasil tiap-tiap proses. Client menerima BatchResult result dan meresnponse dengan SuccessResponse.
+
+-= Contoh =-
+
+Berikut ini adalah contoh pesan MMAP/SMAP lengkap untuk mengirimkan SMS menggunakan mode immediate:
+
+	&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.w3.org/2003/05/soap-envelope
+			http://www.w3.org/2003/05/soap-envelope"&gt;
+		&lt;soap:Header&gt;
+			&lt;MMAP:MMAPHeader soap:mustUnderstand="1"
+					xmlns:MMAP="http://www.smsforum.net/schemas/mmap/v1.0"
+					xsi:schemaLocation="http://www.smsforum.net/schemas/mmap/v1.0
+					http://www.smsforum.net/schemas/mmap/v1.0/mmap.xsd"&gt;
+				&lt;MMAP:ApplicationContext bodyType="Request" sourceOperationReference="123"/&gt;
+				&lt;MMAP:ServiceContext serviceName="test"/&gt;
+			&lt;/MMAP:MMAPHeader&gt;
+		&lt;/soap:Header&gt;
+		&lt;soap:Body&gt;
+			&lt;smap:SubmitRequest xmlns:smap="http://www.smsforum.net/schemas/smap/v1.0"
+					xsi:schemaLocation="http://www.smsforum.net/schemas/smap/v1.0
+					http://www.smsforum.net/schemas/smap/v1.0/smap.xsd"&gt;
+				&lt;smap:ShortMessage&gt;
+					&lt;smap:Header&gt;
+						&lt;smap:Destination&gt;
+							&lt;smap:Number&gt;+12345679&lt;/smap:Number&gt;
+						&lt;/smap:Destination&gt;
+					&lt;/smap:Header&gt;
+					&lt;smap:Body&gt;
+						&lt;smap:Text&gt;Hello world&lt;/smap:Text&gt;
+					&lt;/smap:Body&gt;
+				&lt;/smap:ShortMessage&gt;
+			&lt;/smap:SubmitRequest&gt;
+		&lt;/soap:Body&gt;
+	&lt;/soap:Envelope&gt;
+
+-= Penutup =-
+
+Penjelasan yang lebih detail tentang MMAP dapat dibaca pada dokumen spesifikasinya yang dapat di download dari:
+
+    http://smsforum.net/mmapv10.pdf.zip
+
+Untuk implementasi MMAP/SMAP, situs tersebut juga menyediakan file XML schema untuk MMAP maupun SMAP yang dapat didownload secara terpisah.

@@ -1,0 +1,272 @@
+Java Serialization
+
+- Object disimpan di memory dan dapat digunakan lagi selama JVM masih running
+- Bagaimana menyimpan object agar masih bisa digunakan dilain waktu? 
+
+- Object serialization adalah proses penyimpanan suatu object pada kondisi 
+  tertentu dalam bentuk deretan byte (sequence of bytes) atau proses 
+  kebalikannya yaitu memkonstruksi deretan byte menjadi sebuah object real 
+  dalam JVM
+
+- Object serialization hanya menyimpan object's state. File class dari object 
+  serta method-method-nya tidak disimpan.
+
+- Deretan byte tersebut dapat kemudian kita simpan menjadi suatu file atau 
+  dalam database atau ditransfer lewat jaringan.
+
+- Suatu object yang dapat disimpan dan dibuat lagi (persist) harus dibuat 
+  menjadi persistance object.
+
+- Object yang dapat disimpan dengan mekanisme object serialization disebut 
+  serializable object atau dengan kata lain object tersebut bersifat serializable
+
+- Untuk membuat object menjadi serializable, maka object tersebut ditandai 
+  dengan cara mengimplementasikan interface java.io.Serializable baik secara
+  langsung ataupun tidak langsung (maksudnya secara hirarki object tersebut
+  
+
+- Contoh :
+
+ import java.io.Serializable;
+ import java.util.Date;
+ import java.util.Calendar;
+ public class PersistentTime implements Serializable {
+    private Date time;
+    public PersistentTime() {
+       time = Calendar.getInstance().getTime();
+    }
+
+    public Date getTime() {
+       return time;
+    }
+ }
+
+- Object diatas, karena telah mengimplementasikan interface Serializable, 
+  dapat disimpan sebagai object persistence
+
+- Interface Serializable merupakan interface kosong yang hanya sebuah 
+  interface penanda (marker)
+
+- Untuk menyimpan atau mentransfer serializable object kita dapat 
+  menggunakan mentod ObjectOutputStream.writeObject(Object obj). 
+
+- ObjectOutputStream merupakan sebuah filter stream class yang dapat kita
+  gunakan untuk menyimpan byte stream yang disimpan di memori atau disimpan
+  menjadi file di disk atau ditransfer lewat network
+
+- Contoh menyimpan object menjadi suatu file:
+ 
+ import java.io.ObjectOutputStream;
+ import java.io.FileOutputStream;
+ import java.io.IOException;
+ public class FlattenTime {
+    public static void main(String [] args) {
+       PersistentTime time = new PersistentTime();
+       FileOutputStream fos = null;
+       ObjectOutputStream out = null;
+       try {
+          fos = new FileOutputStream("time.obj");
+          out = new ObjectOutputStream(fos);
+          out.writeObject(time);
+          out.close();
+       } catch(IOException ex) {
+          ex.printStackTrace();
+       }
+    }
+ }
+
+ 
+  contoh diatas akan menyimpan object menjadi suatu file bernama time.obj
+
+- Contoh untuk membuat object dari persistance object
+
+   import java.io.ObjectInputStream;
+   import java.io.FileInputStream;
+   import java.io.IOException;
+   import java.util.Calendar;
+  
+   public class InflateTime {
+      public static void main(String [] args) {
+         PersistentTime time = null;
+         FileInputStream fis = null;
+         ObjectInputStream in = null;
+         try {
+            fis = new FileInputStream("time.obj");
+            in = new ObjectInputStream(fis);
+
+            // Recreate object
+            time = (PersistentTime)in.readObject();
+            in.close();
+        } catch(IOException ex) {
+            ex.printStackTrace();
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+   }
+
+   
+  contoh diatas membuat object dari file bernama time.obj 
+
+- Proses untuk mendapatkan object dari sequence of bytes disebut proses 
+  deserialization
+
+- Untuk mendapatkan real object kita harus melakukan casting menggunakan 
+  class aslinya dari object tersebut. Dalam contoh diatas adalah 
+  PersistentTime.
+  
+  Karena sebenarnya persistance object hanya menyimpan state/property 
+  dari object itu saja
+
+- Tidak semua object serializable, contohnya Thread, Socket, OutputStream 
+  dan subclass-nya.
+
+- Bagaimana jika object yang serializable memiliki object yang tidak 
+  serializable?
+  
+  Object tersebut harus ditandai dengan deklarasi "transient" 
+ 
+- Ketika object di-deserialize (dilakukan casting setelah byte stream 
+  dibaca)  constructor dari object tersebut tidak dipanggil. 
+  Bagaimana jika ada proses yang penting yang ada di constructor object 
+  tersebut?
+
+- Kita dapat membuat method tersendiri dan constructor memanggil method 
+  tersebut. Jika object di-deserialize maka kita harus secara manual 
+  memanggil method tersebut.
+
+- Proses tersebut dapat diotomatisasi dengan mengimplementasikan method 
+  spesial berikut :
+ 
+ private void readObject(java.io.ObjectInputStream in) 
+ throws IOException, ClassNotFoundException;
+
+- Contoh :
+
+ public class MyObject implements Serializable {
+
+    public MyObject() {
+       initialization();
+    }
+
+    private void initialization() {
+       // code constructor disini
+    }
+
+    private void readObject(java.io.ObjectInputStream in) 
+    throws IOException, ClassNotFoundException {     
+       // 
+       in.defaultReadObject();
+
+       initialization();
+    }
+ }
+
+
+- Kita dapat melakukan hal yang sama untuk proses serialization 
+  menggunakan method spesial berikut:
+
+ private void writeObject(java.io.ObjectOutputStream out) 
+ throws IOException
+
+- Method spesial readObject() dan writeObject() juga dapat digunakan untuk
+  memastikan suatu proses dilakukan pada saat serialize atau deserialize.
+
+  Misalnya untuk keperluan security pada object yang disimpan maka setiap
+  proses serialization object akan dienkrip terlebih dahulu dan didekrip 
+  saat proses deserialization
+
+  Contoh lain misalnya pada kasus suatu class serializable merupakan 
+  subclass dari class yang non-serializable. Untuk memastikan field dari 
+  parent class tersimpan dalam byte stream kita bisa menambahan code untuk 
+  menyimpan field dari parent class pasa method writeObject(). 
+  Lihat contoh code di:
+
+  http://java.sun.com/j2se/1.4.2/docs/guide/serialization/examples/nonserialsuper/sources.html
+
+
+- Bagaimana jika suatu object yang merupakan subclass dari object 
+  yang Serializable tidak ingin bisa di-serialize atau di-deserialize?
+  Gunakan method spesial tadi untuk menglemparkan Exception throw misalnya :
+
+ throw new NotSerializableException("This object cannot be serialize");
+
+- Saat object di-serialize, maka dibuat sebuah "fingerprint" yang disebut
+  serialVersionUID berupa 64-bit data.
+
+- Kita dapat membuat serialVersionUID sendiri dari awal pada serializable 
+  object dengan menambahkan field long bernilai sembarang seperti ini:
+
+  static final long serialVersionUID = 4070409649129120458L;
+
+- Jika suatu file dari persistance object disimpan kemudian object tersebut
+  mengalami perubahan kecil, misalnya penambahan field (java code berubah), 
+  dan kita dapat mengatakan bahwa file dari persistance object yang 
+  disimpan masih kompatibel dengan object yang baru maka object baru 
+  tersebut harus diberikan serialVersionUID yang sama object yang lama.  
+
+  Jika hal ini tidak dilakukan proses deserialization akan menghasilkan 
+  exception java.io.InvalidClassException.
+
+- Untuk mengetahui serialVersionUID dari byte stream file, dapat digunakan
+  tool "serialver" yang ada di JDK.
+
+- Serialization menggunakan algoritma rekursif, semua object yang dimiliki object
+  serializable akan di serialize.
+  Jika class serializable A tersebut memiliki class serializable B yang memiliki
+  class serializable C, maka proses serialization pada object A akan juga men-
+  serialize object B dan C
+
+- Proses serialization menggunakan reflection 
+
+[http://java.sun.com/docs/books/tutorial/reflect/]
+  
+
+- The Externalizable Interface
+  
+  package java.io;
+
+  public interface Externalizable extends Serializable {
+    public void writeExternal(ObjectOutput out) throws IOException;
+    public void readExternal(ObjectInput in) throws IOException, 
+      java.lang.ClassNotFoundException;
+  }
+
+
+- Interface Externalizable memiliki 2 method yang memberikan kontrol kepada 
+  implementor saat melakukan serialization, misalnya kita dapat menuliskan 
+  kode yang menspesifikasikan atribut mana saja yang dimiliki object tersebut
+  yang akan disimpan dalam persistent object.
+  
+- Contoh:
+
+  import java.io.*;
+
+  public class User implements Externalizable {
+    long userID;
+    String firstName;
+    String lastName;
+    java.util.Date createdDate;
+    String password;
+
+    public void writeExternal(ObjectOutput stream) throws java.io.IOException {
+        stream.writeLong(userID);
+        stream.writeUTF(firstName); 
+    }
+
+    public void readExternal(ObjectInput stream) throws java.io.IOException {
+        userID = stream.readLong();
+        firstName = stream.readUTF();
+    }
+
+  }
+  
+- Dengan interface Externalizable kita dapat membuat proses serialization 
+  menjadi lebih efisien.
+
+
+- Links :
+  http://java.sun.com/developer/technicalArticles/Programming/serialization/
+  http://www.jguru.com/faq/subtopic.jsp?topicID=3341
+
+  
+

@@ -1,0 +1,62 @@
+Agar ketika roaming seorang pengguna dapat melakukan pengiriman MMS atau menerima MMS maka diperlukan dua syarat penting yaitu adanya kesepakatan (agreement) antara kedua operator untuk SMS roaming atau circuit switched (CS) roaming serta GPRS roaming atau packet switched (PS) roaming. Kedua hal tersebut diperlukan karena transaksi MMS melibatkan WAP push lewat bearer SMS dan koneksi TCP/IP.
+
+Proses pererimaan MMS pada seseorang yang menggunakan jaringan operator lain (roamer) adalah sebagai berikut:
+
+Misalkan pelanggan A dan B adalah pelanggan operator yang sama yaitu operator X.
+
+1. Pelanggan A mengirimkan MMS ke pelanggan B yang melakukan roaming di negara lain di operator Y
+   MMS akan dikirimkan ke MMSC operator X
+2. MMSC ngirimkan MMS indicator berupa SMS ke SMSC operator X
+3. SMSC operator X akan mengirimkan MMS indicator ke Gateway MSC menggunakan protokol MAP (SS7)
+4. GMSC akan mengirimakan MMS indicator ke MSC operator Y juga menggunakan MAP
+5. MSC operator Y akan mengirimkan MMS indicator SMS ke pelanggan B
+   Pelanggan B menerima MMS indicator. 
+6. Jika ponsel B diset untuk menerima MMS secara otomatis walaupun ketika roaming, maka ponsel B akan melakukan koneksi GPRS.
+   Koneksi GPRS dimulai dengan ponsel mengirimkan PDP context ke Visiting SGSN (SGSN operator Y) dengan menggunakan access point operator X
+7. VSGSN (visiting SGSN) melakukan koneksi ke Home GGSN (GGSN operator X) lewat koneksi internet (VPN/leased line) atau melalui jaringan prvider GRX (GPRS Roaming Exchange)
+   Request WSP/HTTP untuk pengambilan MMS di MMSC operator X dikirimkan dari ponsel melalui VSGSN dan HGGSN
+8. HGGSN meneruskan request tersebut ke MMSC operator X
+   MMSC memberikan response berupa MMS ke ponsel pelanggan B
+                                                                                    
+                          VPLMN   :   HPLMN                                       
+                                  :                                               
+                                  :                                               
+       B<---5---- MSC <-----------4--------- GMSC <---3----- SMSC                
+       ^                          :                            ^                  
+       |                          :                            |                  
+       |                          :                            2                  
+       |                          :                            |                  
+       |                          :                            |                  
+       '----6---> SGSN <---7--(internet)----> GGSN <---8---> MMSC <----1---- A    
+                                  :                                               
+                                  :                                               
+                                  :                                           
+
+                        
+
+
+Proses pengiriman MMS dari seseorang yang menggunakan jaringan operator lain (roamer) hanpir sama dengan proses diatas, yaitu:
+
+1. Pelanggan A (roamer) mengirimkan MMS dari ponselnya ke pelanggan B
+   Koneksi GPRS dilakukan ponsel A dengan mengirimkan PDP context ke Visiting SGSN (SGSN operator Y) dengan menggunakan access point operator X
+2. VSGSN (visiting SGSN) melakukan koneksi ke Home GGSN (GGSN operator X) lewat koneksi internet (VPN/leased line) atau melalui jaringan prvider GRX (GPRS Roaming Exchange)
+3. Request WSP/HTTP untuk pengambilan MMS di MMSC operator X dikirimkan dari ponsel melalui VSGSN dan HGGSN
+   HGGSN meneruskan request tersebut ke MMSC operator X
+   MMSC memberikan response yang menandakan bahwa MMS telah diterima oleh MMSC
+4. MMSC ngirimkan MMS indicator berupa SMS ke SMSC 
+
+
+                           VPLMN   :   HPLMN                                 
+                                   :                         SMSC ----5-----,
+                                   :                           ^            |
+       B                           :                           |            |
+       |                           :                           4            |
+       |                           :                           |            v
+       '----1----> SGSN ----2--(internet)----> GGSN ----3---> MMSC ---6---> A
+                                   :                                         
+                                   :                                         
+                                   :                                         
+
+Sebagai referensi, GSM Assosiation (GSMA) mempublikasikan dokumen teknis mengenai MMS roaming dan interworking yaitu IR.52 "MMS Interworking Guidelines" [http://www.gsmworld.com/documents/prd/ir5233.pdf] dan perlu juga dibaca IR.33 "GPRS roaming Guidelines" [http://www.gsmworld.com/documents/ireg/ir33.pdf]
+
+(c) 20071231 ejlp12@yahoo.com

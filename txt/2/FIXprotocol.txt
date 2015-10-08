@@ -1,0 +1,10 @@
+FIX protocol
+
+http://sourceforge.net/projects/fixme/   http://wiki.schubart.net/FIXme
+
+http://www.quickfixengine.org/index.html
+
+
+http://www.javtech.com/rc/fixionary.htm
+http://www.transacttools.net/ttportal/datadict/browser.jsp
+http://b2bits.com/fixopaedia/index.html

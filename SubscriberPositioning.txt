@@ -1,0 +1,10 @@
+GSM MAP Any Time Interrogation (ATI)
+ANSI-41 Position Request (PosReq)
+
+SCF mengirimkan message (ATI atau PosReq) ke HLR
+
+HLR memberikan informasi seperti COO (cell of origin) atau cell id atau TA, NMR
+
+
+ANSI-41 Mobile Positioning Center (MPC) 
+GSM Gateway Mobile Location Center (GMLC) 

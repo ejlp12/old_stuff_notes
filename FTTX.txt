@@ -1,0 +1,47 @@
+
+
+
+
+FTTx merupakan teknologi akses jaringan tetap yang sekarang sedang 'hot'. hal ini ditunjukan dengan besarnya pangsa pasar, bersaingnya vendor-vendor telekomunikasi besar untuk menjual produk-produk dan layanan deployment FTTx serta banyak dibicarakannya FTTx pada media. Jadi saya coba menulis tentang FTTx ini.
+
+Dengan berkembangnya internet (layanan berbasis IP) dan konektivitas broadband maka kebutuhan akan bandwith yang besar dengan kecepatan tinggi menjadi meningkat. Hal ini juga didorong oleh operator yang berusaha memberikan layanan baru untuk meninggkatkan keuntungannya. Operator maupun vendor telekomunikasi saat ini sedang giat-giatnya jualan produk maupun service seperti IPTV, Video on Demand yang membutuhkan bandwith yang besar.
+
+Saat ini jaringan ke rumah-rumah didominasi oleh jaringan kabel tetap (fixed wireline) yang menggunakan tembaga (cooper) yang memiliki kekurangan karena dianggap tidak dapat memberikan bandwith yang tinggi dibandingkan dengan kabel fiber optik. Karena hal itu orang mulai beralih ke teknologi kabel optik untuk mendapatkan bandwith yang lebih tinggi menggunakan teknologi FTTx (Fiber to the x) yaitu istilah generik yang digunakan untuk beberapa arsitektur jaringan fiber optik untuk telekomunikasi yang menggantikan jaringan kabel tembaga.
+
+Catatan: Dalam <a href="http://arstechnica.com/news.ars/post/20061010-7952.html">berita ini</a>, kabel tembaga dengan teknologi Dynamic Spectrum Management (DSM) kecepatannya dapat menyaingi fiber optik.
+
+Beberapa arsitektur jaringan fiber optik tersebut adalah: 
+
+FTTH (Fiber to the Home)
+jaringan kabel fiber optik dibuat hingga sampai ke rumah-rumah atau ruangan dimana teminal berada.
+
+
+FTTB (Fiber to the Building) 
+Jaringan kabel optik (fiber) sampai pada gedung komersial atau tempat tinggal dan kemudian didistrubusikan ke masing-masing ruangan dengan jaringan kabel tembaga (kabel telepon atau kabel CAT 5e/6)
+
+
+FTTP (Fiber to the Premises) merupakan nama generik yang digunakan untuk istilah FTTB dan FTTH karena secara arsitektur FTTB dan FTTB sama.
+
+FTTC (Fiber to the Curb)
+Jaringan fibre dibuat sampai pada suatu titik pendistribusian (curb) yang berada sekitar 100 feet dari tempat pengguna berada. Dari curb ke rumah-rumah digunakan koneksi kabel tembaga. Curb biasanya melayani 8 sampai 24 pelanggan. 
+
+FTTN (Fiber to the Node/Neighborhood)
+jaringan fibre dibuat sampai pada suatu node yang berupa kabinet berlokasi di pinggir jalan sehingga disebut juga FTTCab. Jarak antara titik pendistribusian dengan pelanggak pada FTTN lebih jauh dariapada FTTC. Jumlah pelanggan yang bisa dilayani juga lebih banyak biasanya sampe ratusan pelanggan. FTTN juga menggunakan kabel tembaga untuk koneksi dari kabinet ke rumah-rumah.
+
+
+Jadi dapat disimpulkan bahwa inti perbedaan antara teknologi FTTx diatas adalah bagaimana kabel fiber optik disambungkan sedekat mungkin dengan terminal yang dimiliki pelanggan seperti diilustrasikan pada gambar berikut:
+
+<img src="http://www.telcordia.com/images/services/testing/integrated-access/pon_example.gif" />
+<span style="font-style: italic;font-size:85%;" >Gambar copyright dari telcordia.com</span>
+
+
+Catatan istilah:
+
+    * OLT - Optical Line Terminal, yaitu alat (device) yang berada pada kantor pusat operator jaringan telekomunikasi.
+    * ONU - Optical Network Unit, yaitu device yang berfungsi mengubah sinyal optik menjadi sinyal eleketrik untuk kemudian sinyal tersebut di-demultiplex agar dapat didistribusikan menggunakan kabel tembaga ke tempat pelanggan (premises).
+    * ONT - Optical Network Terminal, yaitu device yang berfungsi untuk mengubah sinyal optik menjadi sinyal elektrik yang berada pada tempat pelanggan agar pelanggan. Device ini digunakan pada jaringan FTTH.
+    
+---------------    
+NAP (Network Access Point)
+optical distribution network (ODN)
+
